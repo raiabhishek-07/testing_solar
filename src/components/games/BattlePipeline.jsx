@@ -1,364 +1,512 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Shield, ChevronRight, CheckCircle2, Skull, 
-  Zap, Heart, AlertTriangle, ArrowLeft, Crosshair, Terminal
+import {
+  ChevronRight, CheckCircle2, Skull,
+  Zap, AlertTriangle, ArrowLeft, Crosshair, Terminal,
+  Bug, Eye, Code2, BookOpen, Shield
 } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
-const PhaserBattle = dynamic(() => import('./PhaserBattle'), { 
-  ssr: false, 
-  loading: () => <div className="absolute inset-0 z-0 bg-transparent" /> 
+// Arena is loaded dynamically to prevent SSR issues
+const BattleArena = dynamic(() => import('./BattleArena'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full bg-[#020b10] flex items-center justify-center">
+      <p className="text-brand-neon/30 text-xs font-mono uppercase tracking-widest animate-pulse">LOADING ARENA...</p>
+    </div>
+  )
 });
 
 export default function BattlePipeline({ pipelineData, langLabel, onComplete, onBack }) {
-  const [phase, setPhase] = useState('teaching'); 
-  // phases: teaching -> practice -> battle_mcq -> boss_coding -> results
+  const [phase, setPhase]         = useState('concept_card');
+  const [cardIdx, setCardIdx]     = useState(0);
+  const [mcqIdx, setMcqIdx]       = useState(0);
+  const [mcqResult, setMcqResult] = useState(null);
+  const [mcqCorrect, setMcqCorrect] = useState(0);
+  const [codeIdx, setCodeIdx]     = useState(0);
+  const [codeAnswer, setCodeAnswer] = useState('');
+  const [codeResult, setCodeResult] = useState(null);
+  const [codeHintShown, setCodeHintShown] = useState(false);
+  const [codeAttempts, setCodeAttempts] = useState(0);
+  const [debugIdx, setDebugIdx]   = useState(0);
+  const [debugResult, setDebugResult] = useState(null);
+  const [oracleIdx, setOracleIdx] = useState(0);
+  const [oracleResult, setOracleResult] = useState(null);
 
-  // Teaching State
-  const [cardIdx, setCardIdx] = useState(0);
-  
-  // Practice State
-  const [pracIdx, setPracIdx] = useState(0);
-  const [pracFeedback, setPracFeedback] = useState(null);
-  
-  // Battle State
   const maxEnemyHp = pipelineData.battle?.enemy?.maxHp || 100;
-  const [enemyHp, setEnemyHp] = useState(maxEnemyHp);
-  const [playerHp, setPlayerHp] = useState(100);
-  const [mcqIdx, setMcqIdx] = useState(0);
-  const [codingIdx, setCodingIdx] = useState(0);
+  const [enemyHp, setEnemyHp]     = useState(maxEnemyHp);
+  const [playerHp, setPlayerHp]   = useState(100);
   const [combatAction, setCombatAction] = useState(null);
-  
-  // Result State
+  const [combatLog, setCombatLog] = useState(['BATTLE INITIALIZED...']);
   const [weakAreas, setWeakAreas] = useState([]);
-  const [stats, setStats] = useState({ mcqCorrect: 0, codingCorrect: 0 });
-  const [combatLog, setCombatLog] = useState(["BATTLE INITIALIZED..."]);
 
-  const logCombat = (msg) => setCombatLog(prev => [msg, ...prev].slice(0, 4));
+  const logCombat = (msg) => setCombatLog(prev => [msg, ...prev].slice(0, 6));
+  const hitEnemy  = (dmg) => { setEnemyHp(p => Math.max(0, p - dmg)); setCombatAction({ type: 'player_attack', id: Date.now() }); };
+  const hitPlayer = (dmg) => { setPlayerHp(p => Math.max(0, p - dmg)); setCombatAction({ type: 'enemy_attack',  id: Date.now() }); };
 
-  // --- RENDERING HELPERS ---
-  const renderHPBar = (current, max, isPlayer) => {
-    const pct = Math.max(0, (current / max) * 100);
-    const color = isPlayer ? (pct > 30 ? 'bg-brand-neon' : 'bg-red-500') : (pct > 40 ? 'bg-brand-orange' : 'bg-red-600');
+  const cards   = pipelineData.teaching  || [];
+  const mcqs    = pipelineData.battle?.mcq || [];
+  const codings = pipelineData.coding    || [];
+  const debugs  = pipelineData.debugging || [];
+  const oracles = pipelineData.prediction|| [];
+
+  // ── HP Bar ────────────────────────────────────────────────────────────
+  const renderHP = (cur, max, isPlayer, name) => {
+    const pct = Math.max(0, (cur / max) * 100);
+    const barColor = isPlayer
+      ? (pct > 40 ? 'bg-brand-neon shadow-[0_0_10px_rgba(0,255,204,0.5)]' : 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]')
+      : (pct > 40 ? 'bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.4)]' : 'bg-red-600');
     return (
       <div className="w-full">
-        <div className="flex justify-between text-[10px] font-black uppercase mb-1 tracking-widest text-white/50">
-          <span>{isPlayer ? 'YOUR HP' : pipelineData.battle.enemy.name}</span>
-          <span>{current} / {max}</span>
+        <div className="flex justify-between text-[9px] font-black uppercase tracking-widest mb-1">
+          <span className={isPlayer ? 'text-brand-neon' : 'text-orange-400'}>{isPlayer ? '⚔ PLAYER' : `👾 ${name || 'BOSS'}`}</span>
+          <span className="text-white/40">{Math.round(cur)}/{max}</span>
         </div>
-        <div className="h-4 w-full bg-black/50 border border-white/10 rounded-full overflow-hidden">
-          <motion.div 
-            initial={{ width: '100%' }}
-            animate={{ width: `${pct}%` }}
-            className={`h-full ${color} transition-all duration-300 ease-out`}
-          />
+        <div className="h-3.5 w-full bg-black/60 border border-white/10 rounded-full overflow-hidden relative">
+          <motion.div animate={{ width: `${pct}%` }} transition={{ duration: 0.4 }}
+            className={`h-full rounded-full ${barColor} transition-colors duration-300`} />
         </div>
       </div>
     );
   };
 
-  // --- TEACHING PHASE ---
-  if (phase === 'teaching') {
-    const cards = pipelineData.teaching || [];
-    const card = cards[cardIdx];
-    if (!card) return null;
-
+  // ── COMBAT LAYOUT (shared for MCQ, Coding, Debug, Oracle phases) ──────
+  const CombatLayout = ({ phaseName, phaseIcon: Icon, accentClass, children }) => {
+    const isCombat = ['battle_mcq','coding_lab','debug_mission','oracle_test'].includes(phase);
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#020610] text-white">
-        <div className="w-full max-w-4xl relative">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-brand-neon/5 blur-[100px] rounded-full pointer-events-none" />
-           
-           <div className="flex justify-between items-center mb-8">
-              <button onClick={onBack} className="p-3 bg-white/5 rounded-2xl border border-white/10 hover:border-brand-neon focus:outline-none transition-all">
-                 <ArrowLeft className="w-5 h-5" />
-              </button>
-              <div className="flex gap-2">
-                 {cards.map((_, i) => (
-                    <div key={i} className={`h-2 rounded-full transition-all duration-500 ${i === cardIdx ? 'w-10 bg-brand-neon' : i < cardIdx ? 'w-4 bg-brand-success' : 'w-4 bg-white/10'}`} />
-                 ))}
-              </div>
-           </div>
+      <div className="h-screen flex flex-col bg-[#020408] overflow-hidden">
 
-           <motion.div key={cardIdx} initial={{ opacity:0, x:20 }} animate={{ opacity:1, x:0 }} exit={{ opacity:0, x:-20 }} className="bg-black/80 backdrop-blur-md border border-white/10 p-10 md:p-14 rounded-[40px] shadow-2xl">
-              <div className="inline-flex px-4 py-1.5 rounded-full bg-brand-neon/10 border border-brand-neon/30 text-[10px] font-black text-brand-neon uppercase tracking-[0.3em] mb-6">
-                 Teaching Card {cardIdx + 1} of {cards.length}
-              </div>
-              <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter mb-8">{card.title}</h2>
-              <p className="text-white/80 text-xl leading-relaxed mb-10">{card.content}</p>
-              
-              {card.examples?.length > 0 && (
-                 <div className="space-y-4">
-                    {card.examples.map((ex, i) => (
-                       <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-2xl">
-                          <h4 className="font-bold text-brand-neon mb-2 flex items-center gap-2"><Zap className="w-4 h-4"/> {ex.title}</h4>
-                          <p className="text-white/60 text-sm mb-4">{ex.explanation}</p>
-                          <pre className="bg-black p-4 rounded-xl text-sm font-mono text-brand-neon/80 overflow-x-auto border border-white/5">{ex.code}</pre>
-                       </div>
-                    ))}
-                 </div>
-              )}
+        {/* ── ROW 1: TOP HUD ── */}
+        <div className="flex-none flex items-center justify-between gap-3 px-4 py-3 bg-black/60 backdrop-blur-sm border-b border-white/5 z-20">
+          <button onClick={onBack} className="p-2 bg-white/5 border border-white/10 rounded-xl hover:border-white/30 transition-all">
+            <ArrowLeft className="w-4 h-4 text-white/50" />
+          </button>
 
-              <div className="mt-12 flex justify-end">
-                 <button 
-                   onClick={() => {
-                     cardIdx + 1 < cards.length ? setCardIdx(cardIdx + 1) : setPhase('practice');
-                   }}
-                   className="px-10 py-5 bg-brand-neon text-black font-black text-sm uppercase tracking-widest rounded-2xl hover:scale-105 transition-all flex items-center gap-3 shadow-[0_0_30px_rgba(0,255,255,0.3)]"
-                 >
-                   {cardIdx + 1 < cards.length ? 'NEXT CARD' : 'ENTER PRACTICE MODE'} <ChevronRight className="w-5 h-5"/>
-                 </button>
-              </div>
-           </motion.div>
+          {/* Player HP */}
+          <div className="flex-1 max-w-[200px]">
+            {renderHP(playerHp, 100, true)}
+          </div>
+
+          {/* Phase badge */}
+          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-[0.2em] ${accentClass} animate-pulse flex-none`}>
+            <Icon className="w-3.5 h-3.5" /> {phaseName}
+          </div>
+
+          {/* Enemy HP */}
+          <div className="flex-1 max-w-[200px]">
+            {renderHP(enemyHp, maxEnemyHp, false, pipelineData.battle?.enemy?.name)}
+          </div>
+
+          {/* Score */}
+          <div className="text-[9px] font-mono text-white/20 text-right flex-none">
+            <div className="text-brand-neon font-black">{mcqCorrect}/{mcqs.length}</div>
+            <div>HITS</div>
+          </div>
+        </div>
+
+        {/* ── ROW 2: BATTLE ARENA (fixed height) ── */}
+        <div className="flex-none relative" style={{ height: '300px' }}>
+          <BattleArena actionTrigger={combatAction} arenaHeight={300} />
+        </div>
+
+        {/* ── ROW 3: DIVIDER ── */}
+        <div className="flex-none h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        {/* ── ROW 4: INTERACTIVE PANEL ── */}
+        <div className="flex-1 overflow-y-auto flex flex-col lg:flex-row gap-3 p-4 min-h-0">
+          {/* Question area */}
+          <div className="flex-1 min-w-0">
+            {children}
+          </div>
+
+          {/* Combat Console */}
+          <div className="flex-none w-full lg:w-56 bg-black/70 border border-white/10 rounded-2xl p-3 h-40 lg:h-auto overflow-hidden flex flex-col font-mono text-[8px] tracking-widest uppercase">
+            <div className="mb-2 text-white/20 border-b border-white/5 pb-1 font-black text-[8px] flex items-center gap-1.5">
+              <div className="flex gap-1"><div className="w-1.5 h-1.5 rounded-full bg-red-500/60"/><div className="w-1.5 h-1.5 rounded-full bg-yellow-500/60"/><div className="w-1.5 h-1.5 rounded-full bg-green-500/60"/></div>
+              CONSOLE
+            </div>
+            <div className="space-y-1 flex-1 overflow-hidden">
+              {combatLog.map((log, i) => (
+                <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
+                  className={`leading-tight ${i === 0 ? 'text-brand-neon font-bold' : 'text-white/25'}`}>
+                  {'>'} {log}
+                </motion.div>
+              ))}
+            </div>
+            <div className="flex items-center gap-1.5 border-t border-white/5 pt-1.5 mt-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-brand-neon animate-pulse" />
+              <span className="text-brand-neon/50 text-[7px]">STABLE</span>
+            </div>
+          </div>
         </div>
       </div>
     );
-  }
+  };
 
-  // --- PRACTICE PHASE ---
-  if (phase === 'practice') {
-    const pracs = pipelineData.practice || [];
-    const prac = pracs[pracIdx];
-    
+  // ════════════════════════════════════════════════════════════════════════
+  // 🟣 PHASE 1 — CONCEPT CARD
+  // ════════════════════════════════════════════════════════════════════════
+  if (phase === 'concept_card') {
+    const card = cards[cardIdx];
+    if (!card) { setPhase('battle_mcq'); return null; }
+    const isLast = cardIdx + 1 >= cards.length;
+
+    const phaseSteps = ['📖 Learn', '⚔️ Battle', '💻 Code', '🐛 Debug', '🔮 Predict'];
+
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#030a08] text-white">
-        <div className="w-full max-w-3xl">
-          <div className="text-center mb-10 space-y-4">
-             <div className="inline-flex px-4 py-1.5 rounded-full bg-brand-success/10 border border-brand-success/30 text-[10px] font-black text-brand-success uppercase tracking-[0.3em] animate-pulse">
-                WARM-UP PRACTICE (NO HP LOSS)
-             </div>
-             <h2 className="text-3xl font-black uppercase italic tracking-tighter">Question {pracIdx + 1} of {pracs.length}</h2>
+      <div className="h-screen flex flex-col bg-[#020610] text-white overflow-hidden">
+        {/* Nav */}
+        <div className="flex-none flex justify-between items-center px-6 py-4 border-b border-white/5">
+          <button onClick={onBack} className="p-2 bg-white/5 border border-white/10 rounded-xl hover:border-brand-neon transition-all">
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+          <div className="flex items-center gap-2">
+            {phaseSteps.map((s, i) => (
+              <div key={i} className={`flex flex-col items-center gap-1`}>
+                <div className={`h-1.5 rounded-full transition-all ${i === 0 ? 'w-8 bg-brand-neon' : 'w-4 bg-white/10'}`} />
+                <span className="text-[7px] text-white/20 hidden md:block">{s}</span>
+              </div>
+            ))}
           </div>
+          <span className="text-[10px] font-black text-white/20">{cardIdx + 1}/{cards.length}</span>
+        </div>
 
-          <motion.div key={pracIdx} initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} className="bg-black/80 border 2 border-brand-success/20 p-8 md:p-12 rounded-[40px] shadow-[0_0_50px_rgba(16,185,129,0.1)]">
-             <h3 className="text-2xl font-bold mb-8">{prac.q}</h3>
-             
-             {!pracFeedback ? (
-               <div className="space-y-4">
-                 {prac.options.map((opt, i) => (
-                   <button 
-                     key={i}
-                     onClick={() => setPracFeedback(i === prac.a ? 'correct' : 'wrong')}
-                     className="w-full text-left p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-brand-success hover:bg-brand-success/5 transition-all text-lg"
-                   >
-                     {opt}
-                   </button>
-                 ))}
-               </div>
-             ) : (
-               <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className={`p-8 rounded-3xl border-2 ${pracFeedback === 'correct' ? 'bg-brand-success/10 border-brand-success/30' : 'bg-red-500/10 border-red-500/30'}`}>
-                 <h4 className={`text-2xl font-black uppercase italic mb-4 ${pracFeedback === 'correct' ? 'text-brand-success' : 'text-red-500'}`}>
-                   {pracFeedback === 'correct' ? 'EXCELLENT' : 'INCORRECT'}
-                 </h4>
-                 <p className="text-white/80 text-lg mb-8">{prac.explanation}</p>
-                 <button 
-                   onClick={() => {
-                     setPracFeedback(null);
-                     pracIdx + 1 < pracs.length ? setPracIdx(pracIdx + 1) : setPhase('battle_mcq');
-                   }}
-                   className="w-full py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-black tracking-widest uppercase transition-all"
-                 >
-                   {pracIdx + 1 < pracs.length ? 'NEXT QUESTION' : 'START COMBAT MOCK'}
-                 </button>
-               </motion.div>
-             )}
+        {/* Card */}
+        <div className="flex-1 overflow-y-auto p-6 flex items-start justify-center">
+          <motion.div key={cardIdx} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-2xl bg-black/70 border border-white/10 rounded-[32px] p-8 shadow-2xl">
+
+            <div className="flex items-center gap-3 mb-5">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-neon/10 border border-brand-neon/30 text-brand-neon text-[9px] font-black uppercase tracking-[0.3em]">
+                <BookOpen className="w-3 h-3" /> CONCEPT BRIEFING
+              </div>
+              {card.emoji && <span className="text-3xl">{card.emoji}</span>}
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-black uppercase italic tracking-tighter mb-4 leading-tight">{card.title}</h2>
+
+            {card.analogy && (
+              <div className="bg-brand-neon/5 border border-brand-neon/20 rounded-xl p-4 mb-5">
+                <p className="text-brand-neon text-xs font-bold mb-1">🎯 Think of it like this:</p>
+                <p className="text-white/70 text-sm">{card.analogy}</p>
+              </div>
+            )}
+
+            <p className="text-white/80 text-base leading-relaxed mb-5">{card.content}</p>
+
+            {card.examples?.map((ex, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 p-4 rounded-xl mb-3">
+                <p className="text-brand-neon text-xs font-black mb-1 flex items-center gap-2"><Zap className="w-3 h-3" />{ex.title}</p>
+                <p className="text-white/50 text-xs mb-2">{ex.explanation}</p>
+                <pre className="bg-black/70 p-3 rounded-lg text-xs font-mono text-brand-neon/70 overflow-x-auto border border-white/5 whitespace-pre-wrap">{ex.code}</pre>
+              </div>
+            ))}
+
+            {card.funFact && (
+              <div className="bg-yellow-500/5 border border-yellow-500/20 rounded-xl p-4 mb-6">
+                <p className="text-yellow-400 text-sm">💡 <strong>Fun Fact:</strong> {card.funFact}</p>
+              </div>
+            )}
+
+            <button onClick={() => isLast ? setPhase('battle_mcq') : setCardIdx(c => c + 1)}
+              className="w-full py-4 bg-brand-neon text-black font-black text-sm uppercase tracking-widest rounded-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,204,0.3)] flex items-center justify-center gap-2">
+              {isLast ? '⚔️ ENTER COMBAT' : 'GOT IT →'}
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </motion.div>
         </div>
       </div>
     );
   }
 
-  // --- COMBAT UI (SHARED FOR BATTLE_MCQ & BOSS_CODING) ---
-  const isCombat = phase === 'battle_mcq' || phase === 'boss_coding';
-  const mcqs = pipelineData.battle?.mcq || [];
-  const codings = pipelineData.battle?.coding || [];
+  // ════════════════════════════════════════════════════════════════════════
+  // 🟡 PHASE 2 — BATTLE MCQ
+  // ════════════════════════════════════════════════════════════════════════
+  if (phase === 'battle_mcq') {
+    if (mcqs.length === 0) { setPhase('coding_lab'); return null; }
+    const q = mcqs[mcqIdx];
+    const dmg = Math.round(maxEnemyHp / mcqs.length);
 
-  if (isCombat) {
-     const handleMcq = (optIdx) => {
-       const q = mcqs[mcqIdx];
-       if (optIdx === q.a) {
-         setEnemyHp(prev => Math.max(0, prev - q.damage));
-         setStats(s => ({ ...s, mcqCorrect: s.mcqCorrect + 1 }));
-         logCombat(`PLAYER STRIKES FOR ${q.damage} DMG! [MCQ]`);
-         setCombatAction({ type: 'player_attack', id: Date.now() });
-       } else {
-         setPlayerHp(prev => Math.max(0, prev - 10));
-         logCombat(`ENEMY COUNTERS FOR 10 DMG! MISS: ${q.topic}`);
-         if (q.topic && !weakAreas.includes(q.topic)) setWeakAreas(prev => [...prev, q.topic]);
-         setCombatAction({ type: 'enemy_attack', id: Date.now() });
-       }
-       setTimeout(() => {
-         mcqIdx + 1 < mcqs.length ? setMcqIdx(mcqIdx + 1) : setPhase('boss_coding');
-       }, 800);
-    };
-
-    const handleCodingSubmit = (userAnswer) => {
-       const q = codings[codingIdx];
-       const correctAns = q.type === 'debug' ? q.missing : q.answer;
-       const isCorrect = userAnswer.trim() === correctAns;
-
-       if (isCorrect) {
-          setEnemyHp(prev => Math.max(0, prev - q.damage));
-          setStats(s => ({ ...s, codingCorrect: s.codingCorrect + 1 }));
-          logCombat(`CRITICAL HIT! ALGORITHM EXCECUTED FOR ${q.damage} DMG!`);
-          setCombatAction({ type: 'player_attack', id: Date.now() });
-       } else {
-          setPlayerHp(prev => Math.max(0, prev - 25));
-          logCombat(`BOSS STRIKES BACK MASSIVELY FOR 25 DMG!`);
-          if (q.topic && !weakAreas.includes(q.topic)) setWeakAreas(prev => [...prev, q.topic]);
-          setCombatAction({ type: 'enemy_attack', id: Date.now() });
-       }
-
-       setTimeout(() => {
-          codingIdx + 1 < codings.length ? setCodingIdx(codingIdx + 1) : setPhase('results');
-       }, 1500);
+    const handleMcq = (idx) => {
+      if (mcqResult) return;
+      if (idx === q.a) {
+        setMcqResult('correct'); setMcqCorrect(c => c + 1);
+        hitEnemy(dmg);
+        logCombat(`⚔️ CRITICAL HIT! ${dmg} DMG DEALT`);
+      } else {
+        setMcqResult('wrong');
+        hitPlayer(10);
+        if (q.topic && !weakAreas.includes(q.topic)) setWeakAreas(p => [...p, q.topic]);
+        logCombat(`💥 ENEMY COUNTERS! -10 HP`);
+      }
+      setTimeout(() => {
+        setMcqResult(null);
+        const next = mcqIdx + 1;
+        next < mcqs.length
+          ? setMcqIdx(next)
+          : setPhase(codings.length ? 'coding_lab' : debugs.length ? 'debug_mission' : oracles.length ? 'oracle_test' : 'results');
+      }, 1300);
     };
 
     return (
-      <div className="min-h-screen flex flex-col p-6 bg-[#010202] text-white overflow-hidden relative">
-        <PhaserBattle actionTrigger={combatAction} />
-        
-        {/* HUD */}
-        <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 mb-12 relative z-10 pt-4 pointer-events-none">
-           {/* Player HP */}
-           <div className="w-full md:w-1/3 p-4 bg-black/80 border border-white/5 rounded-3xl backdrop-blur-sm pointer-events-auto">
-             {renderHPBar(playerHp, 100, true)}
-           </div>
-           
-           {/* Phase Title */}
-           <div className="shrink-0 flex flex-col items-center">
-             <div className="w-16 h-16 rounded-full bg-brand-orange/10 border border-brand-orange/30 flex items-center justify-center mb-2 animate-pulse">
-                {phase === 'battle_mcq' ? <Crosshair className="w-8 h-8 text-brand-orange" /> : <Skull className="w-8 h-8 text-red-500" />}
-             </div>
-             <p className="text-[10px] font-black text-white/50 uppercase tracking-[0.4em]">
-               {phase === 'battle_mcq' ? 'TACTICAL COMBAT' : 'BOSS OVERRIDE'}
-             </p>
-           </div>
-
-           {/* Enemy HP */}
-           <div className="w-full md:w-1/3 p-4 bg-black/80 border border-red-500/20 rounded-3xl backdrop-blur-sm shadow-[0_0_30px_rgba(220,38,38,0.1)] pointer-events-auto">
-             {renderHPBar(enemyHp, maxEnemyHp, false)}
-           </div>
-        </div>
-
-        {/* EMPTY SPACE - LET PHASER SPRITES FIGHT HERE */}
-        <div className="flex-1 min-h-[300px] pointer-events-none" />
-
-        {/* BOTTOM HUD AREA (QUESTIONS & LOGS) */}
-        <div className="w-full max-w-7xl mx-auto relative z-10 pointer-events-none flex flex-col lg:flex-row gap-6 items-end pb-8">
-           
-           {/* LEFT: INTERACTIVE QUESTIONS / CODE BOX */}
-           <div className="flex-1 w-full pointer-events-auto">
-             {phase === 'battle_mcq' && (
-               <motion.div key={mcqIdx} initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} className="bg-black/80 backdrop-blur-md border border-white/10 p-8 rounded-3xl shadow-2xl relative">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-white/5 overflow-hidden rounded-t-3xl">
-                     <div className="h-full bg-brand-orange" style={{ width: `${(mcqIdx / mcqs.length) * 100}%` }} />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-black mb-6 leading-tight">{mcqs[mcqIdx]?.q}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                     {mcqs[mcqIdx]?.options.map((opt, i) => (
-                        <button 
-                          key={i} onClick={() => handleMcq(i)}
-                          className="py-4 px-6 text-left rounded-2xl bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all font-bold text-white/80 text-sm"
-                        >
-                           {opt}
-                        </button>
-                     ))}
-                  </div>
-               </motion.div>
-             )}
-
-             {phase === 'boss_coding' && (
-               <motion.div key={codingIdx} initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} className="bg-black/90 backdrop-blur-md border border-red-500/30 p-8 rounded-3xl shadow-[0_0_50px_rgba(220,38,38,0.15)] relative">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/20 border border-red-500/50 rounded-full mb-4 text-red-500 font-black text-[10px] tracking-widest uppercase">
-                    <Terminal className="w-4 h-4"/> {codings[codingIdx]?.title}
-                  </div>
-                  
-                  <pre className="p-4 bg-black rounded-2xl font-mono text-sm text-brand-neon/90 border border-white/5 shadow-inner mb-4 overflow-x-auto whitespace-pre-wrap">
-                    {codings[codingIdx]?.code}
-                  </pre>
-
-                  {codings[codingIdx]?.hint && (
-                    <p className="text-white/40 text-xs mb-4 italic border-l-2 border-white/10 pl-4">{codings[codingIdx].hint}</p>
-                  )}
-
-                  <form onSubmit={(e) => { e.preventDefault(); handleCodingSubmit(e.target.elements.ans.value); }} className="flex gap-3">
-                     <input 
-                       name="ans" type="text" placeholder="Type solution perfectly..." autoComplete="off" autoFocus
-                       className="flex-1 bg-black/50 border border-white/10 focus:border-red-500/50 rounded-xl px-4 py-3 text-white font-mono text-sm outline-none transition-all placeholder:text-white/20"
-                     />
-                     <button type="submit" className="px-8 bg-red-600 hover:bg-red-500 text-white font-black uppercase tracking-widest rounded-xl transition-all shadow-lg active:scale-95 text-xs">
-                       EXECUTE
-                     </button>
-                  </form>
-               </motion.div>
-             )}
-           </div>
-
-           {/* RIGHT: COMBAT LOG */}
-           <div className="w-full lg:w-1/3 bg-black/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 h-48 overflow-hidden flex flex-col font-mono text-[10px] text-white/40 tracking-widest uppercase pointer-events-auto">
-              <div className="mb-4 text-white/20 border-b border-white/5 pb-2 font-black">BATTLE CONSOLE</div>
-              {combatLog.map((log, i) => (
-                <div key={i} className={`mb-1.5 ${i===0 ? 'text-brand-neon opacity-100 font-bold drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]' : 'opacity-40'}`}>
-                   {'>'} {log}
-                </div>
-              ))}
-           </div>
-        </div>
-      </div>
+      <CombatLayout phaseName="Tactical Combat" phaseIcon={Crosshair} accentClass="border-brand-orange/30 bg-brand-orange/10 text-brand-orange">
+        <motion.div key={mcqIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+          className="bg-black/80 border border-white/10 rounded-2xl p-5 relative overflow-hidden h-full">
+          {/* Progress bar */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
+            <motion.div className="h-full bg-brand-orange" animate={{ width: `${(mcqIdx / mcqs.length) * 100}%` }} />
+          </div>
+          <div className="flex justify-between items-center mb-4 pt-2">
+            <span className="text-[9px] font-black text-white/30 uppercase tracking-widest">Q{mcqIdx + 1} of {mcqs.length}</span>
+            <AnimatePresence>
+              {mcqResult && (
+                <motion.span initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ opacity: 0 }}
+                  className={`text-[9px] font-black px-3 py-1 rounded-full border uppercase ${
+                    mcqResult === 'correct' ? 'text-brand-success border-brand-success/30 bg-brand-success/10'
+                    : 'text-red-400 border-red-400/30 bg-red-400/10'}`}>
+                  {mcqResult === 'correct' ? '✅ CORRECT!' : '❌ WRONG!'}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+          <h3 className="text-lg font-black mb-4 leading-snug uppercase italic">{q?.q}</h3>
+          {mcqResult === 'wrong' && q?.explanation && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-3 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-300 text-xs">
+              💡 {q.explanation}
+            </motion.div>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {q?.options.map((opt, i) => (
+              <button key={i} onClick={() => handleMcq(i)} disabled={!!mcqResult}
+                className={`text-left py-3.5 px-4 rounded-xl border text-sm transition-all active:scale-95 font-semibold ${
+                  mcqResult === 'correct' && i === q.a ? 'bg-brand-success/20 border-brand-success text-brand-success'
+                  : mcqResult === 'wrong'   && i === q.a ? 'bg-brand-success/10 border-brand-success/40 text-brand-success/70'
+                  : mcqResult ? 'opacity-40 border-white/5 cursor-not-allowed text-white/30'
+                  : 'bg-white/5 border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 text-white/80'
+                }`}>
+                <span className="text-[9px] font-black opacity-30 mr-2">{String.fromCharCode(65 + i)}.</span>{opt}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      </CombatLayout>
     );
   }
 
-  // --- RESULTS PHASE ---
+  // ════════════════════════════════════════════════════════════════════════
+  // 🔵 PHASE 3 — CODING LAB
+  // ════════════════════════════════════════════════════════════════════════
+  if (phase === 'coding_lab') {
+    if (codings.length === 0) { setPhase(debugs.length ? 'debug_mission' : 'oracle_test'); return null; }
+    const q = codings[codeIdx];
+    const handleCode = (e) => {
+      e.preventDefault();
+      const ans = e.target.elements.code_ans.value.trim();
+      const ok = q.validate ? q.validate(ans) : ans.toLowerCase() === (q.answer || '').toLowerCase();
+      setCodeAttempts(a => a + 1);
+      if (ok) {
+        setCodeResult('correct'); hitEnemy(25); logCombat('💻 CODE EXECUTED! +25 DMG');
+        setTimeout(() => {
+          setCodeResult(null); setCodeAnswer(''); setCodeHintShown(false); setCodeAttempts(0);
+          const next = codeIdx + 1;
+          next < codings.length ? setCodeIdx(next) : setPhase(debugs.length ? 'debug_mission' : oracles.length ? 'oracle_test' : 'results');
+        }, 1400);
+      } else {
+        setCodeResult('wrong');
+        if (codeAttempts >= 1) setCodeHintShown(true);
+        hitPlayer(15); logCombat('⚠️ SYNTAX ERROR! -15 HP');
+        setTimeout(() => setCodeResult(null), 1100);
+      }
+    };
+    return (
+      <CombatLayout phaseName="Coding Lab" phaseIcon={Code2} accentClass="border-blue-400/30 bg-blue-400/10 text-blue-400">
+        <motion.div key={codeIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+          className="bg-black/80 border border-blue-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(96,165,250,0.08)]">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-400/10 border border-blue-400/30 rounded-full text-blue-400 font-black text-[9px] tracking-widest uppercase">
+              <Code2 className="w-3 h-3" />CODING LAB {codeIdx + 1}/{codings.length}
+            </span>
+          </div>
+          <h3 className="text-base font-black mb-1.5 uppercase italic">{q.title}</h3>
+          <p className="text-white/50 text-sm mb-3">🎯 {q.objective}</p>
+          {q.starterCode && <pre className="bg-black/70 border border-white/10 rounded-xl p-3 text-xs font-mono text-brand-neon/70 mb-3 overflow-x-auto">{q.starterCode}</pre>}
+          {codeHintShown && q.hint && (
+            <div className="mb-3 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-300 text-xs">💡 Hint: {q.hint}</div>
+          )}
+          {codeResult && (
+            <div className={`mb-3 p-3 rounded-xl text-sm font-black ${codeResult === 'correct' ? 'bg-brand-success/20 text-brand-success' : 'bg-red-500/20 text-red-400'}`}>
+              {codeResult === 'correct' ? '✅ PERFECT!' : '❌ Try again!'}
+            </div>
+          )}
+          <form onSubmit={handleCode} className="flex gap-2">
+            <input name="code_ans" type="text" autoComplete="off" placeholder="Type your answer..." value={codeAnswer} onChange={e => setCodeAnswer(e.target.value)}
+              className="flex-1 bg-black/60 border border-white/10 focus:border-blue-400 rounded-xl px-4 py-2.5 text-white font-mono text-sm outline-none transition-all" />
+            <button type="submit" className="px-5 bg-blue-500 hover:bg-blue-400 text-white font-black text-xs uppercase rounded-xl transition-all active:scale-95">RUN</button>
+          </form>
+        </motion.div>
+      </CombatLayout>
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // 🟠 PHASE 4 — DEBUG MISSION
+  // ════════════════════════════════════════════════════════════════════════
+  if (phase === 'debug_mission') {
+    if (debugs.length === 0) { setPhase(oracles.length ? 'oracle_test' : 'results'); return null; }
+    const q = debugs[debugIdx];
+    const handleDebug = (opt) => {
+      if (debugResult) return;
+      const ok = opt === q.answer;
+      if (ok) {
+        setDebugResult('correct'); hitEnemy(30); logCombat('🐛 BUG ELIMINATED! +30 DMG');
+        setTimeout(() => {
+          setDebugResult(null);
+          const next = debugIdx + 1;
+          next < debugs.length ? setDebugIdx(next) : setPhase(oracles.length ? 'oracle_test' : 'results');
+        }, 1400);
+      } else {
+        setDebugResult('wrong'); hitPlayer(20); logCombat('🚨 PATCH FAILED! -20 HP');
+        setTimeout(() => setDebugResult(null), 1100);
+      }
+    };
+    return (
+      <CombatLayout phaseName="Debug Mission" phaseIcon={Bug} accentClass="border-orange-400/30 bg-orange-400/10 text-orange-400">
+        <motion.div key={debugIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+          className="bg-black/80 border border-orange-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(251,146,60,0.08)]">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-500/20 border border-red-500/40 rounded-full text-red-400 font-black text-[9px] tracking-widest uppercase animate-pulse">
+              <Bug className="w-3 h-3" />🚨 DEBUG MISSION {debugIdx + 1}/{debugs.length}
+            </span>
+          </div>
+          <p className="text-white/60 text-sm mb-4">{q.description}</p>
+          {q.brokenCode && (
+            <div className="mb-4">
+              <p className="text-red-400 text-[9px] font-black uppercase tracking-widest mb-2">⚠️ CORRUPTED CODE:</p>
+              <pre className="bg-black/80 border border-red-500/30 rounded-xl p-3 text-xs font-mono overflow-x-auto leading-relaxed">
+                {q.brokenCode.split('\n').map((line, li) => (
+                  <div key={li} className={li === q.bugLine ? 'bg-red-500/20 text-red-300' : 'text-white/70'}>
+                    <span className="text-white/20 select-none mr-3">{li + 1}</span>{line}
+                  </div>
+                ))}
+              </pre>
+            </div>
+          )}
+          {debugResult && (
+            <div className={`mb-3 p-3 rounded-xl text-sm font-black ${debugResult === 'correct' ? 'bg-brand-success/20 text-brand-success' : 'bg-red-500/20 text-red-400'}`}>
+              {debugResult === 'correct' ? '✅ BUG FIXED!' : `❌ Not quite. ${q.hint || ''}`}
+            </div>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {q.options?.map((opt, i) => (
+              <button key={i} onClick={() => handleDebug(opt)} disabled={!!debugResult}
+                className={`text-left py-3 px-4 rounded-xl border text-xs font-mono transition-all active:scale-95 ${
+                  debugResult === 'correct' && opt === q.answer ? 'bg-brand-success/20 border-brand-success text-brand-success'
+                  : debugResult ? 'opacity-40 border-white/5 text-white/30'
+                  : 'bg-white/5 border-white/10 hover:border-orange-400 hover:bg-orange-400/10 text-white/70'}`}>
+                {opt}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      </CombatLayout>
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // 🟢 PHASE 5 — ORACLE TEST
+  // ════════════════════════════════════════════════════════════════════════
+  if (phase === 'oracle_test') {
+    if (oracles.length === 0) { setPhase('results'); return null; }
+    const q = oracles[oracleIdx];
+    const handleOracle = (opt) => {
+      if (oracleResult) return;
+      const ok = opt === q.answer;
+      if (ok) { setOracleResult('correct'); hitEnemy(20); logCombat('🔮 PREDICTION ACCURATE! +20 DMG'); }
+      else     { setOracleResult('wrong');   hitPlayer(15); logCombat('🔴 WRONG PREDICTION! -15 HP'); }
+    };
+    const goNext = () => {
+      setOracleResult(null);
+      const next = oracleIdx + 1;
+      next < oracles.length ? setOracleIdx(next) : setPhase('results');
+    };
+    return (
+      <CombatLayout phaseName="Oracle Test" phaseIcon={Eye} accentClass="border-green-400/30 bg-green-400/10 text-green-400">
+        <motion.div key={oracleIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+          className="bg-black/80 border border-green-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(74,222,128,0.08)]">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-400/10 border border-green-400/30 rounded-full text-green-400 font-black text-[9px] tracking-widest uppercase">
+              <Eye className="w-3 h-3" />🔮 ORACLE TEST {oracleIdx + 1}/{oracles.length}
+            </span>
+          </div>
+          <p className="text-white/50 text-sm mb-3">Think like a CPU — what does this output?</p>
+          <pre className="bg-black/80 border border-green-400/20 rounded-xl p-4 text-xs font-mono text-green-300/80 mb-5 overflow-x-auto leading-relaxed">{q.code}</pre>
+          {!oracleResult ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {q.options?.map((opt, i) => (
+                <button key={i} onClick={() => handleOracle(opt)}
+                  className="text-left py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 text-white/70 text-sm font-mono transition-all active:scale-95">
+                  <span className="text-[9px] opacity-30 mr-2">{String.fromCharCode(65+i)}.</span>{opt}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="space-y-3">
+              <div className={`p-4 rounded-2xl border-2 ${oracleResult === 'correct' ? 'bg-brand-success/10 border-brand-success/40 text-brand-success' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
+                <p className="font-black text-sm">{oracleResult === 'correct' ? '✅ PERFECT PREDICTION!' : `❌ The answer was: "${q.answer}"`}</p>
+                {q.explanation && <p className="text-white/50 text-xs mt-2">{q.explanation}</p>}
+              </div>
+              <button onClick={goNext} className="w-full py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-black tracking-widest uppercase text-sm transition-all">
+                {oracleIdx + 1 < oracles.length ? 'NEXT →' : '🏆 COMPLETE'}
+              </button>
+            </motion.div>
+          )}
+        </motion.div>
+      </CombatLayout>
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // 🔴 RESULTS
+  // ════════════════════════════════════════════════════════════════════════
   if (phase === 'results') {
     const isWin = playerHp > 0;
-    const accuracy = Math.round(((stats.mcqCorrect + stats.codingCorrect) / (mcqs.length + codings.length)) * 100);
-
     return (
-      <div className="min-h-screen flex items-center justify-center p-6 bg-black text-white">
-        <div className={`w-full max-w-2xl bg-black border-2 p-12 rounded-[40px] text-center shadow-2xl relative overflow-hidden ${isWin ? 'border-brand-success/30' : 'border-red-600/30'}`}>
-           <div className={`absolute inset-0 opacity-10 ${isWin ? 'bg-brand-success' : 'bg-red-600'}`} />
-           
-           <h2 className={`text-6xl md:text-8xl font-black font-pixel tracking-tighter uppercase mb-2 ${isWin ? 'text-brand-success' : 'text-red-500'}`}>
-             {isWin ? 'VICTORY' : 'DEFEAT'}
-           </h2>
-           <p className="text-white/40 text-sm font-black tracking-[0.4em] uppercase mb-12">Combat Terminated</p>
-
-           <div className="grid grid-cols-3 gap-4 mb-12">
-             <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                <p className="text-3xl font-black">{stats.mcqCorrect}/{mcqs.length}</p>
-                <p className="text-[9px] uppercase tracking-widest text-white/30 mt-2">Tactical Hits</p>
-             </div>
-             <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                <p className="text-3xl font-black">{stats.codingCorrect}/{codings.length}</p>
-                <p className="text-[9px] uppercase tracking-widest text-white/30 mt-2">Boss Strikes</p>
-             </div>
-             <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                <p className={`text-3xl font-black ${accuracy >= 80 ? 'text-brand-success' : 'text-brand-orange'}`}>{accuracy}%</p>
-                <p className="text-[9px] uppercase tracking-widest text-white/30 mt-2">Accuracy</p>
-             </div>
-           </div>
-
-           {weakAreas.length > 0 && (
-             <div className="p-6 bg-red-500/10 border border-red-500/20 rounded-2xl mb-12 text-left">
-                <h4 className="text-red-500 text-[10px] font-black uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4"/> Critical Weak Areas Detected
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {[...new Set(weakAreas)].map((w, i) => (
-                    <span key={i} className="px-3 py-1 bg-red-500/20 text-red-300 text-xs rounded-full border border-red-500/30">{w}</span>
-                  ))}
-                </div>
-             </div>
-           )}
-
-           <button 
-             onClick={() => isWin ? onComplete() : onBack()}
-             className={`relative z-50 w-full py-6 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${isWin ? 'bg-brand-success text-black hover:scale-105 shadow-[0_0_40px_rgba(16,185,129,0.3)]' : 'bg-white/10 hover:bg-white/20'}`}
-           >
-             {isWin ? 'CLAIM EXPERIENCE & RETURN' : 'RETURN TO HUB & RETRY'}
-           </button>
+      <div className="h-screen flex items-center justify-center bg-black text-white p-6">
+        <div className={`w-full max-w-md border-2 p-10 rounded-[40px] text-center relative overflow-hidden ${isWin ? 'border-brand-success/30 bg-[#001a0d]' : 'border-red-600/30 bg-[#1a0000]'}`}>
+          <div className="text-6xl mb-4">{isWin ? '🏆' : '💀'}</div>
+          <h2 className={`text-5xl font-black uppercase italic tracking-tighter mb-2 ${isWin ? 'text-brand-success' : 'text-red-500'}`}>
+            {isWin ? 'VICTORY' : 'DEFEATED'}
+          </h2>
+          <p className="text-white/30 text-xs font-black tracking-[0.4em] uppercase mb-8">
+            {isWin ? 'Sublevel Cleared!' : 'Combat Terminated'}
+          </p>
+          <div className="grid grid-cols-3 gap-3 mb-8">
+            {[
+              { label: 'MCQ Hits', val: `${mcqCorrect}/${mcqs.length}` },
+              { label: 'HP Left', val: `${Math.max(0, playerHp)}` },
+              { label: 'Enemy', val: enemyHp <= 0 ? '☠️' : `${Math.round(enemyHp)}hp` },
+            ].map((s, i) => (
+              <div key={i} className="p-4 bg-white/5 rounded-2xl border border-white/5">
+                <p className="text-xl font-black">{s.val}</p>
+                <p className="text-[8px] uppercase tracking-widest text-white/30 mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          {weakAreas.length > 0 && (
+            <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl mb-6 text-left">
+              <p className="text-red-400 text-[8px] font-black uppercase tracking-widest mb-2 flex items-center gap-2"><AlertTriangle className="w-3 h-3"/>Weak Areas</p>
+              <div className="flex flex-wrap gap-1.5">
+                {[...new Set(weakAreas)].map((w, i) => (
+                  <span key={i} className="px-2 py-0.5 bg-red-500/20 text-red-300 text-[8px] rounded-full border border-red-500/30">{w}</span>
+                ))}
+              </div>
+            </div>
+          )}
+          <button onClick={() => isWin ? onComplete() : onBack()}
+            className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${isWin ? 'bg-brand-success text-black hover:scale-105 shadow-[0_0_30px_rgba(16,185,129,0.3)]' : 'bg-white/10 hover:bg-white/20'}`}>
+            {isWin ? '🚀 CLAIM XP & CONTINUE' : '🔄 RETRY'}
+          </button>
         </div>
       </div>
     );

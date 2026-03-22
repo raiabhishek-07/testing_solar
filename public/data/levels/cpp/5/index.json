@@ -1,46 +1,171 @@
 {
-  "label": "CPP_ARCADE",
-  "foundation": [
+  "label": "LEVEL 5: PROBLEM SOLVING (War Room)",
+  "sublevels": [
     {
-       "id": 501, "title": "POINTER", "subtitle": "Memory Index", "icon": "Cpu",
-       "content": "A C++ pointer stores the literal memory address (like 0x7ffd) of a variable. It's the key to high-performance game data.",
-       "scenario": "A Physical Pager. You have the pager device (the pointer). It points to EXACTLY one person (The data) who is in an exact house (Memory).",
-       "examples": [
-         { "title": "Creation", "explanation": "Asking for 4 bytes of RAM using the '*' symbol.", "code": "int *ptr;" },
-         { "title": "Extraction", "explanation": "Retrieving the literal memory address using the '&' (Address of) symbol.", "code": "ptr = &x;" },
-         { "title": "The Null", "explanation": "Assigning 'nullptr' to a pointer to show it's currently pointing at nothing.", "code": "ptr = nullptr;" }
-       ],
-       "keyPoint": "* = Value at. & = Address of. nullptr = Empty."
+      "id": "5_1",
+      "title": "RECURSION",
+      "subtitle": "Functions that call themselves",
+      "icon": "RefreshCcw",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l5c1", "title": "What is Recursion?", "emoji": "🪞",
+            "analogy": "Recursion is like standing between two mirrors — you see infinite reflections. A function calls ITSELF, creating smaller copies until reaching a stopping point.",
+            "content": "A recursive function calls itself with a smaller/simpler input. It MUST have a base case (stopping condition) or it will run forever and crash.",
+            "examples": [{ "title": "Countdown with Recursion", "explanation": "The function calls itself with n-1 until n=0.", "code": "def countdown(n):\n    if n == 0:          # Base case!\n        print('GO!')\n        return\n    print(n)\n    countdown(n - 1)    # Recursive call\n\ncountdown(3)\n# 3, 2, 1, GO!" }],
+            "funFact": "The term 'recursion' is itself recursive — Google 'recursion' and it says 'Did you mean: recursion?' 😂"
+          },
+          {
+            "id": "l5c2", "title": "Base Case vs Recursive Case", "emoji": "🛑",
+            "analogy": "The base case is the parachute. Without it, the recursion falls forever. The recursive case is the jump — it gets you closer to the ground each time.",
+            "content": "Every recursive function needs: 1) Base case — when to STOP. 2) Recursive case — calling itself with a SIMPLER input. Without both, you get infinite recursion (stack overflow).",
+            "examples": [{ "title": "Factorial", "explanation": "5! = 5×4×3×2×1 = 120", "code": "def factorial(n):\n    if n <= 1:           # Base case\n        return 1\n    return n * factorial(n - 1)  # Recursive\n\nprint(factorial(5))  # 120" }],
+            "funFact": "Python limits recursion to ~1000 calls by default. You can change it with sys.setrecursionlimit(), but deep recursion is usually a sign of bad design! 🏗️"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "RECURSION SERPENT", "maxHp": 100 },
+          "mcq": [
+            { "q": "What is a base case?", "options": ["The first line of code", "The condition that STOPS recursion", "The function name", "A loop"], "a": 1, "damage": 25, "topic": "Base Case", "explanation": "The base case is the condition where the function stops calling itself." },
+            { "q": "What happens without a base case?", "options": ["Function returns 0", "Infinite recursion → stack overflow crash", "Function runs once", "Error at definition"], "a": 1, "damage": 25, "topic": "Stack Overflow", "explanation": "Without a base case, the function calls itself forever until Python's stack overflows." },
+            { "q": "factorial(3) = ?", "options": ["3", "6", "9", "1"], "a": 1, "damage": 25, "topic": "Factorial", "explanation": "3! = 3 × 2 × 1 = 6." },
+            { "q": "Can every recursive function be written as a loop?", "options": ["No", "Yes", "Only simple ones", "Only in Python"], "a": 1, "damage": 25, "topic": "Recursion vs Loop", "explanation": "Yes — every recursion can be rewritten with loops (and vice versa). They're equivalent in power." }
+          ]
+        },
+        "coding": [
+          { "title": "Factorial", "objective": "What is factorial(4)?", "starterCode": "def factorial(n):\n    if n <= 1: return 1\n    return n * factorial(n-1)\n\nprint(factorial(4))\n# Output: ___", "answer": "24", "hint": "4! = 4×3×2×1 = 24." },
+          { "title": "Base Case", "objective": "In a countdown(n) function, what value of n should be the base case to stop?", "starterCode": "def countdown(n):\n    if n == ___: return\n    print(n)\n    countdown(n-1)", "answer": "0", "hint": "Stop when you reach 0 — nothing left to count." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Infinite recursion bug:\n\ndef count(n):\n    print(n)\n    count(n + 1)", "brokenCode": "def count(n):\n    print(n)\n    count(n + 1)", "bugLine": 0, "options": ["Missing base case — no condition to stop, so it runs forever", "print is wrong", "Use n-1 instead", "Nothing wrong"], "answer": "Missing base case — no condition to stop, so it runs forever", "hint": "Every recursive function needs an if condition to STOP calling itself." }
+        ],
+        "prediction": [
+          { "code": "def f(n):\n    if n == 0:\n        return 0\n    return n + f(n - 1)\n\nprint(f(3))", "options": ["3", "6", "0", "Error"], "answer": "6", "explanation": "f(3) = 3 + f(2) = 3 + 2 + f(1) = 3 + 2 + 1 + f(0) = 3+2+1+0 = 6." }
+        ]
+      }
     },
     {
-       "id": 504, "title": "REFERENCE", "subtitle": "Aliases", "icon": "Link",
-       "content": "A Reference is just a second name for an existing variable. It's easier and safer than a pointer because it can never be null.",
-       "scenario": "A Nickname. You call your friend 'Robot' (Alias). If you give 'Robot' a coin, your friend has the coin. They are the same person.",
-       "examples": [
-         { "title": "Creation", "explanation": "Defining a reference using the '&' symbol next to the type name.", "code": "int &ref = orig;" },
-         { "title": "The Alias", "explanation": "Modifying the reference changes the original variable instantly.", "code": "ref = 10; # orig is 10" },
-         { "title": "Pass Ref", "explanation": "Using a reference as a function parameter to avoid copying large data.", "code": "void call(int &x);" }
-       ],
-       "keyPoint": "References are fixed nicknames. They can't be null."
+      "id": "5_2",
+      "title": "SEARCHING",
+      "subtitle": "Finding needles in haystacks",
+      "icon": "Search",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l5c3", "title": "Linear Search", "emoji": "🔍",
+            "analogy": "Linear search is like looking for your friend in a crowd by checking every single person, one by one, from left to right.",
+            "content": "Linear search checks each element in order until it finds the target or reaches the end. It works on ANY list (sorted or not). Time: O(n) — worst case checks everything.",
+            "examples": [{ "title": "Linear Search", "explanation": "Check each item until found.", "code": "def linear_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i    # Found! Return index\n    return -1           # Not found\n\nnums = [5, 3, 8, 1, 9]\nprint(linear_search(nums, 8))  # 2" }],
+            "funFact": "If you have 1 million items, linear search might check ALL 1 million. Binary search would check only 20! 🚀"
+          },
+          {
+            "id": "l5c4", "title": "Binary Search (Concept)", "emoji": "📖",
+            "analogy": "Binary search is like opening a dictionary to the middle. Is the word before or after? Cut the book in half each time. Way faster!",
+            "content": "Binary search only works on SORTED data. It checks the middle, then eliminates half the remaining items. Repeats until found. Time: O(log n) — extremely fast!",
+            "examples": [{ "title": "Binary Search Idea", "explanation": "Sorted list only! Halves the search space each step.", "code": "# Searching for 7 in [1, 3, 5, 7, 9]\n# Step 1: Middle = 5. 7 > 5 → go right\n# Step 2: Middle = 7. Found! ✅\n# Only 2 steps instead of 4!" }],
+            "funFact": "Binary search can find any item in a billion-element sorted list in just 30 steps! 🤯"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "SEARCH SENTINEL", "maxHp": 100 },
+          "mcq": [
+            { "q": "Linear search checks items in what order?", "options": ["Random", "One by one from start to end", "Middle first", "Last to first"], "a": 1, "damage": 25, "topic": "Linear", "explanation": "Linear search goes left to right, checking every element sequentially." },
+            { "q": "What does linear search return if the item isn't found?", "options": ["0", "None", "-1 (by convention)", "Error"], "a": 2, "damage": 25, "topic": "Not Found", "explanation": "By convention, search functions return -1 to indicate 'not found'." },
+            { "q": "Binary search requires the list to be ___.", "options": ["Empty", "Reversed", "Sorted", "Random"], "a": 2, "damage": 25, "topic": "Binary Requirement", "explanation": "Binary search ONLY works on sorted data. It relies on order to eliminate half each step." },
+            { "q": "Which is faster on 1000 items?", "options": ["Linear (checks all 1000)", "Binary (checks about 10)", "They're equal", "Depends"], "a": 1, "damage": 25, "topic": "Speed", "explanation": "Binary: log₂(1000) ≈ 10 checks. Linear: up to 1000 checks. Binary wins hugely!" }
+          ]
+        },
+        "coding": [
+          { "title": "Linear Search", "objective": "linear_search([10,20,30,40], 30) returns what index?", "starterCode": "# [10, 20, 30, 40]\n# Target: 30\n# Index: ___", "answer": "2", "hint": "Index 0=10, 1=20, 2=30. Found at index 2." },
+          { "title": "Not Found", "objective": "linear_search([1,2,3], 5) returns what?", "starterCode": "# [1, 2, 3], target: 5\n# 5 is not in the list\n# Returns: ___", "answer": "-1", "hint": "5 is not in the list, so it returns -1." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\ndef search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return 0", "brokenCode": "def search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return 0", "bugLine": 4, "options": ["Return -1 for not found (0 is a valid index!)", "Use while instead", "arr is wrong", "Nothing wrong"], "answer": "Return -1 for not found (0 is a valid index!)", "hint": "Returning 0 is misleading because 0 is a valid index (first element)." }
+        ],
+        "prediction": [
+          { "code": "def find(arr, x):\n    for i in range(len(arr)):\n        if arr[i] == x:\n            return i\n    return -1\n\nprint(find([4,7,2,9], 2))", "options": ["0", "2", "3", "-1"], "answer": "2", "explanation": "Index 0=4, 1=7, 2=2. Found at index 2." }
+        ]
+      }
     },
     {
-       "id": 508, "title": "ALLOC", "subtitle": "Dynamic Heap", "icon": "Layers",
-       "content": "C++ uses 'new' and 'delete' instead of C's malloc and free. It's built to create more complex objects on the 'Heap'.",
-       "scenario": "A Hotel Room. You call (new) and ask for a room for 5 people. You can keep the room as long as you want until you Check Out (delete).",
-       "examples": [
-         { "title": "The New", "explanation": "Asking the OS for RAM to store a single object or an array.", "code": "int *p = new int(5);" },
-         { "title": "The Delete", "explanation": "Giving the memory back to the OS so it doesn't leak away.", "code": "delete p;" },
-         { "title": "Array Delete", "explanation": "A special syntax to delete an entire array of items from memory at once.", "code": "delete[] arr;" }
-       ],
-       "keyPoint": "Always pair every 'new' with exactly one 'delete'."
-    }
-  ],
-  "tests": [
+      "id": "5_3",
+      "title": "SORTING",
+      "subtitle": "Putting things in order",
+      "icon": "ArrowUpDown",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l5c5", "title": "Bubble Sort", "emoji": "🫧",
+            "analogy": "Bubble Sort is like bubbles rising in water. The biggest number 'bubbles up' to the end in each pass. Repeat until everything is sorted.",
+            "content": "Bubble Sort compares adjacent pairs and swaps them if they're in the wrong order. After one pass, the largest is at the end. Repeat for remaining items.",
+            "examples": [{ "title": "Bubble Sort Step", "explanation": "Compare neighbors, swap if wrong order.", "code": "# [5, 3, 8, 1]\n# Pass 1: compare 5,3→swap → [3,5,8,1]\n#          compare 5,8→ok   → [3,5,8,1]\n#          compare 8,1→swap → [3,5,1,8] ← 8 is in place!\n# Pass 2: [3,5,1,8] → [3,1,5,8]\n# Pass 3: [3,1,5,8] → [1,3,5,8] ✅" }],
+            "funFact": "Bubble Sort is very slow (O(n²)) but easy to understand. No one uses it in real software — it's purely educational! 🎓"
+          },
+          {
+            "id": "l5c6", "title": "Swapping — The Core Move", "emoji": "🔄",
+            "analogy": "Swapping is like trading cards with a friend. You each put your card face down, then pick up the other's card. In Python, it's even simpler!",
+            "content": "To swap two variables, Python can do it in one line: a, b = b, a. This is the fundamental operation in sorting algorithms.",
+            "examples": [{ "title": "Python Swap", "explanation": "One line swaps both values instantly!", "code": "a = 5\nb = 10\na, b = b, a   # Swap!\nprint(a, b)   # 10 5\n\n# In a list:\narr = [3, 1]\narr[0], arr[1] = arr[1], arr[0]\nprint(arr)  # [1, 3]" }],
+            "funFact": "In C/Java you need a temporary variable to swap. Python's tuple unpacking makes it a one-liner! 🐍"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "CHAOS SHUFFLER", "maxHp": 100 },
+          "mcq": [
+            { "q": "Bubble Sort compares ___ elements.", "options": ["Random", "First and last", "Adjacent (neighboring) pairs", "All at once"], "a": 2, "damage": 25, "topic": "Bubble Sort", "explanation": "Bubble Sort compares neighboring pairs and swaps if needed." },
+            { "q": "After 1 pass of Bubble Sort, which element is in its final position?", "options": ["The smallest", "The largest (at the end)", "The middle", "None"], "a": 1, "damage": 25, "topic": "Passes", "explanation": "Each pass 'bubbles' the largest remaining element to its correct position at the end." },
+            { "q": "How do you swap a and b in Python?", "options": ["a = b; b = a", "swap(a,b)", "a, b = b, a", "a == b"], "a": 2, "damage": 25, "topic": "Swap", "explanation": "a, b = b, a is Python's clean one-line swap using tuple unpacking." },
+            { "q": "Is Bubble Sort fast?", "options": ["Yes, fastest algorithm", "No, it's O(n²) — one of the slowest", "Medium speed", "Depends on data"], "a": 1, "damage": 25, "topic": "Performance", "explanation": "O(n²) means the time grows rapidly. For 1000 items, that's 1,000,000 comparisons!" }
+          ]
+        },
+        "coding": [
+          { "title": "Swap Output", "objective": "a=7, b=3. After a,b = b,a. What is a?", "starterCode": "a = 7\nb = 3\na, b = b, a\nprint(a)\n# Output: ___", "answer": "3", "hint": "After swap, a gets b's old value (3)." },
+          { "title": "After 1 Pass", "objective": "[4, 2, 7, 1]. After 1 full pass of Bubble Sort, what's the last element?", "starterCode": "# [4,2,7,1] → after 1 pass\n# Last element: ___", "answer": "7", "hint": "The largest (7) bubbles to the end after one pass." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\na = 5\nb = 10\na = b\nb = a\nprint(a, b)", "brokenCode": "a = 5\nb = 10\na = b\nb = a\nprint(a, b)", "bugLine": 2, "options": ["Nothing wrong, prints 10 5", "After a=b, both are 10. Then b=a → both 10. Use a,b = b,a instead!", "Need a temp variable", "Print is wrong"], "answer": "After a=b, both are 10. Then b=a → both 10. Use a,b = b,a instead!", "hint": "When a=b runs, a becomes 10. Now b=a → b becomes 10 too. Both are 10!" }
+        ],
+        "prediction": [
+          { "code": "arr = [3, 1, 4, 1, 5]\narr[0], arr[1] = arr[1], arr[0]\nprint(arr)", "options": ["[3,1,4,1,5]", "[1,3,4,1,5]", "[5,1,4,1,3]", "Error"], "answer": "[1,3,4,1,5]", "explanation": "Swaps index 0 and 1: 3↔1. Result: [1,3,4,1,5]." }
+        ]
+      }
+    },
     {
-      "id": 513, "title": "MCQ ADVENTURE", "subtitle": "C++ Memory Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "What is the safest empty pointer?", "options": ["0","NULL","nullptr","none"], "a": 2, "hint": "Modern C++ standard." }
-      ]
+      "id": "5_boss",
+      "title": "THE STRATEGIST",
+      "subtitle": "BOSS FIGHT — All Level 5",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss5_intro", "title": "⚠️ BOSS — THE STRATEGIST", "emoji": "👾",
+            "analogy": "The Strategist is the ultimate tactician. It wields recursion, searches, and sorts as weapons. Only a true problem solver can defeat it!",
+            "content": "This is the final boss before the Ultimate Clash. It tests recursion, base cases, linear/binary search concepts, bubble sort, and swapping.",
+            "examples": [{ "title": "Your full arsenal", "explanation": "", "code": "✅ Recursion & base cases\n✅ Linear search & binary search\n✅ Bubble sort & swapping\n✅ Time complexity basics\n✅ Tracing recursive calls" }],
+            "funFact": "Google's PageRank algorithm (which sorts the entire internet's pages by relevance) was invented by two PhD students in a garage! 🏠"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE STRATEGIST", "maxHp": 150 },
+          "mcq": [
+            { "q": "What are the 2 required parts of every recursive function?", "options": ["Loop and print", "Base case and recursive case", "Return and break", "If and else"], "a": 1, "damage": 30, "topic": "Recursion", "explanation": "Base case (when to stop) and recursive case (call itself with simpler input)." },
+            { "q": "Linear search on [4,8,2,6] for 2: how many comparisons?", "options": ["1", "2", "3", "4"], "a": 2, "damage": 30, "topic": "Linear Search", "explanation": "Check 4 (no), 8 (no), 2 (yes!). Three comparisons." },
+            { "q": "Binary search requires ___ data.", "options": ["Random", "Sorted", "Reversed", "Empty"], "a": 1, "damage": 30, "topic": "Binary Search", "explanation": "Binary search ONLY works on sorted data." },
+            { "q": "After Bubble Sort, where does the smallest element end up?", "options": ["At the end", "At the beginning", "In the middle", "Removed"], "a": 1, "damage": 30, "topic": "Sorting", "explanation": "After complete Bubble Sort, smallest is at index 0 (beginning)." },
+            { "q": "def f(n): return n*f(n-1) if n>1 else 1. What is f(4)?", "options": ["4", "10", "24", "Error"], "a": 2, "damage": 30, "topic": "Recursive Trace", "explanation": "f(4) = 4×f(3) = 4×3×f(2) = 4×3×2×f(1) = 4×3×2×1 = 24." }
+          ]
+        },
+        "coding": [
+          { "title": "Boss: Recursive Sum", "objective": "def sum_to(n): if n==0: return 0; return n+sum_to(n-1). What is sum_to(5)?", "starterCode": "# sum_to(5) = 5+4+3+2+1+0\n# Output: ___", "answer": "15", "hint": "5+4+3+2+1+0 = 15." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Boss Bug:\n\ndef search(arr, x):\n    for i in arr:\n        if i == x:\n            return i", "brokenCode": "def search(arr, x):\n    for i in arr:\n        if i == x:\n            return i", "bugLine": 3, "options": ["Should return the INDEX (use enumerate or range), not the value itself", "Use while instead", "arr is wrong", "Nothing wrong"], "answer": "Should return the INDEX (use enumerate or range), not the value itself", "hint": "Search functions typically return the INDEX where the item was found, not the item itself." }
+        ],
+        "prediction": [
+          { "code": "def mystery(n):\n    if n <= 0:\n        return ''\n    return mystery(n-1) + '*'\n\nprint(mystery(4))", "options": ["****", "***", "*", "Error"], "answer": "****", "explanation": "m(4)=m(3)+'*'=m(2)+'**'=m(1)+'***'=m(0)+'****'=''+'****'='****'." }
+        ]
+      }
     }
   ]
 }

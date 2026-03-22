@@ -1,107 +1,287 @@
 {
-  "label": "PYTHON_BATTLE_2",
-  "pipeline": {
-    "teaching": [
-      {
-        "id": "card_1",
-        "title": "THE CORE OF LOGIC",
-        "topics": ["What is condition", "Boolean values (true/false)"],
-        "content": "A condition is a question that the computer can answer with only 'True' or 'False'. These are called Boolean values. They are the absolute foundation of all decision-making in programming.",
-        "examples": [
+  "label": "LEVEL 2: DECISIONS (Logical Thinking)",
+  "sublevels": [
+    {
+      "id": "2_1",
+      "title": "BOOLEANS & CONDITIONS",
+      "subtitle": "True or False — the foundation of logic",
+      "icon": "ToggleRight",
+      "pipeline": {
+        "teaching": [
           {
-            "title": "Boolean Logic",
-            "explanation": "True and False must be capitalized in Python.",
-            "code": "is_raining = True\nhas_umbrella = False"
-          }
-        ]
-      },
-      {
-        "id": "card_2",
-        "title": "MAKING CHOICES",
-        "topics": ["if statement", "if-else", "Real-life decision examples"],
-        "content": "The 'if' statement lets code run ONLY if a condition is True. The 'else' statement provides a backup plan if the condition is False. Think of it like a fork in the road.",
-        "examples": [
+            "id": "l2c1",
+            "title": "What is a Condition?",
+            "emoji": "❓",
+            "analogy": "A condition is a yes/no question. 'Is the door open?' — the answer is either True or False. Computers make EVERY decision this way.",
+            "content": "A condition is any expression that evaluates to True or False. Comparison operators (>, <, ==, !=) create conditions. Python uses these to decide what code to run.",
+            "examples": [
+              { "title": "Conditions in Action", "explanation": "Each line evaluates to True or False.", "code": "print(5 > 3)     # True\nprint(10 < 2)    # False\nprint(5 == 5)    # True\nprint(5 != 5)    # False" }
+            ],
+            "funFact": "The == operator checks equality. The = operator assigns values. Mixing them up is one of the most common bugs! 🐛"
+          },
           {
-            "title": "If / Else Block",
-            "explanation": "Notice the colon (:) and the strict indentation.",
-            "code": "if score >= 50:\n    print('Pass')\nelse:\n    print('Fail')"
+            "id": "l2c2",
+            "title": "Comparison Operators",
+            "emoji": "⚖️",
+            "analogy": "Comparison operators are like a judge weighing two things on a scale and announcing the verdict: True or False.",
+            "content": "Python has 6 comparison operators: > (greater), < (less), >= (greater or equal), <= (less or equal), == (equals), != (not equals). They always return True or False.",
+            "examples": [
+              { "title": "All 6 Operators", "explanation": "Each returns a boolean.", "code": "print(10 > 5)    # True\nprint(3 < 1)     # False\nprint(5 >= 5)    # True\nprint(4 <= 3)    # False\nprint(7 == 7)    # True\nprint(8 != 8)    # False" }
+            ],
+            "funFact": "You can even compare strings! 'apple' < 'banana' is True because 'a' comes before 'b' alphabetically. 🍎"
           }
-        ]
-      },
-      {
-        "id": "card_3",
-        "title": "OPERATORS",
-        "topics": ["Comparison operators", "Logical operators", "Checking multiple conditions"],
-        "content": "Comparisons like > (greater), < (less), and == (equals) create logic. You can combine multiple checks securely using the 'and' / 'or' keywords.",
-        "examples": [
-          {
-            "title": "Combining Logic",
-            "explanation": "Using 'and' requires both sides to be True.",
-            "code": "if hp > 0 and has_key == True:\n    open_door()"
-          }
-        ]
-      },
-      {
-        "id": "card_4",
-        "title": "ADVANCED FLOW",
-        "topics": ["nested if", "Simple debugging", "Output prediction", "Common mistakes"],
-        "content": "You can nest 'if' statements inside each other for complex logic. A major beginner mistake is using '=' (assignment) instead of '==' (comparison) inside conditions.",
-        "examples": [
-          {
-            "title": "Nested Logic",
-            "explanation": "Checking a second condition only if the first is True.",
-            "code": "if is_vip:\n    if age >= 18:\n        print('VIP Access')"
-          }
-        ]
-      }
-    ],
-    "practice": [
-      {
-        "q": "What is the only valid Boolean value pair in Python?",
-        "options": ["true / false", "True / False", "1 / -1", "Yes / No"],
-        "a": 1,
-        "explanation": "Python strictly requires a capital T and F: True and False."
-      },
-      {
-        "q": "What symbol is used to check if two values are EXACTLY equal?",
-        "options": ["=", "=>", "==", "!= "],
-        "a": 2,
-        "explanation": "A single '=' is for storing variables. The double '==' checks for equality!"
-      }
-    ],
-    "battle": {
-      "enemy": {
-        "name": "THE GATEKEEPER",
-        "maxHp": 130
-      },
-      "mcq": [
-        { "q": "If x = 10 and y = 5, what is (x > y)?", "options": ["True", "False", "15", "Error"], "a": 0, "damage": 10 },
-        { "q": "Which operator means 'Not Equal'?", "options": ["==", "=/=", "!=", "<>"], "a": 2, "damage": 10 },
-        { "q": "What happens if an 'if' condition is False?", "options": ["It crashes", "It runs anyway", "It skips the block", "It waits"], "a": 2, "damage": 10 },
-        { "q": "What is missing: if health > 0_", "options": [";", "()", ":", "{}"], "a": 2, "damage": 10 },
-        { "q": "True 'and' False equals...", "options": ["True", "False", "Syntax Error", "Both"], "a": 1, "damage": 10 },
-        { "q": "Which of these is assignment, NOT comparison?", "options": ["<=", "==", "!=", "="], "a": 3, "damage": 10 },
-        { "q": "What runs if a condition is False?", "options": ["The 'if' block", "The 'else' block", "The 'while' block", "Nothing"], "a": 1, "damage": 10 },
-        { "q": "True 'or' False equals...", "options": ["True", "False", "Null", "Error"], "a": 0, "damage": 10 }
-      ],
-      "coding": [
-        {
-          "type": "debug",
-          "title": "BOSS ATTACK: Fix the Syntax",
-          "code": "if score = 100:\n    print('Perfect')",
-          "missing": "==",
-          "damage": 25,
-          "hint": "You cannot use assignment (=) inside a condition check!"
+        ],
+        "battle": {
+          "enemy": { "name": "THE JUDGE", "maxHp": 100 },
+          "mcq": [
+            { "q": "What does 10 > 5 evaluate to?", "options": ["10", "5", "True", "False"], "a": 2, "damage": 20, "topic": "Conditions", "explanation": "10 is greater than 5, so the expression is True." },
+            { "q": "What does 3 == '3' evaluate to in Python?", "options": ["True", "False", "3", "Error"], "a": 1, "damage": 20, "topic": "Type Comparison", "explanation": "3 (int) and '3' (str) are different types, so == returns False." },
+            { "q": "Which operator means 'not equal to'?", "options": ["=!", "<>", "!=", "=/="], "a": 2, "damage": 20, "topic": "Operators", "explanation": "!= is the 'not equal to' operator. It returns True if values are different." },
+            { "q": "What does 5 >= 5 return?", "options": ["True", "False", "5", "Error"], "a": 0, "damage": 20, "topic": "Operators", "explanation": "5 is equal to 5, and >= means 'greater than OR equal'. So it's True." },
+            { "q": "What is the difference between = and ==?", "options": ["No difference", "= assigns a value, == checks equality", "= checks equality, == assigns", "Both check equality"], "a": 1, "damage": 20, "topic": "Assignment vs Comparison", "explanation": "= is assignment (store a value). == is comparison (check if equal)." }
+          ]
         },
-        {
-          "type": "output",
-          "title": "FINAL STRIKE: Predict Output",
-          "code": "x = 5\nif x > 2:\n  print('A')\nelse:\n  print('B')",
-          "answer": "A",
-          "damage": 25,
-          "hint": "Trace the logic. Is 5 greater than 2?"
-        }
-      ]
+        "coding": [
+          { "title": "True or False?", "objective": "What does 7 > 10 evaluate to? Type True or False.", "starterCode": "print(7 > 10)\n# Output: ___", "answer": "False", "hint": "7 is NOT greater than 10." },
+          { "title": "Equality Check", "objective": "What does 'hello' == 'hello' evaluate to?", "starterCode": "print('hello' == 'hello')\n# Output: ___", "answer": "True", "hint": "Both strings are exactly the same." },
+          { "title": "Not Equal", "objective": "What operator checks if two values are NOT the same? Type the operator.", "starterCode": "# x ___ y  → True if x is not equal to y", "answer": "!=", "hint": "It's an exclamation mark followed by equals." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nif score = 100:\n    print('Perfect!')", "brokenCode": "if score = 100:\n    print('Perfect!')", "bugLine": 0, "options": ["Nothing wrong", "Use == for comparison, not = (assignment)", "Remove the colon", "Put score in quotes"], "answer": "Use == for comparison, not = (assignment)", "hint": "= assigns. == compares. In an if statement, you need ==." },
+          { "type": "mcq", "description": "🚨 Bug:\n\nprint(5 = 5)", "brokenCode": "print(5 = 5)", "bugLine": 0, "options": ["Use == for comparison: print(5 == 5)", "Use >= instead", "Nothing wrong", "Remove the print"], "answer": "Use == for comparison: print(5 == 5)", "hint": "= is assignment. To check equality, use ==." }
+        ],
+        "prediction": [
+          { "code": "x = 10\ny = 20\nprint(x > y)\nprint(x < y)", "options": ["True True", "False True", "True False", "False False"], "answer": "False True", "explanation": "10 > 20 is False. 10 < 20 is True." },
+          { "code": "a = 5\nb = 5\nprint(a == b)\nprint(a != b)", "options": ["True True", "True False", "False True", "False False"], "answer": "True False", "explanation": "5 == 5 is True. 5 != 5 is False (they ARE equal)." }
+        ]
+      }
+    },
+    {
+      "id": "2_2",
+      "title": "IF STATEMENTS",
+      "subtitle": "Making decisions in code",
+      "icon": "GitBranch",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l2c3",
+            "title": "The if Statement",
+            "emoji": "🚦",
+            "analogy": "An if statement is like a traffic light. If the light is green (True), you GO (run the code). If red (False), you STOP (skip it).",
+            "content": "The if statement checks a condition. If it's True, the indented code below runs. If False, Python skips it entirely. The colon (:) and indentation (4 spaces) are required!",
+            "examples": [
+              { "title": "Basic if", "explanation": "The indented line only runs if the condition is True.", "code": "age = 15\nif age >= 13:\n    print('Welcome, teen!')\n# Output: Welcome, teen!" }
+            ],
+            "funFact": "Python uses INDENTATION (spaces) to define code blocks. Most other languages use curly braces {}. Python's way is cleaner! ✨"
+          },
+          {
+            "id": "l2c4",
+            "title": "if-else — Two Paths",
+            "emoji": "🔀",
+            "analogy": "if-else is a fork in the road. If the condition is True, go LEFT. If False, go RIGHT. You ALWAYS take one path — never both, never neither.",
+            "content": "else provides an alternative path when the if condition is False. Exactly ONE of the two blocks will always execute — guaranteed.",
+            "examples": [
+              { "title": "if-else Fork", "explanation": "One block ALWAYS runs. Never both, never neither.", "code": "score = 40\nif score >= 50:\n    print('PASS')\nelse:\n    print('FAIL')\n# Output: FAIL" }
+            ],
+            "funFact": "You can chain conditions with elif (else if) for multiple paths: if → elif → elif → else! 🔗"
+          },
+          {
+            "id": "l2c5",
+            "title": "elif — Multiple Paths",
+            "emoji": "🗺️",
+            "analogy": "elif is like a restaurant menu with multiple options. Python checks each one from top to bottom and picks the FIRST True match.",
+            "content": "elif (else if) lets you check multiple conditions in order. Python tries each from top to bottom and runs the FIRST one that's True. If none are True, else runs.",
+            "examples": [
+              { "title": "Grade Calculator", "explanation": "Python checks top-down, picks first True match.", "code": "marks = 75\nif marks >= 90:\n    print('A')\nelif marks >= 70:\n    print('B')\nelif marks >= 50:\n    print('C')\nelse:\n    print('F')\n# Output: B" }
+            ],
+            "funFact": "You can have as many elif blocks as you want, but only ONE if and ONE else per chain! 📏"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "FORK DEMON", "maxHp": 100 },
+          "mcq": [
+            { "q": "What character MUST come at the end of an if line?", "options": ["Semicolon ;", "Period .", "Colon :", "Arrow ->"], "a": 2, "damage": 20, "topic": "if Syntax", "explanation": "Every if, elif, and else line must end with a colon (:)." },
+            { "q": "How does Python know which code belongs to an if block?", "options": ["Curly braces {}", "Parentheses ()", "Indentation (4 spaces)", "Semicolons"], "a": 2, "damage": 20, "topic": "Indentation", "explanation": "Python uses indentation (4 spaces or 1 tab) to define code blocks." },
+            { "q": "In if-else, how many blocks run?", "options": ["Both always", "Neither", "Exactly one", "It depends"], "a": 2, "damage": 20, "topic": "if-else", "explanation": "Exactly one block runs — either the if block (True) or the else block (False)." },
+            { "q": "What does elif stand for?", "options": ["Else lift", "Else if", "Element if", "Electric if"], "a": 1, "damage": 20, "topic": "elif", "explanation": "elif = else if. It provides additional conditions to check." },
+            { "q": "In if→elif→else, Python picks the ___ True match.", "options": ["Last", "Random", "First", "Biggest"], "a": 2, "damage": 20, "topic": "elif Order", "explanation": "Python checks from top to bottom and runs the FIRST True condition." }
+          ]
+        },
+        "coding": [
+          { "title": "Write an if", "objective": "What keyword starts a decision in Python? Type the keyword.", "starterCode": "___ score >= 50:\n    print('PASS')", "answer": "if", "hint": "It's a 2-letter word that means 'in case of'." },
+          { "title": "What Prints?", "objective": "x = 3. if x > 5: print('big'). else: print('small'). What prints?", "starterCode": "x = 3\nif x > 5:\n    print('big')\nelse:\n    print('small')\n# Output: ___", "answer": "small", "hint": "3 > 5 is False, so else runs." },
+          { "title": "Grade Logic", "objective": "marks = 85. After if >=90: 'A', elif >=70: 'B', elif >=50: 'C', else: 'F'. What grade?", "starterCode": "marks = 85\n# Output: ___", "answer": "B", "hint": "85 >= 90? No. 85 >= 70? Yes! B is the first True match." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nif x > 5\n    print('big')", "brokenCode": "if x > 5\n    print('big')", "bugLine": 0, "options": ["Missing colon (:) at the end of the if line", "x needs quotes", "print should be Print", "Nothing wrong"], "answer": "Missing colon (:) at the end of the if line", "hint": "Every if statement must end with a colon: if x > 5:" },
+          { "type": "mcq", "description": "🚨 Bug:\n\nif age >= 18:\nprint('Adult')", "brokenCode": "if age >= 18:\nprint('Adult')", "bugLine": 1, "options": ["Missing indentation — print must be 4 spaces inside the if block", "Colon is wrong", "print needs uppercase P", "Nothing wrong"], "answer": "Missing indentation — print must be 4 spaces inside the if block", "hint": "Code inside an if block MUST be indented (4 spaces)." }
+        ],
+        "prediction": [
+          { "code": "x = 10\nif x > 100:\n    print('A')\nelif x > 5:\n    print('B')\nelse:\n    print('C')", "options": ["A", "B", "C", "Error"], "answer": "B", "explanation": "x=10. 10>100? No. 10>5? Yes! 'B' is printed. Even though else exists, Python already found a match." },
+          { "code": "score = 50\nif score >= 50:\n    print('Pass')\nif score >= 50:\n    print('Again')", "options": ["Pass", "Again", "Pass and Again", "Error"], "answer": "Pass and Again", "explanation": "These are TWO separate if statements (not if-elif). Both conditions are True, so BOTH print." }
+        ]
+      }
+    },
+    {
+      "id": "2_3",
+      "title": "LOGICAL OPERATORS",
+      "subtitle": "AND, OR, NOT — combining conditions",
+      "icon": "Combine",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l2c6",
+            "title": "AND — Both Must Be True",
+            "emoji": "🤝",
+            "analogy": "AND is like a team challenge: BOTH conditions must be True to win. If even one is False, the whole thing is False.",
+            "content": "The 'and' operator combines two conditions. The result is True ONLY if BOTH sides are True. If either side is False, the whole expression is False.",
+            "examples": [
+              { "title": "AND Gate", "explanation": "Both sides must be True.", "code": "age = 15\nhas_ticket = True\nif age >= 13 and has_ticket:\n    print('Enter the movie!')\n# Both are True → prints!" }
+            ],
+            "funFact": "In circuit logic, AND gates need BOTH inputs ON to produce output. Same idea! ⚡"
+          },
+          {
+            "id": "l2c7",
+            "title": "OR — At Least One True",
+            "emoji": "🔓",
+            "analogy": "OR is like having two keys to the same door. If EITHER key works, the door opens. Only fails if NEITHER works.",
+            "content": "The 'or' operator returns True if AT LEAST one condition is True. It only returns False when BOTH sides are False.",
+            "examples": [
+              { "title": "OR Gate", "explanation": "Just need one True.", "code": "is_admin = False\nis_owner = True\nif is_admin or is_owner:\n    print('Access granted!')\n# One is True → prints!" }
+            ],
+            "funFact": "Python uses short-circuit evaluation: if the first condition of 'or' is True, it doesn't even check the second! 🏎️"
+          },
+          {
+            "id": "l2c8",
+            "title": "NOT — Flip the Boolean",
+            "emoji": "🔄",
+            "analogy": "NOT is like a mirror: it flips the truth. True becomes False. False becomes True. It reverses any boolean.",
+            "content": "The 'not' operator flips a boolean value. not True → False. not False → True. Use it to check 'if something is NOT the case'.",
+            "examples": [
+              { "title": "NOT — The Flip", "explanation": "not reverses the boolean.", "code": "is_blocked = False\nif not is_blocked:\n    print('You may pass!')\n# not False = True → prints!" }
+            ],
+            "funFact": "Double negation: not not True = True. It cancels out, like multiplying by -1 twice! 🔁"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "LOGIC GOLEM", "maxHp": 100 },
+          "mcq": [
+            { "q": "True and False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "AND", "explanation": "AND requires BOTH to be True. Since one is False, result is False." },
+            { "q": "True or False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 0, "damage": 20, "topic": "OR", "explanation": "OR only needs ONE True. Since one is True, result is True." },
+            { "q": "not True evaluates to?", "options": ["True", "False", "not", "Error"], "a": 1, "damage": 20, "topic": "NOT", "explanation": "not flips the boolean: not True = False." },
+            { "q": "False and False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "AND", "explanation": "AND needs both True. Both are False → result is False." },
+            { "q": "False or False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "OR", "explanation": "OR needs at least one True. Both are False → result is False." }
+          ]
+        },
+        "coding": [
+          { "title": "AND Truth", "objective": "What does True and True evaluate to?", "starterCode": "print(True and True)\n# Output: ___", "answer": "True", "hint": "AND: Both True → True." },
+          { "title": "OR Truth", "objective": "What does False or True evaluate to?", "starterCode": "print(False or True)\n# Output: ___", "answer": "True", "hint": "OR: At least one True → True." },
+          { "title": "NOT Flip", "objective": "What does not False evaluate to?", "starterCode": "print(not False)\n# Output: ___", "answer": "True", "hint": "not flips False to True." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nif age > 18 AND has_id:", "brokenCode": "if age > 18 AND has_id:\n    print('OK')", "bugLine": 0, "options": ["Python uses lowercase 'and', not 'AND'", "Missing parentheses", "Colon is wrong", "Nothing wrong"], "answer": "Python uses lowercase 'and', not 'AND'", "hint": "Python logical operators are all lowercase: and, or, not." },
+          { "type": "mcq", "description": "🚨 Bug:\n\nif NOT is_blocked:", "brokenCode": "if NOT is_blocked:\n    print('Pass')", "bugLine": 0, "options": ["Nothing wrong", "'NOT' must be lowercase 'not'", "Missing parentheses", "is_blocked needs quotes"], "answer": "'NOT' must be lowercase 'not'", "hint": "Python keywords are all lowercase. not, not NOT." }
+        ],
+        "prediction": [
+          { "code": "x = 10\ny = 3\nprint(x > 5 and y < 5)", "options": ["True", "False", "Error", "None"], "answer": "True", "explanation": "10>5 is True. 3<5 is True. True and True = True." },
+          { "code": "a = True\nb = False\nprint(not a or b)", "options": ["True", "False", "Error", "None"], "answer": "False", "explanation": "not True = False. False or False = False." }
+        ]
+      }
+    },
+    {
+      "id": "2_4",
+      "title": "REAL-WORLD DECISIONS",
+      "subtitle": "Putting logic into practice",
+      "icon": "Brain",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l2c9",
+            "title": "Nested if Statements",
+            "emoji": "🪆",
+            "analogy": "Nested ifs are like Russian dolls — an if inside another if. First you check the outer condition, and only if that's True, you check the inner one.",
+            "content": "You can put an if statement INSIDE another if statement. The inner if only runs when the outer if is True. Each level needs more indentation (4 more spaces).",
+            "examples": [
+              { "title": "Nested Check", "explanation": "Inner check only happens if outer is True.", "code": "age = 20\nhas_ticket = True\nif age >= 18:\n    if has_ticket:\n        print('Enjoy the show!')\n    else:\n        print('Buy a ticket first!')\nelse:\n    print('Too young!')" }
+            ],
+            "funFact": "Most experienced programmers try to AVOID deep nesting. If you're 4+ levels deep, there's usually a cleaner way! 🧹"
+          },
+          {
+            "id": "l2c10",
+            "title": "Real-World Decision Patterns",
+            "emoji": "🌍",
+            "analogy": "Every app you use is full of if statements: 'If password correct, log in. If battery low, show warning. If message unread, show badge.'",
+            "content": "Decision logic is everywhere: login systems, game logic, notifications, calculators, traffic lights. Learning if/else/elif is learning to think like software.",
+            "examples": [
+              { "title": "Login Check", "explanation": "Real apps use exactly this pattern.", "code": "password = input('Password: ')\nif password == 'secret123':\n    print('Login successful!')\nelse:\n    print('Wrong password!')" }
+            ],
+            "funFact": "The average iPhone has over 100 MILLION lines of code, most of which are if-else decisions! 📱"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "REAL WORLD BOSS", "maxHp": 100 },
+          "mcq": [
+            { "q": "In nested if, the inner if runs when?", "options": ["Always", "Only when the outer if is True", "Only when the outer if is False", "Randomly"], "a": 1, "damage": 25, "topic": "Nested if", "explanation": "Inner if only executes when the outer condition is True." },
+            { "q": "How many extra spaces does a nested if need?", "options": ["0", "2", "4", "8"], "a": 2, "damage": 25, "topic": "Indentation", "explanation": "Each nesting level adds 4 more spaces of indentation." },
+            { "q": "What is the main use of if-else in real apps?", "options": ["Decoration", "Making decisions based on conditions", "Printing text", "Creating variables"], "a": 1, "damage": 25, "topic": "Real-World", "explanation": "if-else is the fundamental decision-making tool in all software." },
+            { "q": "Can you use 'and' inside an if condition?", "options": ["No, that's illegal", "Yes, to combine multiple conditions", "Only in Python 2", "Only with numbers"], "a": 1, "damage": 25, "topic": "Combined Conditions", "explanation": "You can use and, or, not inside any if/elif condition to combine checks." }
+          ]
+        },
+        "coding": [
+          { "title": "Nested Logic", "objective": "In this code, what prints?\nage=20, has_ticket=False\nif age>=18: if has_ticket: 'Enjoy' else: 'Buy ticket' else: 'Too young'", "starterCode": "# age=20, has_ticket=False\n# Output: ___", "answer": "Buy ticket", "hint": "20>=18 is True (enter outer). has_ticket is False (else inner)." },
+          { "title": "Password Check", "objective": "User types 'abc'. Password is 'secret'. What prints?\nif password == 'secret': 'Login!' else: 'Wrong!'", "starterCode": "# password = 'abc'\n# Output: ___", "answer": "Wrong!", "hint": "'abc' == 'secret' is False, so else runs." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nif age >= 18:\nif has_ticket:\n    print('OK')", "brokenCode": "if age >= 18:\nif has_ticket:\n    print('OK')", "bugLine": 1, "options": ["The inner 'if has_ticket' needs to be indented 4 spaces inside the outer if", "Missing a colon", "print is wrong", "Nothing wrong"], "answer": "The inner 'if has_ticket' needs to be indented 4 spaces inside the outer if", "hint": "Nested if must be indented inside its parent if block." },
+          { "type": "mcq", "description": "🚨 Bug:\n\nif score >= 50:\n    print('Pass')\n else:\n    print('Fail')", "brokenCode": "if score >= 50:\n    print('Pass')\n else:\n    print('Fail')", "bugLine": 2, "options": ["' else' has a leading space — else must align with if", "Missing colon", "print is wrong", "Nothing wrong"], "answer": "' else' has a leading space — else must align with if", "hint": "else must be at the SAME indentation level as its matching if." }
+        ],
+        "prediction": [
+          { "code": "x = 15\nif x > 10:\n    if x > 20:\n        print('A')\n    else:\n        print('B')\nelse:\n    print('C')", "options": ["A", "B", "C", "Error"], "answer": "B", "explanation": "15>10 is True (enter outer). 15>20 is False (inner else). Prints 'B'." },
+          { "code": "a = 5\nb = 10\nif a > 3 and b < 20:\n    print('YES')\nelse:\n    print('NO')", "options": ["YES", "NO", "Error", "Both"], "answer": "YES", "explanation": "5>3 is True AND 10<20 is True. True and True = True → 'YES'." }
+        ]
+      }
+    },
+    {
+      "id": "2_boss",
+      "title": "THE DECISION ENGINE",
+      "subtitle": "BOSS FIGHT — All Level 2",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss2_intro",
+            "title": "⚠️ BOSS — THE DECISION ENGINE",
+            "emoji": "👾",
+            "analogy": "The Decision Engine controls all crossroads. It will test your mastery of conditions, if/elif/else, logical operators, and nested decisions!",
+            "content": "THE DECISION ENGINE has absorbed all of Level 2. Every path splits into True/False. Prove you can navigate the logic maze!",
+            "examples": [
+              { "title": "What you've mastered", "explanation": "Everything from Level 2 is in play!", "code": "✅ Conditions & comparisons\n✅ if / elif / else\n✅ and, or, not\n✅ Nested if statements" }
+            ],
+            "funFact": "The most complex software in the world (like self-driving cars) is just billions of if-else decisions running per second! 🚗"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE DECISION ENGINE", "maxHp": 150 },
+          "mcq": [
+            { "q": "What is the output?\nx = 7\nif x > 10: print('A')\nelif x > 5: print('B')\nelif x > 3: print('C')\nelse: print('D')", "options": ["A", "B", "C", "D"], "a": 1, "damage": 30, "topic": "elif Chain", "explanation": "7>10? No. 7>5? Yes! 'B' prints. Python stops at the FIRST True match." },
+            { "q": "True and True or False?", "options": ["True", "False", "Error", "None"], "a": 0, "damage": 30, "topic": "Logic", "explanation": "(True and True) = True. True or False = True." },
+            { "q": "What runs if ALL conditions in an if/elif chain are False?", "options": ["The if block", "The first elif", "Nothing (program crashes)", "The else block"], "a": 3, "damage": 30, "topic": "else", "explanation": "else is the fallback — it runs when no if or elif condition is True." },
+            { "q": "not (5 > 3) evaluates to?", "options": ["True", "False", "5", "Error"], "a": 1, "damage": 30, "topic": "NOT", "explanation": "5>3 is True. not True = False." },
+            { "q": "How many levels of nesting is considered 'too deep' by most programmers?", "options": ["1", "2", "3-4+", "There's no limit"], "a": 2, "damage": 30, "topic": "Best Practice", "explanation": "More than 3-4 levels deep usually means the code should be refactored for clarity." }
+          ]
+        },
+        "coding": [
+          { "title": "Boss: Chain Logic", "objective": "score=85. if >=90:'A' elif >=80:'B' elif >=70:'C' else:'F'. What grade?", "starterCode": "score = 85\n# Output: ___", "answer": "B", "hint": "85>=90? No. 85>=80? Yes! → B." },
+          { "title": "Boss: Combined Check", "objective": "What does (False or True) and (not False) evaluate to?", "starterCode": "print((False or True) and (not False))\n# Output: ___", "answer": "True", "hint": "(False or True)=True. (not False)=True. True and True = True." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nx = 10\nif x > 5 or < 20:\n    print('Range OK')", "brokenCode": "x = 10\nif x > 5 or < 20:\n    print('Range OK')", "bugLine": 1, "options": ["Nothing wrong", "Must repeat x: if x > 5 or x < 20", "Remove the colon", "Use AND not OR"], "answer": "Must repeat x: if x > 5 or x < 20", "hint": "Each side of 'or' needs a full condition. Can't shorthand '< 20' alone." }
+        ],
+        "prediction": [
+          { "code": "x = 5\nif x > 3:\n    print('A')\nif x > 4:\n    print('B')\nif x > 5:\n    print('C')", "options": ["A", "A B", "A B C", "A C"], "answer": "A B", "explanation": "Three SEPARATE if statements. 5>3→A. 5>4→B. 5>5→False (not >). Output: A B." }
+        ]
+      }
     }
-  }
+  ]
 }

@@ -351,9 +351,46 @@ const BugHunter = ({ scenario, lines, correctOrder, onComplete }) => {
   );
 };
 
+// --- GAME 4: CODING CHALLENGE ---
+import CodeEditor from '@/components/CodeEditor/CodeEditor';
+import { Code } from 'lucide-react';
+
+const CodingGame = ({ title, objective, starterCode, hints, validate, onComplete }) => {
+  // Mock a LevelConfig for the CodeEditor
+  const levelConfig = {
+    id: 'dynamic-coding-stage',
+    title: title || 'Coding Challenge',
+    objective: objective || 'Solve the problem using code.',
+    starterCode: starterCode || '',
+    hints: hints || [],
+    validate: validate || (() => true),
+    winMessage: 'System Logic Verified!',
+    xpReward: 100,
+    gemReward: 2
+  };
+
+  return (
+    <div className="h-[600px] rounded-[40px] overflow-hidden border-2 border-white/5 relative bg-[#0d0d16]">
+       <div className="absolute top-4 right-4 z-50">
+          <div className="px-4 py-2 bg-brand-neon/10 border border-brand-neon/20 rounded-xl flex items-center gap-2">
+             <Code className="w-4 h-4 text-brand-neon" />
+             <span className="text-[10px] font-black text-brand-neon uppercase tracking-widest">Coding_Lab_Active</span>
+          </div>
+       </div>
+       <CodeEditor 
+          level={levelConfig} 
+          theme={{ accent: '#00ffff' }} 
+          onSuccess={() => onComplete && onComplete()} 
+          onRetry={() => {}} 
+       />
+    </div>
+  );
+};
+
 export default function GameContainer({ type, config, onComplete }) {
   if (type === 'factory') return <FactoryGame {...config} onComplete={onComplete} />;
   if (type === 'robot') return <RobotCommander {...config} onComplete={onComplete} />;
   if (type === 'bug') return <BugHunter {...config} onComplete={onComplete} />;
+  if (type === 'coding') return <CodingGame {...config} onComplete={onComplete} />;
   return null;
 }

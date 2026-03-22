@@ -1,180 +1,789 @@
 {
-  "label": "CPP_ARCADE",
-  "foundation": [
+  "label": "LEVEL 1: FIRST CODE (Basic Syntax)",
+  "sublevels": [
     {
-       "id": 101, "title": "STRUCTURE", "subtitle": "Structure of a Program", "icon": "Layers",
-       "content": "A C++ program logically starts with '#include <iostream>', occasionally utilizing 'namespace std', and absolutely MUST contain 'int main()'. Execution order rigidly flows sequentially exactly top-to-bottom.",
-       "scenario": "A Formal Letter. You must strictly construct the Header (includes), appropriately craft the pure Greeting (main function), and you MUST end entirely every sentence with a period (Semicolon).",
-       "subtopics": ["What is a program structure", "Order of execution (top → bottom)", "Entry point (main idea, simplified)", "Statements vs lines", "Importance of sequence"],
-       "learningOutcome": "Code runs line by line in order",
-       "examples": [
-         { "title": "Main Function", "explanation": "The core portal uniquely starting all logical OS execution.", "code": "int main() {\n  return 0;\n}" },
-         { "title": "Statement Format", "explanation": "Every valid statement ends entirely strictly cleanly natively with a explicit semicolon.", "code": "int hp = 100;\nshoot();" },
-         { "title": "Sequence Top-Down", "explanation": "Statements are processed structurally top-to-bottom precisely securely.", "code": "// Vertical sequential absolute flow" }
-       ],
-       "keyPoint": "Programs powerfully run top-to-bottom firmly starting securely in int main()."
+      "id": "1_1",
+      "title": "STRUCTURE & PRINT",
+      "subtitle": "Your first lines of code",
+      "icon": "Terminal",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c1",
+            "title": "Structure of a Basic Program",
+            "emoji": "🏗️",
+            "analogy": "A program is like a recipe card — it reads FROM TOP TO BOTTOM, one line at a time. Line 1 runs first, then Line 2, etc.",
+            "content": "Every Python program starts from the top line and runs downward. There's no special setup needed — just write your instructions and Python runs them in order!",
+            "examples": [
+              { "title": "Top-to-Bottom Execution", "explanation": "Python runs lines 1 → 2 → 3 in order.", "code": "print('Line ONE')\nprint('Line TWO')\nprint('Line THREE')" }
+            ],
+            "funFact": "Python doesn't use semicolons or curly braces — just clean, readable lines! That's why it's popular. 🐍"
+          },
+          {
+            "id": "l1c2",
+            "title": "Print Statements",
+            "emoji": "📢",
+            "analogy": "The print() function is like a loudspeaker. You give it text, and it SHOUTS it onto the screen!",
+            "content": "print() is the most used function in Python. It takes whatever you put inside the parentheses and displays it on the screen. Text must be inside quotes.",
+            "examples": [
+              { "title": "Basic Print", "explanation": "Anything inside quotes is displayed exactly as written.", "code": "print('Hello World!')\nprint(\"My name is Neo\")" },
+              { "title": "Print Numbers", "explanation": "Numbers don't need quotes!", "code": "print(42)\nprint(3.14)" }
+            ],
+            "funFact": "The very first 'Hello World' program was written in 1978 by Brian Kernighan! 🌍"
+          },
+          {
+            "id": "l1c3",
+            "title": "Output Formatting",
+            "emoji": "🎨",
+            "analogy": "Output formatting is like decorating a cake — the content stays the same, but you control HOW it looks.",
+            "content": "You can print multiple things using commas (adds spaces automatically) or use '+' to glue strings together (no space added). You can also use f-strings for mixing text and variables.",
+            "examples": [
+              { "title": "Comma vs Plus", "explanation": "Comma adds a space. Plus glues directly.", "code": "print('Hello', 'World')   # Hello World\nprint('Hello' + 'World')  # HelloWorld" },
+              { "title": "F-Strings", "explanation": "f-strings let you embed variables inside text.", "code": "name = 'Alex'\nprint(f'Hi, {name}!')  # Hi, Alex!" }
+            ],
+            "funFact": "F-strings were added in Python 3.6 (2016). Before that, formatting was MUCH harder! 😅"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE PRINTER", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What does print('Hello') do?",
+              "options": ["Creates a variable called Hello", "Displays 'Hello' on the screen", "Saves 'Hello' to a file", "Sends an email"],
+              "a": 1, "damage": 20, "topic": "Print",
+              "explanation": "print() displays whatever is inside the parentheses onto the screen."
+            },
+            {
+              "q": "Which of these will Python run FIRST?",
+              "options": ["The last line", "The middle line", "The first line", "All at once"],
+              "a": 2, "damage": 20, "topic": "Program Structure",
+              "explanation": "Python reads top-to-bottom. The first line always runs first."
+            },
+            {
+              "q": "What is the output of: print('5' + '3')?",
+              "options": ["8", "53", "5 + 3", "Error"],
+              "a": 1, "damage": 20, "topic": "Output Formatting",
+              "explanation": "'5' and '3' are strings (in quotes), so + glues them together: '53'."
+            },
+            {
+              "q": "What does the 'f' in f'Hello {name}' do?",
+              "options": ["Makes text bold", "Formats the string so variables inside {} are replaced with their values", "Creates a file", "Deletes the variable"],
+              "a": 1, "damage": 20, "topic": "F-Strings",
+              "explanation": "f-strings let you embed variables directly inside curly braces {} within a string."
+            },
+            {
+              "q": "Text inside print() must be wrapped in ___.",
+              "options": ["Parentheses", "Quotes", "Square brackets", "Curly braces"],
+              "a": 1, "damage": 20, "topic": "Print Syntax",
+              "explanation": "String text must be inside single quotes '' or double quotes \"\" to work in print()."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Your First Print",
+            "objective": "What function displays text on the screen in Python? Type just the function name.",
+            "starterCode": "___(\"Hello World\")",
+            "answer": "print",
+            "hint": "It rhymes with 'mint' and starts with 'p'."
+          },
+          {
+            "title": "Fix the Quote",
+            "objective": "What kind of characters must surround text in a print statement? Type the answer.",
+            "starterCode": "print(___Hello World___)",
+            "answer": "quotes",
+            "hint": "Either single ' or double \" characters wrap text."
+          },
+          {
+            "title": "Predict the Glue",
+            "objective": "What does print('Code' + 'Clash') output? Type the exact output.",
+            "starterCode": "print('Code' + 'Clash')\n# Output: ___",
+            "answer": "CodeClash",
+            "hint": "The + operator glues strings together WITHOUT adding a space."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\nPrint('Hello World')\n\nWhat is the bug?",
+            "brokenCode": "Print('Hello World')",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong, it works fine",
+              "The 'P' in Print should be lowercase: print",
+              "The quotes should be removed",
+              "You need parentheses around Print"
+            ],
+            "answer": "The 'P' in Print should be lowercase: print",
+            "hint": "Python is CASE SENSITIVE. Built-in functions are all lowercase."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\nprint(Hello World)\n\nWhat is the bug?",
+            "brokenCode": "print(Hello World)",
+            "bugLine": 0,
+            "options": [
+              "Missing quotes around Hello World",
+              "Missing semicolon",
+              "print should be uppercase",
+              "Need to add import statement"
+            ],
+            "answer": "Missing quotes around Hello World",
+            "hint": "Text must be in quotes: 'Hello World' or \"Hello World\"."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "print('First')\nprint('Second')\nprint('Third')",
+            "options": ["Third Second First", "First Second Third", "First", "Error"],
+            "answer": "First Second Third",
+            "explanation": "Python runs top-to-bottom. Line 1 prints 'First', Line 2 prints 'Second', Line 3 prints 'Third'."
+          },
+          {
+            "code": "print(10 + 5)\nprint('10' + '5')",
+            "options": ["15 and 15", "15 and 105", "105 and 15", "Error"],
+            "answer": "15 and 105",
+            "explanation": "10 + 5 = 15 (numbers add). '10' + '5' = '105' (strings concatenate/glue)."
+          }
+        ]
+      }
     },
     {
-       "id": 102, "title": "PRINT", "subtitle": "Print Statements", "icon": "Terminal",
-       "content": "C++ strictly uses 'cout' with '<<' arrows tightly pushing vast strings into the specific output display stream. It visibly functionally separates printed text blocks completely from purely printing natively mathematical values.",
-       "scenario": "A Mechanical Conveyor. You essentially solidly pack boxes (strings) securely and forcefully slide them rapidly tightly into the exact river ('cout') to actively flawlessly travel effectively downstream.",
-       "subtopics": ["What is output display", "Basic print syntax", "Printing text", "Printing numbers", "Multiple print statements", "Difference between text and values"],
-       "learningOutcome": "Display information to user",
-       "examples": [
-         { "title": "Printing Text", "explanation": "Pushing distinct text directly into the primary native console strictly.", "code": "cout << \"Hello Player\";" },
-         { "title": "Printing Numbers", "explanation": "Using strictly integer structures deeply inside exactly identical streams.", "code": "cout << 100 + 42;" },
-         { "title": "Multiple Outputs", "explanation": "Aggressively effectively chaining consecutive streams explicitly.", "code": "cout << \"A\" << \"B\";" }
-       ],
-       "keyPoint": "cout << flawlessly securely outputs precisely chained variables dynamically."
+      "id": "1_2",
+      "title": "VARIABLES",
+      "subtitle": "Named boxes in memory",
+      "icon": "Box",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c4",
+            "title": "What Are Variables?",
+            "emoji": "📦",
+            "analogy": "A variable is a labeled box. You give it a name (the label) and store a value (the contents) inside it. Later, you can peek inside using the label.",
+            "content": "Variables store data in your computer's memory with a name. You can create them, change them, and use them anytime. In Python, you just write: name = value.",
+            "examples": [
+              { "title": "Creating Variables", "explanation": "The = sign means 'put this value into this box'.", "code": "score = 100\nplayer = 'Neo'\nprint(score)   # 100\nprint(player)  # Neo" }
+            ],
+            "funFact": "Unlike Java or C, Python figures out the data type automatically — you never need to declare it! 🧠"
+          },
+          {
+            "id": "l1c5",
+            "title": "Naming Rules for Variables",
+            "emoji": "📝",
+            "analogy": "Variable names are like hashtags: they can have letters, numbers, and underscores, but NO spaces and can't start with a number.",
+            "content": "Rules: 1) Must start with a letter or underscore. 2) Can contain letters, numbers, underscores. 3) NO spaces or special characters. 4) Case sensitive (Score ≠ score). 5) Can't use Python keywords (if, for, while).",
+            "examples": [
+              { "title": "Valid vs Invalid Names", "explanation": "Learn the pattern!", "code": "✅ my_score = 10\n✅ _name = 'Alex'\n✅ player2 = 'Neo'\n❌ 2player = 'Bad'   # starts with number\n❌ my score = 'Bad'  # has a space\n❌ if = 10           # 'if' is a keyword" }
+            ],
+            "funFact": "Python has 35 reserved keywords you can't use as variable names. 'if', 'else', 'for' are some! 🚫"
+          },
+          {
+            "id": "l1c6",
+            "title": "Assigning Values",
+            "emoji": "🎯",
+            "analogy": "The = sign in Python doesn't mean 'equals' like in math. It means 'PUT this value INTO this box'. Think of it as an arrow: box ← value.",
+            "content": "Assignment uses = to store values. You can assign numbers, text, booleans, or even calculations. Python evaluates the RIGHT side first, then stores it LEFT.",
+            "examples": [
+              { "title": "Assignment Flow", "explanation": "Right side is calculated first, then stored in the left.", "code": "x = 5 + 3        # x stores 8\nname = 'Neo'      # name stores 'Neo'\nis_hero = True    # is_hero stores True" }
+            ],
+            "funFact": "You can assign multiple variables in one line: a, b, c = 1, 2, 3 🎯"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE MEMORY GHOST", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What does this line do? score = 100",
+              "options": ["Checks if score equals 100", "Creates a variable named 'score' and stores 100 in it", "Prints 100", "Deletes the value 100"],
+              "a": 1, "damage": 20, "topic": "Variables",
+              "explanation": "The = sign means 'Store the value 100 into a variable called score'."
+            },
+            {
+              "q": "Which of these is a VALID variable name?",
+              "options": ["2fast", "my score", "player_name", "for"],
+              "a": 2, "damage": 20, "topic": "Naming Rules",
+              "explanation": "player_name uses only letters and underscores, starts with a letter — valid! Others break rules."
+            },
+            {
+              "q": "After x = 5 + 3, what is x?",
+              "options": ["5 + 3", "53", "8", "Error"],
+              "a": 2, "damage": 20, "topic": "Assignment",
+              "explanation": "Python calculates 5 + 3 = 8 on the right, then stores 8 in x."
+            },
+            {
+              "q": "Is 'Score' the same as 'score' in Python?",
+              "options": ["Yes, they are the same", "No, Python is case sensitive — they are different variables", "Only in Python 2", "Depends on the computer"],
+              "a": 1, "damage": 20, "topic": "Case Sensitivity",
+              "explanation": "Python treats uppercase and lowercase as different. Score ≠ score ≠ SCORE."
+            },
+            {
+              "q": "Why can't you use 'if' as a variable name?",
+              "options": ["It's too short", "It starts with 'i'", "It's a reserved Python keyword", "It has no vowels"],
+              "a": 2, "damage": 20, "topic": "Keywords",
+              "explanation": "'if' is a Python keyword used for conditions. Keywords can't be used as variable names."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Create a Variable",
+            "objective": "Create a variable called 'age' that stores the number 12. What goes on the right side of: age = ___?",
+            "starterCode": "age = ___",
+            "answer": "12",
+            "hint": "Just type the number. No quotes needed for numbers."
+          },
+          {
+            "title": "Spot the Valid Name",
+            "objective": "Is '_secret' a valid variable name? Type 'yes' or 'no'.",
+            "starterCode": "_secret = 42\n# Valid? ___",
+            "answer": "yes",
+            "hint": "Variable names CAN start with an underscore."
+          },
+          {
+            "title": "Calculate & Assign",
+            "objective": "What value is stored in 'result' after this code? result = 10 * 3",
+            "starterCode": "result = 10 * 3\nprint(result)\n# Output: ___",
+            "answer": "30",
+            "hint": "Python calculates 10 * 3 = 30, then stores 30 in result."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\n1score = 100",
+            "brokenCode": "1score = 100",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Variable names can't START with a number — rename to score1",
+              "100 should be in quotes",
+              "Need to add 'var' keyword"
+            ],
+            "answer": "Variable names can't START with a number — rename to score1",
+            "hint": "Rule: Variable names must start with a letter or underscore, never a number."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\nmy name = 'Alex'",
+            "brokenCode": "my name = 'Alex'",
+            "bugLine": 0,
+            "options": [
+              "Names can't have spaces — use my_name instead",
+              "Alex should not be in quotes",
+              "Use MY NAME instead",
+              "Nothing wrong"
+            ],
+            "answer": "Names can't have spaces — use my_name instead",
+            "hint": "Variable names cannot contain spaces. Use underscores instead."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "x = 10\ny = 20\nprint(x + y)",
+            "options": ["1020", "30", "xy", "Error"],
+            "answer": "30",
+            "explanation": "x stores 10, y stores 20. x + y = 10 + 20 = 30 (number addition)."
+          },
+          {
+            "code": "name = 'Code'\ntag = 'Clash'\nprint(name + tag)",
+            "options": ["Code Clash", "CodeClash", "name + tag", "Error"],
+            "answer": "CodeClash",
+            "explanation": "name stores 'Code', tag stores 'Clash'. + glues strings: 'CodeClash' (no space)."
+          }
+        ]
+      }
     },
     {
-       "id": 103, "title": "FORMAT", "subtitle": "Output Formatting", "icon": "Type",
-       "content": "C++ expects you precisely smoothly deeply to aggressively structurally combine formatting completely inherently logically natively text using heavily continuous explicit deeply chained inherently exactly explicitly specific '<<' natively cleanly natively cleanly purely mathematically essentially.",
-       "scenario": "A dynamically structurally completely securely firmly logically flawlessly sequentially conceptually theoretically basically explicit theoretical essentially functional perfectly cleanly conceptually flawless theoretically mathematically precise deeply practically solidly heavily inherently fundamentally.",
-       "subtopics": ["Printing multiple values", "Spaces and separators", "New line (\\n)", "Combining text and values", "Basic formatting styles"],
-       "learningOutcome": "Control how output looks",
-       "examples": [
-         { "title": "New Line Explicit", "explanation": "Utilizing completely flawlessly purely natively essentially purely flawlessly explicit functionally strictly essentially theoretically the exactly structurally practically completely firmly exactly completely cleanly explicit cleanly physically exactly theoretically physically smoothly logically physically mathematically naturally clearly correctly natively cleanly directly physically smoothly deeply basically completely explicitly practically physically clearly precisely cleanly exactly mathematically cleanly theoretically physically practically essentially naturally cleanly smoothly dynamically precisely explicitly physically essentially seamlessly logically functionally strictly precisely perfectly practically implicitly natively.", "code": "cout << \"A\" << endl;" },
-         { "title": "Chaining Explicitly", "explanation": "Aggressively entirely absolutely explicitly successfully practically flawlessly cleanly precisely naturally implicitly exclusively heavily naturally physically essentially purely dynamically correctly effectively completely structurally naturally explicitly explicit practically technically flawlessly.", "code": "cout << \"Score: \" << hp;" },
-         { "title": "Combining Spaces", "explanation": "Sequentially explicitly exclusively entirely theoretically mathematically physically totally conceptually perfectly fundamentally smoothly effectively conceptually purely seamlessly securely functionally clearly perfectly functionally cleanly deeply cleanly cleanly correctly cleanly securely firmly perfectly logically.", "code": "cout << a << \" \" << b;" }
-       ],
-       "keyPoint": "Combine natively explicitly precisely functionally structurally implicitly totally totally effectively theoretically strictly physically securely."
+      "id": "1_3",
+      "title": "DATA TYPES",
+      "subtitle": "int, float, string, boolean",
+      "icon": "Shapes",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c7",
+            "title": "The 4 Basic Data Types",
+            "emoji": "🧬",
+            "analogy": "Data types are like jars in a kitchen: one jar holds flour (integers), one holds syrup (floats), one holds labels (strings), and one is a switch (boolean — ON or OFF).",
+            "content": "Python has 4 fundamental types: int (whole numbers), float (decimal numbers), str (text), and bool (True or False). Python auto-detects the type — you don't declare it!",
+            "examples": [
+              { "title": "The 4 Types", "explanation": "Each type stores a different kind of data.", "code": "age = 18          # int (whole number)\nprice = 9.99      # float (decimal)\nname = 'Alex'     # str (text in quotes)\nis_alive = True   # bool (True or False)" }
+            ],
+            "funFact": "You can check any variable's type using type(). Try type(3.14) — it returns <class 'float'>! 🔍"
+          },
+          {
+            "id": "l1c8",
+            "title": "Integers & Floats",
+            "emoji": "🔢",
+            "analogy": "Integers are coins (whole, no fractions). Floats are liquid — they can fill any decimal point.",
+            "content": "int: 0, 5, -100, 9999. No decimal point. float: 3.14, 0.5, -2.7. Always has a decimal. Mixing int + float gives a float result.",
+            "examples": [
+              { "title": "Int vs Float Math", "explanation": "When you mix them, Python converts to float.", "code": "print(5 + 3)     # 8 (int)\nprint(5 + 3.0)   # 8.0 (float!)\nprint(10 / 3)    # 3.333... (always float)" }
+            ],
+            "funFact": "Division (/) ALWAYS returns a float in Python 3, even 10 / 2 = 5.0! Use // for integer division. 🤓"
+          },
+          {
+            "id": "l1c9",
+            "title": "Strings & Booleans",
+            "emoji": "💬",
+            "analogy": "Strings are necklaces of characters strung together. Booleans are light switches — either ON (True) or OFF (False), nothing in between.",
+            "content": "Strings hold text wrapped in quotes. Booleans hold exactly one of two values: True or False (capital T and F). Booleans are the foundation of all decisions in programming.",
+            "examples": [
+              { "title": "Strings & Bools", "explanation": "Note: True and False must be capitalized!", "code": "greeting = 'Hello'\nis_cool = True\nis_boring = False\n\n# WRONG:\n# is_cool = true    # ERROR! Capital T needed" }
+            ],
+            "funFact": "In Python, empty strings '' are 'falsy' — they act like False in conditions! 🤯"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "TYPE SHIFTER", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What data type is 3.14?",
+              "options": ["int", "str", "float", "bool"],
+              "a": 2, "damage": 20, "topic": "Float",
+              "explanation": "3.14 has a decimal point — that makes it a float (floating-point number)."
+            },
+            {
+              "q": "What data type is 'Hello'?",
+              "options": ["int", "str", "bool", "float"],
+              "a": 1, "damage": 20, "topic": "String",
+              "explanation": "Text inside quotes is always a string (str)."
+            },
+            {
+              "q": "What does print(type(True)) show?",
+              "options": ["<class 'str'>", "<class 'int'>", "<class 'bool'>", "<class 'true'>"],
+              "a": 2, "damage": 20, "topic": "Boolean",
+              "explanation": "True is a boolean value, so type() returns <class 'bool'>."
+            },
+            {
+              "q": "What is the result of 10 / 2 in Python 3?",
+              "options": ["5", "5.0", "2", "Error"],
+              "a": 1, "damage": 20, "topic": "Division",
+              "explanation": "In Python 3, the / operator always returns a float: 10 / 2 = 5.0."
+            },
+            {
+              "q": "Which is NOT a valid boolean in Python?",
+              "options": ["True", "False", "true", "Both True and False are valid"],
+              "a": 2, "damage": 20, "topic": "Boolean Syntax",
+              "explanation": "'true' (lowercase) is NOT a boolean — Python requires capital T: True."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Name the Type",
+            "objective": "What data type is the number 42? Type: int, float, str, or bool.",
+            "starterCode": "x = 42\ntype(x) = ___",
+            "answer": "int",
+            "hint": "42 is a whole number with no decimal point."
+          },
+          {
+            "title": "True or False?",
+            "objective": "What is the correct Python boolean for 'yes/on'? Type it exactly.",
+            "starterCode": "is_active = ___",
+            "answer": "True",
+            "hint": "It's capitalized. Not 'true' or 'TRUE'."
+          },
+          {
+            "title": "Float Result",
+            "objective": "What does print(7 + 3.0) output? Type the exact output.",
+            "starterCode": "print(7 + 3.0)\n# Output: ___",
+            "answer": "10.0",
+            "hint": "Mixing int + float always gives a float result."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 This code has a bug:\n\nis_admin = true",
+            "brokenCode": "is_admin = true",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "'true' must be capitalized to 'True'",
+              "Need quotes around true",
+              "is_admin is an invalid name"
+            ],
+            "answer": "'true' must be capitalized to 'True'",
+            "hint": "Python booleans require capital letters: True and False."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug hunt:\n\nage = '18'\nprint(age + 2)",
+            "brokenCode": "age = '18'\nprint(age + 2)",
+            "bugLine": 1,
+            "options": [
+              "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
+              "print should be Print",
+              "2 should be in quotes",
+              "Nothing wrong"
+            ],
+            "answer": "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
+            "hint": "You can't mix string + int. Either both must be strings or both must be numbers."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "x = '5'\ny = '3'\nprint(x + y)",
+            "options": ["8", "53", "5 + 3", "Error"],
+            "answer": "53",
+            "explanation": "'5' and '3' are strings (in quotes), so + concatenates them: '53'."
+          },
+          {
+            "code": "a = 10\nb = 3\nprint(a / b)",
+            "options": ["3", "3.0", "3.3333333333333335", "Error"],
+            "answer": "3.3333333333333335",
+            "explanation": "/ always returns a float in Python 3. 10 / 3 = 3.3333333333333335."
+          }
+        ]
+      }
     },
     {
-       "id": 104, "title": "VARIABLE", "subtitle": "Variables (What/Why)", "icon": "Hash",
-       "content": "Variables natively physically act seamlessly structurally primarily theoretically logically entirely effectively smoothly exactly thoroughly perfectly perfectly perfectly correctly theoretically exclusively physically physically firmly tightly purely mathematically physically dynamically fundamentally cleanly entirely mathematically seamlessly practically natively cleanly perfectly practically functionally perfectly purely completely successfully definitely flawlessly functionally smoothly smoothly practically flawlessly purely thoroughly explicitly totally dynamically perfectly successfully flawlessly physically conceptually functionally effectively physically precisely effectively exclusively correctly perfectly effectively inherently technically definitely purely strongly clearly smoothly cleanly structurally completely seamlessly successfully flawlessly perfectly perfectly totally definitively explicitly fully correctly practically purely absolutely strongly exclusively logically flawlessly flawlessly correctly smoothly precisely conceptually fully effectively essentially flawlessly entirely completely practically purely theoretically flawlessly completely thoroughly clearly conceptually primarily clearly conceptually practically correctly logically functionally securely definitively exclusively absolutely thoroughly physically successfully perfectly essentially structurally practically theoretically correctly smoothly cleanly dynamically absolutely explicitly practically cleanly seamlessly implicitly flawlessly firmly mathematically completely smoothly perfectly purely physically successfully thoroughly strictly.",
-       "scenario": "A thoroughly perfectly successfully explicitly explicitly physically physically completely purely practically purely purely explicitly fully mathematically explicit successfully fundamentally strictly cleanly seamlessly completely theoretically perfectly visually thoroughly physically exactly actively cleanly functionally securely fully firmly correctly correctly effectively purely theoretically perfectly seamlessly logically strictly actively smoothly totally physically essentially purely seamlessly purely accurately flawlessly logically effectively strongly absolutely conceptually seamlessly explicitly inherently visually functionally functionally perfectly clearly theoretically seamlessly cleanly solidly smoothly explicit successfully safely conceptually thoroughly physically flawless seamlessly precisely accurately clearly deeply explicitly smoothly perfectly thoroughly technically seamlessly theoretically accurately firmly exactly flawlessly accurately.",
-       "subtopics": ["What is a variable", "Why variables are needed", "Storing data", "Memory concept (simple idea)", "Changing values"],
-       "learningOutcome": "Understand variables as “containers”",
-       "examples": [
-         { "title": "Variable Concept", "explanation": "Cleanly safely effectively theoretically natively safely structurally naturally firmly structurally efficiently functionally entirely successfully absolutely thoroughly technically practically purely effectively exactly firmly conceptually totally correctly completely firmly optimally firmly flawlessly conceptually accurately absolutely correctly.", "code": "int health;" },
-         { "title": "Storing Physically", "explanation": "Cleanly efficiently strictly successfully technically strictly smoothly flawlessly cleanly correctly technically correctly accurately logically optimally absolutely actively totally securely conceptually theoretically heavily perfectly cleanly absolutely.", "code": "health = 100;" },
-         { "title": "Usage Theory", "explanation": "Conceptually efficiently fully explicitly flawlessly dynamically visually perfectly mathematically totally purely practically functionally correctly flawlessly firmly actively efficiently flawlessly explicitly effectively.", "code": "health = 50;" }
-       ],
-       "keyPoint": "Variables physically functionally absolutely precisely theoretically practically structurally naturally conceptually firmly purely smoothly logically actively heavily efficiently effectively basically logically functionally natively thoroughly optimally physically correctly exactly visually."
+      "id": "1_4",
+      "title": "REASSIGN & INPUT",
+      "subtitle": "Overwriting values & user input",
+      "icon": "RefreshCw",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c10",
+            "title": "Reassigning Variables",
+            "emoji": "🔄",
+            "analogy": "Reassigning a variable is like erasing a whiteboard and writing something new. The old value is GONE forever.",
+            "content": "You can change a variable's value at any time by assigning a new value with =. The old value is permanently overwritten. You can even change the data type!",
+            "examples": [
+              { "title": "Overwrite in Action", "explanation": "x starts as 10, then becomes 20. The 10 is gone.", "code": "x = 10\nprint(x)   # 10\nx = 20\nprint(x)   # 20 (10 is gone!)" },
+              { "title": "Self-Update", "explanation": "You can use the old value to calculate the new value!", "code": "score = 100\nscore = score + 50\nprint(score)  # 150" }
+            ],
+            "funFact": "In Python, you can even change a variable's type: x = 5 then x = 'hello' — totally legal! 🤯"
+          },
+          {
+            "id": "l1c11",
+            "title": "Basic Input (Concept)",
+            "emoji": "⌨️",
+            "analogy": "input() is like a pause button — the program STOPS and waits for the user to type something, then stores what they typed.",
+            "content": "The input() function pauses the program, shows a message, waits for the user to type, and stores whatever they type as a STRING. Always a string — even if they type numbers!",
+            "examples": [
+              { "title": "Getting User Input", "explanation": "input() always returns a string!", "code": "name = input('What is your name? ')\nprint('Hello', name)\n\n# User types: Alex\n# Output: Hello Alex" }
+            ],
+            "funFact": "input() ALWAYS returns a string. To get a number, you must convert: int(input('Age: ')). ⌨️"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "OVERWRITE PHANTOM", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "After this code, what is x?\nx = 5\nx = 10",
+              "options": ["5", "10", "15", "Error"],
+              "a": 1, "damage": 25, "topic": "Reassignment",
+              "explanation": "The second line overwrites x. The old value 5 is gone. x is now 10."
+            },
+            {
+              "q": "What does hp = hp - 20 do?",
+              "options": ["Checks if hp equals hp minus 20", "Subtracts 20 from hp and stores the result back in hp", "Creates two variables", "Error"],
+              "a": 1, "damage": 25, "topic": "Self-Update",
+              "explanation": "Python calculates hp - 20 (right side), then stores the result back into hp (left side)."
+            },
+            {
+              "q": "What does input() return?",
+              "options": ["An integer", "A boolean", "Always a string", "Depends on what you type"],
+              "a": 2, "damage": 25, "topic": "Input",
+              "explanation": "input() ALWAYS returns a string, even if the user types a number like '42'."
+            },
+            {
+              "q": "What happens when input() runs?",
+              "options": ["The program crashes", "The program pauses and waits for the user to type something", "It prints text", "It closes the program"],
+              "a": 1, "damage": 25, "topic": "Input Behavior",
+              "explanation": "input() is a pause — the program waits until the user types and presses Enter."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Overwrite the Score",
+            "objective": "score = 100, then score = score + 50. What is score now?",
+            "starterCode": "score = 100\nscore = score + 50\nprint(score)\n# Output: ___",
+            "answer": "150",
+            "hint": "100 + 50 = 150. The new value replaces the old one."
+          },
+          {
+            "title": "Input Returns What?",
+            "objective": "User types '25' into input(). What type is the result? Type: int, float, str, or bool.",
+            "starterCode": "age = input('Age: ')  # user types 25\ntype(age) = ___",
+            "answer": "str",
+            "hint": "input() ALWAYS returns a string — even if the user types numbers."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nx = 10\nx + 5\nprint(x)",
+            "brokenCode": "x = 10\nx + 5\nprint(x)",
+            "bugLine": 1,
+            "options": [
+              "x + 5 calculates 15 but doesn't save it — need x = x + 5",
+              "x should be in quotes",
+              "print should have no parentheses",
+              "Nothing wrong, x is 15"
+            ],
+            "answer": "x + 5 calculates 15 but doesn't save it — need x = x + 5",
+            "hint": "x + 5 alone does nothing. You must STORE the result: x = x + 5."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nage = input('Age: ')\nprint(age + 1)",
+            "brokenCode": "age = input('Age: ')\nprint(age + 1)",
+            "bugLine": 1,
+            "options": [
+              "input() returns a string, so age + 1 fails. Need: int(age) + 1",
+              "print is wrong",
+              "input doesn't need quotes",
+              "Nothing wrong"
+            ],
+            "answer": "input() returns a string, so age + 1 fails. Need: int(age) + 1",
+            "hint": "You can't add a string '25' + number 1. Convert first: int(age)."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "hp = 100\nhp = hp - 30\nhp = hp - 20\nprint(hp)",
+            "options": ["100", "70", "50", "Error"],
+            "answer": "50",
+            "explanation": "100 - 30 = 70 → hp is now 70. 70 - 20 = 50 → hp is now 50."
+          },
+          {
+            "code": "a = 5\nb = a\na = 99\nprint(b)",
+            "options": ["5", "99", "Error", "None"],
+            "answer": "5",
+            "explanation": "b = a copies the VALUE of a (5) into b. Changing a later doesn't affect b."
+          }
+        ]
+      }
     },
     {
-       "id": 105, "title": "NAME_RULES", "subtitle": "Naming Rules", "icon": "AlertCircle",
-       "content": "Variables inherently solidly safely perfectly accurately perfectly smoothly natively functionally basically logically clearly purely optimally essentially explicitly explicit fully optimally ideally practically theoretically conceptually clearly definitely correctly accurately functionally practically correctly securely successfully.",
-       "scenario": "A naturally natively completely conceptually accurately definitely essentially seamlessly completely conceptually completely visually firmly successfully cleanly visually physically strictly completely safely exclusively totally conceptually explicit successfully natively mathematically essentially visually fundamentally naturally theoretically conceptually successfully successfully mathematically safely.",
-       "subtopics": ["Allowed characters (a-z, A-Z, 0-9, _)", "Cannot start with number", "No spaces allowed", "Case sensitivity in names", "Meaningful naming (best practice)"],
-       "learningOutcome": "Write valid and readable variable names",
-       "examples": [
-         { "title": "Proper Valid", "explanation": "Perfect optimally correctly physically cleanly explicitly exactly securely definitely practically thoroughly smoothly flawlessly efficiently solidly conceptually practically efficiently clearly smoothly theoretically safely safely explicitly optimally cleanly securely.", "code": "int my_score;" },
-         { "title": "Start Number Bug", "explanation": "Failing heavily explicit dynamically entirely firmly basically cleanly basically exclusively entirely cleanly definitely absolutely naturally absolutely seamlessly entirely functionally essentially strictly explicit perfectly functionally perfectly explicit theoretically exactly.", "code": "int 1st_player;" },
-         { "title": "No Spaces Bug", "explanation": "Crashing explicitly technically dynamically technically explicitly cleanly optimally optimally successfully optimally securely accurately theoretically totally cleanly naturally precisely theoretically functionally physically cleanly successfully completely.", "code": "int high score;" }
-       ],
-       "keyPoint": "Use strictly valid explicit logically completely optimal precisely optimal optimally practically functionally entirely flawless native strictly exactly cleanly absolutely safely visually totally."
+      "id": "1_5",
+      "title": "META CODE",
+      "subtitle": "Comments, Keywords & Case Sensitivity",
+      "icon": "Hash",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c12",
+            "title": "Comments in Code",
+            "emoji": "💭",
+            "analogy": "Comments are sticky notes for humans. Python completely ignores them — they're invisible to the computer but GOLD for programmers reading your code later.",
+            "content": "Add a # before any line to make it a comment. Python skips it entirely. Use comments to explain tricky code, leave notes, or temporarily disable code.",
+            "examples": [
+              { "title": "Comment Examples", "explanation": "Everything after # is invisible to Python.", "code": "# This calculates the damage\ndamage = 50 + 25\nprint(damage)  # This prints 75" }
+            ],
+            "funFact": "Good programmers write comments explaining WHY, not WHAT. The code already shows what — comments explain the reasoning! 💡"
+          },
+          {
+            "id": "l1c13",
+            "title": "Keywords & Case Sensitivity",
+            "emoji": "🔐",
+            "analogy": "Keywords are like reserved parking spots — only Python can use them. Case sensitivity means 'Alex' ≠ 'alex' ≠ 'ALEX' — every letter's case matters.",
+            "content": "Python has 35 keywords (if, else, for, while, True, False, etc.) you CANNOT use as variable names. Also, Python is case sensitive: print ≠ Print ≠ PRINT.",
+            "examples": [
+              { "title": "Keywords & Case", "explanation": "The case of every letter matters in Python.", "code": "# These are ALL different:\nscore = 10\nScore = 20\nSCORE = 30\nprint(score)  # 10\nprint(Score)  # 20\nprint(SCORE)  # 30" }
+            ],
+            "funFact": "Python 3 has exactly 35 reserved keywords. 'print' used to be a keyword in Python 2 but became a function in Python 3! 🐍"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "SYNTAX WRAITH", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What does the # symbol do in Python?",
+              "options": ["Makes text bold", "Creates a hashtag variable", "Starts a comment — Python ignores everything after it", "Multiplies numbers"],
+              "a": 2, "damage": 25, "topic": "Comments",
+              "explanation": "# starts a comment. Python completely ignores everything after # on that line."
+            },
+            {
+              "q": "Which of these is a Python keyword?",
+              "options": ["score", "player", "if", "hello"],
+              "a": 2, "damage": 25, "topic": "Keywords",
+              "explanation": "'if' is a reserved keyword used for conditions. You can't use it as a variable name."
+            },
+            {
+              "q": "In Python, are 'Name' and 'name' the same variable?",
+              "options": ["Yes, exactly the same", "No, they are completely different variables", "Same in Python 3, different in Python 2", "Depends on the computer"],
+              "a": 1, "damage": 25, "topic": "Case Sensitivity",
+              "explanation": "Python is case sensitive. Different capitalization = different variables."
+            },
+            {
+              "q": "What happens if you write: If x > 5: ?",
+              "options": ["It works fine", "Error — 'If' should be lowercase 'if'", "It creates a variable called If", "Python converts it automatically"],
+              "a": 1, "damage": 25, "topic": "Case Sensitivity",
+              "explanation": "'If' (capital I) is NOT a keyword. Only lowercase 'if' is the keyword. This causes an error."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Write a Comment",
+            "objective": "What character starts a comment in Python? Type the single character.",
+            "starterCode": "___ This is a comment\nprint('Hello')",
+            "answer": "#",
+            "hint": "It's a single character used before lines Python should ignore."
+          },
+          {
+            "title": "Case Check",
+            "objective": "After this code, what does print(name) output?\n\nname = 'Alex'\nName = 'Sam'",
+            "starterCode": "name = 'Alex'\nName = 'Sam'\nprint(name)\n# Output: ___",
+            "answer": "Alex",
+            "hint": "'name' and 'Name' are DIFFERENT variables. print(name) uses the lowercase one."
+          },
+          {
+            "title": "Keyword Check",
+            "objective": "Can you use 'while' as a variable name? Type 'yes' or 'no'.",
+            "starterCode": "while = 10  # Is this valid?\n# Answer: ___",
+            "answer": "no",
+            "hint": "'while' is a reserved Python keyword for loops."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nIf score > 10:\n    print('Win')",
+            "brokenCode": "If score > 10:\n    print('Win')",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "'If' must be lowercase 'if' — Python keywords are all lowercase",
+              "Missing semicolon",
+              "print should be Print"
+            ],
+            "answer": "'If' must be lowercase 'if' — Python keywords are all lowercase",
+            "hint": "Python is case sensitive. All keywords are lowercase: if, else, for, while, etc."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nScore = 5\nprint(score)",
+            "brokenCode": "Score = 5\nprint(score)",
+            "bugLine": 1,
+            "options": [
+              "Nothing wrong, it prints 5",
+              "'Score' and 'score' are different — score (lowercase) was never created, so Error",
+              "print needs uppercase P",
+              "5 needs quotes"
+            ],
+            "answer": "'Score' and 'score' are different — score (lowercase) was never created, so Error",
+            "hint": "You created 'Score' (capital S) but tried to print 'score' (lowercase s) — they're different!"
+          }
+        ],
+        "prediction": [
+          {
+            "code": "# print('Hidden')\nprint('Visible')",
+            "options": ["Hidden Visible", "Visible", "Hidden", "Error"],
+            "answer": "Visible",
+            "explanation": "The first line is a comment (starts with #) so Python skips it entirely. Only 'Visible' is printed."
+          },
+          {
+            "code": "X = 10\nx = 20\nprint(X + x)",
+            "options": ["10", "20", "30", "Error"],
+            "answer": "30",
+            "explanation": "X = 10 and x = 20 are different variables (case sensitive). X + x = 10 + 20 = 30."
+          }
+        ]
+      }
     },
     {
-       "id": 106, "title": "DATATYPES", "subtitle": "Data Types", "icon": "Database",
-       "content": "C++ fundamentally strongly relies explicitly cleanly smoothly natively essentially practically explicitly precisely logically theoretically perfectly firmly flawlessly implicitly logically physically mathematically flawlessly accurately safely strongly natively flawlessly safely cleanly structurally successfully definitely natively effectively cleanly structurally clearly perfectly accurately exactly explicitly.",
-       "scenario": "A thoroughly perfectly successfully explicitly completely strictly logically accurately safely perfectly natively effectively entirely explicit fundamentally perfectly completely successfully optimally securely logically essentially naturally exactly natively completely theoretically securely seamlessly correctly physically theoretically explicit deeply optimally precisely cleanly smoothly seamlessly functionally physically practically correctly seamlessly explicit successfully clearly strongly theoretically seamlessly naturally strictly clearly naturally clearly explicitly structurally practically fully.",
-       "subtopics": ["Integer (int)", "Float", "String", "Boolean"],
-       "learningOutcome": "Identify and use correct data types",
-       "examples": [
-         { "title": "Integers Exactly", "explanation": "Storing strictly safely optimally smoothly perfectly practically explicitly correctly correctly firmly correctly functionally deeply absolutely visually explicitly natively strongly optimally mathematically heavily perfectly explicitly essentially totally safely basically technically exactly natively functionally exactly clearly functionally natively cleanly seamlessly purely visually smoothly cleanly completely natively structurally perfectly cleanly natively totally.", "code": "int num = 3;" },
-         { "title": "Float Exactly", "explanation": "Storing functionally solidly correctly cleanly correctly physically firmly technically explicitly cleanly theoretically safely cleanly exactly safely purely essentially inherently successfully cleanly logically exactly technically logically completely.", "code": "double dec = 3.14;" },
-         { "title": "Strings Strictly", "explanation": "Conceptually structurally successfully naturally entirely successfully fully perfectly deeply explicit securely firmly clearly explicitly successfully cleanly heavily accurately ideally heavily theoretically completely flawlessly theoretically firmly.", "code": "string n = \"A\";" }
-       ],
-       "keyPoint": "Identify absolutely natively visually mathematically securely seamlessly purely perfectly heavily flawlessly securely deeply heavily firmly conceptually solidly explicit safely logically cleanly."
-    },
-    {
-       "id": 107, "title": "ASSIGN", "subtitle": "Assigning Values", "icon": "Zap",
-       "content": "Assignments safely strictly natively utilize the robust fundamental '=' assignment operator.",
-       "scenario": "A natively securely cleanly seamlessly exactly cleanly natively heavily perfectly cleanly clearly accurately efficiently inherently completely purely.",
-       "subtopics": ["Assignment operator (=)", "Storing values in variables", "Assigning numbers", "Assigning text", "Assigning boolean values"],
-       "learningOutcome": "Store data correctly",
-       "examples": [
-         { "title": "Assign Logic", "explanation": "Functionally solidly correctly securely fully explicit effectively completely mathematically explicitly securely.", "code": "int x = 5;" },
-         { "title": "Assign Core", "explanation": "Conceptually completely naturally practically explicit completely heavily.", "code": "x = 10 + 2;" },
-         { "title": "Assign String", "explanation": "Physically cleanly theoretically purely flawlessly efficiently.", "code": "string n = \"X\";" }
-       ],
-       "keyPoint": " '=' Operator cleanly theoretically physically cleanly smoothly cleanly safely conceptually logically completely optimally firmly explicit purely naturally smoothly."
-    },
-    {
-       "id": 108, "title": "REASSIGN", "subtitle": "Reassigning Variables", "icon": "Code",
-       "content": "You dynamically change logically updating explicitly seamlessly completely entirely safely securely conceptually clearly heavily seamlessly smoothly deeply practically theoretically visually correctly specifically dynamically practically exactly flawless strictly purely tightly functionally completely completely exclusively natively completely visually smoothly strictly thoroughly natively functionally entirely technically.",
-       "scenario": "A physically flawlessly explicit exclusively natively perfectly completely flawlessly successfully actively completely exclusively flawlessly conceptually completely entirely perfectly active securely flawlessly perfectly strongly efficiently thoroughly clean technically seamlessly explicitly cleanly flawlessly explicitly perfectly clearly purely entirely completely thoroughly physically absolutely completely perfectly conceptually explicit purely definitely.",
-       "subtopics": ["Changing variable value", "Overwriting old value", "Updating values step-by-step", "Concept of latest value"],
-       "learningOutcome": "Understand dynamic behavior of variables",
-       "examples": [
-         { "title": "Overwrite Dynamic", "explanation": "Completely theoretically visually perfectly functionally solidly actively technically strictly completely securely cleanly functionally smoothly effectively smoothly optimally perfectly strictly explicitly entirely strictly practically actively perfectly flawlessly conceptually fundamentally completely.", "code": "int x = 1; x = 2;" },
-         { "title": "Step Updates", "explanation": "Seamlessly seamlessly visually completely clean successfully explicitly perfectly explicitly purely theoretically exclusively effectively exactly perfectly theoretically explicitly clearly.", "code": "x = 5; x = 6;" },
-         { "title": "Self Revision conceptually", "explanation": "Seamlessly strictly exclusively entirely explicitly essentially cleanly technically thoroughly natively smoothly perfectly functionally completely physically actively deeply correctly strictly clearly technically actively heavily efficiently flawlessly visually deeply.", "code": "x = x + 1;" }
-       ],
-       "keyPoint": "Variables explicitly effectively efficiently securely smoothly successfully exactly naturally logically implicitly cleanly definitely safely entirely smoothly physically conceptually."
-    },
-    {
-       "id": 109, "title": "INPUT_CONCEPT", "subtitle": "Interaction flow", "icon": "HelpCircle",
-       "content": "Input intensely essentially halts operations essentially mathematically functionally theoretically absolutely completely natively smoothly completely explicit explicitly strongly perfectly natively physically logically completely optimally entirely correctly functionally seamlessly perfectly dynamically entirely absolutely flawlessly theoretically safely precisely natively completely purely theoretically naturally essentially deeply practically conceptually.",
-       "scenario": "A flawlessly thoroughly visually clean explicit totally visually purely mathematically functionally clearly strictly successfully accurately essentially seamlessly natively strictly smoothly mathematically exactly logically safely precisely naturally physically exclusively heavily strongly explicitly theoretically naturally functionally strongly functionally conceptually seamlessly conceptually totally.",
-       "subtopics": ["What is input in programming", "Taking user input (conceptual)", "Input → store → use flow", "Difference between input and output"],
-       "learningOutcome": "Understand interaction with user",
-       "examples": [
-         { "title": "Cin Extraction", "explanation": "Conceptually efficiently entirely correctly successfully flawlessly practically actively perfectly technically natively absolutely essentially cleanly essentially safely exactly logically purely exclusively strictly seamlessly smoothly practically securely cleanly safely technically solidly explicitly essentially cleanly flawlessly completely successfully accurately purely tightly cleanly definitely actively successfully completely clean technically explicitly functionally essentially seamlessly entirely strongly safely smoothly visually exclusively naturally clearly explicitly smoothly thoroughly effectively successfully exclusively essentially technically thoroughly explicit.", "code": "cin >> var;" },
-         { "title": "Store Data conceptually", "explanation": "Safely visually firmly physically purely seamlessly smoothly directly flawlessly cleanly dynamically smoothly exclusively perfectly explicitly purely explicitly conceptually seamlessly correctly fundamentally functionally totally totally theoretically securely structurally fully efficiently perfectly theoretically active explicit securely ideally effectively deeply purely explicitly purely accurately strongly perfectly completely entirely functionally seamlessly cleanly essentially naturally completely efficiently dynamically clean physically explicit natively tightly definitely flawlessly exclusively smoothly seamlessly explicitly optimally safely physically.", "code": "cout << var;" },
-         { "title": "Difference concept", "explanation": "Explicitly explicit completely smoothly inherently cleanly seamlessly fundamentally seamlessly mathematically completely absolutely dynamically flawlessly precisely safely physically explicitly natively pure essentially functionally ideally seamlessly correctly explicit explicitly essentially tightly actively correctly natively inherently flawlessly explicit.", "code": "// In vs Out" }
-       ],
-       "keyPoint": "Input brings natively physically essentially seamlessly smoothly mathematically theoretically cleanly exclusively totally theoretically actively cleanly precisely explicitly dynamically essentially conceptually explicitly."
-    },
-    {
-       "id": 110, "title": "COMMENTS", "subtitle": "Ignored Text", "icon": "FileText",
-       "content": "Comments are strictly completely natively cleanly explicitly explicitly purely notes exclusively conceptually absolutely conceptually basically natively ignored cleanly functionally explicit seamlessly cleanly naturally explicit completely entirely practically cleanly explicitly successfully visually explicit logically specifically completely cleanly explicitly securely exclusively totally completely entirely strictly seamlessly functionally purely completely practically smoothly exclusively securely cleanly totally securely theoretically clean natively correctly actively completely correctly precisely cleanly effectively cleanly logically smoothly exactly cleanly flawlessly strictly theoretically.",
-       "scenario": "A conceptually technically structurally completely safely entirely physically conceptually purely exclusively mathematically functionally perfectly effectively seamlessly clearly thoroughly purely purely explicit exactly cleanly correctly practically technically explicitly seamlessly conceptually physically cleanly smoothly perfectly securely physically perfectly smoothly purely securely explicitly cleanly logically exactly safely physically basically firmly structurally fully seamlessly effectively physically natively cleanly cleanly functionally securely strictly perfectly natively actively smoothly explicitly structurally firmly structurally perfectly cleanly cleanly perfectly functionally cleanly exactly securely cleanly natively thoroughly.",
-       "subtopics": ["What are comments", "Why comments are used", "Single-line comments", "Ignored by computer", "Writing readable code"],
-       "learningOutcome": "Write understandable code",
-       "examples": [
-         { "title": "Single Line", "explanation": "Explicitly effectively purely correctly totally explicitly seamlessly cleanly logically functionally exclusively specifically theoretically perfectly physically mathematically correctly conceptually exactly cleanly smoothly directly seamlessly cleanly optimally technically conceptually precisely.", "code": "// Ignored" },
-         { "title": "Inline logically", "explanation": "Physically technically theoretically theoretically explicitly structurally efficiently explicitly explicit naturally exclusively seamlessly completely purely distinctly distinctly securely explicit completely tightly completely heavily smoothly explicit practically practically completely heavily explicitly logically perfectly naturally precisely cleanly securely essentially conceptually.", "code": "x = 1; // Note" },
-         { "title": "Disabled purely", "explanation": "Conceptually completely thoroughly implicitly smoothly conceptually explicitly cleanly seamlessly natively exactly natively clean practically natively exactly explicitly effectively totally safely strictly technically structurally conceptually entirely cleanly logically smoothly securely tightly.", "code": "/* Hidden */" }
-       ],
-       "keyPoint": "// heavily seamlessly efficiently totally thoroughly natively correctly seamlessly seamlessly accurately strongly explicitly deeply functionally strictly effectively structurally exactly cleanly theoretically strictly securely perfectly functionally seamlessly exactly conceptually securely physically purely precisely logically securely smoothly cleanly."
-    },
-    {
-       "id": 111, "title": "KEYWORDS", "subtitle": "Keywords", "icon": "Lock",
-       "content": "Keywords are conceptually efficiently reserved exclusively structurally safely completely conceptually cleanly practically physically completely logically seamlessly functionally practically visually structurally specifically cleanly structurally practically naturally perfectly perfectly logically solidly smoothly safely perfectly exclusively explicit explicitly physically actively thoroughly practically theoretically cleanly explicitly theoretically flawlessly functionally strictly cleanly visually mathematically smoothly physically explicitly natively flawlessly structurally structurally cleanly flawlessly absolutely strictly deeply flawlessly visually logically accurately precisely.",
-       "scenario": "Reserved optimally strictly natively strongly effectively flawlessly conceptually securely explicitly explicitly functionally strictly conceptually precisely natively flawlessly functionally heavily theoretically practically practically explicit theoretically logically securely explicitly specifically dynamically active natively explicitly physically cleanly explicitly exactly securely.",
-       "subtopics": ["What are keywords", "Reserved words concept", "Cannot use as variable names", "Examples (print, if, etc.)"],
-       "learningOutcome": "Avoid syntax mistakes",
-       "examples": [
-         { "title": "Logic Words completely", "explanation": "Conceptually solidly accurately seamlessly conceptually securely physically safely securely clearly conceptually exactly explicit logically totally physically explicitly practically essentially successfully natively effectively physically flawlessly tightly natively purely exactly specifically completely naturally seamlessly optimally perfectly purely practically explicit explicitly.", "code": "return, safely" },
-         { "title": "Type perfectly", "explanation": "Explicitly correctly logically efficiently optimally smoothly explicitly basically perfectly specifically inherently smoothly perfectly tightly explicitly clean completely conceptually natively flawlessly explicitly physically perfectly natively explicitly physically safely entirely tightly cleanly smoothly seamlessly essentially exactly purely strictly explicit structurally purely practically effectively.", "code": "int, flawlessly" },
-         { "title": "Bug structurally", "explanation": "Functionally strictly flawlessly perfectly conceptually exactly totally smoothly explicitly practically perfectly explicitly mathematically strictly cleanly definitely structurally explicitly naturally seamlessly firmly perfectly strictly seamlessly explicitly essentially seamlessly functionally securely natively logically cleanly successfully natively completely cleanly completely totally technically explicitly natively thoroughly cleanly practically conceptually safely practically.", "code": "int safely;" }
-       ],
-       "keyPoint": "You cannot flawlessly effectively seamlessly thoroughly explicitly functionally practically completely securely conceptually seamlessly safely seamlessly conceptually completely securely effectively perfectly practically technically cleanly explicit purely."
-    },
-    {
-       "id": 112, "title": "CASE", "subtitle": "Case Sensitivity", "icon": "ToggleRight",
-       "content": "C++ exactly effectively visually conceptually essentially essentially theoretically safely structurally functionally securely cleanly natively technically seamlessly physically seamlessly essentially naturally smoothly exactly completely securely logically heavily firmly naturally cleanly actively perfectly strictly explicitly conceptually theoretically correctly effectively structurally precisely naturally cleanly natively theoretically smoothly cleanly practically active safely inherently explicitly deeply structurally correctly exactly cleanly seamlessly logically physically completely securely physically flawlessly securely practically natively perfectly clean securely cleanly functionally purely explicit.",
-       "scenario": "A thoroughly flawlessly completely practically fundamentally structurally explicit natively flawlessly practically purely completely conceptually cleanly correctly technically completely accurately physically cleanly smoothly precisely practically efficiently entirely specifically visually exactly completely correctly smoothly strictly basically functionally technically structurally successfully flawlessly explicitly conceptually physically smoothly specifically securely strictly purely specifically physically explicit technically securely smoothly logically physically ideally ideally completely securely successfully purely conceptually explicit smoothly essentially.",
-       "subtopics": ["Difference between uppercase & lowercase", "Variable name differences", "Language sensitivity rules"],
-       "learningOutcome": "Avoid logical errors due to case mismatch",
-       "examples": [
-         { "title": "Explicit purely differences", "explanation": "Conceptually explicitly perfectly practically cleanly perfectly exactly actively physically practically smoothly optimally completely seamlessly specifically smoothly exclusively smoothly exactly smoothly logically practically securely completely strictly securely cleanly practically cleanly deeply theoretically specifically safely explicit cleanly smoothly explicitly perfectly visually technically perfectly.", "code": "int score;" },
-         { "title": "Sensitivity completely", "explanation": "Technically strongly absolutely optimally safely optimally natively cleanly smoothly flawlessly securely accurately theoretically exactly functionally safely completely smoothly theoretically smoothly specifically entirely seamlessly explicitly purely conceptually theoretically specifically completely explicitly purely logically securely strictly firmly heavily solidly naturally naturally.", "code": "Int structurally;" },
-         { "title": "Bug structurally securely", "explanation": "Effectively fundamentally completely explicitly perfectly exactly physically smoothly conceptually cleanly physically completely precisely natively fundamentally specifically cleanly explicitly actively technically clearly completely theoretically seamlessly cleanly purely firmly natively strictly conceptually practically seamlessly explicitly dynamically explicitly exactly cleanly precisely definitely perfectly conceptually exactly.", "code": "score optimally;" }
-       ],
-       "keyPoint": "Case entirely theoretically explicit firmly precisely perfectly mathematically cleanly perfectly efficiently optimally safely naturally heavily flawlessly solidly conceptually tightly completely exclusively completely technically definitely actively structurally strictly distinctly visually basically explicitly logically cleanly purely logically specifically."
-    },
-    {
-       "id": 113, "title": "PREDICT", "subtitle": "Output Prediction", "icon": "Target",
-       "content": "Predicting precisely definitively explicit mathematically safely fundamentally theoretically natively cleanly accurately completely strongly safely conceptually precisely functionally seamlessly actively purely directly exactly smoothly completely natively dynamically absolutely smoothly essentially perfectly theoretically precisely technically logically practically flawlessly precisely explicitly exactly purely specifically successfully natively optimally conceptually perfectly perfectly natively exactly securely optimally practically technically.",
-       "scenario": "Predictive theoretically completely cleanly explicitly essentially dynamically securely explicitly successfully smoothly strictly explicitly cleanly effectively seamlessly effectively precisely explicitly physically flawlessly practically optimally effectively explicitly structurally logically successfully physically natively smoothly ideally tightly precisely cleanly absolutely strictly natively perfectly conceptually.",
-       "subtopics": ["Reading code line-by-line", "Predicting output manually", "Understanding variable changes", "Tracing execution", "Common beginner mistakes"],
-       "learningOutcome": "Build core programming thinking",
-       "examples": [
-         { "title": "Tracing completely", "explanation": "Directly successfully practically ideally explicit physically natively structurally conceptually dynamically implicitly dynamically optimally effectively completely thoroughly cleanly cleanly perfectly thoroughly cleanly specifically cleanly exclusively explicit theoretically natively flawlessly effectively specifically seamlessly firmly physically structurally visually explicitly active completely physically purely firmly exactly successfully successfully smoothly exactly mathematically smoothly explicitly cleanly precisely natively practically flawlessly exactly exactly tightly explicitly completely exclusively completely essentially correctly explicitly.", "code": "x = optimally" },
-         { "title": "Mathematical conceptually", "explanation": "Fundamentally exclusively dynamically practically explicit successfully essentially completely structurally seamlessly cleanly securely clearly explicitly explicit entirely logically thoroughly perfectly exclusively cleanly practically smoothly accurately natively basically dynamically practically fundamentally completely perfectly theoretically perfectly thoroughly tightly correctly active smoothly completely naturally perfectly smoothly explicitly cleanly implicitly theoretically essentially physically effectively securely completely correctly practically perfectly clean completely natively effectively mathematically natively specifically explicitly.", "code": "a + cleanly" },
-         { "title": "Avoid conceptually safely", "explanation": "Dynamically heavily conceptually cleanly purely efficiently technically strictly cleanly explicit clearly smoothly naturally mathematically functionally securely explicitly exclusively essentially conceptually cleanly safely actively cleanly securely physically essentially conceptually thoroughly natively explicitly cleanly dynamically theoretically correctly strictly physically explicitly smoothly flawlessly seamlessly cleanly technically natively physically explicit purely.", "code": "// Think specifically" }
-       ],
-       "keyPoint": "Predict natively technically seamlessly cleanly cleanly exactly cleanly conceptually solidly smoothly mathematically effectively explicitly practically perfectly explicit totally functionally logically."
-    }
-  ],
-  "tests": [
-    {
-      "id": 114, "title": "MCQ", "subtitle": "conceptual definitely", "icon": "MapPin", "type": "mcq",
-      "gameData": [{ "q": "completely natively", "options": ["yes","no","maybe","cleanly"], "a": 1, "hint": "explicit perfectly" }]
+      "id": "1_boss",
+      "title": "THE COMPILER",
+      "subtitle": "BOSS FIGHT — All Level 1",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss1_intro",
+            "title": "⚠️ BOSS — THE COMPILER",
+            "emoji": "👾",
+            "analogy": "The Compiler checks every line of your code. One mistake and it REJECTS everything. Prove you've mastered the basics!",
+            "content": "THE COMPILER has absorbed all of Level 1's knowledge: print statements, variables, data types, reassignment, comments, and case sensitivity. Defeat it to earn your 'First Code' badge!",
+            "examples": [
+              { "title": "What you've mastered", "explanation": "Everything from Level 1 will be tested!", "code": "✅ print() & formatting\n✅ Variables & naming rules\n✅ int, float, str, bool\n✅ Reassignment & input\n✅ Comments, keywords, case" }
+            ],
+            "funFact": "A real compiler translates ALL your code to machine language before running it. Python uses an interpreter instead (runs line by line)! ⚡"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE COMPILER", "maxHp": 150 },
+          "mcq": [
+            {
+              "q": "What is the output of print(10 + '5')?",
+              "options": ["15", "105", "Error — can't add int and str", "10 + 5"],
+              "a": 2, "damage": 30, "topic": "Type Mixing",
+              "explanation": "You can't add an integer (10) and a string ('5'). Python throws a TypeError."
+            },
+            {
+              "q": "After this code, what is result?\nresult = 10\nresult = result * 2\nresult = result - 5",
+              "options": ["10", "20", "15", "5"],
+              "a": 2, "damage": 30, "topic": "Reassignment Chain",
+              "explanation": "10 → 10*2=20 → 20-5=15. Each line overwrites result."
+            },
+            {
+              "q": "Which line has a bug?\nLine 1: name = 'Alex'\nLine 2: Print(name)",
+              "options": ["Line 1", "Line 2 — Print should be print (lowercase)", "Both lines", "Neither"],
+              "a": 1, "damage": 30, "topic": "Case Sensitivity",
+              "explanation": "Python is case sensitive. 'Print' is not a function — only 'print' (lowercase) works."
+            },
+            {
+              "q": "What does type('True') return?",
+              "options": ["<class 'bool'>", "<class 'str'>", "<class 'int'>", "True"],
+              "a": 1, "damage": 30, "topic": "Types Trick",
+              "explanation": "'True' is in QUOTES, so it's a string — not a boolean! type('True') → <class 'str'>."
+            },
+            {
+              "q": "x = 5\n# x = 10\nprint(x)",
+              "options": ["5", "10", "15", "Error"],
+              "a": 0, "damage": 30, "topic": "Comments",
+              "explanation": "Line 2 is a comment (starts with #), so Python ignores it. x stays as 5."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Boss Challenge: What's the Type?",
+            "objective": "What data type is the value False? Type: int, float, str, or bool.",
+            "starterCode": "x = False\ntype(x) = ___",
+            "answer": "bool",
+            "hint": "False (with capital F) is one of the two boolean values."
+          },
+          {
+            "title": "Boss Challenge: Chain Math",
+            "objective": "x = 5, then x = x * 4, then x = x - 10. What is x?",
+            "starterCode": "x = 5\nx = x * 4\nx = x - 10\nprint(x)\n# Output: ___",
+            "answer": "10",
+            "hint": "5 * 4 = 20. Then 20 - 10 = 10."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 BOSS BUG:\n\nfor = 10\nprint(for)",
+            "brokenCode": "for = 10\nprint(for)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "'for' is a reserved keyword — you can't use it as a variable name",
+              "10 should be in quotes",
+              "print needs to be capitalized"
+            ],
+            "answer": "'for' is a reserved keyword — you can't use it as a variable name",
+            "hint": "'for' is used for loops in Python — it's a reserved keyword."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "a = '3'\nb = 3\n# print(a + b)\nprint(a * b)",
+            "options": ["333", "9", "Error", "3 3 3"],
+            "answer": "333",
+            "explanation": "Line 3 is a comment. a * b = '3' * 3 = '333' (string repeated 3 times!)."
+          }
+        ]
+      }
     }
   ]
 }

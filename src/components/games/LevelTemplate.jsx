@@ -490,7 +490,7 @@ export default function LevelTemplate({
                       {activeStage.type === 'yesno' && <YesNoGame questions={activeStage.gameData} onComplete={() => finishStage(activeStage.id)} />}
                       {activeStage.type === 'algo' && <AlgoBuilder steps={activeStage.gameData.steps} title={activeStage.gameData.title} onComplete={() => finishStage(activeStage.id)} />}
                       {activeStage.type === 'sorter' && <SyntaxSorter puzzles={activeStage.gameData} onComplete={() => finishStage(activeStage.id)} />}
-                      {['factory', 'robot', 'bug'].includes(activeStage.type) && (
+                      {['factory', 'robot', 'bug', 'coding'].includes(activeStage.type) && (
                          <GameContainer 
                             type={activeStage.type} 
                             config={activeStage.gameData} 

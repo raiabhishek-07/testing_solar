@@ -4,94 +4,280 @@ import { Cpu, Code, Zap, Terminal, Layers, Shield, HelpCircle, CheckCircle2, Sta
 // ─────────────────────────────────────────────────────────
 export const L5_FOUNDATION = [
   {
-    id: 501, title: "ALGO_THINK", subtitle: "Algorithmic Thinking",
-    icon: Bot,
-    content: "An algorithm is just a step-by-step recipe to solve a problem. Algorithmic thinking is breaking a huge, scary problem ('build a game') into tiny, solvable steps ('draw a circle', 'move it right'). It is the most important skill in programming, regardless of the language.",
-    keyPoint: "Break big problems into tiny, manageable steps."
+    id: 501, title: "STRINGS", subtitle: "Strings (multi-line, quote types)",
+    icon: Type,
+    content: "Python strings can be defined in multiple ways to handle different text needs.",
+    examples: [
+      {
+        title: "Quote Types",
+        explanation: "Use 'single' or \"double\" quotes interchangeably.",
+        code: "s1 = 'Hello'\ns2 = \"World\""
+      },
+      {
+        title: "Multi-line",
+        explanation: "Use triple quotes for text that spans many lines.",
+        code: "msg = \"\"\"Line 1\nLine 2\nLine 3\"\"\""
+      },
+      {
+        title: "Quotes in Quotes",
+        explanation: "Mix quote types to include quotes in your text.",
+        code: "msg = \"He said 'Hi'\""
+      }
+    ],
+    keyPoint: "Triple quotes for multi-line text."
   },
   {
-    id: 502, title: "PSEUDO", subtitle: "Pseudocode",
-    icon: Code,
-    content: "Pseudocode is 'fake code'. It's writing out the logic in plain English before writing actual Python. Example: 'FOR each player, IF health is 0, print Game Over'. It helps you focus on logic without worrying about missing colons or indentation.",
-    keyPoint: "Write the logic in English first. Code second."
-  },
-  {
-    id: 503, title: "FLOWCHART", subtitle: "Flowcharts",
-    icon: GitBranch,
-    content: "A visual map of your algorithm. Ovals = Start/End. Rectangles = Actions (x = x+1). Diamonds = Decisions (is x > 10?). Flowcharts force you to see all the paths your code can take, helping you catch bugs before you even start typing.",
-    keyPoint: "Diamonds = 'If' statements. Rectangles = Actions."
-  },
-  {
-    id: 504, title: "BIGO", subtitle: "Big-O Notation",
-    icon: Zap,
-    content: "Big-O tells us how an algorithm scales as data gets larger. O(1) means it takes the same time no matter what (fastest). O(N) means time grows linearly with data. O(N²) means time grows exponentially (slowest, usually nested loops). It measures worst-case scenario.",
-    keyPoint: "Big-O measures how an algorithm slows down as data increases."
-  },
-  {
-    id: 505, title: "TIME_COMP", subtitle: "Time Complexity",
-    icon: Activity,
-    content: "How long does it take to run? Reading a list item by index: O(1) (instant). Searching an unsorted list for a value: O(N) (you might have to check every single item). A loop inside a loop over the same list: O(N²). Goal: Keep Time Complexity as low as possible.",
-    keyPoint: "for loop = O(N). Nested for loops = O(N²). Avoid O(N²) when possible."
-  },
-  {
-    id: 506, title: "SPACE_COMP", subtitle: "Space Complexity",
-    icon: Layers,
-    content: "How much RAM does your algorithm use? Reversing a list by making a brand new list takes O(N) space. Reversing it in-place (modifying original) takes O(1) space. Sometimes you trade Space for Time, but on memory-constrained systems, Space matters!",
-    keyPoint: "Creating new lists inside loops eats Memory (Space Complexity)."
-  },
-  {
-    id: 507, title: "SWAP", subtitle: "Swapping Variables",
+    id: 502, title: "METHODS", subtitle: "String methods (.upper, .lower)",
     icon: RefreshCw,
-    content: "In Java/C, swapping x and y requires a temporary variable: temp = x; x = y; y = temp. But Python is magic! You can do Tuple Unpacking: x, y = y, x. This creates a tuple on the right and unpacks it into the variables on the left. Elegant and Pythonic!",
-    keyPoint: "x, y = y, x — The Pythonic way to swap variables!"
+    content: "Methods are built-in actions you can perform on strings to change their appearance.",
+    examples: [
+      {
+        title: "Casing",
+        explanation: "Change text to all caps or all lowercase.",
+        code: "name = \"Ash\"\nprint(name.upper()) # ASH\nprint(name.lower()) # ash"
+      },
+      {
+        title: "Cleaning",
+        explanation: "Strip removes extra spaces from the ends.",
+        code: "text = \"  hello  \"\nprint(text.strip()) # \"hello\""
+      },
+      {
+        title: "Replacing",
+        explanation: "Swap one piece of text for another.",
+        code: "s = \"I like Java\"\nprint(s.replace(\"Java\", \"Python\"))"
+      }
+    ],
+    keyPoint: "Methods are called using a dot (.)"
   },
   {
-    id: 508, title: "REVERSE", subtitle: "Reversing iterables",
-    icon: Repeat,
-    content: "Python makes reversing easy. Reversing a string: s[::-1] (using slicing with a step of -1). Reversing a list: my_list.reverse() (in-place, O(1) space) or reversed(my_list). Knowing how to do a loop-based reverse helps algorithmic interviews, but slicing is the Python way.",
-    keyPoint: "s[::-1] is the fastest, cleanest way to reverse a string in Python."
+    id: 503, title: "SLICING", subtitle: "String slicing (substrings)",
+    icon: Filter,
+    content: "Slicing allows you to 'cut out' a specific part of a string using indices.",
+    examples: [
+      {
+        title: "The Slice",
+        explanation: "[start:stop] - starts at 'start', stops BEFORE 'stop'.",
+        code: "word = \"Python\"\nprint(word[0:2]) # \"Py\""
+      },
+      {
+        title: "Shorthand",
+        explanation: "Leave a side blank to go from/to the very end.",
+        code: "print(word[:3]) # \"Pyt\"\nprint(word[2:]) # \"thon\""
+      },
+      {
+        title: "Step",
+        explanation: "The third number [start:stop:step] skips characters.",
+        code: "print(word[::2]) # \"Pto\""
+      }
+    ],
+    keyPoint: "start:stop:step"
   },
   {
-    id: 509, title: "MINMAX", subtitle: "Finding Min / Max",
+    id: 504, title: "ESCAPE", subtitle: "Escape characters (\\n, \\t)",
+    icon: Zap,
+    content: "Escape characters allow you to include special formatting inside your strings.",
+    examples: [
+      {
+        title: "New Line",
+        explanation: "\\n jumps to the next line.",
+        code: "print(\"Line 1\\nLine 2\")"
+      },
+      {
+        title: "Tab",
+        explanation: "\\t adds a large space (like the Tab key).",
+        code: "print(\"Name:\\tAsh\")"
+      },
+      {
+        title: "The Backslash",
+        explanation: "To print a real backslash, use two of them.",
+        code: "print(\"Path: C:\\\\Users\")"
+      }
+    ],
+    keyPoint: "Backslash \\ is the escape key."
+  },
+  {
+    id: 505, title: "TUPLES", subtitle: "Introduction to Tuples",
+    icon: Layers,
+    content: "A tuple is a collection of items that is ordered and cannot be changed (immutable).",
+    examples: [
+      {
+        title: "The Pack",
+        explanation: "Use parentheses () to create a tuple.",
+        code: "point = (10, 20)"
+      },
+      {
+        title: "Unpacking",
+        explanation: "Extracting tuple values into separate variables.",
+        code: "x, y = point"
+      },
+      {
+        title: "Mixed Data",
+        explanation: "Tuples can hold different types of data.",
+        code: "user = (\"Ash\", 10, True)"
+      }
+    ],
+    keyPoint: "Tuples = Constant Lists."
+  },
+  {
+    id: 506, title: "T_ACCESS", subtitle: "Accessing Tuples",
+    icon: HelpCircle,
+    content: "Items in a tuple are accessed using index numbers, just like lists.",
+    examples: [
+      {
+        title: "By Index",
+        explanation: "Getting the first item (index 0).",
+        code: "colors = (\"Red\", \"Green\")\nprint(colors[0])"
+      },
+      {
+        title: "By Slice",
+        explanation: "Tuples support slicing just like strings and lists.",
+        code: "print(colors[0:1])"
+      },
+      {
+        title: "Finding",
+        explanation: "Checking if an item exists in the tuple.",
+        code: "if \"Red\" in colors: print(\"Found!\")"
+      }
+    ],
+    keyPoint: "tuple[index] = Read-only access."
+  },
+  {
+    id: 507, title: "T_IMMUTABLE", subtitle: "Immutable nature of Tuples",
     icon: Shield,
-    content: "Algorithmically: Set `max_val = list[0]`, loop through the rest, if `item > max_val`, then `max_val = item`. Python provides built-ins: max(list) and min(list). Always know the underlying logic, but use the built-ins for production code.",
-    keyPoint: "max() and min() are O(N) — they scan the whole list once."
+    content: "The biggest difference between lists and tuples: Tuples CANNOT be modified.",
+    examples: [
+      {
+        title: "No Change",
+        explanation: "You cannot overwrite an item in a tuple.",
+        code: "t = (1, 2)\n# t[0] = 5 -> ERROR!"
+      },
+      {
+        title: "No Growth",
+        explanation: "You cannot add or remove items from a tuple.",
+        code: "# t.append(3) -> ERROR!"
+      },
+      {
+        title: "Why Use It?",
+        explanation: "Great for data that should never change (like coordinates).",
+        code: "DAYS_OF_WEEK = (\"Mon\", \"Tue\", ...)"
+      }
+    ],
+    keyPoint: "Locked Data = Safety."
   },
   {
-    id: 510, title: "COUNT", subtitle: "Counting Occurrences",
-    icon: Hash,
-    content: "How many times does 'A' appear? Algorithm: loop through, if char == 'A', count += 1. Python built-in: s.count('A') or my_list.count(5). Using a Dictionary to count ALL items is a common interview question (creating a frequency map).",
-    keyPoint: "list.count(item) gets the occurrences in O(N) time."
+    id: 508, title: "DICTS", subtitle: "Introduction to Dictionaries",
+    icon: Braces,
+    content: "A Dictionary is a collection of data stored in 'Key: Value' pairs.",
+    examples: [
+      {
+        title: "The Map",
+        explanation: "Use curly braces {} to create a dictionary.",
+        code: "player = {\"name\": \"Ash\", \"level\": 10}"
+      },
+      {
+        title: "Word/Definition",
+        explanation: "Think of it like a real dictionary: Word is the Key, Definition is the Value.",
+        code: "dict = {\"Key\": \"Value\"}"
+      },
+      {
+        title: "Uniqueness",
+        explanation: "Keys must be unique (you can't have two 'name' keys).",
+        code: "# name: Ash, name: Red -> Second overwrites first"
+      }
+    ],
+    keyPoint: "Dict = Key-Value Pair."
   },
   {
-    id: 511, title: "SUM_AVG", subtitle: "Sum and Average",
-    icon: ListOrdered,
-    content: "Summing a list mathematically: total = 0, loop items, total += item. Python built-in: sum(my_list). To find average: sum(my_list) / len(my_list). Always check if len is 0 first to avoid ZeroDivisionError!",
-    keyPoint: "Average = sum(lst) / len(lst). Always guard against empty lists."
+    id: 509, title: "KEYS", subtitle: "Key-Value pairs (concept)",
+    icon: Activity,
+    content: "Keys are the 'labels' and Values are the 'data' stored under those labels.",
+    examples: [
+      {
+        title: "Labeling",
+        explanation: "Labeling health as 100.",
+        code: "stats = {\"hp\": 100, \"mp\": 50}"
+      },
+      {
+        title: "Multiple Types",
+        explanation: "Values can be strings, numbers, lists, or even other dicts.",
+        code: "data = {\"id\": 1, \"active\": True}"
+      },
+      {
+        title: "Fast Lookup",
+        explanation: "Dictionaries are optimized to find values instantly using their keys.",
+        code: "# Constant time lookup - O(1)"
+      }
+    ],
+    keyPoint: "Label -> Data."
   },
   {
-    id: 512, title: "SEARCH", subtitle: "Linear Search",
+    id: 510, title: "D_ACCESS", subtitle: "Accessing Dictionary values",
     icon: Search,
-    content: "Linear search checks every item one by one until it finds the target. It's O(N). In Python, you can use the 'in' keyword: if target in my_list. For finding the index: my_list.index(target). If the list is huge, linear search is slow.",
-    keyPoint: "Linear Search scans from start to finish. O(N) Time."
+    content: "To get a value, you use its Key inside of square brackets.",
+    examples: [
+      {
+        title: "Getting Value",
+        explanation: "Pass the key name to see the value.",
+        code: "user = {\"id\": \"A1\"}\nprint(user[\"id\"]) # A1"
+      },
+      {
+        title: ".get() method",
+        explanation: "A safer way to get data - returns None if key is missing (instead of crashing).",
+        code: "print(user.get(\"name\")) # None"
+      },
+      {
+        title: "Missing Key",
+        explanation: "Trying to access a key that doesn't exist causes a KeyError.",
+        code: "# user[\"age\"] -> CRASH!"
+      }
+    ],
+    keyPoint: "dict[key] = Value."
   },
   {
-    id: 513, title: "DEBUG", subtitle: "Debugging Strategies",
+    id: 511, title: "D_UPDATE", subtitle: "Updating Dictionaries",
+    icon: RefreshCw,
+    content: "Dictionaries are mutable. You can change values or add new ones at any time.",
+    examples: [
+      {
+        title: "The Update",
+        explanation: "Giving a key a new value.",
+        code: "player = {\"score\": 10}\nplayer[\"score\"] = 20 # Now 20"
+      },
+      {
+        title: "Adding New",
+        explanation: "Simply assign to a key that doesn't exist yet.",
+        code: "player[\"rank\"] = \"Hero\" # Added to dict"
+      },
+      {
+        title: "Removing",
+        explanation: "Use 'del' to remove a specific pair.",
+        code: "del player[\"rank\"]"
+      }
+    ],
+    keyPoint: "Add or Change via assignment."
+  },
+  {
+    id: 512, title: "D_MISTAKES", subtitle: "Common mistakes in Data Structures",
     icon: AlertCircle,
-    content: "When code breaks: 1. Read the error message (it points to the line!). 2. Rubber Duck Debugging (explain your code out loud to a rubber duck). 3. Use print() statements to trace variable values. 4. Binary search your bugs (comment out half the code to isolate the issue).",
-    keyPoint: "Don't guess! Use print() to see exactly what your variables hold."
-  },
-  {
-    id: 514, title: "EDGE", subtitle: "Handling Edge Cases",
-    icon: Shield,
-    content: "Edge cases are the weird inputs that break assumptions. What if the list is empty? What if they input a negative number for age? What if the string is 1 million characters long? A good problem solver tests edge cases before saying 'I'm done'.",
-    keyPoint: "Empty inputs, zeros, negative numbers — always test your Edge Cases!"
-  },
-  {
-    id: 515, title: "CLEAN", subtitle: "Clean Code Practices",
-    icon: CheckCircle2,
-    content: "Code is read 10x more than it is written. Use descriptive variable names (avg_score, not a). Avoid deep nesting (use early returns). Comment WHY, not WHAT. Follow PEP-8 styling standards. Clean code is a sign of a professional.",
-    keyPoint: "Write code for HUMANS to read, not just machines."
+    content: "Common traps when managing complex data in Python.",
+    examples: [
+      {
+        title: "KeyError",
+        explanation: "Accessing a dictionary key that hasn't been created yet.",
+        code: "d = {}\n# print(d[\"x\"]) -> Error"
+      },
+      {
+        title: "Case Sensitivity",
+        explanation: "Keys \"Name\" and \"name\" are treated as different things.",
+        code: "d = {\"a\": 1}\n# print(d[\"A\"]) -> Error"
+      },
+      {
+        title: "Tuple Mutation",
+        explanation: "Thinking you can change a tuple like a list.",
+        code: "t = (1, 2)\n# t[0] = 5 -> Error"
+      }
+    ],
+    keyPoint: "Check your keys and mutability."
   }
 ];
 
@@ -162,5 +348,35 @@ export const L5_TESTS = [
       { tokens: ["avg", "=", "sum(arr)", "/", "len(arr)"], answer: ["avg", "=", "sum(arr)", "/", "len(arr)"] },
       { tokens: ["rev", "=", "string", "[::-1]"], answer: ["rev", "=", "string", "[::-1]"] }
     ]
+  },
+  {
+    id: 521, title: "CODING LAB", subtitle: "String Shift", icon: Type, type: 'coding',
+    gameData: {
+      title: "Data Transformation",
+      objective: "Given s = 'python', transform it to uppercase using .upper() and print it.",
+      starterCode: "s = 'python'\n# Transform and print here\n",
+      hints: ["s.upper() returns 'PYTHON'", "print(s.upper())"],
+      validate: (logs) => logs.some(l => l.includes("PYTHON"))
+    }
+  },
+  {
+    id: 522, title: "CODING LAB", subtitle: "Tuple Access", icon: Layers, type: 'coding',
+    gameData: {
+      title: "Immutable Retrieval",
+      objective: "Given point = (10, 20), print the second element (20).",
+      starterCode: "point = (10, 20)\n# Access and print index 1\n",
+      hints: ["Tuples use index like lists", "print(point[1])"],
+      validate: (logs) => logs.some(l => l.includes("20"))
+    }
+  },
+  {
+    id: 523, title: "CODING LAB", subtitle: "Dictionary Key", icon: Search, type: 'coding',
+    gameData: {
+      title: "Map Lookup",
+      objective: "Given hero = {'hp': 100, 'lvl': 5}, print the value associated with 'hp'.",
+      starterCode: "hero = {'hp': 100, 'lvl': 5}\n# Access 'hp' and print it\n",
+      hints: ["hero['hp']", "Use brackets for keys"],
+      validate: (logs) => logs.some(l => l.includes("100"))
+    }
   }
 ];

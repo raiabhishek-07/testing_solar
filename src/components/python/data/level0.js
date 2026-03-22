@@ -4,27 +4,27 @@ import { Cpu, Code, Zap, Terminal, Layers, Shield, HelpCircle, CheckCircle2, Sta
 // ─────────────────────────────────────────────
 export const L0_FOUNDATION = [
   {
-    id: 1, title: "HARDWARE", subtitle: "What is a Computer?",
+    id: 1, title: "HARDWARE", subtitle: "What is a computer",
     icon: Cpu,
-    content: "A computer is a high-speed machine that processes information. It has physical parts (hardware) and programs (software).",
+    content: "A computer is an electronic machine that takes data as input, processes it, and gives output.",
     examples: [
       {
-        title: "The Brain (CPU)",
-        explanation: "The Central Processing Unit handles all calculations.",
-        code: "# CPU processes: 2 + 2 = 4"
-      },
-      {
-        title: "Memory (RAM)",
-        explanation: "Short-term storage for things the computer is currently doing.",
-        code: "current_level = 5 # Stored in RAM"
-      },
-      {
         title: "Input Devices",
-        explanation: "Hardware like keyboards and mice that send data to the CPU.",
-        code: "# Mouse click -> Input signal"
+        explanation: "Keyboard, Mouse, Mic - How we give data.",
+        code: "# Giving data to the system"
+      },
+      {
+        title: "Processing (CPU)",
+        explanation: "The 'brain' that does all the work.",
+        code: "# CPU handles 2 + 2"
+      },
+      {
+        title: "Output Devices",
+        explanation: "Monitor, Speaker, Printer - How we see results.",
+        code: "# System shows result as 4"
       }
     ],
-    keyPoint: "Hardware = Physical. Software = Instructions."
+    keyPoint: "Computer = Input -> Process -> Output."
   },
   {
     id: 2, title: "GHOST", subtitle: "What is a Program?",
@@ -96,27 +96,27 @@ export const L0_FOUNDATION = [
     keyPoint: "Python = Human-readable, yet machine-powerful."
   },
   {
-    id: 5, title: "LEVELS", subtitle: "High vs Low Level",
+    id: 5, title: "LEVELS", subtitle: "Types of languages (low vs high level – simple idea)",
     icon: Layers,
-    content: "Low-level languages are for machines; high-level languages like Python are for people.",
+    content: "Languages are either Low-Level (for machines) or High-Level (for humans, like Python).",
     examples: [
       {
-        title: "Abstraction",
-        explanation: "Python hides the complex machine details from you.",
-        code: "my_list = [1, 2, 3] # Complex memory handled!"
+        title: "High-Level",
+        explanation: "Easy to read, looks like English.",
+        code: "print(\"Hello world\")"
       },
       {
-        title: "The Interpreter",
-        explanation: "Python reads your code line by line, on the fly.",
-        code: "# No long 'wait to compile' time"
+        title: "Low-Level",
+        explanation: "Difficult to read, looks like math and symbols.",
+        code: "# 01010100 01100101"
       },
       {
-        title: "Portability",
-        explanation: "High-level languages are easy to move between computers.",
-        code: "# Same code, different PC"
+        title: "The Choice",
+        explanation: "Most people choose High-Level for faster building.",
+        code: "# Code that runs everywhere"
       }
     ],
-    keyPoint: "Higher level = More human-readable."
+    keyPoint: "High-Level = Human Friendly."
   },
   {
     id: 6, title: "RECIPE", subtitle: "Real-life Instructions",
@@ -188,96 +188,96 @@ export const L0_FOUNDATION = [
     keyPoint: "Python Output: print('Hello World')"
   },
   {
-    id: 9, title: "DECISION", subtitle: "What is Logic?",
-    icon: Cpu,
-    content: "Logic is making choices using conditions (if/else).",
+    id: 9, title: "LOGIC", subtitle: "What is logic (simple meaning)",
+    icon: HelpCircle,
+    content: "Logic is the 'If-This-Then-That' way of thinking used to solve problems.",
     examples: [
       {
-        title: "The Check",
-        explanation: "Running code only if a condition is met.",
-        code: "if score > 100:\n    print(\"New Record!\")"
+        title: "Simple Decision",
+        explanation: "Is it dark? If yes, turn on lights.",
+        code: "if is_dark: lights_on()"
       },
       {
         title: "The Alternative",
-        explanation: "Doing something else if the check fails.",
-        code: "if sunny: play()\nelse: watch_tv()"
+        explanation: "If not dark, keep lights off.",
+        code: "else: lights_off()"
       },
       {
-        title: "True/False",
-        explanation: "Logic depends on 'Boolean' (Yes/No) values.",
-        code: "is_ready = True\nif is_ready: start()"
+        title: "Boolean Logic",
+        explanation: "Everything is either True or False.",
+        code: "ready = True\nif ready: launch()"
       }
     ],
-    keyPoint: "Python Logic: if x > 10: print('big')"
+    keyPoint: "Logic = Making choices."
   },
   {
-    id: 10, title: "PATHWAY", subtitle: "What is an Algorithm?",
-    icon: Code,
-    content: "An algorithm must be precise, ordered, and finite.",
+    id: 10, title: "ALGO", subtitle: "What is an algorithm (step-by-step idea)",
+    icon: MapPin,
+    content: "An algorithm is a step-by-step method to solve a problem correctly.",
     examples: [
       {
-        title: "Precision",
-        explanation: "Instructions must be perfectly clear.",
-        code: "x = 10 # Precise value"
+        title: "Tea Algorithm",
+        explanation: "1. Boil, 2. Add sugar, 3. Stir.",
+        code: "# The process of making tea"
       },
       {
-        title: "Ordered Steps",
-        explanation: "The computer follows your lines from top to bottom.",
-        code: "step1()\nstep2()"
+        title: "Search Algorithm",
+        explanation: "Looking for a name in a list one by one.",
+        code: "# Find 'Alex' in ['Bob', 'Alex', 'Zane']"
       },
       {
-        title: "Finite End",
-        explanation: "Algorithms should eventually finish (no 'forever' bugs).",
-        code: "for i in range(5): do_task()"
+        title: "Math Algorithm",
+        explanation: "How we learn to do long division.",
+        code: "# 10 / 2 = 5 (Step-by-step)"
       }
     ],
-    keyPoint: "An algorithm must be: precise, ordered, finite."
+    keyPoint: "Algorithm = A plan for the computer."
   },
   {
-    id: 11, title: "FIXER", subtitle: "What is Debugging?",
-    icon: Zap,
-    content: "Debugging is reading error reports (tracebacks) to fix mistakes.",
+    id: 11, title: "DEBUG", subtitle: "What is debugging (finding mistakes)",
+    icon: Hammer,
+    content: "Debugging is the process of finding and fixing mistakes in your program.",
     examples: [
       {
-        title: "Syntax Errors",
-        explanation: "Fixing typos or missing symbols (like colons).",
-        code: "if True\n    print() # Error: Missing colon!"
+        title: "The Typo",
+        explanation: "Correcting 'prnit' to 'print'.",
+        code: "prnit(\"Hi\") # Error!\nprint(\"Hi\") # Clean!"
       },
       {
-        title: "Runtime Errors",
-        explanation: "Fixing math that the computer can't do (like 1/0).",
-        code: "print(10/0) # Error: ZeroDivision"
+        title: "Logic Bug",
+        explanation: "When you win with 0 points when you should need 100.",
+        code: "if points < 100: win() # Oops!"
       },
       {
-        title: "Logic Bugs",
-        explanation: "The code runs, but doesn't do what you wanted.",
-        code: "if score < 0: win() # Oops, meant > 0"
+        title: "Error Messages",
+        explanation: "Reading what the computer says is wrong.",
+        code: "# Traceback (most recent call last)..."
       }
     ],
-    keyPoint: "Python devs say: 'Read the Error Message First!'"
+    keyPoint: "Debug = Detect and Destroy bugs."
   },
   {
-    id: 12, title: "VALUE", subtitle: "Why Learn Python?",
-    icon: Star,
-    content: "Python is the multi-purpose Swiss Army knife of the tech world.",
+    id: 12, title: "USEFUL", subtitle: "Why coding is useful",
+    icon: Sparkles,
+    content: "Coding gives you the power to automate tasks and build your own digital tools.",
     examples: [
       {
-        title: "AI Power",
-        explanation: "Almost all modern AI (like ChatGPT) is built with Python.",
-        code: "# The fuel of future tech"
+        title: "Daily Tasks",
+        explanation: "Sort files or send emails automatically.",
+        code: "# Automated file sorting script"
       },
       {
-        title: "Data Science",
-        explanation: "Crunching massive numbers for companies like Netflix.",
-        code: "# Understanding human patterns"
+        title: "Creativity",
+        explanation: "Build your own games or drawing apps.",
+        code: "# Creating a player object"
       },
       {
-        title: "Career Tool",
-        explanation: "One of the highest-paying and most demanded skills.",
-        code: "# Open doors to top tech companies"
+        title: "Global Scale",
+        explanation: "Write once, used by millions worldwide.",
+        code: "# Launching a web server"
       }
     ],
-    keyPoint: "Python powers: Instagram, YouTube, NASA, Google."
+    keyPoint: "Coding = Digital Superpowers."
   }
 ];
 

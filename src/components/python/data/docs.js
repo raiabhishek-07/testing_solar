@@ -81,42 +81,37 @@ export const PYTHON_DOCS = [
     ]
   },
   {
-    category: "🟣 LEVEL 4 — STRINGS & FUNCTIONS",
+    category: "🟣 LEVEL 4 — FUNCTION & LOGIC",
     topics: [
-      { title: "What is string", icon: Type },
-      { title: "String declaration", icon: Box },
-      { title: "String length", icon: Hash },
-      { title: "Access characters", icon: Target },
-      { title: "String comparison", icon: Filter },
-      { title: "String concatenation", icon: Zap },
-      { title: "Common string mistakes", icon: AlertCircle },
-      { title: "What is function", icon: FlaskConical },
-      { title: "Why functions are used", icon: Sparkles },
-      { title: "Function syntax", icon: Layout },
-      { title: "Parameters", icon: Database },
-      { title: "Return values", icon: ArrowRight },
+      { title: "What is function", icon: Braces },
+      { title: "Creating a function", icon: Code },
       { title: "Calling a function", icon: Zap },
-      { title: "Debugging functions", icon: Hammer }
+      { title: "Function parameters", icon: Terminal },
+      { title: "Function arguments", icon: Code },
+      { title: "return statement", icon: ArrowRight },
+      { title: "Scope (Home vs Outside)", icon: Shield },
+      { title: "Why use functions", icon: Star },
+      { title: "Built-in functions (range, len)", icon: Cpu },
+      { title: "Input/Output in functions", icon: Layers },
+      { title: "Logic building with functions", icon: GitBranch },
+      { title: "Output prediction (functions)", icon: HelpCircle }
     ]
   },
   {
-    category: "🔴 LEVEL 5 — CORE PROBLEM SOLVING",
+    category: "🔴 LEVEL 5 — DATA POWER",
     topics: [
-      { title: "What is recursion", icon: Repeat },
-      { title: "Base case concept", icon: Target },
-      { title: "Recursive calls", icon: Repeat },
-      { title: "Recursion vs loop", icon: Filter },
-      { title: "What is searching", icon: Search },
-      { title: "Linear search", icon: Search },
-      { title: "Steps of linear search", icon: ListOrdered },
-      { title: "What is sorting", icon: ListIcon },
-      { title: "Bubble sort concept", icon: Zap },
-      { title: "Swapping elements", icon: Repeat },
-      { title: "Pass concept in sorting", icon: Layers },
-      { title: "Time complexity (very basic idea)", icon: HelpCircle },
-      { title: "Debugging algorithms", icon: Hammer },
-      { title: "Tracing recursion (simple)", icon: Search },
-      { title: "Common mistakes", icon: AlertCircle }
+      { title: "Strings (multi-line, quote types)", icon: Type },
+      { title: "String methods (.upper, .lower)", icon: RefreshCw },
+      { title: "String slicing (substrings)", icon: Filter },
+      { title: "Escape characters (\\n, \\t)", icon: Zap },
+      { title: "Introduction to Tuples", icon: Layers },
+      { title: "Accessing Tuples", icon: HelpCircle },
+      { title: "Immutable nature of Tuples", icon: Shield },
+      { title: "Introduction to Dictionaries", icon: Braces },
+      { title: "Key-Value pairs (concept)", icon: Activity },
+      { title: "Accessing Dictionary values", icon: Search },
+      { title: "Updating Dictionaries", icon: RefreshCw },
+      { title: "Common mistakes in Data Structures", icon: AlertCircle }
     ]
   },
   {

@@ -1,68 +1,150 @@
 {
-  "label": "PYTHON_ARCADE",
-  "foundation": [
+  "label": "LEVEL 4: STRINGS & FUNCTIONS (Spell Library)",
+  "sublevels": [
     {
-       "id": 401, "title": "STRING", "subtitle": "Textual DNA", "icon": "Type",
-       "content": "Strings are sequences of characters. In Python, they are immutable—this means once a string is born, it cannot be edited. It can only be reborn as a new string.",
-       "scenario": "A Name Tag. If you write 'Neo' and want it to say 'Nio', you can't erase a letter (Immutability). You must throw the tag away and write a new one.",
-       "examples": [
-         { "title": "Creation", "explanation": "Defining text using either single or double quotes.", "code": "s = 'Mission Alpha'" },
-         { "title": "Character Access", "explanation": "Retrieving a single character using its 0-indexed position.", "code": "first = s[0] # 'M'" },
-         { "title": "Index Logic", "explanation": "Using negative numbers to count backwards from the end (-1 is the last).", "code": "last = s[-1] # 'a'" }
-       ],
-       "keyPoint": "Strings are IMMUTABLE. You cannot do: s[0] = 'X'."
+      "id": "4_1",
+      "title": "STRINGS",
+      "subtitle": "Text manipulation & methods",
+      "icon": "Type",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l4c1", "title": "Strings Deep Dive", "emoji": "🧵",
+            "analogy": "A string is like a necklace of beads — each bead is one character. You can count beads, pick specific ones by position, or rearrange them.",
+            "content": "Strings are sequences of characters. Each character has an index starting from 0. You can access individual characters, find the length, and slice parts out.",
+            "examples": [{ "title": "String Indexing", "explanation": "Each character has a position starting from 0.", "code": "word = 'Python'\nprint(word[0])    # P\nprint(word[3])    # h\nprint(len(word))  # 6" }],
+            "funFact": "Strings are IMMUTABLE in Python — you can't change a character in place. You must create a new string! 🔒"
+          },
+          {
+            "id": "l4c2", "title": "String Methods", "emoji": "🔧",
+            "analogy": "String methods are like built-in spell effects. .upper() shouts, .lower() whispers, .replace() swaps words, .split() breaks text into a list.",
+            "content": "Python strings have dozens of built-in methods: .upper(), .lower(), .strip(), .replace(old, new), .split(), .find(), .count(), .startswith(), .endswith().",
+            "examples": [{ "title": "Common Methods", "explanation": "Methods don't change the original — they return a NEW string.", "code": "name = 'Hello World'\nprint(name.upper())          # HELLO WORLD\nprint(name.lower())          # hello world\nprint(name.replace('H','J')) # Jello World\nprint(name.split(' '))       # ['Hello', 'World']" }],
+            "funFact": ".strip() removes whitespace from both ends. Super useful for cleaning user input! 🧹"
+          },
+          {
+            "id": "l4c3", "title": "String Slicing", "emoji": "✂️",
+            "analogy": "Slicing is like cutting a piece of ribbon. You pick the start position, the end position, and snip! The original stays untouched.",
+            "content": "Slicing syntax: string[start:end]. start is included, end is excluded. Omit start = from beginning. Omit end = to the end.",
+            "examples": [{ "title": "Slicing Examples", "explanation": "Start included, end excluded.", "code": "s = 'ABCDEF'\nprint(s[1:4])  # BCD\nprint(s[:3])   # ABC\nprint(s[3:])   # DEF\nprint(s[::-1]) # FEDCBA (reverse!)" }],
+            "funFact": "s[::-1] reverses any string! This is a classic Python interview question. 🔄"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "STRING SORCERER", "maxHp": 100 },
+          "mcq": [
+            { "q": "What is 'Hello'[1]?", "options": ["H", "e", "l", "o"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Index 0='H', 1='e'. String indexing starts at 0." },
+            { "q": "What does .upper() do?", "options": ["Makes first letter capital", "Converts entire string to UPPERCASE", "Removes spaces", "Reverses string"], "a": 1, "damage": 20, "topic": "Methods", "explanation": ".upper() converts every character to uppercase." },
+            { "q": "What is 'Python'[1:4]?", "options": ["Pyt", "yth", "ytho", "ython"], "a": 1, "damage": 20, "topic": "Slicing", "explanation": "Index 1='y', 2='t', 3='h'. End (4) is excluded. Result: 'yth'." },
+            { "q": "Are strings mutable (changeable) in Python?", "options": ["Yes", "No — strings are immutable", "Only lowercase ones", "Only with .change()"], "a": 1, "damage": 20, "topic": "Immutability", "explanation": "Strings are immutable. You can't change individual characters — only create new strings." },
+            { "q": "What does 'hello world'.split(' ') return?", "options": ["'helloworld'", "['hello', 'world']", "['h','e','l','l','o']", "Error"], "a": 1, "damage": 20, "topic": "Split", "explanation": ".split(' ') breaks the string at spaces into a list of words." }
+          ]
+        },
+        "coding": [
+          { "title": "First Character", "objective": "What is 'Code'[0]?", "starterCode": "print('Code'[0])\n# Output: ___", "answer": "C", "hint": "Index 0 is the first character." },
+          { "title": "Reverse It", "objective": "How do you reverse a string s? Type the slice notation.", "starterCode": "s = 'hello'\nprint(s[___])\n# Should print: olleh", "answer": "::-1", "hint": "Step -1 means go backwards from end to start." },
+          { "title": "Upper Case", "objective": "What does 'hello'.upper() return?", "starterCode": "print('hello'.upper())\n# Output: ___", "answer": "HELLO", "hint": ".upper() converts all characters to uppercase." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nname = 'Alex'\nname[0] = 'B'", "brokenCode": "name = 'Alex'\nname[0] = 'B'", "bugLine": 1, "options": ["Nothing wrong, name becomes 'Blex'", "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "Index should be 1", "Use .change()"], "answer": "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "hint": "Strings can't be modified in place. Create a new string instead." },
+          { "type": "mcq", "description": "🚨 Bug:\n\nprint('Hello'.Upper())", "brokenCode": "print('Hello'.Upper())", "bugLine": 0, "options": ["Nothing wrong", "'Upper' should be lowercase 'upper'", "Remove the ()", "Hello needs double quotes"], "answer": "'Upper' should be lowercase 'upper'", "hint": "Python is case sensitive. String methods are all lowercase." }
+        ],
+        "prediction": [
+          { "code": "s = 'ABCDE'\nprint(s[1:3])\nprint(s[::-1])", "options": ["BC and EDCBA", "AB and EDCBA", "BCD and ABCDE", "BC and ABCDE"], "answer": "BC and EDCBA", "explanation": "s[1:3] = 'BC' (index 1,2). s[::-1] = 'EDCBA' (reversed)." },
+          { "code": "x = 'hello'\ny = x.upper()\nprint(x)\nprint(y)", "options": ["hello HELLO", "HELLO HELLO", "hello hello", "HELLO hello"], "answer": "hello HELLO", "explanation": ".upper() returns a NEW string. The original x stays 'hello'. y gets 'HELLO'." }
+        ]
+      }
     },
     {
-       "id": 404, "title": "SLICE", "subtitle": "String Slicing", "icon": "Hash",
-       "content": "Slicing allows you to extract a specific 'chunk' of text from a larger string using the [start:stop] syntax.",
-       "scenario": "A Subway Sandwich. You don't always want the whole 12 inches. You take a slice from 4 inches to 8 inches to get exactly what you need.",
-       "examples": [
-         { "title": "Basic Slice", "explanation": "Extracting text starting at index 2 up to (but not including) index 5.", "code": "word = 'Python'\nprint(word[0:2]) # 'Py'" },
-         { "title": "The Shortcut", "explanation": "Leaving one side empty means 'from the beginning' or 'to the end'.", "code": "chunk = word[:2] # 'Py'\nend = word[2:] # 'thon'" },
-         { "title": "Step Slice", "explanation": "Using a third number to skip characters (e.g. every second char).", "code": "skip = word[::2] # 'Pto'" }
-       ],
-       "keyPoint": "[start:stop:step]. Stop is NOT included."
+      "id": "4_2",
+      "title": "FUNCTIONS",
+      "subtitle": "Reusable spell recipes",
+      "icon": "Wand2",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l4c4", "title": "What is a Function?", "emoji": "📜",
+            "analogy": "A function is like a recipe card. You write it once, then cook (call) it whenever you want. The recipe can take ingredients (parameters) and serve a dish (return value).",
+            "content": "Functions are reusable blocks of code. Define with 'def', give it a name and optional parameters, then call it by name. Functions keep code DRY (Don't Repeat Yourself).",
+            "examples": [{ "title": "Define & Call", "explanation": "def creates it. name() calls it.", "code": "def greet():\n    print('Hello!')\n\ngreet()   # Hello!\ngreet()   # Hello!  (reusable!)" }],
+            "funFact": "The average software project has thousands of functions. Netflix has over 700 microservices, each packed with functions! 📺"
+          },
+          {
+            "id": "l4c5", "title": "Parameters & Arguments", "emoji": "📦",
+            "analogy": "Parameters are empty slots on the recipe card. Arguments are the actual ingredients you fill in when cooking. The recipe says 'add FLOUR'. You add '2 cups of wheat flour'.",
+            "content": "Parameters are variables listed in the function definition. Arguments are the actual values you pass when calling. They let functions work with different data each time.",
+            "examples": [{ "title": "Parameters in Action", "explanation": "name is a parameter. 'Alex' is an argument.", "code": "def greet(name):\n    print(f'Hello, {name}!')\n\ngreet('Alex')    # Hello, Alex!\ngreet('Neo')     # Hello, Neo!" }],
+            "funFact": "Python supports default parameters: def greet(name='World'). If you call greet(), it uses 'World' automatically! 😎"
+          },
+          {
+            "id": "l4c6", "title": "Return Values", "emoji": "📤",
+            "analogy": "return is like the waiter bringing your dish BACK to you. Without return, the function does its work but gives you nothing back — the result stays inside.",
+            "content": "return sends a value BACK to where the function was called. Without return, the function returns None. The function STOPS running at the return line.",
+            "examples": [{ "title": "Return vs Print", "explanation": "return gives back a value you can store. print just displays.", "code": "def add(a, b):\n    return a + b\n\nresult = add(5, 3)  # result = 8\nprint(result)       # 8" }],
+            "funFact": "A function can return multiple values! return x, y returns a tuple. Python is one of few languages that allows this. 🎁"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE ARCHIVIST", "maxHp": 100 },
+          "mcq": [
+            { "q": "Which keyword defines a function in Python?", "options": ["func", "function", "def", "define"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "'def' is the keyword to define functions in Python." },
+            { "q": "What is the difference between a parameter and an argument?", "options": ["No difference", "Parameter is in def, argument is when calling", "Argument is in def", "Parameters are only for numbers"], "a": 1, "damage": 20, "topic": "Parameters", "explanation": "Parameter: variable in the definition. Argument: actual value passed when calling." },
+            { "q": "What does a function return if there's no return statement?", "options": ["0", "False", "None", "Error"], "a": 2, "damage": 20, "topic": "Return", "explanation": "Without an explicit return, Python functions return None by default." },
+            { "q": "Can a function call another function?", "options": ["No", "Yes", "Only built-in functions", "Only in classes"], "a": 1, "damage": 20, "topic": "Composition", "explanation": "Functions can absolutely call other functions — this is called function composition!" },
+            { "q": "What happens after a return statement executes?", "options": ["Next line runs", "Function restarts", "Function immediately stops", "Nothing"], "a": 2, "damage": 20, "topic": "Return Flow", "explanation": "return immediately exits the function. No code after it runs." }
+          ]
+        },
+        "coding": [
+          { "title": "Function Keyword", "objective": "What keyword starts a function definition? Type it.", "starterCode": "___ greet():\n    print('Hi!')", "answer": "def", "hint": "Short for 'define'. 3 letters." },
+          { "title": "Return Value", "objective": "def double(x): return x * 2. What does double(7) return?", "starterCode": "def double(x):\n    return x * 2\n\nprint(double(7))\n# Output: ___", "answer": "14", "hint": "7 * 2 = 14." },
+          { "title": "No Return", "objective": "def say(): print('Hi'). What does result = say() store?", "starterCode": "def say():\n    print('Hi')\n\nresult = say()\nprint(result)\n# Output: ___", "answer": "None", "hint": "No return statement = function returns None." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\ndef add(a, b)\n    return a + b", "brokenCode": "def add(a, b)\n    return a + b", "bugLine": 0, "options": ["Missing colon after parameters: def add(a, b):", "Use 'function' keyword", "return is wrong", "Nothing wrong"], "answer": "Missing colon after parameters: def add(a, b):", "hint": "Like if and for, function definitions need a colon at the end." },
+          { "type": "mcq", "description": "🚨 Bug:\n\ndef greet():\n    print('Hello')\n\ngreet", "brokenCode": "def greet():\n    print('Hello')\n\ngreet", "bugLine": 3, "options": ["Missing parentheses: greet() — need () to CALL a function", "greet should be Greet", "print is wrong", "Nothing wrong"], "answer": "Missing parentheses: greet() — need () to CALL a function", "hint": "'greet' alone is a reference. 'greet()' calls/executes it." }
+        ],
+        "prediction": [
+          { "code": "def square(n):\n    return n * n\n\nx = square(4)\ny = square(3)\nprint(x + y)", "options": ["7", "12", "25", "49"], "answer": "25", "explanation": "square(4)=16, square(3)=9. 16+9=25." },
+          { "code": "def mystery(a, b):\n    if a > b:\n        return a\n    return b\n\nprint(mystery(3, 7))", "options": ["3", "7", "10", "Error"], "answer": "7", "explanation": "3>7 is False, so first return skipped. return b → 7. This is a max() function!" }
+        ]
+      }
     },
     {
-       "id": 408, "title": "FUNCTION", "subtitle": "The Reusable Machine", "icon": "Braces",
-       "content": "A function is a pre-built machine. You build it once, give it a name, and press its button (Call it) whenever you need that job done.",
-       "scenario": "A Coffee Machine. You don't build the circuit every morning. You just press the 'Brew' button (Call), and out comes a result.",
-       "examples": [
-         { "title": "The Definition", "explanation": "Creating the blueprint for your machine using the 'def' keyword.", "code": "def scan():\n    print('Scanning...')" },
-         { "title": "The Call", "explanation": "Running the code inside the function by typing its name with ().", "code": "scan() # Starts the logic" },
-         { "title": "Scope Isolation", "explanation": "Variables created inside a function are private and don't exist outside.", "code": "def f(): x = 5\nprint(x) # Error: x is local!" }
-       ],
-       "keyPoint": "def name(): defines it. name() runs it."
-    },
-    {
-       "id": 411, "title": "PARAMS", "subtitle": "Machine Inputs", "icon": "Zap",
-       "content": "Parameters are holes in your machine where you pour data (Arguments) to change how the machine behaves.",
-       "scenario": "An Electric Oven. The 'Temperature' is a parameter. You set it to 200 (Argument) to bake pizza, or 50 to keep it warm.",
-       "examples": [
-         { "title": "Single Input", "explanation": "Passing one piece of data to become a variable inside the function.", "code": "def greet(name):\n    print(f'Hi {name}')" },
-         { "title": "Multi-Input", "explanation": "Providing multiple data points separated by commas.", "code": "def add(a, b):\n    print(a + b)" },
-         { "title": "Default Value", "explanation": "Giving a parameter a 'Plan B' value if the user forgets to provide one.", "code": "def power(on=True):\n    pass" }
-       ],
-       "keyPoint": "Arguments are the actual data. Parameters are the names used in the def."
-    },
-    {
-       "id": 412, "title": "RETURN", "subtitle": "Machine Results", "icon": "Terminal",
-       "content": "Return is the output slot of your machine. It hands data back to the rest of the program so you can use it later.",
-       "scenario": "A Cashier at a Store. You give money (Input), they process the transaction, and they RETURN your receipt and change (Output).",
-       "examples": [
-         { "title": "Basic Return", "explanation": "Sending a calculation result back to the main code line.", "code": "def cube(x):\n    return x * x * x" },
-         { "title": "Save to Variable", "explanation": "Capturing the returned value so you can store it in a new box.", "code": "val = cube(3)\nprint(val) # 27" },
-         { "title": "The Exit", "explanation": "'return' immediately kills the function. No code after return ever runs.", "code": "def f():\n    return 5\n    print('Hidden') # Never runs" }
-       ],
-       "keyPoint": "return exits the function and hands back data."
-    }
-  ],
-  "tests": [
-    {
-      "id": 415, "title": "MCQ ADVENTURE", "subtitle": "Strings & Functions Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "Valid way to define a function?", "options": ["def my_func():","function my_func():","func my_func():","define my_func():"], "a": 0, "hint": "Short for define." }
-      ]
+      "id": "4_boss",
+      "title": "THE ARCHIVIST",
+      "subtitle": "BOSS FIGHT — Strings & Functions",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss4_intro", "title": "⚠️ BOSS — THE ARCHIVIST", "emoji": "👾",
+            "analogy": "The Archivist guards the Spell Library. Every string method and function recipe is in its vault. Prove you've mastered them all!",
+            "content": "This boss tests string indexing, slicing, methods, function definitions, parameters, return values, and the interplay between them.",
+            "examples": [{ "title": "Your mastery", "explanation": "", "code": "✅ String indexing & slicing\n✅ .upper(), .lower(), .split(), .replace()\n✅ def, parameters, arguments\n✅ return values vs print\n✅ Function composition" }],
+            "funFact": "Alan Turing proved that any computable function can be built from simpler functions. Your functions can build anything! 🧠"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE ARCHIVIST", "maxHp": 150 },
+          "mcq": [
+            { "q": "What does 'Hello'[1:3] return?", "options": ["He", "el", "ell", "lo"], "a": 1, "damage": 30, "topic": "Slicing", "explanation": "Index 1='e', 2='l'. End (3) excluded. Result: 'el'." },
+            { "q": "def f(x): return x**2\nprint(f(5) + f(3))", "options": ["8", "15", "34", "64"], "a": 2, "damage": 30, "topic": "Function Calls", "explanation": "f(5)=25, f(3)=9. 25+9=34." },
+            { "q": "What does 'a,b,c'.split(',') return?", "options": ["'abc'", "['a','b','c']", "['a,b,c']", "Error"], "a": 1, "damage": 30, "topic": "Split", "explanation": "Split at commas → ['a', 'b', 'c']." },
+            { "q": "def add(a,b): return a+b\nadd(2,3)\nprint(add(2,3))", "options": ["5 and 5", "Only 5 (from print)", "Nothing", "Error"], "a": 1, "damage": 30, "topic": "Return", "explanation": "First call returns 5 but it's not stored/printed. Second call prints 5." },
+            { "q": "Can you use a function's return value as a string method?", "options": ["No", "Yes, e.g. get_name().upper()", "Only for numbers", "Only in classes"], "a": 1, "damage": 30, "topic": "Chaining", "explanation": "If a function returns a string, you can chain methods: get_name().upper()." }
+          ]
+        },
+        "coding": [
+          { "title": "Boss: Combo", "objective": "def shout(text): return text.upper(). What does shout('hello') return?", "starterCode": "def shout(text):\n    return text.upper()\n\nprint(shout('hello'))\n# Output: ___", "answer": "HELLO", "hint": "'hello'.upper() → 'HELLO'." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Boss Bug:\n\ndef greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "brokenCode": "def greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "bugLine": 3, "options": ["Nothing wrong", "greet() is missing the required 'name' argument", "return is wrong", "print needs uppercase"], "answer": "greet() is missing the required 'name' argument", "hint": "greet expects 1 argument (name) but was called with 0." }
+        ],
+        "prediction": [
+          { "code": "def first_last(s):\n    return s[0] + s[-1]\n\nprint(first_last('Python'))", "options": ["Py", "Pn", "on", "yh"], "answer": "Pn", "explanation": "s[0]='P', s[-1]='n' (last char). 'P'+'n'='Pn'." }
+        ]
+      }
     }
   ]
 }

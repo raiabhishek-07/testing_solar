@@ -1,180 +1,789 @@
 {
-  "label": "JAVA_ARCADE",
-  "foundation": [
+  "label": "LEVEL 1: FIRST CODE (Basic Syntax)",
+  "sublevels": [
     {
-       "id": 101, "title": "STRUCTURE", "subtitle": "Structure of a Program", "icon": "Layers",
-       "content": "A Java program is built entirely of 'Classes' and 'Methods'. EVERY piece of code must live inside a class. Execution always starts perfectly at the top of the sequence in the 'main' method.",
-       "scenario": "A Formal Letter. You must start with the correct Header (Class), the correct Greeting (Main method), and you MUST end every sentence with a period (Semicolon) or it won't be sent.",
-       "subtopics": ["What is a program structure", "Order of execution (top → bottom)", "Entry point (main idea, simplified)", "Statements vs lines", "Importance of sequence"],
-       "learningOutcome": "Code runs line by line in order",
-       "examples": [
-         { "title": "Class Match", "explanation": "If your file is App.java, your class MUST be 'public class App'.", "code": "public class App {\n}" },
-         { "title": "Main Method", "explanation": "The specific portal the JVM enters to find and sequentially run your actual code.", "code": "public static void main(String[] a) {\n}" },
-         { "title": "Statements", "explanation": "Code lines end forcefully in semicolons forming strict sequences.", "code": "moveUp();\nattack();" }
-       ],
-       "keyPoint": "One File = One Primary Class. main() is the starting gate."
+      "id": "1_1",
+      "title": "STRUCTURE & PRINT",
+      "subtitle": "Your first lines of code",
+      "icon": "Terminal",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c1",
+            "title": "Structure of a Basic Program",
+            "emoji": "🏗️",
+            "analogy": "A program is like a recipe card — it reads FROM TOP TO BOTTOM, one line at a time. Line 1 runs first, then Line 2, etc.",
+            "content": "Every Python program starts from the top line and runs downward. There's no special setup needed — just write your instructions and Python runs them in order!",
+            "examples": [
+              { "title": "Top-to-Bottom Execution", "explanation": "Python runs lines 1 → 2 → 3 in order.", "code": "print('Line ONE')\nprint('Line TWO')\nprint('Line THREE')" }
+            ],
+            "funFact": "Python doesn't use semicolons or curly braces — just clean, readable lines! That's why it's popular. 🐍"
+          },
+          {
+            "id": "l1c2",
+            "title": "Print Statements",
+            "emoji": "📢",
+            "analogy": "The print() function is like a loudspeaker. You give it text, and it SHOUTS it onto the screen!",
+            "content": "print() is the most used function in Python. It takes whatever you put inside the parentheses and displays it on the screen. Text must be inside quotes.",
+            "examples": [
+              { "title": "Basic Print", "explanation": "Anything inside quotes is displayed exactly as written.", "code": "print('Hello World!')\nprint(\"My name is Neo\")" },
+              { "title": "Print Numbers", "explanation": "Numbers don't need quotes!", "code": "print(42)\nprint(3.14)" }
+            ],
+            "funFact": "The very first 'Hello World' program was written in 1978 by Brian Kernighan! 🌍"
+          },
+          {
+            "id": "l1c3",
+            "title": "Output Formatting",
+            "emoji": "🎨",
+            "analogy": "Output formatting is like decorating a cake — the content stays the same, but you control HOW it looks.",
+            "content": "You can print multiple things using commas (adds spaces automatically) or use '+' to glue strings together (no space added). You can also use f-strings for mixing text and variables.",
+            "examples": [
+              { "title": "Comma vs Plus", "explanation": "Comma adds a space. Plus glues directly.", "code": "print('Hello', 'World')   # Hello World\nprint('Hello' + 'World')  # HelloWorld" },
+              { "title": "F-Strings", "explanation": "f-strings let you embed variables inside text.", "code": "name = 'Alex'\nprint(f'Hi, {name}!')  # Hi, Alex!" }
+            ],
+            "funFact": "F-strings were added in Python 3.6 (2016). Before that, formatting was MUCH harder! 😅"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE PRINTER", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What does print('Hello') do?",
+              "options": ["Creates a variable called Hello", "Displays 'Hello' on the screen", "Saves 'Hello' to a file", "Sends an email"],
+              "a": 1, "damage": 20, "topic": "Print",
+              "explanation": "print() displays whatever is inside the parentheses onto the screen."
+            },
+            {
+              "q": "Which of these will Python run FIRST?",
+              "options": ["The last line", "The middle line", "The first line", "All at once"],
+              "a": 2, "damage": 20, "topic": "Program Structure",
+              "explanation": "Python reads top-to-bottom. The first line always runs first."
+            },
+            {
+              "q": "What is the output of: print('5' + '3')?",
+              "options": ["8", "53", "5 + 3", "Error"],
+              "a": 1, "damage": 20, "topic": "Output Formatting",
+              "explanation": "'5' and '3' are strings (in quotes), so + glues them together: '53'."
+            },
+            {
+              "q": "What does the 'f' in f'Hello {name}' do?",
+              "options": ["Makes text bold", "Formats the string so variables inside {} are replaced with their values", "Creates a file", "Deletes the variable"],
+              "a": 1, "damage": 20, "topic": "F-Strings",
+              "explanation": "f-strings let you embed variables directly inside curly braces {} within a string."
+            },
+            {
+              "q": "Text inside print() must be wrapped in ___.",
+              "options": ["Parentheses", "Quotes", "Square brackets", "Curly braces"],
+              "a": 1, "damage": 20, "topic": "Print Syntax",
+              "explanation": "String text must be inside single quotes '' or double quotes \"\" to work in print()."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Your First Print",
+            "objective": "What function displays text on the screen in Python? Type just the function name.",
+            "starterCode": "___(\"Hello World\")",
+            "answer": "print",
+            "hint": "It rhymes with 'mint' and starts with 'p'."
+          },
+          {
+            "title": "Fix the Quote",
+            "objective": "What kind of characters must surround text in a print statement? Type the answer.",
+            "starterCode": "print(___Hello World___)",
+            "answer": "quotes",
+            "hint": "Either single ' or double \" characters wrap text."
+          },
+          {
+            "title": "Predict the Glue",
+            "objective": "What does print('Code' + 'Clash') output? Type the exact output.",
+            "starterCode": "print('Code' + 'Clash')\n# Output: ___",
+            "answer": "CodeClash",
+            "hint": "The + operator glues strings together WITHOUT adding a space."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\nPrint('Hello World')\n\nWhat is the bug?",
+            "brokenCode": "Print('Hello World')",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong, it works fine",
+              "The 'P' in Print should be lowercase: print",
+              "The quotes should be removed",
+              "You need parentheses around Print"
+            ],
+            "answer": "The 'P' in Print should be lowercase: print",
+            "hint": "Python is CASE SENSITIVE. Built-in functions are all lowercase."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\nprint(Hello World)\n\nWhat is the bug?",
+            "brokenCode": "print(Hello World)",
+            "bugLine": 0,
+            "options": [
+              "Missing quotes around Hello World",
+              "Missing semicolon",
+              "print should be uppercase",
+              "Need to add import statement"
+            ],
+            "answer": "Missing quotes around Hello World",
+            "hint": "Text must be in quotes: 'Hello World' or \"Hello World\"."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "print('First')\nprint('Second')\nprint('Third')",
+            "options": ["Third Second First", "First Second Third", "First", "Error"],
+            "answer": "First Second Third",
+            "explanation": "Python runs top-to-bottom. Line 1 prints 'First', Line 2 prints 'Second', Line 3 prints 'Third'."
+          },
+          {
+            "code": "print(10 + 5)\nprint('10' + '5')",
+            "options": ["15 and 15", "15 and 105", "105 and 15", "Error"],
+            "answer": "15 and 105",
+            "explanation": "10 + 5 = 15 (numbers add). '10' + '5' = '105' (strings concatenate/glue)."
+          }
+        ]
+      }
     },
     {
-       "id": 102, "title": "PRINT", "subtitle": "Print Statements", "icon": "Terminal",
-       "content": "Java uses 'System.out.println()' to print data to the screen. It separates text and visual values cleanly, blasting information onto the output display.",
-       "scenario": "A Shipping Department. 'System' is the warehouse, 'out' is the shipping dock, and 'println' is the command to load a box onto the truck and drive away.",
-       "subtopics": ["What is output display", "Basic print syntax", "Printing text", "Printing numbers", "Multiple print statements", "Difference between text and values"],
-       "learningOutcome": "Display information to user",
-       "examples": [
-         { "title": "Printing Text", "explanation": "Prints text and immediately moves the cursor to a brand new line.", "code": "System.out.println(\"Hello\");" },
-         { "title": "Printing Numbers", "explanation": "Printing raw numeric values separately from double-quoted text.", "code": "System.out.println(-42);" },
-         { "title": "Multiple", "explanation": "Chaining consecutive print commands logically.", "code": "System.out.print(\"Load\");\nSystem.out.print(\"ing...\");" }
-       ],
-       "keyPoint": "System.out.println() for a new line. System.out.print() stays on the line."
+      "id": "1_2",
+      "title": "VARIABLES",
+      "subtitle": "Named boxes in memory",
+      "icon": "Box",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c4",
+            "title": "What Are Variables?",
+            "emoji": "📦",
+            "analogy": "A variable is a labeled box. You give it a name (the label) and store a value (the contents) inside it. Later, you can peek inside using the label.",
+            "content": "Variables store data in your computer's memory with a name. You can create them, change them, and use them anytime. In Python, you just write: name = value.",
+            "examples": [
+              { "title": "Creating Variables", "explanation": "The = sign means 'put this value into this box'.", "code": "score = 100\nplayer = 'Neo'\nprint(score)   # 100\nprint(player)  # Neo" }
+            ],
+            "funFact": "Unlike Java or C, Python figures out the data type automatically — you never need to declare it! 🧠"
+          },
+          {
+            "id": "l1c5",
+            "title": "Naming Rules for Variables",
+            "emoji": "📝",
+            "analogy": "Variable names are like hashtags: they can have letters, numbers, and underscores, but NO spaces and can't start with a number.",
+            "content": "Rules: 1) Must start with a letter or underscore. 2) Can contain letters, numbers, underscores. 3) NO spaces or special characters. 4) Case sensitive (Score ≠ score). 5) Can't use Python keywords (if, for, while).",
+            "examples": [
+              { "title": "Valid vs Invalid Names", "explanation": "Learn the pattern!", "code": "✅ my_score = 10\n✅ _name = 'Alex'\n✅ player2 = 'Neo'\n❌ 2player = 'Bad'   # starts with number\n❌ my score = 'Bad'  # has a space\n❌ if = 10           # 'if' is a keyword" }
+            ],
+            "funFact": "Python has 35 reserved keywords you can't use as variable names. 'if', 'else', 'for' are some! 🚫"
+          },
+          {
+            "id": "l1c6",
+            "title": "Assigning Values",
+            "emoji": "🎯",
+            "analogy": "The = sign in Python doesn't mean 'equals' like in math. It means 'PUT this value INTO this box'. Think of it as an arrow: box ← value.",
+            "content": "Assignment uses = to store values. You can assign numbers, text, booleans, or even calculations. Python evaluates the RIGHT side first, then stores it LEFT.",
+            "examples": [
+              { "title": "Assignment Flow", "explanation": "Right side is calculated first, then stored in the left.", "code": "x = 5 + 3        # x stores 8\nname = 'Neo'      # name stores 'Neo'\nis_hero = True    # is_hero stores True" }
+            ],
+            "funFact": "You can assign multiple variables in one line: a, b, c = 1, 2, 3 🎯"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE MEMORY GHOST", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What does this line do? score = 100",
+              "options": ["Checks if score equals 100", "Creates a variable named 'score' and stores 100 in it", "Prints 100", "Deletes the value 100"],
+              "a": 1, "damage": 20, "topic": "Variables",
+              "explanation": "The = sign means 'Store the value 100 into a variable called score'."
+            },
+            {
+              "q": "Which of these is a VALID variable name?",
+              "options": ["2fast", "my score", "player_name", "for"],
+              "a": 2, "damage": 20, "topic": "Naming Rules",
+              "explanation": "player_name uses only letters and underscores, starts with a letter — valid! Others break rules."
+            },
+            {
+              "q": "After x = 5 + 3, what is x?",
+              "options": ["5 + 3", "53", "8", "Error"],
+              "a": 2, "damage": 20, "topic": "Assignment",
+              "explanation": "Python calculates 5 + 3 = 8 on the right, then stores 8 in x."
+            },
+            {
+              "q": "Is 'Score' the same as 'score' in Python?",
+              "options": ["Yes, they are the same", "No, Python is case sensitive — they are different variables", "Only in Python 2", "Depends on the computer"],
+              "a": 1, "damage": 20, "topic": "Case Sensitivity",
+              "explanation": "Python treats uppercase and lowercase as different. Score ≠ score ≠ SCORE."
+            },
+            {
+              "q": "Why can't you use 'if' as a variable name?",
+              "options": ["It's too short", "It starts with 'i'", "It's a reserved Python keyword", "It has no vowels"],
+              "a": 2, "damage": 20, "topic": "Keywords",
+              "explanation": "'if' is a Python keyword used for conditions. Keywords can't be used as variable names."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Create a Variable",
+            "objective": "Create a variable called 'age' that stores the number 12. What goes on the right side of: age = ___?",
+            "starterCode": "age = ___",
+            "answer": "12",
+            "hint": "Just type the number. No quotes needed for numbers."
+          },
+          {
+            "title": "Spot the Valid Name",
+            "objective": "Is '_secret' a valid variable name? Type 'yes' or 'no'.",
+            "starterCode": "_secret = 42\n# Valid? ___",
+            "answer": "yes",
+            "hint": "Variable names CAN start with an underscore."
+          },
+          {
+            "title": "Calculate & Assign",
+            "objective": "What value is stored in 'result' after this code? result = 10 * 3",
+            "starterCode": "result = 10 * 3\nprint(result)\n# Output: ___",
+            "answer": "30",
+            "hint": "Python calculates 10 * 3 = 30, then stores 30 in result."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\n1score = 100",
+            "brokenCode": "1score = 100",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Variable names can't START with a number — rename to score1",
+              "100 should be in quotes",
+              "Need to add 'var' keyword"
+            ],
+            "answer": "Variable names can't START with a number — rename to score1",
+            "hint": "Rule: Variable names must start with a letter or underscore, never a number."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 This code has an error:\n\nmy name = 'Alex'",
+            "brokenCode": "my name = 'Alex'",
+            "bugLine": 0,
+            "options": [
+              "Names can't have spaces — use my_name instead",
+              "Alex should not be in quotes",
+              "Use MY NAME instead",
+              "Nothing wrong"
+            ],
+            "answer": "Names can't have spaces — use my_name instead",
+            "hint": "Variable names cannot contain spaces. Use underscores instead."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "x = 10\ny = 20\nprint(x + y)",
+            "options": ["1020", "30", "xy", "Error"],
+            "answer": "30",
+            "explanation": "x stores 10, y stores 20. x + y = 10 + 20 = 30 (number addition)."
+          },
+          {
+            "code": "name = 'Code'\ntag = 'Clash'\nprint(name + tag)",
+            "options": ["Code Clash", "CodeClash", "name + tag", "Error"],
+            "answer": "CodeClash",
+            "explanation": "name stores 'Code', tag stores 'Clash'. + glues strings: 'CodeClash' (no space)."
+          }
+        ]
+      }
     },
     {
-       "id": 103, "title": "FORMAT", "subtitle": "Output Formatting", "icon": "Type",
-       "content": "Java allows you to format output using 'System.out.printf()'. You use spaces, line breaks (\\n), and special '% ' separator markers to combine distinct variables perfectly inside a text sentence.",
-       "scenario": "A Fill-in-the-Blank Letter. 'Dear %s, your balance is %d'. The %s and %d are empty slots where you insert the real Name and Math data right at the end.",
-       "subtopics": ["Printing multiple values", "Spaces and separators", "New line (\\n)", "Combining text and values", "Basic formatting styles"],
-       "learningOutcome": "Control how output looks",
-       "examples": [
-         { "title": "New Line Style", "explanation": "Using \\n inside quotes to slice the text output dramatically.", "code": "System.out.print(\"Top\\nBot\");" },
-         { "title": "Combining Values", "explanation": "Using %s for Strings and %d for Decimal Integers cleanly separated.", "code": "System.out.printf(\"%s has %d HP\", n, h);" },
-         { "title": "Float Formatting", "explanation": "Using %.2f to aggressively force a decimal to only show two fixed spots.", "code": "System.out.printf(\"Cost: $%.2f\", 19.99);" }
-       ],
-       "keyPoint": "%s = String. %d = Integer. %.2f = Float."
+      "id": "1_3",
+      "title": "DATA TYPES",
+      "subtitle": "int, float, string, boolean",
+      "icon": "Shapes",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c7",
+            "title": "The 4 Basic Data Types",
+            "emoji": "🧬",
+            "analogy": "Data types are like jars in a kitchen: one jar holds flour (integers), one holds syrup (floats), one holds labels (strings), and one is a switch (boolean — ON or OFF).",
+            "content": "Python has 4 fundamental types: int (whole numbers), float (decimal numbers), str (text), and bool (True or False). Python auto-detects the type — you don't declare it!",
+            "examples": [
+              { "title": "The 4 Types", "explanation": "Each type stores a different kind of data.", "code": "age = 18          # int (whole number)\nprice = 9.99      # float (decimal)\nname = 'Alex'     # str (text in quotes)\nis_alive = True   # bool (True or False)" }
+            ],
+            "funFact": "You can check any variable's type using type(). Try type(3.14) — it returns <class 'float'>! 🔍"
+          },
+          {
+            "id": "l1c8",
+            "title": "Integers & Floats",
+            "emoji": "🔢",
+            "analogy": "Integers are coins (whole, no fractions). Floats are liquid — they can fill any decimal point.",
+            "content": "int: 0, 5, -100, 9999. No decimal point. float: 3.14, 0.5, -2.7. Always has a decimal. Mixing int + float gives a float result.",
+            "examples": [
+              { "title": "Int vs Float Math", "explanation": "When you mix them, Python converts to float.", "code": "print(5 + 3)     # 8 (int)\nprint(5 + 3.0)   # 8.0 (float!)\nprint(10 / 3)    # 3.333... (always float)" }
+            ],
+            "funFact": "Division (/) ALWAYS returns a float in Python 3, even 10 / 2 = 5.0! Use // for integer division. 🤓"
+          },
+          {
+            "id": "l1c9",
+            "title": "Strings & Booleans",
+            "emoji": "💬",
+            "analogy": "Strings are necklaces of characters strung together. Booleans are light switches — either ON (True) or OFF (False), nothing in between.",
+            "content": "Strings hold text wrapped in quotes. Booleans hold exactly one of two values: True or False (capital T and F). Booleans are the foundation of all decisions in programming.",
+            "examples": [
+              { "title": "Strings & Bools", "explanation": "Note: True and False must be capitalized!", "code": "greeting = 'Hello'\nis_cool = True\nis_boring = False\n\n# WRONG:\n# is_cool = true    # ERROR! Capital T needed" }
+            ],
+            "funFact": "In Python, empty strings '' are 'falsy' — they act like False in conditions! 🤯"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "TYPE SHIFTER", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What data type is 3.14?",
+              "options": ["int", "str", "float", "bool"],
+              "a": 2, "damage": 20, "topic": "Float",
+              "explanation": "3.14 has a decimal point — that makes it a float (floating-point number)."
+            },
+            {
+              "q": "What data type is 'Hello'?",
+              "options": ["int", "str", "bool", "float"],
+              "a": 1, "damage": 20, "topic": "String",
+              "explanation": "Text inside quotes is always a string (str)."
+            },
+            {
+              "q": "What does print(type(True)) show?",
+              "options": ["<class 'str'>", "<class 'int'>", "<class 'bool'>", "<class 'true'>"],
+              "a": 2, "damage": 20, "topic": "Boolean",
+              "explanation": "True is a boolean value, so type() returns <class 'bool'>."
+            },
+            {
+              "q": "What is the result of 10 / 2 in Python 3?",
+              "options": ["5", "5.0", "2", "Error"],
+              "a": 1, "damage": 20, "topic": "Division",
+              "explanation": "In Python 3, the / operator always returns a float: 10 / 2 = 5.0."
+            },
+            {
+              "q": "Which is NOT a valid boolean in Python?",
+              "options": ["True", "False", "true", "Both True and False are valid"],
+              "a": 2, "damage": 20, "topic": "Boolean Syntax",
+              "explanation": "'true' (lowercase) is NOT a boolean — Python requires capital T: True."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Name the Type",
+            "objective": "What data type is the number 42? Type: int, float, str, or bool.",
+            "starterCode": "x = 42\ntype(x) = ___",
+            "answer": "int",
+            "hint": "42 is a whole number with no decimal point."
+          },
+          {
+            "title": "True or False?",
+            "objective": "What is the correct Python boolean for 'yes/on'? Type it exactly.",
+            "starterCode": "is_active = ___",
+            "answer": "True",
+            "hint": "It's capitalized. Not 'true' or 'TRUE'."
+          },
+          {
+            "title": "Float Result",
+            "objective": "What does print(7 + 3.0) output? Type the exact output.",
+            "starterCode": "print(7 + 3.0)\n# Output: ___",
+            "answer": "10.0",
+            "hint": "Mixing int + float always gives a float result."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 This code has a bug:\n\nis_admin = true",
+            "brokenCode": "is_admin = true",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "'true' must be capitalized to 'True'",
+              "Need quotes around true",
+              "is_admin is an invalid name"
+            ],
+            "answer": "'true' must be capitalized to 'True'",
+            "hint": "Python booleans require capital letters: True and False."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug hunt:\n\nage = '18'\nprint(age + 2)",
+            "brokenCode": "age = '18'\nprint(age + 2)",
+            "bugLine": 1,
+            "options": [
+              "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
+              "print should be Print",
+              "2 should be in quotes",
+              "Nothing wrong"
+            ],
+            "answer": "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
+            "hint": "You can't mix string + int. Either both must be strings or both must be numbers."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "x = '5'\ny = '3'\nprint(x + y)",
+            "options": ["8", "53", "5 + 3", "Error"],
+            "answer": "53",
+            "explanation": "'5' and '3' are strings (in quotes), so + concatenates them: '53'."
+          },
+          {
+            "code": "a = 10\nb = 3\nprint(a / b)",
+            "options": ["3", "3.0", "3.3333333333333335", "Error"],
+            "answer": "3.3333333333333335",
+            "explanation": "/ always returns a float in Python 3. 10 / 3 = 3.3333333333333335."
+          }
+        ]
+      }
     },
     {
-       "id": 104, "title": "VARIABLE", "subtitle": "Variables (What/Why)", "icon": "Hash",
-       "content": "Variables are Strictly-Typed named memory containers that hold raw data. You violently need them because data changes actively during a running system.",
-       "scenario": "A Moving Box in a House. You label it heavily 'Kitchen Stuff', and put plates inside. To change values tomorrow, you could put cups inside. But it cannot hold 'Books'.",
-       "subtopics": ["What is a variable", "Why variables are needed", "Storing data", "Memory concept (simple idea)", "Changing values"],
-       "learningOutcome": "Understand variables as “containers”",
-       "examples": [
-         { "title": "Declaration", "explanation": "Reserving RAM memory logically by claiming a distinct type and a name.", "code": "int playerHealth;" },
-         { "title": "Storing Data", "explanation": "Loading data directly inside the labeled memory concept.", "code": "playerHealth = 100;" },
-         { "title": "The Why", "explanation": "Variables make logic readable. 'maxSpeed = 50' is better than raw disconnected '50's.", "code": "if (spd > maxSpeed) { break(); }" }
-       ],
-       "keyPoint": "Variables reserve raw bytes in RAM to track physical changes safely."
+      "id": "1_4",
+      "title": "REASSIGN & INPUT",
+      "subtitle": "Overwriting values & user input",
+      "icon": "RefreshCw",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c10",
+            "title": "Reassigning Variables",
+            "emoji": "🔄",
+            "analogy": "Reassigning a variable is like erasing a whiteboard and writing something new. The old value is GONE forever.",
+            "content": "You can change a variable's value at any time by assigning a new value with =. The old value is permanently overwritten. You can even change the data type!",
+            "examples": [
+              { "title": "Overwrite in Action", "explanation": "x starts as 10, then becomes 20. The 10 is gone.", "code": "x = 10\nprint(x)   # 10\nx = 20\nprint(x)   # 20 (10 is gone!)" },
+              { "title": "Self-Update", "explanation": "You can use the old value to calculate the new value!", "code": "score = 100\nscore = score + 50\nprint(score)  # 150" }
+            ],
+            "funFact": "In Python, you can even change a variable's type: x = 5 then x = 'hello' — totally legal! 🤯"
+          },
+          {
+            "id": "l1c11",
+            "title": "Basic Input (Concept)",
+            "emoji": "⌨️",
+            "analogy": "input() is like a pause button — the program STOPS and waits for the user to type something, then stores what they typed.",
+            "content": "The input() function pauses the program, shows a message, waits for the user to type, and stores whatever they type as a STRING. Always a string — even if they type numbers!",
+            "examples": [
+              { "title": "Getting User Input", "explanation": "input() always returns a string!", "code": "name = input('What is your name? ')\nprint('Hello', name)\n\n# User types: Alex\n# Output: Hello Alex" }
+            ],
+            "funFact": "input() ALWAYS returns a string. To get a number, you must convert: int(input('Age: ')). ⌨️"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "OVERWRITE PHANTOM", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "After this code, what is x?\nx = 5\nx = 10",
+              "options": ["5", "10", "15", "Error"],
+              "a": 1, "damage": 25, "topic": "Reassignment",
+              "explanation": "The second line overwrites x. The old value 5 is gone. x is now 10."
+            },
+            {
+              "q": "What does hp = hp - 20 do?",
+              "options": ["Checks if hp equals hp minus 20", "Subtracts 20 from hp and stores the result back in hp", "Creates two variables", "Error"],
+              "a": 1, "damage": 25, "topic": "Self-Update",
+              "explanation": "Python calculates hp - 20 (right side), then stores the result back into hp (left side)."
+            },
+            {
+              "q": "What does input() return?",
+              "options": ["An integer", "A boolean", "Always a string", "Depends on what you type"],
+              "a": 2, "damage": 25, "topic": "Input",
+              "explanation": "input() ALWAYS returns a string, even if the user types a number like '42'."
+            },
+            {
+              "q": "What happens when input() runs?",
+              "options": ["The program crashes", "The program pauses and waits for the user to type something", "It prints text", "It closes the program"],
+              "a": 1, "damage": 25, "topic": "Input Behavior",
+              "explanation": "input() is a pause — the program waits until the user types and presses Enter."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Overwrite the Score",
+            "objective": "score = 100, then score = score + 50. What is score now?",
+            "starterCode": "score = 100\nscore = score + 50\nprint(score)\n# Output: ___",
+            "answer": "150",
+            "hint": "100 + 50 = 150. The new value replaces the old one."
+          },
+          {
+            "title": "Input Returns What?",
+            "objective": "User types '25' into input(). What type is the result? Type: int, float, str, or bool.",
+            "starterCode": "age = input('Age: ')  # user types 25\ntype(age) = ___",
+            "answer": "str",
+            "hint": "input() ALWAYS returns a string — even if the user types numbers."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nx = 10\nx + 5\nprint(x)",
+            "brokenCode": "x = 10\nx + 5\nprint(x)",
+            "bugLine": 1,
+            "options": [
+              "x + 5 calculates 15 but doesn't save it — need x = x + 5",
+              "x should be in quotes",
+              "print should have no parentheses",
+              "Nothing wrong, x is 15"
+            ],
+            "answer": "x + 5 calculates 15 but doesn't save it — need x = x + 5",
+            "hint": "x + 5 alone does nothing. You must STORE the result: x = x + 5."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nage = input('Age: ')\nprint(age + 1)",
+            "brokenCode": "age = input('Age: ')\nprint(age + 1)",
+            "bugLine": 1,
+            "options": [
+              "input() returns a string, so age + 1 fails. Need: int(age) + 1",
+              "print is wrong",
+              "input doesn't need quotes",
+              "Nothing wrong"
+            ],
+            "answer": "input() returns a string, so age + 1 fails. Need: int(age) + 1",
+            "hint": "You can't add a string '25' + number 1. Convert first: int(age)."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "hp = 100\nhp = hp - 30\nhp = hp - 20\nprint(hp)",
+            "options": ["100", "70", "50", "Error"],
+            "answer": "50",
+            "explanation": "100 - 30 = 70 → hp is now 70. 70 - 20 = 50 → hp is now 50."
+          },
+          {
+            "code": "a = 5\nb = a\na = 99\nprint(b)",
+            "options": ["5", "99", "Error", "None"],
+            "answer": "5",
+            "explanation": "b = a copies the VALUE of a (5) into b. Changing a later doesn't affect b."
+          }
+        ]
+      }
     },
     {
-       "id": 105, "title": "NAME_RULES", "subtitle": "Naming Rules", "icon": "AlertCircle",
-       "content": "Java variables have strictly unforgiving naming rules utilizing camelCase for readability. They CANNOT aggressively start with a valid number, or use any weird spaces.",
-       "scenario": "A Bank Vault Password. You can't use wild spaces or random illegal separators. The computer's rigid parser literally demands an unbroken unified character sequence.",
-       "subtopics": ["Allowed characters (a-z, A-Z, 0-9, _)", "Cannot start with number", "No spaces allowed", "Case sensitivity in names", "Meaningful naming (best practice)"],
-       "learningOutcome": "Write valid and readable variable names",
-       "examples": [
-         { "title": "Meaningful Naming", "explanation": "The Java best practice: camelCase using valid characters (a-z, _, 0-9).", "code": "int myTopScore = 100;" },
-         { "title": "Invalid Start", "explanation": "Starting maliciously with a number instantly ruins parsing.", "code": "int 1stPlayer = 5; // ERROR!" },
-         { "title": "No Spaces", "explanation": "Spaces physically snap the core variable string entirely.", "code": "int high score = 100; // ERROR!" }
-       ],
-       "keyPoint": "Use meaningful camelCase. NO spaces. Cannot start with a pure digit."
+      "id": "1_5",
+      "title": "META CODE",
+      "subtitle": "Comments, Keywords & Case Sensitivity",
+      "icon": "Hash",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l1c12",
+            "title": "Comments in Code",
+            "emoji": "💭",
+            "analogy": "Comments are sticky notes for humans. Python completely ignores them — they're invisible to the computer but GOLD for programmers reading your code later.",
+            "content": "Add a # before any line to make it a comment. Python skips it entirely. Use comments to explain tricky code, leave notes, or temporarily disable code.",
+            "examples": [
+              { "title": "Comment Examples", "explanation": "Everything after # is invisible to Python.", "code": "# This calculates the damage\ndamage = 50 + 25\nprint(damage)  # This prints 75" }
+            ],
+            "funFact": "Good programmers write comments explaining WHY, not WHAT. The code already shows what — comments explain the reasoning! 💡"
+          },
+          {
+            "id": "l1c13",
+            "title": "Keywords & Case Sensitivity",
+            "emoji": "🔐",
+            "analogy": "Keywords are like reserved parking spots — only Python can use them. Case sensitivity means 'Alex' ≠ 'alex' ≠ 'ALEX' — every letter's case matters.",
+            "content": "Python has 35 keywords (if, else, for, while, True, False, etc.) you CANNOT use as variable names. Also, Python is case sensitive: print ≠ Print ≠ PRINT.",
+            "examples": [
+              { "title": "Keywords & Case", "explanation": "The case of every letter matters in Python.", "code": "# These are ALL different:\nscore = 10\nScore = 20\nSCORE = 30\nprint(score)  # 10\nprint(Score)  # 20\nprint(SCORE)  # 30" }
+            ],
+            "funFact": "Python 3 has exactly 35 reserved keywords. 'print' used to be a keyword in Python 2 but became a function in Python 3! 🐍"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "SYNTAX WRAITH", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What does the # symbol do in Python?",
+              "options": ["Makes text bold", "Creates a hashtag variable", "Starts a comment — Python ignores everything after it", "Multiplies numbers"],
+              "a": 2, "damage": 25, "topic": "Comments",
+              "explanation": "# starts a comment. Python completely ignores everything after # on that line."
+            },
+            {
+              "q": "Which of these is a Python keyword?",
+              "options": ["score", "player", "if", "hello"],
+              "a": 2, "damage": 25, "topic": "Keywords",
+              "explanation": "'if' is a reserved keyword used for conditions. You can't use it as a variable name."
+            },
+            {
+              "q": "In Python, are 'Name' and 'name' the same variable?",
+              "options": ["Yes, exactly the same", "No, they are completely different variables", "Same in Python 3, different in Python 2", "Depends on the computer"],
+              "a": 1, "damage": 25, "topic": "Case Sensitivity",
+              "explanation": "Python is case sensitive. Different capitalization = different variables."
+            },
+            {
+              "q": "What happens if you write: If x > 5: ?",
+              "options": ["It works fine", "Error — 'If' should be lowercase 'if'", "It creates a variable called If", "Python converts it automatically"],
+              "a": 1, "damage": 25, "topic": "Case Sensitivity",
+              "explanation": "'If' (capital I) is NOT a keyword. Only lowercase 'if' is the keyword. This causes an error."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Write a Comment",
+            "objective": "What character starts a comment in Python? Type the single character.",
+            "starterCode": "___ This is a comment\nprint('Hello')",
+            "answer": "#",
+            "hint": "It's a single character used before lines Python should ignore."
+          },
+          {
+            "title": "Case Check",
+            "objective": "After this code, what does print(name) output?\n\nname = 'Alex'\nName = 'Sam'",
+            "starterCode": "name = 'Alex'\nName = 'Sam'\nprint(name)\n# Output: ___",
+            "answer": "Alex",
+            "hint": "'name' and 'Name' are DIFFERENT variables. print(name) uses the lowercase one."
+          },
+          {
+            "title": "Keyword Check",
+            "objective": "Can you use 'while' as a variable name? Type 'yes' or 'no'.",
+            "starterCode": "while = 10  # Is this valid?\n# Answer: ___",
+            "answer": "no",
+            "hint": "'while' is a reserved Python keyword for loops."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nIf score > 10:\n    print('Win')",
+            "brokenCode": "If score > 10:\n    print('Win')",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "'If' must be lowercase 'if' — Python keywords are all lowercase",
+              "Missing semicolon",
+              "print should be Print"
+            ],
+            "answer": "'If' must be lowercase 'if' — Python keywords are all lowercase",
+            "hint": "Python is case sensitive. All keywords are lowercase: if, else, for, while, etc."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nScore = 5\nprint(score)",
+            "brokenCode": "Score = 5\nprint(score)",
+            "bugLine": 1,
+            "options": [
+              "Nothing wrong, it prints 5",
+              "'Score' and 'score' are different — score (lowercase) was never created, so Error",
+              "print needs uppercase P",
+              "5 needs quotes"
+            ],
+            "answer": "'Score' and 'score' are different — score (lowercase) was never created, so Error",
+            "hint": "You created 'Score' (capital S) but tried to print 'score' (lowercase s) — they're different!"
+          }
+        ],
+        "prediction": [
+          {
+            "code": "# print('Hidden')\nprint('Visible')",
+            "options": ["Hidden Visible", "Visible", "Hidden", "Error"],
+            "answer": "Visible",
+            "explanation": "The first line is a comment (starts with #) so Python skips it entirely. Only 'Visible' is printed."
+          },
+          {
+            "code": "X = 10\nx = 20\nprint(X + x)",
+            "options": ["10", "20", "30", "Error"],
+            "answer": "30",
+            "explanation": "X = 10 and x = 20 are different variables (case sensitive). X + x = 10 + 20 = 30."
+          }
+        ]
+      }
     },
     {
-       "id": 106, "title": "DATATYPES", "subtitle": "Data Types", "icon": "Database",
-       "content": "Java is Strongly Typed. You MUST identify the structural data type. Java separates basic primitives (Integer, Float, Boolean logicals) from Objects (massive String texts).",
-       "scenario": "A Specialty Shipping Container. A 'Milk' container cannot hold 'Gasoline' without failure. You physically must label the data type perfectly so Java allocates RAM.",
-       "subtopics": ["Integer (int)", "Float", "String", "Boolean"],
-       "learningOutcome": "Identify and use correct data types",
-       "examples": [
-         { "title": "Integer (int)", "explanation": "A massive signed positive/negative whole number without decimal logic.", "code": "int lives = -3;" },
-         { "title": "Float & Double", "explanation": "Precise decimal numbers. 'double' is the standard massive Java default.", "code": "double money = 19.99;" },
-         { "title": "String & Boolean", "explanation": "Capital-S String for quoted text sequences, and lowercase boolean for True/False logic.", "code": "String text = \"Alice\";\nboolean isValid = true;" }
-       ],
-       "keyPoint": "int, double, boolean, and Capital String are the absolute core."
-    },
-    {
-       "id": 107, "title": "ASSIGN", "subtitle": "Assigning Values", "icon": "Zap",
-       "content": "Java assignment uses the '=' operator exactly. It takes the finished calculation or boolean truth from the Right side and stores it physically into the distinct Left side container.",
-       "scenario": "A Scoreboard. You don't dynamically guess the score; the referee securely calculates the points (Right Side) and ONLY THEN flips the scoreboard slots (Left Side).",
-       "subtopics": ["Assignment operator (=)", "Storing values in variables", "Assigning numbers", "Assigning text", "Assigning boolean values"],
-       "learningOutcome": "Store data correctly",
-       "examples": [
-         { "title": "Assign Text", "explanation": "The most fundamental placement of textual data into a mapped memory box.", "code": "String user = \"Jack\";" },
-         { "title": "Assign Number", "explanation": "Java solves mathematical numbers dynamically first, storing the answer totally.", "code": "int total = 10 + 5;" },
-         { "title": "Assign Boolean", "explanation": "Assigning a pure logical truth flag flawlessly.", "code": "boolean dead = false;" }
-       ],
-       "keyPoint": "The '=' operator evaluates all Right elements completely, then locks Left."
-    },
-    {
-       "id": 108, "title": "REASSIGN", "subtitle": "Reassigning Variables", "icon": "Code",
-       "content": "To simulate dynamic behavior, variables literally change. You can update and deliberately overwrite the old original value with a new latest version. Java's absolute Type cannot swap, however.",
-       "scenario": "A Lockbox. You extract the old rusted coin, chuck it, and insert a new polished coin. The box name is exactly identical, but the previous payload completely vanished.",
-       "subtopics": ["Changing variable value", "Overwriting old value", "Updating values step-by-step", "Concept of latest value"],
-       "learningOutcome": "Understand dynamic behavior of variables",
-       "examples": [
-         { "title": "The Overwrite", "explanation": "Overwriting a variable's payload. The latest value (100) destroys the old (10).", "code": "int score = 10;\nscore = 100;" },
-         { "title": "Update Step-By-Step", "explanation": "Changing values consecutively downwards in sequence.", "code": "x = 1;\nx = 2;\nx = 3; // Latest wins" },
-         { "title": "Self-Update Tracker", "explanation": "Utilizing the old original value heavily to calculate the brand new latest value rapidly.", "code": "int x = 10;\nx = x + 1;" }
-       ],
-       "keyPoint": "Variables overwrite values constantly, utilizing the very latest operation."
-    },
-    {
-       "id": 109, "title": "INPUT_CONCEPT", "subtitle": "Interaction flow", "icon": "HelpCircle",
-       "content": "Input universally pauses the program conceptually. It creates intense interaction by taking user input directly, storing it safely into RAM, and eventually forcing output differences.",
-       "scenario": "A Toll Booth interaction. The machine (program) STOPS processing entirely. It conceptually forces you to input money before the transaction flow stores the fee and outputs a green light.",
-       "subtopics": ["What is input in programming", "Taking user input (conceptual)", "Input → store → use flow", "Difference between input and output"],
-       "learningOutcome": "Understand interaction with user",
-       "examples": [
-         { "title": "Conceptual Intake", "explanation": "Taking user inputs directly natively via System.in Scanner mechanisms.", "code": "Scanner sc = new Scanner(System.in);" },
-         { "title": "Input -> Store", "explanation": "Taking keyboard text flow fundamentally and safely storing it.", "code": "String data = sc.nextLine();" },
-         { "title": "Versus Output", "explanation": "Input logically halts and sucks data inward. Output violently vomits data outward.", "code": "int age = sc.nextInt();\nSystem.out.println(age);" }
-       ],
-       "keyPoint": "Input brings data IN interactively. Output aggressively pushes data OUT."
-    },
-    {
-       "id": 110, "title": "COMMENTS", "subtitle": "Ignored Text", "icon": "FileText",
-       "content": "Comments are single-line readable English notes specifically for programmers. The entire rigid Java Compiler brutally ignores them conceptually.",
-       "scenario": "A Sticky Note on an Engine Valve. The note vividly screams 'Do not touch the red wire!'. The core engine entirely ignores the paper note, but the human perfectly observes it.",
-       "subtopics": ["What are comments", "Why comments are used", "Single-line comments", "Ignored by computer", "Writing readable code"],
-       "learningOutcome": "Write understandable code",
-       "examples": [
-         { "title": "Single Line", "explanation": "Using strictly two slashes triggers Java to entirely ignore the remainder.", "code": "// Calculate total dynamic bullet velocity" },
-         { "title": "Readable Inline", "explanation": "Placing a clear readable note seamlessly at the ultimate end of an execution.", "code": "x += 10; // Level up score chunk" },
-         { "title": "Ignored Logic", "explanation": "Commenting perfectly functional code effectively neutralizes it from executing.", "code": "// System.out.println(\"Hidden from execution\");" }
-       ],
-       "keyPoint": "// makes single lines completely flawlessly readable but inert."
-    },
-    {
-       "id": 111, "title": "KEYWORDS", "subtitle": "Keywords", "icon": "Lock",
-       "content": "Keywords are conceptually reserved protected words that Java utilizes for pure internal architecture (like 'print', 'if', 'class'). You absolutely cannot ever hijack them as variable names.",
-       "scenario": "Reserved VIP Parking. The critical spot legally marked 'CEO' (Keyword syntax) cannot be casually seized by 'Employee Bob' (Variable). The complex system will heavily aggressively reject you.",
-       "subtopics": ["What are keywords", "Reserved words concept", "Cannot use as variable names", "Examples (print, if, etc.)"],
-       "learningOutcome": "Avoid syntax mistakes",
-       "examples": [
-         { "title": "Reserved Concept", "explanation": "Absolute reserved words strictly managing the massive program flow heavily.", "code": "public, class, static, void, if" },
-         { "title": "Data Modifiers", "explanation": "Native protected keywords assigning strict memory types flawlessly.", "code": "int, double, boolean" },
-         { "title": "The Syntax Error", "explanation": "Attempting to assign a variable legally named 'class' shatters compilation completely.", "code": "int class = 10; // MASSIVE ERROR!" }
-       ],
-       "keyPoint": "You cannot hijack Java's internal core system keywords."
-    },
-    {
-       "id": 112, "title": "CASE", "subtitle": "Case Sensitivity", "icon": "ToggleRight",
-       "content": "Java exhibits immense case sensitivity. Uppercase mismatch triggers intense errors instantly. A single swapped letter literally creates completely disconnected names in the massive dictionary.",
-       "scenario": "Two Cloned Twins. They appear physically visually identical, but one is tagged 'John' and the other specifically 'john'. In Java's relentless eyes, they are legally two strictly disconnected objects in RAM.",
-       "subtopics": ["Difference between uppercase & lowercase", "Variable name differences", "Language sensitivity rules"],
-       "learningOutcome": "Avoid logical errors due to case mismatch",
-       "examples": [
-         { "title": "Name Differences", "explanation": "Spawning two absolutely separate robust memory entities by tweaking a solitary case.", "code": "int score = 10;\nint Score = 20;" },
-         { "title": "Sensitivity Rules", "explanation": "Java's immense core classes like String heavily mandate capitalization.", "code": "String text; // NOT string text" },
-         { "title": "Logical Mismatch Error", "explanation": "Forgetting the upper/lower execution effectively invokes major compiler panic.", "code": "int data = 5;\nSystem.out.println(Data); // Error!" }
-       ],
-       "keyPoint": "Case determines strict memory maps flawlessly. 'X' is heavily different than 'x'."
-    },
-    {
-       "id": 113, "title": "PREDICT", "subtitle": "Output Prediction", "icon": "Target",
-       "content": "Predicting output strictly means carefully reading the code line-by-line organically in your mind. You actively track execution step-by-step, trace rapid variable changes natively, and avoid beginner logic mistakes.",
-       "scenario": "Predictive 4D Chess mapped directly in your Organic Head. You picture entirely structurally exactly what the dynamic variables natively look like directly 3 moves vertically from now.",
-       "subtopics": ["Reading code line-by-line", "Predicting output manually", "Understanding variable changes", "Tracing execution", "Common beginner mistakes"],
-       "learningOutcome": "Build core programming thinking",
-       "examples": [
-         { "title": "Tracing Manual Execution", "explanation": "Reading strictly downward to track absolute reassignment states sequentially.", "code": "int y = 5;\ny = 10;\nSystem.out.print(y); // Prediction: 10" },
-         { "title": "Variable Overwrite State", "explanation": "Understanding complex math logic sequentially dynamically line by line.", "code": "int a = 2;\nint b = 3;\nSystem.out.print(a + b); // Prediction: 5" },
-         { "title": "Mistake Avoidance", "explanation": "Thinking forcefully simulating the entire CPU matrix before ever hitting run.", "code": "// Analyze carefully, track mental state exactly." }
-       ],
-       "keyPoint": "Roleplay exactly sequentially to predict structural flow precisely."
-    }
-  ],
-  "tests": [
-    {
-      "id": 114, "title": "MCQ ADVENTURE", "subtitle": "Level 1 Matrix Test", "icon": "MapPin", "type": "mcq",
-      "gameData": [{ "q": "Which Java printing structurally natively outputs a new line break line?", "options": ["System.print","System.out.println","console.log","printf"], "a": 1, "hint": "The 'ln' absolutely strictly stands dynamically for line." }]
+      "id": "1_boss",
+      "title": "THE COMPILER",
+      "subtitle": "BOSS FIGHT — All Level 1",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss1_intro",
+            "title": "⚠️ BOSS — THE COMPILER",
+            "emoji": "👾",
+            "analogy": "The Compiler checks every line of your code. One mistake and it REJECTS everything. Prove you've mastered the basics!",
+            "content": "THE COMPILER has absorbed all of Level 1's knowledge: print statements, variables, data types, reassignment, comments, and case sensitivity. Defeat it to earn your 'First Code' badge!",
+            "examples": [
+              { "title": "What you've mastered", "explanation": "Everything from Level 1 will be tested!", "code": "✅ print() & formatting\n✅ Variables & naming rules\n✅ int, float, str, bool\n✅ Reassignment & input\n✅ Comments, keywords, case" }
+            ],
+            "funFact": "A real compiler translates ALL your code to machine language before running it. Python uses an interpreter instead (runs line by line)! ⚡"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE COMPILER", "maxHp": 150 },
+          "mcq": [
+            {
+              "q": "What is the output of print(10 + '5')?",
+              "options": ["15", "105", "Error — can't add int and str", "10 + 5"],
+              "a": 2, "damage": 30, "topic": "Type Mixing",
+              "explanation": "You can't add an integer (10) and a string ('5'). Python throws a TypeError."
+            },
+            {
+              "q": "After this code, what is result?\nresult = 10\nresult = result * 2\nresult = result - 5",
+              "options": ["10", "20", "15", "5"],
+              "a": 2, "damage": 30, "topic": "Reassignment Chain",
+              "explanation": "10 → 10*2=20 → 20-5=15. Each line overwrites result."
+            },
+            {
+              "q": "Which line has a bug?\nLine 1: name = 'Alex'\nLine 2: Print(name)",
+              "options": ["Line 1", "Line 2 — Print should be print (lowercase)", "Both lines", "Neither"],
+              "a": 1, "damage": 30, "topic": "Case Sensitivity",
+              "explanation": "Python is case sensitive. 'Print' is not a function — only 'print' (lowercase) works."
+            },
+            {
+              "q": "What does type('True') return?",
+              "options": ["<class 'bool'>", "<class 'str'>", "<class 'int'>", "True"],
+              "a": 1, "damage": 30, "topic": "Types Trick",
+              "explanation": "'True' is in QUOTES, so it's a string — not a boolean! type('True') → <class 'str'>."
+            },
+            {
+              "q": "x = 5\n# x = 10\nprint(x)",
+              "options": ["5", "10", "15", "Error"],
+              "a": 0, "damage": 30, "topic": "Comments",
+              "explanation": "Line 2 is a comment (starts with #), so Python ignores it. x stays as 5."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Boss Challenge: What's the Type?",
+            "objective": "What data type is the value False? Type: int, float, str, or bool.",
+            "starterCode": "x = False\ntype(x) = ___",
+            "answer": "bool",
+            "hint": "False (with capital F) is one of the two boolean values."
+          },
+          {
+            "title": "Boss Challenge: Chain Math",
+            "objective": "x = 5, then x = x * 4, then x = x - 10. What is x?",
+            "starterCode": "x = 5\nx = x * 4\nx = x - 10\nprint(x)\n# Output: ___",
+            "answer": "10",
+            "hint": "5 * 4 = 20. Then 20 - 10 = 10."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 BOSS BUG:\n\nfor = 10\nprint(for)",
+            "brokenCode": "for = 10\nprint(for)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "'for' is a reserved keyword — you can't use it as a variable name",
+              "10 should be in quotes",
+              "print needs to be capitalized"
+            ],
+            "answer": "'for' is a reserved keyword — you can't use it as a variable name",
+            "hint": "'for' is used for loops in Python — it's a reserved keyword."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "a = '3'\nb = 3\n# print(a + b)\nprint(a * b)",
+            "options": ["333", "9", "Error", "3 3 3"],
+            "answer": "333",
+            "explanation": "Line 3 is a comment. a * b = '3' * 3 = '333' (string repeated 3 times!)."
+          }
+        ]
+      }
     }
   ]
 }

@@ -11,165 +11,587 @@
           {
             "id": "c1",
             "title": "What is a Computer?",
-            "topics": ["What is a computer", "What is a program"],
-            "content": "A computer is just dead hardware—metal, silicone, and wires. It cannot think. A program is the invisible 'ghost' inside the machine. It is a set of instructions that tells the dead hardware exactly what to do.",
+            "emoji": "🖥️",
+            "analogy": "A computer is like a kitchen. The kitchen itself (hardware) can't cook anything. You need a recipe (program) to tell it what to do!",
+            "content": "A computer is just dead hardware — metal, silicon, and wires. It cannot think. It cannot feel. Without instructions, it's completely useless.",
             "examples": [
-              { "title": "Hardware vs Software", "explanation": "If you can smash it with a hammer, it's hardware. If it's an invisible instruction in memory, it's a program.", "code": "CONCEPT: Hardware = Kitchen. Program = Recipe." }
-            ]
+              { "title": "Hardware vs Software", "explanation": "If you can physically touch it, it's hardware. If it's invisible instructions in the computer's memory, it's a program.", "code": "Hardware = Keyboard, Screen, CPU chip\nProgram = WhatsApp, Calculator App" }
+            ],
+            "funFact": "The word 'computer' originally meant a person who computed math by hand! 🧮"
           },
           {
             "id": "c2",
-            "title": "The Craft",
-            "topics": ["What is programming", "What is a programming language"],
-            "content": "Programming is the act of writing that 'recipe'. But computers don't speak English. We must use a 'Programming Language'—a special bridge language that humans can read, but computers can tightly translate into electricity.",
+            "title": "What is a Program?",
+            "emoji": "👻",
+            "analogy": "A program is like a ghost inside the machine. You can't see it, but it controls everything the computer does.",
+            "content": "A program is a set of step-by-step instructions written for the computer. Every app you use — YouTube, WhatsApp, games — is a program someone wrote.",
             "examples": [
-              { "title": "The Bridge Language", "explanation": "You write in C (readable). The compiler translates it into Machine Code (electricity).", "code": "CONCEPT: English -> C -> Machine Code" }
-            ]
+              { "title": "Programs you already use", "explanation": "Every time you tap an app icon, you're starting a program!", "code": "📱 WhatsApp = a program\n🎮 Mobile Game = a program\n🌐 Chrome Browser = a program" }
+            ],
+            "funFact": "The first computer program was written in 1843 by Ada Lovelace — a woman! 👩‍💻"
           },
           {
             "id": "c3",
-            "title": "Levels of Power",
-            "topics": ["Types of languages (low vs high level)"],
-            "content": "Low-level languages (like Assembly or C) are like driving a manual car with raw engine wires—hard, but incredibly fast. High-level languages are like driving an automatic—easier to read, but slightly disconnected from the raw metal.",
+            "title": "What is Programming?",
+            "emoji": "✍️",
+            "analogy": "Programming is like writing a recipe. You decide every single step: what to add, in what order, how long to cook.",
+            "content": "Programming is the art of writing instructions that a computer can follow. When YOU write those instructions, you are a programmer!",
             "examples": [
-              { "title": "High vs Low", "explanation": "High level focuses on WHAT to do. Low level (like C) focuses on perfectly managing HOW the hardware does it.", "code": "CONCEPT: High Level (Python) vs Low Level (C/Assembly)" }
-            ]
+              { "title": "The cooking analogy", "explanation": "A chef writes a recipe. A programmer writes a program. Both are giving exact, ordered instructions.", "code": "Chef writes: \"Add 2 eggs, stir for 3 minutes\"\nProgrammer writes: print(\"Hello World\")" }
+            ],
+            "funFact": "There are over 700 programming languages in the world. Python is one of the easiest! 🐍"
           }
         ],
-        "practice": [
-          { "q": "What perfectly describes a 'Program'?", "options": ["A physical chip", "A set of invisible instructions", "A keyboard monitor", "A broken computer"], "a": 1, "explanation": "Programs are immaterial instructions driving the machine." }
-        ],
         "battle": {
-          "enemy": { "name": "HARDWARE GOLEM", "maxHp": 80 },
+          "enemy": { "name": "HARDWARE GOLEM", "maxHp": 100 },
           "mcq": [
-            { "q": "Which of these is Hardware?", "options": ["A written Algorithm", "The CPU Core", "C Code", "A video game character"], "a": 1, "damage": 10 },
-            { "q": "Why do we need Programming Languages?", "options": ["Because CPUs only understand English", "To bridge the gap between Human thought and Machine Code", "To make hardware faster", "To replace keyboards"], "a": 1, "damage": 10 },
-            { "q": "What is the true act of 'Programming'?", "options": ["Building computer screens", "Writing strict instructions for the CPU", "Clicking the mouse fast", "Opening an application"], "a": 1, "damage": 10 },
-            { "q": "Lower-Level languages like C are fundamentally designed to:", "options": ["Be extremely slow", "Give humans profound raw access to hardware memory", "Be directly understood by the CPU without a compiler", "Only be used for web design"], "a": 1, "damage": 10 }
-          ],
-          "coding": [
             {
-              "type": "mcq", 
-              "title": "BOSS STRIKE: Identify the Layer",
-              "code": "You want to build a blazing fast Operating System kernel.\nDo you use a Low-Level or High-Level language?",
-              "options": ["Low-Level", "High-Level", "No Language", "Hardware"],
-              "answer": "Low-Level",
-              "damage": 40,
-              "hint": "Low-Level languages strictly talk to the memory and CPU perfectly."
+              "q": "A computer without any programs is like...?",
+              "options": ["A running car", "An empty kitchen with no recipes", "A phone with no battery", "A broken screen"],
+              "a": 1, "damage": 25, "topic": "Computer Basics",
+              "explanation": "Without programs, a computer can't do anything — just like a kitchen can't cook without a recipe!"
+            },
+            {
+              "q": "Which of these is a PROGRAM (not hardware)?",
+              "options": ["The keyboard", "The CPU chip", "WhatsApp", "The screen"],
+              "a": 2, "damage": 25, "topic": "Program vs Hardware",
+              "explanation": "WhatsApp is software (a program). The keyboard, chip, and screen are physical hardware."
+            },
+            {
+              "q": "What is programming?",
+              "options": ["Building a computer", "Writing step-by-step instructions for a computer", "Playing video games", "Watching YouTube"],
+              "a": 1, "damage": 25, "topic": "Programming",
+              "explanation": "Programming = writing instructions that tell a computer what to do, step by step."
+            },
+            {
+              "q": "Who was the first computer programmer?",
+              "options": ["Bill Gates", "Elon Musk", "Ada Lovelace", "Steve Jobs"],
+              "a": 2, "damage": 25, "topic": "History",
+              "explanation": "Ada Lovelace wrote the first algorithm in 1843 — making her history's first programmer!"
             }
           ]
-        }
+        },
+        "coding": [
+          {
+            "title": "Identify the Program",
+            "objective": "Type 'program' if it's a program, or 'hardware' if it's physical. What is Chrome Browser?",
+            "starterCode": "Chrome Browser is a ___",
+            "answer": "program",
+            "hint": "Can you touch/hold Chrome Browser in your hand? If yes = hardware. If no = program."
+          },
+          {
+            "title": "Complete the Analogy",
+            "objective": "Complete this: A kitchen is to a recipe, as a computer is to a ___",
+            "starterCode": "A kitchen is to a recipe,\nas a computer is to a ___",
+            "answer": "program",
+            "hint": "The 'recipe' for a computer is the set of instructions it follows."
+          },
+          {
+            "title": "Name the Action",
+            "objective": "What do you call the act of writing instructions for a computer? Type the single word.",
+            "starterCode": "Writing instructions for a computer is called: ___",
+            "answer": "programming",
+            "hint": "The people who do this are called 'programmers'."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 A student said: 'A computer is smart and can think on its own.' What is WRONG with this statement?",
+            "options": [
+              "Nothing, computers are definitely smart",
+              "Computers can only follow instructions — they cannot think on their own",
+              "Computers are smarter than humans",
+              "Only old computers need instructions"
+            ],
+            "answer": "Computers can only follow instructions — they cannot think on their own",
+            "hint": "Computers do EXACTLY what you tell them. Nothing more, nothing less."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Someone said 'The Mouse is a program'. What is the bug in this thinking?",
+            "options": [
+              "The mouse IS a program that runs",
+              "The mouse is hardware (a physical device), NOT a program",
+              "The mouse writes programs",
+              "Programs and hardware are the same thing"
+            ],
+            "answer": "The mouse is hardware (a physical device), NOT a program",
+            "hint": "Hardware = things you can physically touch. Programs = invisible instructions."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "A program tells the computer to:\n1. Show the number 5\n2. Then show the number 10\n3. Then show the number 15\n\nWhat appears on screen LAST?",
+            "options": ["5", "10", "15", "Nothing"],
+            "answer": "15",
+            "explanation": "Programs run in order, top to bottom. The LAST instruction shows 15."
+          },
+          {
+            "code": "Imagine a program with 3 instructions:\nInstruction A: Turn screen blue\nInstruction B: Play a sound\nInstruction C: Show a smiley face\n\nWhich instruction runs FIRST?",
+            "options": ["B", "C", "A", "All at once"],
+            "answer": "A",
+            "explanation": "Programs always execute from top to bottom. Instruction A comes first."
+          }
+        ]
       }
     },
     {
       "id": "0_2",
-      "title": "THE INSTRUCTIONS",
-      "subtitle": "Flow & Operations",
-      "icon": "Terminal",
+      "title": "THE LANGUAGE",
+      "subtitle": "Programming Languages",
+      "icon": "Code",
       "pipeline": {
         "teaching": [
           {
             "id": "c4",
-            "title": "Dumb Machines",
-            "topics": ["Real-life examples of instructions"],
-            "content": "Computers have ZERO common sense. If you tell a robot 'Make a sandwich,' it will crash. You must explicitly say: 1) Open fridge, 2) Grab bread, 3) Grab knife. If you miss a step, the program explodes.",
+            "title": "What is a Programming Language?",
+            "emoji": "🌐",
+            "analogy": "Computers speak 'binary' (just 0s and 1s). Humans speak English. A programming language like Python is a translator between the two!",
+            "content": "Computers don't understand English. They only understand binary (0s and 1s). A programming language is a special bridge that lets humans write readable instructions that get translated into binary for the computer.",
             "examples": [
-              { "title": "The Sandwich Crash", "explanation": "Never assume the computer inherently knows anything.", "code": "CONCEPT: Explicit commands only." }
-            ]
+              { "title": "The Translation Chain", "explanation": "You write Python → Python translates to machine code → CPU runs it!", "code": "YOU write: print('Hello')\n  ↓\nPython translates\n  ↓\nCPU runs: 01001000 01100101..." }
+            ],
+            "funFact": "Python was named after the comedy show 'Monty Python's Flying Circus' — not the snake! 🐍😂"
           },
           {
             "id": "c5",
-            "title": "The World Portals",
-            "topics": ["Input concept", "Output concept"],
-            "content": "How does software interact with the world? 'Input' pulls data in (Keyboard presses, mouse clicks, sensors). 'Output' blasts data out (Screens, speakers). Everything is an Input -> Output loop.",
+            "title": "Low-Level vs High-Level Languages",
+            "emoji": "📊",
+            "analogy": "High-level language = Automatic car (easy, you just steer). Low-level language = Manual race car with exposed engine wires (powerful but very hard).",
+            "content": "High-level languages like Python are designed for humans — readable and easy to use. Low-level languages like Assembly talk directly to the CPU hardware. They're fast but extremely hard to write.",
             "examples": [
-              { "title": "The Infinite Loop", "explanation": "Without input, a program is blind. Without output, it is silent.", "code": "CONCEPT: Input -> Process -> Output" }
-            ]
+              { "title": "Comparison", "explanation": "Both achieve the same result, but high-level is much easier to read and write.", "code": "High-Level (Python):  print('Hello')\nLow-Level (Assembly): MOV AX, 'H'\n                      INT 21H" }
+            ],
+            "funFact": "Python code is often 5-10x shorter than equivalent C code. That's why beginners learn Python! ✨"
           }
         ],
-        "practice": [
-          { "q": "Pressing the 'spacebar' on a keyboard is an example of:", "options": ["Output", "Algorithm", "Input", "Hardware"], "a": 2, "explanation": "You are sending physical data INTO the machine." }
-        ],
         "battle": {
-          "enemy": { "name": "I/O GUARDIAN", "maxHp": 80 },
+          "enemy": { "name": "BINARY SPECTER", "maxHp": 100 },
           "mcq": [
-            { "q": "Why do computers crash when given vague instructions?", "options": ["Because they lack human 'common sense'", "Because RAM fills up", "Because C is slow", "Because monitors disconnect"], "a": 0, "damage": 10 },
-            { "q": "Hearing a beep track from a speaker is:", "options": ["Input", "Output", "Code", "Logic"], "a": 1, "damage": 10 },
-            { "q": "Swiping your finger on a mobile screen is:", "options": ["Output", "CPU processing", "Input", "Algorithm"], "a": 2, "damage": 10 },
-            { "q": "A program takes a photo (___), applies a filter, and shows it on screen (___).", "options": ["Output / Input", "Input / Output", "Process / Algorithm", "Hardware / Magic"], "a": 1, "damage": 10 }
-          ],
-          "coding": [
-             {
-              "type": "mcq", 
-              "title": "BOSS STRIKE: The Broken Robot",
-              "code": "'Robot, open the door!'\nWhy does the robot crash?",
-              "options": ["It doesn't have an output monitor", "You didn't explicitly instruct it to walk to the door first", "It is written in a High-Level language", "It is a hardware bug"],
-              "answer": "You didn't explicitly instruct it to walk to the door first",
-              "damage": 40,
-              "hint": "Computers cannot skip implicit steps!"
+            {
+              "q": "Why can't we write programs directly in English for the CPU?",
+              "options": ["English is too long", "CPUs only understand binary (0s and 1s)", "English is too new", "CPUs understand all languages"],
+              "a": 1, "damage": 25, "topic": "Programming Language",
+              "explanation": "CPUs are silicon chips that only process electricity — on (1) or off (0). Binary is the only thing they truly understand."
+            },
+            {
+              "q": "What does a programming language do?",
+              "options": ["Makes computers faster", "Bridges the gap between human-readable code and machine binary", "Designs the CPU", "Stores files on disk"],
+              "a": 1, "damage": 25, "topic": "Programming Language",
+              "explanation": "A programming language is a translator — it lets humans write readable instructions that get converted to binary for the CPU."
+            },
+            {
+              "q": "Python is a ___ language.",
+              "options": ["Low-level", "High-level", "Binary", "Assembly"],
+              "a": 1, "damage": 25, "topic": "Language Types",
+              "explanation": "Python is high-level — designed for humans, readable, and easy to learn."
+            },
+            {
+              "q": "Which language talks DIRECTLY to the CPU hardware?",
+              "options": ["Python", "JavaScript", "Assembly Language", "HTML"],
+              "a": 2, "damage": 25, "topic": "Low-Level Languages",
+              "explanation": "Assembly is a low-level language that maps almost directly to CPU instructions."
             }
           ]
-        }
+        },
+        "coding": [
+          {
+            "title": "Classify the Language",
+            "objective": "Python is designed to be easy for humans. Is it High-Level or Low-Level? Type your answer.",
+            "starterCode": "Python is a ___ language.",
+            "answer": "High-Level",
+            "hint": "High-level languages are easy for humans to read. Low-level are closer to machine code."
+          },
+          {
+            "title": "Name the Translator",
+            "objective": "What do we call the special language that translates human instructions into binary for the CPU? (two words)",
+            "starterCode": "A ___ ___ is a bridge between humans and the CPU.",
+            "answer": "programming language",
+            "hint": "Python, Java, and C++ are all examples of this."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 A student says: 'Assembly is better than Python because Assembly is easier.' What is WRONG here?",
+            "options": [
+              "Nothing, Assembly is very easy to learn",
+              "Assembly is actually HARDER than Python — Python is the easy, high-level language",
+              "Python and Assembly are exactly the same difficulty",
+              "Only Assembly can make programs"
+            ],
+            "answer": "Assembly is actually HARDER than Python — Python is the easy, high-level language",
+            "hint": "High-level = easier for humans. Low-level = closer to binary = harder."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug in thinking: 'The CPU can read Python code directly without any translation.' What's wrong?",
+            "options": [
+              "That's correct, CPUs understand Python",
+              "CPUs only understand binary. Python must be translated into binary first.",
+              "Python translates directly into English",
+              "CPUs can read all programming languages"
+            ],
+            "answer": "CPUs only understand binary. Python must be translated into binary first.",
+            "hint": "The CPU is hardware — it only processes electricity (0s and 1s, binary)."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "A programmer types Python code.\nPython translates it to binary.\nThe CPU runs the binary.\n\nHow many steps happen before the CPU runs the code?",
+            "options": ["0 steps", "1 step", "2 steps", "10 steps"],
+            "answer": "1 step",
+            "explanation": "One step: Python translates the human code into binary. Then the CPU runs it."
+          },
+          {
+            "code": "Language A: Easy to read, used by beginners.\nLanguage B: Uses only 0s and 1s, talks to CPU directly.\n\nWhich is HIGH-level?",
+            "options": ["Language B", "Language A", "Both", "Neither"],
+            "answer": "Language A",
+            "explanation": "High-level = human-readable and easy. Language A fits that description perfectly."
+          }
+        ]
       }
     },
     {
       "id": "0_3",
-      "title": "THE BRAIN",
-      "subtitle": "Logic & Algorithms",
-      "icon": "Brain",
+      "title": "THE INSTRUCTIONS",
+      "subtitle": "Input, Output & Instructions",
+      "icon": "Terminal",
       "pipeline": {
         "teaching": [
           {
             "id": "c6",
-            "title": "True or False",
-            "topics": ["What is logic (simple meaning)"],
-            "content": "At its core, computer logic is simply making a choice based on Truth. 'If it starts raining, open umbrella'. The computer checks if the statement is TRUE, then executes the action. This 1/0 branching creates all software intelligence.",
+            "title": "Real-Life Instructions",
+            "emoji": "📋",
+            "analogy": "If you ask a robot to 'make a sandwich', it will CRASH. You must say: 1. Get bread. 2. Spread butter. 3. Add cheese. 4. Put bread on top. Computers need the same exactness!",
+            "content": "Computers have ZERO common sense. If you skip a step or write it in the wrong order, the program breaks. Every single step must be written explicitly.",
             "examples": [
-              { "title": "Boolean Branching", "explanation": "All artificial intelligence boils down to massive webs of True/False (1/0) questions.", "code": "CONCEPT: True -> Go Left. False -> Go Right." }
-            ]
+              { "title": "The Exact Robot", "explanation": "This robot follows instructions perfectly — but only if they are perfect!", "code": "❌ BROKEN: 'Make a sandwich'\n\n✅ WORKS:  1. Pick up bread\n           2. Add butter\n           3. Add cheese\n           4. Close sandwich" }
+            ],
+            "funFact": "NASA once lost a $125 million Mars spacecraft because of a single missing instruction! 🚀💸"
           },
           {
             "id": "c7",
-            "title": "The Master Plan",
-            "topics": ["What is an algorithm (step-by-step idea)"],
-            "content": "An algorithm is a finite, step-by-step master plan designed to solve a specific problem. A cooking recipe, a Rubik's cube solution, or Google's search engine are all algorithms.",
+            "title": "Input & Output",
+            "emoji": "⚡",
+            "analogy": "Think of a vending machine. You press a button (INPUT). The machine processes it. You get a snack (OUTPUT). Every program works the same way!",
+            "content": "INPUT is any data that goes INTO the computer (keyboard press, mouse click, camera photo). OUTPUT is anything the computer sends OUT (text on screen, sound from speakers, print from printer).",
             "examples": [
-              { "title": "The Perfect Sequence", "explanation": "If the steps are out of order, the algorithm fails.", "code": "CONCEPT: Step 1 -> Step 2 -> Step 3 = Solution" }
-            ]
-          },
-          {
-            "id": "c8",
-            "title": "Hunting Errors",
-            "topics": ["What is debugging", "Why coding is useful"],
-            "content": "You WILL make mistakes. Identifying and fixing logic mistakes is called 'Debugging'. It is incredibly intense in C. We do it because once the code is perfect, a computer can automate thousands of tasks instantly.",
-            "examples": [
-              { "title": "The Detective Work", "explanation": "A bug is just a flaw in your exact logic plan. Finding it takes patience.", "code": "CONCEPT: Fix the Logic, Fix the Bug." }
-            ]
+              { "title": "The I/O Loop", "explanation": "Almost every program follows this loop: get input, process it, produce output.", "code": "INPUT:  You type 'Hello' on keyboard\n  ↓\nPROCESS: Computer handles the data\n  ↓\nOUTPUT:  'Hello' appears on screen" }
+            ],
+            "funFact": "Your eyes reading this screen right now are receiving OUTPUT from a program! 👁️"
           }
         ],
-        "practice": [
-          { "q": "What perfectly describes an 'Algorithm'?", "options": ["A hardware chip", "A finite step-by-step plan", "A bug in the system", "A programming language"], "a": 1, "explanation": "Algorithms are just logical recipes to achieve a goal." }
-        ],
         "battle": {
-          "enemy": { "name": "LOGIC SPECTER", "maxHp": 80 },
+          "enemy": { "name": "I/O GUARDIAN", "maxHp": 100 },
           "mcq": [
-            { "q": "Programs make decisions fundamentally relying on what concept?", "options": ["Magic", "Hardware speed", "Boolean Logic (True/False checks)", "Disk space"], "a": 2, "damage": 10 },
-            { "q": "What does 'Debugging' fundamentally mean?", "options": ["Deleting the program", "Finding and fixing logic/syntax mistakes", "Upgrading the RAM", "Turning off the monitor"], "a": 1, "damage": 10 },
-            { "q": "Why is coding so incredibly useful for humanity?", "options": ["It generates hardware", "It automates massive repetitive logic tasks instantly", "It proves humans are smart", "It eliminates the need for math"], "a": 1, "damage": 10 },
-            { "q": "An algorithm must have:", "options": ["Infinite steps", "A strictly ordered, finite set of steps", "No logic at all", "Bugs"], "a": 1, "damage": 10 }
-          ],
-          "coding": [
             {
-              "type": "mcq", 
-              "title": "BOSS STRIKE: The Flawed Logic",
-              "code": "Step 1: Put on shoes.\nStep 2: Put on socks.\n\nWhat kind of error is this?",
-              "options": ["Hardware Error", "Input Error", "Logic/Algorithmic Error (Bug)", "Syntax Error"],
-              "answer": "Logic/Algorithmic Error (Bug)",
-              "damage": 40,
-              "hint": "The steps are perfectly readable, but the order is fatally flawed!"
+              "q": "Why do computers need step-by-step instructions?",
+              "options": ["They have no common sense", "They are lazy", "They are too fast", "They are too expensive"],
+              "a": 0, "damage": 33, "topic": "Instructions",
+              "explanation": "Computers have ZERO common sense. They do exactly what you say — nothing more, nothing less."
+            },
+            {
+              "q": "Pressing the spacebar on your keyboard is an example of:",
+              "options": ["Output", "Process", "Input", "Hardware"],
+              "a": 2, "damage": 33, "topic": "Input",
+              "explanation": "You're sending physical data INTO the computer — that's Input!"
+            },
+            {
+              "q": "Text appearing on your screen after running a program is:",
+              "options": ["Input", "Output", "Process", "Binary"],
+              "a": 1, "damage": 34, "topic": "Output",
+              "explanation": "The computer is sending data OUT to your eyes via the screen — that's Output!"
             }
           ]
-        }
+        },
+        "coding": [
+          {
+            "title": "Classify Input or Output",
+            "objective": "A photo taken by your phone's camera goes INTO the phone. Is this Input or Output? Type your answer.",
+            "starterCode": "Phone camera capturing a photo is: ___",
+            "answer": "Input",
+            "hint": "Data going INTO the computer = Input. Data coming OUT = Output."
+          },
+          {
+            "title": "Fix the Instruction Order",
+            "objective": "These sandwich steps are WRONG. What should come first — 'Eat sandwich' or 'Get bread'? Type the correct FIRST step.",
+            "starterCode": "Step 1 should be: ___",
+            "answer": "Get bread",
+            "hint": "You can't eat what you haven't made yet! Logic matters."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Instructions for 'Boiling Water':\n1. Drink the water\n2. Turn on the stove\n3. Put pot on stove\n4. Fill pot with water\n\nWhat is the bug?",
+            "options": [
+              "Nothing, these steps look fine",
+              "The steps are in the wrong order — you can't drink water before boiling it",
+              "You should use a microwave",
+              "Step 3 should be removed"
+            ],
+            "answer": "The steps are in the wrong order — you can't drink water before boiling it",
+            "hint": "Read the steps in order. Can you do Step 1 before doing Step 4?"
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 A student says 'Sound coming from my phone speaker is Input, not Output.' What's wrong?",
+            "options": [
+              "The student is correct",
+              "Sound from a speaker is OUTPUT — data going OUT from the device",
+              "Sound can be both input and output",
+              "Speakers provide Input to the user"
+            ],
+            "answer": "Sound from a speaker is OUTPUT — data going OUT from the device",
+            "hint": "Output = things the computer SENDS OUT. Input = things you GIVE TO the computer."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "A program receives your name as Input.\nIt says 'Hello' + your name as Output.\n\nYou type: 'Alex'\n\nWhat does the program output?",
+            "options": ["Input", "Hello", "Hello Alex", "Alex Hello"],
+            "answer": "Hello Alex",
+            "explanation": "The program takes 'Alex' as input and produces 'Hello Alex' as output — combining the greeting with your name."
+          },
+          {
+            "code": "Instructions:\n1. Show 'Start'\n2. Get a number from user\n3. Show the number doubled\n\nUser types: 5\n\nWhat is the final output?",
+            "options": ["5", "Start", "10", "Start 10"],
+            "answer": "10",
+            "explanation": "The final output instruction is step 3: show 5 doubled = 10."
+          }
+        ]
+      }
+    },
+    {
+      "id": "0_4",
+      "title": "THE BRAIN",
+      "subtitle": "Logic, Algorithms & Debugging",
+      "icon": "Brain",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c8",
+            "title": "What is Logic?",
+            "emoji": "🧠",
+            "analogy": "Logic is like a traffic light. If the light is RED → Stop. If GREEN → Go. The computer makes ALL decisions using this true/false logic.",
+            "content": "Logic in programming means making decisions based on TRUE or FALSE. 'If something is true, do this. If it's false, do that.' All computer intelligence is built from billions of these simple true/false checks.",
+            "examples": [
+              { "title": "Logic in Real Life", "explanation": "Every game, app, and AI uses this exact type of if-then logic.", "code": "If it is raining → Take an umbrella\nIf score > 100 → Show 'You Win!'\nIf password is correct → Allow login" }
+            ],
+            "funFact": "Your brain makes roughly 35,000 decisions every day — just like a computer running 35,000 logic checks! 🤯"
+          },
+          {
+            "id": "c9",
+            "title": "What is an Algorithm?",
+            "emoji": "📜",
+            "analogy": "An algorithm is just a recipe with guaranteed results. Unlike a cooking recipe, a perfect algorithm gives EXACTLY the same result every single time.",
+            "content": "An algorithm is a finite, ordered set of steps that solve a specific problem. It must have a clear start, clear steps in order, and a clear end. Google Search, GPS navigation, and Instagram recommendations are all algorithms!",
+            "examples": [
+              { "title": "Algorithm for 'Finding Socks'", "explanation": "Even simple tasks can be written as algorithms!", "code": "1. Open drawer\n2. Look inside\n3. If both socks match → pick them up\n4. Else → keep looking\n5. Done!" }
+            ],
+            "funFact": "The word 'algorithm' comes from the name of a 9th century Persian mathematician: Al-Khwarizmi! 📚"
+          },
+          {
+            "id": "c10",
+            "title": "Debugging & Why Code Matters",
+            "emoji": "🔍",
+            "analogy": "Debugging is like being a detective. The program is the crime scene. The bug is the criminal. You have to find and eliminate it!",
+            "content": "A 'bug' is a mistake in your code's logic. Debugging means finding and fixing those mistakes. It's 80% of a programmer's daily job! Coding is useful because a perfect program can automate millions of tasks instantly.",
+            "examples": [
+              { "title": "Famous Bug Story", "explanation": "In 1947, Grace Hopper found an actual moth stuck in a computer relay — the first 'bug'!", "code": "Bug: Logic mistake in code\nDebug: Find + fix the bug\nResult: Program works correctly!" }
+            ],
+            "funFact": "Grace Hopper found the first REAL 'computer bug' — an actual moth in a computer in 1947! 🦋"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "LOGIC SPECTER", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "Computer logic is fundamentally based on what concept?",
+              "options": ["Speed", "Memory size", "True or False (1 or 0)", "Screen resolution"],
+              "a": 2, "damage": 25, "topic": "Logic",
+              "explanation": "All computer decisions trace back to True/False, 1/0 — it's the foundation of digital computing."
+            },
+            {
+              "q": "What makes an algorithm different from random instructions?",
+              "options": ["It uses Python", "It has a clear start, ordered steps, and a definite end", "It runs on a computer", "It uses math"],
+              "a": 1, "damage": 25, "topic": "Algorithm",
+              "explanation": "Algorithms must be ordered, finite, and have a clear solution — unlike vague random instructions."
+            },
+            {
+              "q": "What does 'Debugging' mean?",
+              "options": ["Writing new programs", "Finding and fixing mistakes in code", "Deleting old code", "Upgrading hardware"],
+              "a": 1, "damage": 25, "topic": "Debugging",
+              "explanation": "Debug = De + Bug. You are removing the bug (error) from your program!"
+            },
+            {
+              "q": "Why is coding so powerful?",
+              "options": ["It makes computers faster", "It impresses teachers", "It lets one program automate millions of tasks instantly", "It makes screens brighter"],
+              "a": 2, "damage": 25, "topic": "Why Code",
+              "explanation": "A well-written program can run billions of times without tiring — that's the superpower of coding!"
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Write the Logic",
+            "objective": "Complete this logic: 'If the score is greater than 50, the player ___ (wins).'",
+            "starterCode": "If score > 50: player ___",
+            "answer": "wins",
+            "hint": "What happens when someone passes a test? They win or pass!"
+          },
+          {
+            "title": "Order the Algorithm",
+            "objective": "What is the SECOND step of 'Making Tea'? (Steps: 3.Drink tea, 1.Boil water, 2.Add tea bag, 4.Add sugar)",
+            "starterCode": "Algorithm Step 2 = ___",
+            "answer": "Add tea bag",
+            "hint": "You can only add a tea bag AFTER water is boiled."
+          },
+          {
+            "title": "Name the Role",
+            "objective": "Finding and fixing errors in code is called ___?",
+            "starterCode": "___ is the process of finding and fixing code errors.",
+            "answer": "Debugging",
+            "hint": "The errors are called 'bugs', so the process of removing them is..."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Algorithm for 'Finding a contact on your phone':\n1. Call the contact\n2. Open contacts app\n3. Search for name\n4. Tap contact\n\nWhat is the bug?",
+            "options": [
+              "There is no bug",
+              "Step 1 is wrong — you can't call before finding the contact. Step 1 should come LAST",
+              "Step 3 should be removed",
+              "Step 2 should come after Step 3"
+            ],
+            "answer": "Step 1 is wrong — you can't call before finding the contact. Step 1 should come LAST",
+            "hint": "Can you call someone before you've even found their number?"
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Logic check: 'If the password is wrong → allow the user to log in.' What is buggy?",
+            "options": [
+              "Nothing, that logic is correct",
+              "The logic is backwards — wrong password should DENY login, not allow it",
+              "Passwords should not be checked",
+              "The logic only works sometimes"
+            ],
+            "answer": "The logic is backwards — wrong password should DENY login, not allow it",
+            "hint": "Think about bank ATMs — what happens when you type the wrong PIN?"
+          }
+        ],
+        "prediction": [
+          {
+            "code": "Algorithm:\n1. If it is raining → open umbrella\n2. If it is sunny → wear sunglasses\n3. Walk to school\n\nIt is raining outside.\n\nWhat do you do FIRST?",
+            "options": ["Walk to school", "Wear sunglasses", "Open umbrella", "Stay home"],
+            "answer": "Open umbrella",
+            "explanation": "Since it's raining, condition 1 matches: open umbrella. Then proceed to step 3."
+          },
+          {
+            "code": "Step 1: Start\nStep 2: Check if number > 0\nStep 3: If TRUE → print 'Positive'\nStep 4: If FALSE → print 'Not Positive'\nStep 5: End\n\nInput number = -5\nWhat is printed?",
+            "options": ["Positive", "Start", "Not Positive", "Nothing"],
+            "answer": "Not Positive",
+            "explanation": "-5 is NOT greater than 0, so the FALSE branch runs: print 'Not Positive'."
+          }
+        ]
+      }
+    },
+    {
+      "id": "0_boss",
+      "title": "THE SYSTEM",
+      "subtitle": "BOSS FIGHT — All Level 0",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss_intro",
+            "title": "⚠️ BOSS ENCOUNTER",
+            "emoji": "👾",
+            "analogy": "You've learned everything. Now the System tests ALL of it at once.",
+            "content": "THE SYSTEM has absorbed all corrupted data from Level 0. It will throw everything at you — computers, programs, languages, instructions, logic, and algorithms. Defeat it to prove you've mastered the Noob Zone!",
+            "examples": [
+              { "title": "What you've mastered", "explanation": "Review before the final battle!", "code": "✅ What is a Computer & Program\n✅ What is Programming\n✅ High vs Low Level Languages\n✅ Input vs Output\n✅ Logic, Algorithms, Debugging" }
+            ],
+            "funFact": "Programmers call mastering the basics 'clearing the tutorial level'. You're about to! 🏆"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE SYSTEM", "maxHp": 150 },
+          "mcq": [
+            {
+              "q": "A computer can think and make decisions on its own. TRUE or FALSE?",
+              "options": ["TRUE — computers are intelligent", "FALSE — computers only follow programmed instructions", "Sometimes TRUE", "Depends on the CPU"],
+              "a": 1, "damage": 30, "topic": "Computer Basics",
+              "explanation": "FALSE. Computers are powerful but dumb. They only do exactly what their program tells them."
+            },
+            {
+              "q": "Which of these correctly orders: Computer → ___ → CPU runs binary",
+              "options": ["CPU runs binary → Programming Language → Computer", "Computer → Binary → Programming Language", "Computer → Programming Language → Binary → CPU", "Programming Language → Computer"],
+              "a": 2, "damage": 30, "topic": "Language Chain",
+              "explanation": "You write human code → Programming Language translates → Binary → CPU executes it."
+            },
+            {
+              "q": "Your microphone recording your voice for a voice assistant is:",
+              "options": ["Output", "Input", "Processing", "Algorithm"],
+              "a": 1, "damage": 30, "topic": "Input/Output",
+              "explanation": "Your voice going INTO the device = Input. The assistant's spoken reply = Output."
+            },
+            {
+              "q": "What three things must a valid algorithm ALWAYS have?",
+              "options": ["Speed, power, memory", "A start, ordered steps, and a definite end", "Python, loops, functions", "Input, music, colors"],
+              "a": 1, "damage": 30, "topic": "Algorithm",
+              "explanation": "Every algorithm needs: a clear start, steps in correct order, and a definite end point."
+            },
+            {
+              "q": "In a login system — wrong password should:",
+              "options": ["Grant access immediately", "Restart the computer", "Deny access and ask again", "Delete the account"],
+              "a": 2, "damage": 30, "topic": "Logic",
+              "explanation": "Logic: IF password wrong THEN deny access. This is true/false logic in a real system!"
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Boss Challenge: Complete the Chain",
+            "objective": "You write code in Python. Python translates it to ___. The CPU runs it.",
+            "starterCode": "You write → Python → ___ → CPU runs",
+            "answer": "binary",
+            "hint": "CPUs understand only 0s and 1s — that's the language of machines."
+          },
+          {
+            "title": "Boss Challenge: Name the Concept",
+            "objective": "Finding and fixing logic errors in a program is called ___.",
+            "starterCode": "Fixing code errors = ___",
+            "answer": "debugging",
+            "hint": "The errors are 'bugs', so the process of fixing them is 'de-bugging'."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 BOSS BUG: A programmer says 'Python Code → CPU runs it directly'. What's wrong?",
+            "options": [
+              "Nothing — Python goes directly to CPU",
+              "Python must first be translated/interpreted into machine binary before the CPU can run it",
+              "CPUs understand Python natively",
+              "The CPU skips translation for languages like Python"
+            ],
+            "answer": "Python must first be translated/interpreted into machine binary before the CPU can run it",
+            "hint": "CPUs are hardware — they only understand binary electricity signals (0s and 1s)."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "Input: User takes a photo with camera\nProcess: App applies a filter\nOutput: ???\n\nWhat is the Output?",
+            "options": ["The original unfiltered photo", "The camera turns off", "The filtered photo appears on screen", "A new camera opens"],
+            "answer": "The filtered photo appears on screen",
+            "explanation": "Output = what the program sends OUT to the user. The filtered photo displayed on screen is the output."
+          }
+        ]
       }
     }
   ]

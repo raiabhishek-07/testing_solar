@@ -4,88 +4,280 @@ import { Cpu, Code, Zap, Terminal, Layers, Shield, HelpCircle, CheckCircle2, Sta
 // ─────────────────────────────────────────────────────────
 export const L4_FOUNDATION = [
   {
-    id: 401, title: "WHAT_STRING", subtitle: "What is a String?",
-    icon: Type,
-    content: "A string is a sequence of characters used to store text. In Python, strings are enclosed in either single quotes ('Hello') or double quotes (\"Hello\"). Strings are immutable — once created, they cannot be changed. Any 'change' actually creates a new string.",
-    keyPoint: "Strings are IMMUTABLE sequences of text."
-  },
-  {
-    id: 402, title: "DECLARE_STR", subtitle: "Declaring Strings",
-    icon: Code,
-    content: "s1 = 'Hello'; s2 = \"World\". Multi-line strings use triple quotes: '''Line 1\\nLine 2'''. Python is flexible; choose single or double quotes, just be consistent. If you need a quote INSIDE a string: s = \"It's raining\".",
-    keyPoint: "s = 'text' | s = \"text\" | s = '''multi-line text'''"
-  },
-  {
-    id: 403, title: "LENGTH", subtitle: "String Length",
-    icon: HelpCircle,
-    content: "To get the number of characters in a string, use the built-in len() function. Ex: len('Python') returns 6. Spaces and punctuation count! len('a b') returns 3. This is identical to getting the length of a list.",
-    keyPoint: "len('Hello') → 5 (Spaces and punctuation count!)"
-  },
-  {
-    id: 404, title: "ACCESS_CHAR", subtitle: "Accessing Characters",
-    icon: Hash,
-    content: "Strings are indexed like lists, starting at 0. s = 'Python'. s[0] is 'P', s[1] is 'y'. Negative indexing works too: s[-1] is 'n'. Slicing gets you a substring: s[0:2] is 'Py' (gets indices 0 and 1, stops before 2).",
-    keyPoint: "s = 'Cat' → s[0] is 'C', s[-1] is 't'. Python supports Slicing: [start:stop]"
-  },
-  {
-    id: 405, title: "COMPARE_STR", subtitle: "String Comparison",
-    icon: ToggleLeft,
-    content: "Compare strings using == and !=. 'Apple' == 'Apple' is True. Python compares strings lexicographically (alphabetically, using ASCII values). So 'A' < 'B'. Beware: 'apple' == 'Apple' is False (case-sensitive!). You can use .lower() to ignore case.",
-    keyPoint: "== checks if content is exact match. Case-sensitive!"
-  },
-  {
-    id: 406, title: "CONCAT", subtitle: "String Concatenation",
-    icon: Layers,
-    content: "Joining strings together is called concatenation. Use the + operator: 'Hot' + 'dog' → 'Hotdog'. You cannot concatenate a string and an integer directly ('Age: ' + 25 is a TypeError). You must convert numbers first: 'Age: ' + str(25).",
-    keyPoint: "Use + to combine strings. Convert numbers with str(num) first!"
-  },
-  {
-    id: 407, title: "STR_MISTAKES", subtitle: "Common String Mistakes",
-    icon: AlertCircle,
-    content: "1. Trying to change a character: s = 'Cat'; s[0] = 'B' (TypeError: string does not support item assignment). 2. Off-by-one errors when slicing. 3. Forgetting to convert numbers before concatenation. 4. Confusing string length with highest index.",
-    keyPoint: "Strings are immutable. You cannot do: s[0] = 'a'."
-  },
-  {
-    id: 408, title: "WHAT_FUNC", subtitle: "What is a Function?",
+    id: 401, title: "WHAT", subtitle: "What is function",
     icon: Braces,
-    content: "A function is a reusable block of code that performs a specific task. Like a mini-program within your program. When you call len() or print(), you are using built-in functions. You can also write your own!",
-    keyPoint: "A function is a named block of code you can execute any time."
+    content: "A function is a reusable block of code designed to perform a specific task.",
+    examples: [
+      {
+        title: "The Pack",
+        explanation: "Grouping instructions under one name.",
+        code: "def shout():\n    print(\"HEY!\")"
+      },
+      {
+        title: "Mini-Program",
+        explanation: "Like a recipe you can follow whenever you need it.",
+        code: "# One definition, many uses"
+      },
+      {
+        title: "Organization",
+        explanation: "Keeps your main code clean and easy to read.",
+        code: "# move_player()\n# check_collision()"
+      }
+    ],
+    keyPoint: "Function = Reusable Action."
   },
   {
-    id: 409, title: "WHY_FUNC", subtitle: "Why Use Functions?",
-    icon: Star,
-    content: "1. Reusability: Write once, use everywhere. 2. Readability: Breaking long code into smaller, named functions makes it easier to read. 3. Maintainability: If there's a bug, you only fix it in one place. Functions embody the DRY principle (Don't Repeat Yourself).",
-    keyPoint: "DRY Principle: Don't Repeat Yourself. Functions exist to reuse code."
-  },
-  {
-    id: 410, title: "FUNC_SYNTAX", subtitle: "Function Syntax (def)",
+    id: 402, title: "CREATE", subtitle: "Creating a function",
     icon: Code,
-    content: "In Python, define functions using the 'def' keyword. Syntax: def my_function(): print('Hello'). The code block must be indented. This just CREATES the function; it doesn't run it yet. You must define it BEFORE you call it.",
-    keyPoint: "def my_func(): \\n    # Indented body"
+    content: "Creating a function is called 'defining'. In Python, we use the 'def' keyword.",
+    examples: [
+      {
+        title: "Definition",
+        explanation: "Start with def, then the name, then ().",
+        code: "def my_move():\n    print(\"Moving...\")"
+      },
+      {
+        title: "Colon & Indent",
+        explanation: "Like loops and if, functions need a colon and spaces.",
+        code: "def say_hi():\n    # Body starts here"
+      },
+      {
+        title: "Placement",
+        explanation: "Usually defined at the top of your script.",
+        code: "# def comes before the call"
+      }
+    ],
+    keyPoint: "def name(): [indent] [code]"
   },
   {
-    id: 411, title: "PARAMS", subtitle: "Function Parameters",
+    id: 403, title: "CALL", subtitle: "Calling a function",
     icon: Zap,
-    content: "Parameters are variables that act as placeholders for the data you pass into a function. def greet(name): print(f'Hello {name}'). Here 'name' is the parameter. When you call greet('Alice'), 'Alice' is the argument passed to the parameter.",
-    keyPoint: "Parameter = variable in definition. Argument = actual value passed."
+    content: "Defining a function doesn't run it. You 'call' the function to execute its code.",
+    examples: [
+      {
+        title: "The Trigger",
+        explanation: "Type the name followed by parentheses.",
+        code: "def hi(): print(\"Hi\")\nhi() # The call"
+      },
+      {
+        title: "Multiple Calls",
+        explanation: "You can run the same function as many times as you want.",
+        code: "hi()\nhi()\nhi()"
+      },
+      {
+        title: "Parentheses",
+        explanation: "Even if it's empty, you MUST use the ().",
+        code: "# hi -> shows the function object\n# hi() -> runs the function"
+      }
+    ],
+    keyPoint: "Call = name()."
   },
   {
-    id: 412, title: "RETURN", subtitle: "Return Values",
+    id: 404, title: "PARAMS", subtitle: "Function parameters",
     icon: Terminal,
-    content: "Functions can send data BACK to where they were called using 'return'. def add(a, b): return a + b. Then: result = add(5, 3). The return statement immediately ends the function execution. Functions without return implicitly return 'None'.",
-    keyPoint: "'return' gives data back and exits the function."
+    content: "Parameters are placeholders that allow functions to receive data when they are called.",
+    examples: [
+      {
+        title: "Placeholders",
+        explanation: "Putting a name inside the parentheses.",
+        code: "def greet(player):\n    print(f\"Hi {player}\")"
+      },
+      {
+        title: "Requirements",
+        explanation: "The function now 'expects' one item of data.",
+        code: "greet(\"Ash\")"
+      },
+      {
+        title: "Multiple Params",
+        explanation: "Functions can have many placeholders.",
+        code: "def add(a, b):\n    print(a + b)"
+      }
+    ],
+    keyPoint: "Variable in definition."
   },
   {
-    id: 413, title: "CALL_FUNC", subtitle: "Calling a Function",
-    icon: CheckCircle2,
-    content: "To execute a function, type its name followed by parentheses. my_function(). If it takes parameters, pass arguments: add(10, 20). If it returns a value, save it to a variable or print it: x = add(10, 20).",
-    keyPoint: "function_name() — the () are required to execute it!"
+    id: 405, title: "ARGS", subtitle: "Function arguments",
+    icon: Code,
+    content: "Arguments are the actual pieces of data you 'pass' into the function's parameters.",
+    examples: [
+      {
+        title: "The Data",
+        explanation: "The real value used in the call.",
+        code: "def move(steps):\n    print(steps)\n\nmove(5) # 5 is the argument"
+      },
+      {
+        title: "Position",
+        explanation: "Arguments match parameters in the order they are written.",
+        code: "def info(name, age):\n    # name=Ash, age=10\ninfo(\"Ash\", 10)"
+      },
+      {
+        title: "Literal vs Variable",
+        explanation: "Arguments can be raw data or existing variables.",
+        code: "x = \"Neo\"\ngreet(x) # x's value is the argument"
+      }
+    ],
+    keyPoint: "Value in the call."
   },
   {
-    id: 414, title: "DEBUG_FUNC", subtitle: "Debugging Functions",
-    icon: AlertCircle,
-    content: "Common bugs: 1. Infinite recursion (function calls itself forever). 2. Variable Scope errors: Trying to use a variable created inside a function on the outside. 3. Forgetting the 'return' statement. 4. Argument mismatch: calling add(5) when it expects two arguments.",
-    keyPoint: "Local Scope: Variables defined inside a function die when the function ends."
+    id: 406, title: "RETURN", subtitle: "return statement",
+    icon: ArrowRight,
+    content: "Returns allow a function to send data back to the place where it was called.",
+    examples: [
+      {
+        title: "Sending Back",
+        explanation: "Using return instead of print.",
+        code: "def double(x):\n    return x * 2"
+      },
+      {
+        title: "The Catch",
+        explanation: "Storing the result of a function in a variable.",
+        code: "result = double(10)\nprint(result) # 20"
+      },
+      {
+        title: "Early Exit",
+        explanation: "A function stops instantly when it hits a return.",
+        code: "def test():\n    return \"Done\"\n    print(\"Hidden\")"
+      }
+    ],
+    keyPoint: "Return = Result of function."
+  },
+  {
+    id: 407, title: "SCOPE", subtitle: "Scope (Home vs Outside)",
+    icon: Shield,
+    content: "Scope determines where a variable can be seen and used. Inside vs Outside.",
+    examples: [
+      {
+        title: "Local (Home)",
+        explanation: "Variables created inside a function stay inside.",
+        code: "def f(): x = 5\nprint(x) # ERROR: x is local to f"
+      },
+      {
+        title: "Global (Outside)",
+        explanation: "Variables outside are visible but hard to change inside.",
+        code: "y = 10\ndef f(): print(y) # Works"
+      },
+      {
+        title: "The Wall",
+        explanation: "Functions act like private houses for their data.",
+        code: "# Local variables die when function ends"
+      }
+    ],
+    keyPoint: "Local is private, Global is public."
+  },
+  {
+    id: 408, title: "WHY", subtitle: "Why use functions",
+    icon: Star,
+    content: "Functions help you solve complex problems by breaking them into manageable pieces.",
+    examples: [
+      {
+        title: "DRY",
+        explanation: "Don't Repeat Yourself. Fix bugs in one place.",
+        code: "# One function to calculate tax\n# Use it 100 times"
+      },
+      {
+        title: "Readability",
+        explanation: "If code is long, give sections names like action_move().",
+        code: "# main() -> load() -> play() -> save()"
+      },
+      {
+        title: "Teamwork",
+        explanation: "One person writes a function, others can use it without knowing how it works.",
+        code: "# just call render_3d()"
+      }
+    ],
+    keyPoint: "Reuse, Read, Repair."
+  },
+  {
+    id: 409, title: "BUILTIN", subtitle: "Built-in functions (range, len)",
+    icon: Cpu,
+    content: "Python comes with many pre-made functions that help you every day.",
+    examples: [
+      {
+        title: "len()",
+        explanation: "Gives the total count of items in a list or string.",
+        code: "print(len(\"Hi\")) # Output: 2"
+      },
+      {
+        title: "range()",
+        explanation: "Generates a sequence of numbers for loops.",
+        code: "for i in range(3): # 0, 1, 2"
+      },
+      {
+        title: "type()",
+        explanation: "Tells you what kind of data you are looking at.",
+        code: "print(type(5)) # Output: <class 'int'>"
+      }
+    ],
+    keyPoint: "Tools ready to use."
+  },
+  {
+    id: 410, title: "IO_FUNC", subtitle: "Input/Output in functions",
+    icon: Layers,
+    content: "Functions can interact with users through input and print commands.",
+    examples: [
+      {
+        title: "Input Inside",
+        explanation: "Getting user data inside the function block.",
+        code: "def ask(): name = input(\"?\")"
+      },
+      {
+        title: "Print Inside",
+        explanation: "Showing results immediately.",
+        code: "def shout(msg): print(msg + \"!\")"
+      },
+      {
+        title: "The Flow",
+        explanation: "Ask -> Process -> Return/Show.",
+        code: "# input() -> function() -> print()"
+      }
+    ],
+    keyPoint: "Interface within actions."
+  },
+  {
+    id: 411, title: "LOGIC", subtitle: "Logic building with functions",
+    icon: GitBranch,
+    content: "Using if and for inside functions to create powerful tools.",
+    examples: [
+      {
+        title: "Validater",
+        explanation: "A function that checks if data is 'good'.",
+        code: "def is_adult(age):\n    return age >= 18"
+      },
+      {
+        title: "Calculator",
+        explanation: "Complex math wrapped in a simple name.",
+        code: "def area(r):\n    return 3.14 * r * r"
+      },
+      {
+        title: "Searcher",
+        explanation: "Looking for something in a collection.",
+        code: "def has_apple(list):\n    return \"apple\" in list"
+      }
+    ],
+    keyPoint: "Functions + Logic = AI."
+  },
+  {
+    id: 412, title: "PREDICT_FUNC", subtitle: "Output prediction (functions)",
+    icon: HelpCircle,
+    content: "Tracing how data goes into a function and what comes out the other side.",
+    examples: [
+      {
+        title: "Input Trace",
+        explanation: "f(a,b) { return a+b }. call f(2,3) -> Result 5.",
+        code: "def f(a, b): return a + b\nprint(f(2, 3))"
+      },
+      {
+        title: "State Trace",
+        explanation: "x=0. def g() { x=5 }. call g(). print(x). What is x?",
+        code: "x = 0\ndef g(): x = 5\ng()\nprint(x) # Prediction: 0 (local scope!)"
+      },
+      {
+        title: "Nested Call",
+        explanation: "Predict result of print(f(f(2))).",
+        code: "def f(n): return n * 2\n# f(2)=4 -> f(4)=8"
+      }
+    ],
+    keyPoint: "Track variables across def walls."
   }
 ];
 
@@ -155,6 +347,36 @@ export const L4_TESTS = [
         { id: 4, text: "text = get_greeting('Alice')", order: 4 },
         { id: 5, text: "print(text)", order: 5 }
       ]
+    }
+  },
+  {
+    id: 420, title: "CODING LAB", subtitle: "Greeting Function", icon: Terminal, type: 'coding',
+    gameData: {
+      title: "Functional Hello",
+      objective: "Define a function named 'say_hi()' that prints 'Hello!'. Then CALL the function.",
+      starterCode: "# Define function here\n\n# Call it below\n",
+      hints: ["def say_hi():", "    print('Hello!')", "Finally, add: say_hi() on a new line."],
+      validate: (logs) => logs.some(l => l.includes("Hello!"))
+    }
+  },
+  {
+    id: 421, title: "CODING LAB", subtitle: "Square Calculator", icon: Zap, type: 'coding',
+    gameData: {
+      title: "Parameter Power",
+      objective: "Define 'square(n)' that prints n * n. Then call square(5).",
+      starterCode: "# Define square(n) here\n\n# Call square(5) below\n",
+      hints: ["def square(n):", "    print(n * n)", "Call it: square(5)"],
+      validate: (logs) => logs.some(l => l.includes("25"))
+    }
+  },
+  {
+    id: 422, title: "CODING LAB", subtitle: "Additive Return", icon: Star, type: 'coding',
+    gameData: {
+      title: "The Return Statement",
+      objective: "Create a function 'add(a, b)' that returns a + b. Then print add(10, 20).",
+      starterCode: "# Define add(a, b)\n\n# print add(10, 20)\n",
+      hints: ["return a + b", "print(add(10, 20))"],
+      validate: (logs) => logs.some(l => l.includes("30"))
     }
   }
 ];

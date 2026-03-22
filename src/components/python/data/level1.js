@@ -4,303 +4,303 @@ import { Terminal, Code, Zap, Cpu, Layers, Shield, HelpCircle, CheckCircle2, Sta
 // ─────────────────────────────────────────────────────────
 export const L1_FOUNDATION = [
   {
-    id: 101, title: "STRUCTURE", subtitle: "Structure of a Python Program",
-    icon: Layers,
-    content: "A Python program is a simple .py file executed line-by-line. Unlike many other languages, it doesn't require a main() function to start.",
+    id: 101, title: "STRUCTURE", subtitle: "Structure of a basic program",
+    icon: Layout,
+    content: "A Python program is a sequence of instructions executed one by one from top to bottom.",
     examples: [
       {
-        title: "The Single Line Program",
-        explanation: "Python can run a single line of code with no overhead.",
-        code: "print(\"Hello Python\")"
+        title: "Top-Down",
+        explanation: "Python starts at line 1 and moves down.",
+        code: "print('Line 1')\nprint('Line 2')"
       },
       {
-        title: "Sequential Execution",
-        explanation: "Code runs from top to bottom, one statement at a time.",
-        code: "print(\"Step 1: Initiation\")\nprint(\"Step 2: Analysis\")\nprint(\"Step 3: Completion\")"
+        title: "No Boilerplate",
+        explanation: "You don't need complex 'main' functions to start.",
+        code: "print('Just start coding!')"
       },
       {
-        title: "Simple Logic Block",
-        explanation: "Even simple logic can be written at the top level of a file.",
-        code: "status = \"Active\"\nprint(f\"The system is currently {status}\")"
+        title: "File Extension",
+        explanation: "Python files always end with .py",
+        code: "# script.py"
       }
     ],
-    keyPoint: "Runs top to bottom. No special setup required."
+    keyPoint: "Execution is sequential and direct."
   },
   {
-    id: 102, title: "PRINT", subtitle: "Output Command",
-    icon: Terminal,
-    content: "The print() function is the primary way to output data to the user console.",
+    id: 102, title: "PRINT", subtitle: "Print statements",
+    icon: MessageSquare,
+    content: "The print() function sends data to your screen so you can see what's happening.",
     examples: [
       {
-        title: "Printing Strings",
-        explanation: "Use single or double quotes to print text.",
-        code: "print('Single quotes')\nprint(\"Double quotes\")"
+        title: "Text",
+        explanation: "Use quotes for words.",
+        code: "print(\"Hello\")"
       },
       {
-        title: "Multiple Items",
-        explanation: "Print multiple things separated by commas — Python adds a space automatically.",
-        code: "print(\"Level:\", 5, \"Score:\", 1000)"
+        title: "Numbers",
+        explanation: "No quotes needed for math.",
+        code: "print(10 + 5)"
       },
       {
-        title: "Numeric Output",
-        explanation: "Numbers can be printed without any quotes.",
-        code: "print(123456)\nprint(10 + 20)"
+        title: "Multiple",
+        explanation: "Use commas to print several things.",
+        code: "print(\"Score:\", 100)"
       }
     ],
-    keyPoint: "print() sends data to the standard output."
+    keyPoint: "print() = Output."
   },
   {
-    id: 103, title: "FORMAT", subtitle: "F-Strings & Formatting",
-    icon: Code,
-    content: "F-strings (Formatted String Literals) are the most modern and readable way to format text in Python.",
+    id: 103, title: "FORMAT", subtitle: "Output formatting",
+    icon: Filter,
+    content: "Formatting makes your output look professional and easy to read.",
     examples: [
       {
-        title: "Basic F-String",
-        explanation: "Put variables inside curly braces {} within a string prefixed with f.",
-        code: "player = \"Neo\"\nprint(f\"Welcome to the realm, {player}\")"
+        title: "F-Strings",
+        explanation: "Insert variables directly into text.",
+        code: "name = \"Ash\"\nprint(f\"Hi {name}\")"
       },
       {
-        title: "Math in F-Strings",
-        explanation: "You can even perform simple math right inside the braces.",
-        code: "level = 10\nprint(f\"Next level is {level + 1}\")"
+        title: "Joining Text",
+        explanation: "Using + to glue strings together.",
+        code: "print(\"Part 1 \" + \"Part 2\")"
       },
       {
-        title: "Controlling Decimals",
-        explanation: "Format floats to a specific number of decimal places.",
-        code: "pi = 3.14159\nprint(f\"Pi rounded: {pi:.2f}\")"
+        title: "New Lines",
+        explanation: "Use \\n to jump to a new line.",
+        code: "print(\"Line 1\\nLine 2\")"
       }
     ],
-    keyPoint: "f'Text {variable}' is the standard for modern Python."
+    keyPoint: "F-strings are the best way to format."
   },
   {
-    id: 104, title: "VARIABLES", subtitle: "Dynamic Containers",
-    icon: Hash,
-    content: "Variables store data. Python is dynamically typed, meaning you don't need to specify the type yourself.",
+    id: 104, title: "VARIABLES", subtitle: "Variables (what & why)",
+    icon: Box,
+    content: "A variable is a named container that stores data for later use.",
     examples: [
       {
-        title: "Assignment",
-        explanation: "Use the = sign to store a value in a name.",
-        code: "username = \"CyberKnight\"\nhealth = 100"
+        title: "Storage",
+        explanation: "Saving a value with a name.",
+        code: "lives = 3"
       },
       {
-        title: "Dynamic Typing",
-        explanation: "A variable can change from a number to text instantly.",
-        code: "data = 42\ndata = \"Now I am a string\""
+        title: "Retrieval",
+        explanation: "Using the name to get the value back.",
+        code: "print(lives) # Shows 3"
       },
       {
-        title: "Reading Variables",
-        explanation: "Simply use the name to access the stored value.",
-        code: "x = 5\ny = x + 10\nprint(y) # Outputs 15"
+        title: "Efficiency",
+        explanation: "Change the value in one place, it updates everywhere.",
+        code: "lives = lives - 1"
       }
     ],
-    keyPoint: "Name = Value. No int/str keywords needed!"
+    keyPoint: "Variable = Label for data."
   },
   {
-    id: 105, title: "NAMING", subtitle: "Variable Naming Rules",
+    id: 105, title: "NAMING", subtitle: "Naming rules for variables",
     icon: Shield,
-    content: "Names should be descriptive and follow Python's snake_case convention.",
+    content: "Variable names must follow specific rules to be valid in Python.",
     examples: [
+      {
+        title: "Valid Names",
+        explanation: "Start with a letter or underscore.",
+        code: "score = 0\n_id = 1"
+      },
+      {
+        title: "Invalid Names",
+        explanation: "Cannot start with a number or use spaces.",
+        code: "# 1score = 0 (BAD)\n# my score = 0 (BAD)"
+      },
       {
         title: "Snake Case",
-        explanation: "Lowercase words separated by underscores.",
-        code: "max_power_level = 9000\ncurrent_user_score = 150"
-      },
-      {
-        title: "Allowed Characters",
-        explanation: "Can use letters, numbers, and underscores, but cannot start with a number.",
-        code: "_private_total = 10\ncount1 = 5\n# 1count = 10 (ERROR!)"
-      },
-      {
-        title: "Case Sensitivity",
-        explanation: "Python sees lowercase and uppercase names as different variables.",
-        code: "score = 10\nScore = 20\nSCORE = 30\n# These are 3 different variables!"
+        explanation: "Use underscores for multiple words.",
+        code: "high_score_total = 500"
       }
     ],
-    keyPoint: "Lowercase and underscores (snake_case) is best practice."
+    keyPoint: "Letters, numbers, underscores only."
   },
   {
-    id: 106, title: "INT", subtitle: "Integers (Whole Numbers)",
-    icon: Cpu,
-    content: "Python handles whole numbers of any size automatically.",
+    id: 106, title: "DATATYPES", subtitle: "Data types (int, float, string, boolean)",
+    icon: Database,
+    content: "Python has different types of data for different purposes.",
     examples: [
       {
-        title: "Unlimited Size",
-        explanation: "Python integers can grow as large as your computer's memory.",
-        code: "huge_number = 10**100\nprint(huge_number)"
+        title: "Numbers",
+        explanation: "int (whole) and float (decimal).",
+        code: "age = 10 # int\npi = 3.14 # float"
       },
       {
-        title: "Underscores",
-        explanation: "Use underscores to make large numbers easier to read.",
-        code: "trillion = 1_000_000_000_000"
+        title: "Text",
+        explanation: "string (text in quotes).",
+        code: "msg = \"Hello\" # str"
       },
       {
-        title: "Checking Types",
-        explanation: "Use type() to confirm a variable is an integer.",
-        code: "x = 5\nprint(type(x)) # <class 'int'>"
+        title: "Logic",
+        explanation: "boolean (True or False).",
+        code: "is_won = False # bool"
       }
     ],
-    keyPoint: "Whole numbers, no limit on size."
+    keyPoint: "Type determines what you can do with data."
   },
   {
-    id: 107, title: "FLOAT", subtitle: "Floats (Decimals)",
-    icon: Cpu,
-    content: "Floats represent real numbers with decimal points.",
-    examples: [
-      {
-        title: "Float Notation",
-        explanation: "Any number with a dot . is a float.",
-        code: "price = 19.99\ngravity = 9.8"
-      },
-      {
-        title: "Scientific Notation",
-        explanation: "Use 'e' for very large or small numbers.",
-        code: "nano = 1e-9 # 0.000000001"
-      },
-      {
-        title: "Integer to Float",
-        explanation: "Adding a dot or using float() converts the type.",
-        code: "f = float(5) # 5.0\nf2 = 5.0"
-      }
-    ],
-    keyPoint: "Numbers with a decimal point. default precision."
-  },
-  {
-    id: 108, title: "STRING", subtitle: "Handling Text",
-    icon: Type,
-    content: "Strings are sequences of characters. They are immutable (cannot be changed line-by-line).",
-    examples: [
-      {
-        title: "Triple Quotes",
-        explanation: "Use ''' or \"\"\" for text that spans multiple lines.",
-        code: "multiline = '''Line 1\nLine 2\nLine 3'''"
-      },
-      {
-        title: "Multiplication",
-        explanation: "Multiplying a string repeats it!",
-        code: "echo = \"Go! \" * 3 # \"Go! Go! Go! \""
-      },
-      {
-        title: "Escaping",
-        explanation: "Use backslash \\ to include special characters like quotes.",
-        code: "quote = \"He said, \\\"Stay back!\\\"\""
-      }
-    ],
-    keyPoint: "Strings are immutable. Triple quotes for multi-line."
-  },
-  {
-    id: 109, title: "BOOLEAN", subtitle: "True or False",
-    icon: ToggleLeft,
-    content: "Booleans represent the two truth values of logic: True and False.",
-    examples: [
-      {
-        title: "Capitalization",
-        explanation: "Crucial: True and False MUST start with capital letters.",
-        code: "connected = True\nready = False"
-      },
-      {
-        title: "The bool() Function",
-        explanation: "Check the truth of any value. Empty things are usually False.",
-        code: "print(bool(0)) # False\nprint(bool(1)) # True\nprint(bool(\"\")) # False"
-      },
-      {
-        title: "Logical Result",
-        explanation: "Comparison operators always return a boolean.",
-        code: "check = (10 < 5) # False"
-      }
-    ],
-    keyPoint: "Boolean values start with Capital letters."
-  },
-  {
-    id: 110, title: "ASSIGN", subtitle: "Multi-Assignment",
+    id: 107, title: "ASSIGN", subtitle: "Assigning values",
     icon: Zap,
-    content: "Python has powerful assignment shortcuts beyond simple =.",
+    content: "Assignment uses the = operator to put data into a variable.",
     examples: [
       {
-        title: "Unpacking",
-        explanation: "Assign multiple variables in one line.",
-        code: "x, y, z = 1, 2, 3"
+        title: "Basic Assignment",
+        explanation: "Right side moves to the left side.",
+        code: "x = 5"
       },
       {
-        title: "The Swap Trick",
-        explanation: "Exchange values between variables without a temporary one.",
-        code: "a = 5\nb = 10\na, b = b, a # a is 10, b is 5"
+        title: "Variable to Variable",
+        explanation: "Copying value from one container to another.",
+        code: "y = x"
       },
       {
-        title: "Same Value",
-        explanation: "Give multiple variables the same initial value.",
-        code: "p1 = p2 = p3 = 0"
+        title: "Math Assignment",
+        explanation: "Solving an equation then storing result.",
+        code: "total = 10 + 20"
       }
     ],
-    keyPoint: "= assigns a value. a, b = b, a swaps them."
+    keyPoint: "= means 'stores', not 'equals'."
   },
   {
-    id: 111, title: "INPUT", subtitle: "User Input",
+    id: 108, title: "REASSIGN", subtitle: "Reassigning variables",
+    icon: Repeat,
+    content: "Variables can change their stored value at any time.",
+    examples: [
+      {
+        title: "The Update",
+        explanation: "Giving a new value to an old name.",
+        code: "score = 0\nscore = 10 # Now it is 10"
+      },
+      {
+        title: "Self-Update",
+        explanation: "Using the old value to calculate the new one.",
+        code: "level = 1\nlevel = level + 1 # Now 2"
+      },
+      {
+        title: "Shortcut",
+        explanation: "Using += as a quick way to update.",
+        code: "gold = 50\ngold += 10 # Same as gold = gold + 10"
+      }
+    ],
+    keyPoint: "Variables are 'variable' (they change)."
+  },
+  {
+    id: 109, title: "INPUT", subtitle: "Basic input (concept only)",
+    icon: ArrowRight,
+    content: "Input is how a program gets information from the outside world.",
+    examples: [
+      {
+        title: "The Command",
+        explanation: "In Python, we use input().",
+        code: "name = input(\"Name?\")"
+      },
+      {
+        title: "Wait State",
+        explanation: "The program stops and waits for the user.",
+        code: "# Program pauses here..."
+      },
+      {
+        title: "String Return",
+        explanation: "Input always comes in as text.",
+        code: "age = input() # User types 10, but it is '10'"
+      }
+    ],
+    keyPoint: "Input = Data entering the system."
+  },
+  {
+    id: 110, title: "COMMENTS", subtitle: "Comments in code",
+    icon: Info,
+    content: "Comments are notes for humans that the computer ignores.",
+    examples: [
+      {
+        title: "Single Line",
+        explanation: "Use the # symbol.",
+        code: "# This is a comment"
+      },
+      {
+        title: "Explanations",
+        explanation: "Describe why you wrote certain code.",
+        code: "x = 10 # Starting health"
+      },
+      {
+        title: "Disabling Code",
+        explanation: "Hide code without deleting it.",
+        code: "# print(\"Hidden\")"
+      }
+    ],
+    keyPoint: "# is for humans, not machines."
+  },
+  {
+    id: 111, title: "KEYWORDS", subtitle: "Keywords (basic idea)",
+    icon: Shield,
+    content: "Keywords are special words reserved by Python for its own use.",
+    examples: [
+      {
+        title: "The List",
+        explanation: "Words like if, for, while, and def.",
+        code: "# You cannot name your variable 'if'"
+      },
+      {
+        title: "Booleans",
+        explanation: "True and False are keywords.",
+        code: "is_on = True"
+      },
+      {
+        title: "Function Defs",
+        explanation: "def is used to create actions.",
+        code: "def move(): pass"
+      }
+    ],
+    keyPoint: "Don't use keywords as variable names."
+  },
+  {
+    id: 112, title: "CASE", subtitle: "Case sensitivity",
+    icon: AlertCircle,
+    content: "In Python, capitalization matters. 'Score' is different from 'score'.",
+    examples: [
+      {
+        title: "The Identity",
+        explanation: "X and x are treated as totally separate containers.",
+        code: "score = 100\nScore = 200\nprint(score) # Shows 100"
+      },
+      {
+        title: "Keyword Case",
+        explanation: "Keywords must use the exact correct case.",
+        code: "# true = False (ERROR, should be True)"
+      },
+      {
+        title: "Consistency",
+        explanation: "Always use the same name you created.",
+        code: "MyVar = 5\nprint(myvar) # ERROR: myvar not found"
+      }
+    ],
+    keyPoint: "Python is very picky about case."
+  },
+  {
+    id: 113, title: "PREDICT", subtitle: "Simple output prediction",
     icon: HelpCircle,
-    content: "The input() function stops the program and waits for the user to type something.",
+    content: "Prediction is the skill of guessing what a code block will do before running it.",
     examples: [
       {
-        title: "Basic Prompt",
-        explanation: "Ask the user a question.",
-        code: "name = input(\"Enter username: \")"
+        title: "Tracing",
+        explanation: "Follow variables as they change.",
+        code: "x = 5\nx = 10\nprint(x) # Prediction: 10"
       },
       {
-        title: "Number Input",
-        explanation: "input() always gives a string. Wrap it in int() to get a number.",
-        code: "age = int(input(\"Enter age: \"))"
+        title: "Math Logic",
+        explanation: "Calculating results in your head.",
+        code: "a = 2\nb = 3\nprint(a + b) # Prediction: 5"
       },
       {
-        title: "Float Input",
-        explanation: "Use float() if the user might type decimals.",
-        code: "height = float(input(\"Enter height (m): \"))"
+        title: "String Join",
+        explanation: "Predicting how text glues together.",
+        code: "print(\"Hi \" + \"User\") # Prediction: Hi User"
       }
     ],
-    keyPoint: "input() always returns a string. Cast it if needed!"
-  },
-  {
-    id: 112, title: "COMMENTS", subtitle: "Writing Notes",
-    icon: Code,
-    content: "Comments help explain your code to yourself and others.",
-    examples: [
-      {
-        title: "The Hash Symbol",
-        explanation: "Single line comments start with #.",
-        code: "# This is ignored by Python\nx = 1 # Inline comment"
-      },
-      {
-        title: "Temporary Disable",
-        explanation: "Use # to 'comment out' code you don't want to run.",
-        code: "# print(\"This won't run\")\nprint(\"This will\")"
-      },
-      {
-        title: "Docstrings",
-        explanation: "Strings at the top of functions meant for documentation.",
-        code: "def quest():\n    \"\"\"Official Quest Log\"\"\"\n    pass"
-      }
-    ],
-    keyPoint: "# for short notes. Docstrings for formal documentation."
-  },
-  {
-    id: 113, title: "KEYWORDS", subtitle: "Reserved Keywords",
-    icon: Star,
-    content: "Python has a set of protected words that have built-in meanings.",
-    examples: [
-      {
-        title: "Identifying Keywords",
-        explanation: "Common ones include: for, while, if, True, None, def.",
-        code: "# You can't use these as names:\nwhile = 5 # SyntaxError!"
-      },
-      {
-        title: "Lowercase vs Uppercase",
-        explanation: "Most keywords are lowercase, except True, False, and None.",
-        code: "true = 5 # OK (variable)\nTrue = 5 # ERROR (keyword)"
-      },
-      {
-        title: "Importing Keywords",
-        explanation: "You can see all keywords with the keyword module.",
-        code: "import keyword\nprint(keyword.kwlist)"
-      }
-    ],
-    keyPoint: "35 protected words. Case sensitive!"
+    keyPoint: "Think like the computer."
   }
 ];
 
@@ -373,5 +373,35 @@ export const L1_TESTS = [
       { tokens: ["print(", "f'Hello", "{name}!'", ")"],                   answer: ["print(", "f'Hello", "{name}!'", ")"] },
       { tokens: ["age", "=", "int(", "input(", "'Age: '", ")", ")"],     answer: ["age", "=", "int(", "input(", "'Age: '", ")", ")"] }
     ]
+  },
+  {
+    id: 118, title: "CODING LAB", subtitle: "Print Protocol", icon: Terminal, type: 'coding',
+    gameData: {
+      title: "Standard Output",
+      objective: "Use the print() function to display: 'Python is fun'",
+      starterCode: "# Write your code below\n",
+      hints: ["The function is print()", "Put text inside quotes: \"Python is fun\""],
+      validate: (logs) => logs.some(l => l.includes("Python is fun"))
+    }
+  },
+  {
+    id: 119, title: "CODING LAB", subtitle: "Variable Shift", icon: Zap, type: 'coding',
+    gameData: {
+      title: "Data Containers",
+      objective: "Create a variable named 'score' and set it to 100. Then print it.",
+      starterCode: "# Create variable 'score' here\n",
+      hints: ["score = 100", "Use print(score)"],
+      validate: (logs) => logs.some(l => l.includes("100"))
+    }
+  },
+  {
+    id: 120, title: "CODING LAB", subtitle: "The F-String", icon: Star, type: 'coding',
+    gameData: {
+      title: "Formatted Output",
+      objective: "Given name = 'Bug Hunter', print: 'Game: Bug Hunter' using an f-string.",
+      starterCode: "name = 'Bug Hunter'\n# Print the f-string below\n",
+      hints: ["Use f'Game: {name}'", "Don't forget the print()"],
+      validate: (logs) => logs.some(l => l.includes("Game: Bug Hunter"))
+    }
   }
 ];

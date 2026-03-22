@@ -4,94 +4,349 @@ import { Cpu, Code, Zap, Terminal, Layers, Shield, HelpCircle, CheckCircle2, Sta
 // ─────────────────────────────────────────────────────────
 export const L3_FOUNDATION = [
   {
-    id: 301, title: "LOOP", subtitle: "What is a Loop?",
+    id: 301, title: "LOOP", subtitle: "What is loop",
     icon: Repeat,
-    content: "A loop is a programming construct that repeats a block of code multiple times. Without loops, if you wanted to print 'Hello' 100 times, you'd have to write 100 print statements. With a loop, you write it once and tell Python to repeat it.",
-    keyPoint: "Loops = Do not repeat yourself! Write once, execute many times."
+    content: "A loop is a programming tool that repeats a block of code multiple times automatically.",
+    examples: [
+      {
+        title: "Repetition",
+        explanation: "Doing the same thing over and over.",
+        code: "for i in range(100):\n    print(\"Hello\")"
+      },
+      {
+        title: "Efficiency",
+        explanation: "Write once, run a thousand times.",
+        code: "# No need to copy-paste code"
+      },
+      {
+        title: "Automation",
+        explanation: "Loops handle boring, repetitive tasks for you.",
+        code: "# Automated data processing"
+      }
+    ],
+    keyPoint: "Loops = Smart Repetition."
   },
   {
-    id: 302, title: "FOR", subtitle: "The for Loop",
-    icon: Repeat,
-    content: "Python's for loop is a 'for-each' loop. It steps through items in a collection (like a list or a range). Syntax: for i in range(5): print(i). It means 'for each item i in this sequence, do something'. range(5) generates 0, 1, 2, 3, 4.",
-    keyPoint: "for i in range(5):  →  Loops 5 times (i goes from 0 to 4)."
-  },
-  {
-    id: 303, title: "WHILE", subtitle: "The while Loop",
-    icon: Repeat,
-    content: "A while loop repeats AS LONG AS a condition is True. Syntax: while x < 10: print(x); x += 1. You MUST change the condition inside the loop (like x += 1), or it will loop forever. It's used when you don't know exactly how many times to loop.",
-    keyPoint: "while condition_is_true:  →  Requires manual variable update!"
-  },
-  {
-    id: 304, title: "DOWHILE", subtitle: "Does Python have do-while?",
-    icon: AlertCircle,
-    content: "Unlike C or Java, Python does NOT have a do-while loop. But you can simulate it! You use an infinite loop and a break statement: while True: ... if condition: break. This ensures the loop runs at least once before checking the exit condition.",
-    keyPoint: "Python has no do-while! Use: while True: ... if stop: break."
-  },
-  {
-    id: 305, title: "CONDITIONS", subtitle: "Loop Flow: break & continue",
-    icon: Filter,
-    content: "'break' immediately exits the entire loop. 'continue' stops the current iteration and jumps back to the top for the next one. Example: if i == 3: continue (skips printing 3). if i == 8: break (stops loop early at 8).",
-    keyPoint: "break = EXITS loop entirely. continue = SKIPS to next iteration."
-  },
-  {
-    id: 306, title: "INFINITE", subtitle: "Infinite Loops",
-    icon: Zap,
-    content: "An infinite loop never stops running because its condition never becomes False. while True: print('A'). This usually crashes your program or freezes your computer! It happens when you forget to update the loop variable (like forgetting x += 1).",
-    keyPoint: "Infinite Loop = Bug where condition never becomes False."
-  },
-  {
-    id: 307, title: "NESTED", subtitle: "Nested Loops",
-    icon: Layers,
-    content: "A loop inside a loop! For every 1 step of the outer loop, the inner loop runs completely. if outer runs 3 times, and inner runs 5 times, the total runs = 3 * 5 = 15. Nested loops are used for grids, matrices, and multi-dimensional data.",
-    keyPoint: "for i in range(3): for j in range(5): → Total 15 executions."
-  },
-  {
-    id: 308, title: "LIST", subtitle: "What is a List (Array)?",
-    icon: ListIcon,
-    content: "Python doesn't have native 'arrays', it uses 'Lists'. A list holds multiple values in a single variable: scores = [90, 85, 95]. Unlike arrays in C, Python lists can hold mixed types: data = [1, 'Alice', True]. Lists are ordered and changeable.",
-    keyPoint: "scores = [90, 85, 95]  — Python calls them Lists, not Arrays."
-  },
-  {
-    id: 309, title: "DECLARE", subtitle: "List Declaration",
+    id: 302, title: "FOR", subtitle: "for loop syntax",
     icon: Code,
-    content: "Create a list using square brackets []. Empty list: my_list = []. Or with data: colors = ['red', 'blue', 'green']. You can add items later using .append() or .insert(). To remove, use .remove() or .pop().",
-    keyPoint: "colors = [] (empty)  |  colors.append('red') (adds to end)"
+    content: "The for loop is used when you know exactly how many times you want to repeat something.",
+    examples: [
+      {
+        title: "Range",
+        explanation: "Looping through a set of numbers.",
+        code: "for i in range(5):\n    print(i) # 0, 1, 2, 3, 4"
+      },
+      {
+        title: "Block",
+        explanation: "Code inside the for loop must be indented.",
+        code: "for x in range(3):\n    print(\"Looping...\")"
+      },
+      {
+        title: "Variable",
+        explanation: "The variable (like i) changes in each step.",
+        code: "for i in range(3):\n    # i will be 0, then 1, then 2"
+      }
+    ],
+    keyPoint: "for [var] in [sequence]:"
   },
   {
-    id: 310, title: "INDEXING", subtitle: "0-Based Indexing",
-    icon: Hash,
-    content: "Lists are ordered by index. The FIRST item is ALWAYS at index 0. If size is 5, indices are 0, 1, 2, 3, 4. Python also has negative indexing: -1 is the LAST item! This is a super handy Python feature.",
-    keyPoint: "First item: index 0. Last item: index -1 (Python special!)."
-  },
-  {
-    id: 311, title: "ACCESS", subtitle: "Accessing Elements",
-    icon: HelpCircle,
-    content: "Get an item using its index: print(colors[0]) prints 'red'. Accessing an index that doesn't exist (like colors[10] when size is 3) causes an IndexError: list index out of range. Always check len() first!",
-    keyPoint: "IndexError = you tried to access an item that doesn't exist!"
-  },
-  {
-    id: 312, title: "UPDATE", subtitle: "Updating Elements",
-    icon: Zap,
-    content: "Lists are mutable (changeable). To change an item, assign a new value to its index: colors[1] = 'yellow'. The old value is overwritten. You cannot assign to an index that doesn't exist yet — use .append() for new items.",
-    keyPoint: "colors[1] = 'yellow'  →  Changes the second item."
-  },
-  {
-    id: 313, title: "ITERATE", subtitle: "Looping Through a List",
+    id: 303, title: "WHILE", subtitle: "while loop",
     icon: Repeat,
-    content: "The best way to read a Python list is a for-in loop: for color in colors: print(color). It automatically reads every item from start to finish. If you need the index too, use enumerate: for i, color in enumerate(colors):.",
-    keyPoint: "for item in my_list:  — Cleanest way to loop through a list!"
+    content: "A while loop repeats as long as a certain condition remains True.",
+    examples: [
+      {
+        title: "Condition",
+        explanation: "Check first, then run.",
+        code: "while energy > 0:\n    play()\n    energy -= 1"
+      },
+      {
+        title: "The Update",
+        explanation: "You must change the condition inside, or it never stops.",
+        code: "x = 0\nwhile x < 5:\n    x += 1"
+      },
+      {
+        title: "Unknown Count",
+        explanation: "Best used when you don't know how many loops are needed.",
+        code: "while user_active:\n    wait()"
+      }
+    ],
+    keyPoint: "while [condition]: [code]"
   },
   {
-    id: 314, title: "MISTAKES", subtitle: "Common List Mistakes",
+    id: 304, title: "DOWHILE", subtitle: "do-while (basic idea)",
+    icon: ArrowRight,
+    content: "A do-while loop runs the code once BEFORE checking the condition.",
+    examples: [
+      {
+        title: "The Concept",
+        explanation: "Run -> Check -> Repeat.",
+        code: "# Python doesn't have 'do-while' directly"
+      },
+      {
+        title: "Simulation",
+        explanation: "Using while True and a break to mimic it.",
+        code: "while True:\n    run_code()\n    if not condition: break"
+      },
+      {
+        title: "Use Case",
+        explanation: "Menu systems that must show at least once.",
+        code: "# Show menu -> get input -> exit if 'q'"
+      }
+    ],
+    keyPoint: "Run first, check later."
+  },
+  {
+    id: 305, title: "CONDITIONS", subtitle: "Loop conditions",
+    icon: Filter,
+    content: "Loop conditions determine exactly when a loop should start and stop.",
+    examples: [
+      {
+        title: "Entrance",
+        explanation: "Condition is checked before entering the loop.",
+        code: "x = 10\nwhile x < 5: # False - never enters"
+      },
+      {
+        title: "Exit",
+        explanation: "Condition becomes False to end the loop.",
+        code: "while lives > 0:\n    # Game runs..."
+      },
+      {
+        title: "Flexibility",
+        explanation: "Any boolean expression can be a loop condition.",
+        code: "while count < 10 and not found:"
+      }
+    ],
+    keyPoint: "Condition controls the loop life."
+  },
+  {
+    id: 306, title: "INFINITE", subtitle: "Infinite loop (concept)",
     icon: AlertCircle,
-    content: "Top bugs: 1. Off-by-one errors (looping to index 5 in a size-5 list causes error since max is 4). 2. Modifying a list while looping through it (causes items to shift and loop misses them!). 3. Misunderstanding mixed types.",
-    keyPoint: "NEVER modify (remove items from) a list while looping over it!"
+    content: "An infinite loop is a loop that never ends because its condition is always True.",
+    examples: [
+      {
+        title: "The Mistake",
+        explanation: "Forgetting to update the variable.",
+        code: "x = 0\nwhile x < 5:\n    print(x) # x is always 0!"
+      },
+      {
+        title: "The Intentional",
+        explanation: "Sometimes used for servers or game engines with a 'break'.",
+        code: "while True: # Always running"
+      },
+      {
+        title: "The Crash",
+        explanation: "Infinite loops can freeze programs and use all CPU power.",
+        code: "# Computer goes BRRRRR..."
+      }
+    ],
+    keyPoint: "Infinite = Condition is always True."
   },
   {
-    id: 315, title: "TRACE", subtitle: "Output Tracing",
-    icon: CheckCircle2,
-    content: "Trace this: nums=[1,2]; for n in nums: n=n+1; print(nums). What prints? It still prints [1,2]! Changing the loop variable 'n' doesn't change the list. To change the list: for i in range(len(nums)): nums[i]+=1.",
-    keyPoint: "Modifying 'n' in 'for n in list' does NOT modify the original list!"
+    id: 307, title: "NESTED", subtitle: "Nested loops (intro)",
+    icon: Layers,
+    content: "A nested loop is simply a loop inside of another loop.",
+    examples: [
+      {
+        title: "Multiplication",
+        explanation: "For every 1 outer loop, the inner loop runs completely.",
+        code: "for i in range(3):\n    for j in range(2):\n        print(i, j)"
+      },
+      {
+        title: "The Grid",
+        explanation: "Used to build rows and columns.",
+        code: "for row in range(5):\n    for col in range(5):\n        draw_pixel()"
+      },
+      {
+        title: "Tracing",
+        explanation: "3 outer * 2 inner = 6 total executions.",
+        code: "# 0,0 | 0,1 | 1,0 | 1,1 | 2,0 | 2,1"
+      }
+    ],
+    keyPoint: "Loop inside a loop."
+  },
+  {
+    id: 308, title: "ARRAY", subtitle: "What is array",
+    icon: Database,
+    content: "An array (called a 'List' in Python) is an ordered collection of many values in one name.",
+    examples: [
+      {
+        title: "The Bundle",
+        explanation: "Group related items together.",
+        code: "fruits = [\"Apple\", \"Banana\", \"Cherry\"]"
+      },
+      {
+        title: "Dynamic",
+        explanation: "Can grow or shrink as needed.",
+        code: "inventory = [\"Sword\", \"Shield\"]"
+      },
+      {
+        title: "Mixed Types",
+        explanation: "Python lists can hold different types of data.",
+        code: "data = [1, \"Hello\", True]"
+      }
+    ],
+    keyPoint: "Array = List = Collection."
+  },
+  {
+    id: 309, title: "DECLARE", subtitle: "Array declaration",
+    icon: Code,
+    content: "Declaration is the process of creating a new list using square brackets [].",
+    examples: [
+      {
+        title: "Empty List",
+        explanation: "Creating a container for future use.",
+        code: "my_list = []"
+      },
+      {
+        title: "Pre-filled",
+        explanation: "Starting with values.",
+        code: "scores = [10, 20, 30]"
+      },
+      {
+        title: "Constructor",
+        explanation: "Using the list() function.",
+        code: "letters = list(\"ABC\") # ['A', 'B', 'C']"
+      }
+    ],
+    keyPoint: "Use [ ] to declare."
+  },
+  {
+    id: 310, title: "INDEX", subtitle: "Indexing (0-based)",
+    icon: Hash,
+    content: "Python starts counting at 0. The first item is always index 0.",
+    examples: [
+      {
+        title: "The Start",
+        explanation: "[10, 20, 30] -> index 0 contains 10.",
+        code: "nums = [10, 20, 30]\nprint(nums[0]) # 10"
+      },
+      {
+        title: "The Sequence",
+        explanation: "Indices: 0, 1, 2, 3...",
+        code: "print(nums[1]) # 20\nprint(nums[2]) # 30"
+      },
+      {
+        title: "Reverse Index",
+        explanation: "Python can count backwards from -1.",
+        code: "print(nums[-1]) # 30 (the last one)"
+      }
+    ],
+    keyPoint: "Standard: Count from zero."
+  },
+  {
+    id: 311, title: "ACCESS", subtitle: "Accessing elements",
+    icon: HelpCircle,
+    content: "Accessing is the act of reading a value from a specific position in the list.",
+    examples: [
+      {
+        title: "The Fetch",
+        explanation: "Ask for value at position 2.",
+        code: "names = [\"Ash\", \"Misty\", \"Brock\"]\nprint(names[2])"
+      },
+      {
+        title: "Calculated Index",
+        explanation: "Using math to find an index.",
+        code: "last_index = len(names) - 1\nprint(names[last_index])"
+      },
+      {
+        title: "IndexError",
+        explanation: "Trying to reach an index that doesn't exist.",
+        code: "# names[10] -> CRASH!"
+      }
+    ],
+    keyPoint: "list[index] = Value."
+  },
+  {
+    id: 312, title: "UPDATE", subtitle: "Updating elements",
+    icon: Zap,
+    content: "Updating means changing the value stored at a specific index.",
+    examples: [
+      {
+        title: "The Swap",
+        explanation: "Replace the old value with a new one.",
+        code: "items = [\"Log\", \"Stick\"]\nitems[0] = \"Torch\""
+      },
+      {
+        title: "In-Place Math",
+        explanation: "Update based on the current value.",
+        code: "scores = [100, 200]\nscores[0] += 50 # Now 150"
+      },
+      {
+        title: "Append",
+        explanation: "Adding a totally new item to the end.",
+        code: "items.append(\"Rope\")"
+      }
+    ],
+    keyPoint: "Assigning to index changes it."
+  },
+  {
+    id: 313, title: "LOOP_ARRAY", subtitle: "Loop through array",
+    icon: Repeat,
+    content: "Combining loops and lists allows you to process entire collections of data.",
+    examples: [
+      {
+        title: "For-In",
+        explanation: "The easiest way to see everything.",
+        code: "for fruit in fruits:\n    print(fruit)"
+      },
+      {
+        title: "With Index",
+        explanation: "Using range and len to track positions.",
+        code: "for i in range(len(fruits)):\n    print(f\"#{i}: {fruits[i]}\")"
+      },
+      {
+        title: "Transformation",
+        explanation: "Applying changes to every item.",
+        code: "for i in range(len(nums)):\n    nums[i] *= 2"
+      }
+    ],
+    keyPoint: "Automate list processing."
+  },
+  {
+    id: 314, title: "MISTAKES_ARR", subtitle: "Common array mistakes",
+    icon: AlertCircle,
+    content: "Common traps when working with collections in Python.",
+    examples: [
+      {
+        title: "Out of Bounds",
+        explanation: "Trying to access list[len(list)].",
+        code: "nums = [1, 2, 3]\n# print(nums[3]) -> ERROR"
+      },
+      {
+        title: "One-Off",
+        explanation: "Thinking the first item is index 1.",
+        code: "nums[1] # This is the SECOND item"
+      },
+      {
+        title: "Append Error",
+        explanation: "Forgetting brackets in declare, or misusing append.",
+        code: "# nums.append(1, 2) -> ERROR"
+      }
+    ],
+    keyPoint: "Watch your indices!"
+  },
+  {
+    id: 315, title: "TRACE_ALL", subtitle: "Output tracing (loops + arrays)",
+    icon: Shield,
+    content: "The final step: tracing exactly how data flows through loops and lists.",
+    examples: [
+      {
+        title: "The Sum Trace",
+        explanation: "Total start 0. Add 10. Add 20. Total 30.",
+        code: "total = 0\nfor x in [10, 20]:\n    total += x"
+      },
+      {
+        title: "The Filter Trace",
+        explanation: "Only numbers > 5 get printed.",
+        code: "for n in [2, 8, 4]:\n    if n > 5: print(n)"
+      },
+      {
+        title: "State Change",
+        explanation: "Tracing the list as it mutates.",
+        code: "a = [0, 0]\nfor i in range(2):\n    a[i] = i # a becomes [0, 1]"
+      }
+    ],
+    keyPoint: "Predict the final state."
   }
 ];
 
@@ -162,5 +417,35 @@ export const L3_TESTS = [
       { tokens: ["nums", ".", "append(", "42", ")"], answer: ["nums", ".", "append(", "42", ")"] },
       { tokens: ["while", "x", "<", "10:"], answer: ["while", "x", "<", "10:"] }
     ]
+  },
+  {
+    id: 321, title: "CODING LAB", subtitle: "Loop 1-5", icon: Terminal, type: 'coding',
+    gameData: {
+      title: "For Loop Power",
+      objective: "Use a for loop and range() to print numbers from 1 to 5.",
+      starterCode: "# Write your for loop here\n",
+      hints: ["for i in range(1, 6):", "print(i)"],
+      validate: (logs) => logs.length >= 5 && logs.includes("1") && logs.includes("5")
+    }
+  },
+  {
+    id: 322, title: "CODING LAB", subtitle: "While Echo", icon: Zap, type: 'coding',
+    gameData: {
+      title: "Conditional Repeater",
+      objective: "Use a while loop to print 'Coding' exactly 3 times.",
+      starterCode: "count = 0\n# Write your while loop below\n",
+      hints: ["while count < 3:", "Inside the loop, increment: count += 1"],
+      validate: (logs) => logs.filter(l => l.includes("Coding")).length === 3
+    }
+  },
+  {
+    id: 323, title: "CODING LAB", subtitle: "List Picker", icon: Star, type: 'coding',
+    gameData: {
+      title: "Index Mastery",
+      objective: "Given fruits = ['Apple', 'Banana', 'Cherry', 'Date'], print 'Cherry' using its index.",
+      starterCode: "fruits = ['Apple', 'Banana', 'Cherry', 'Date']\n# Print 'Cherry' here\n",
+      hints: ["Index 0 is Apple, 1 is Banana...", "Use print(fruits[2])"],
+      validate: (logs) => logs.some(l => l.includes("Cherry"))
+    }
   }
 ];

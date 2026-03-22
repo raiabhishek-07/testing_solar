@@ -4,280 +4,280 @@ import { Cpu, Code, Zap, Terminal, Layers, Shield, HelpCircle, CheckCircle2, Sta
 // ─────────────────────────────────────────────────────────
 export const L2_FOUNDATION = [
   {
-    id: 201, title: "CONDITION", subtitle: "The Logic Question",
+    id: 201, title: "CONDITION", subtitle: "What is condition",
     icon: HelpCircle,
-    content: "A condition is a boolean expression that the computer evaluates to make a decision.",
+    content: "A condition is a question that results in either True or False, used to make decisions.",
     examples: [
       {
-        title: "Comparison Quest",
-        explanation: "The simplest condition compares two values.",
-        code: "x = 10\nprint(x > 5) # True"
+        title: "The Question",
+        explanation: "Asking the computer 'Is this higher than 10?'.",
+        code: "print(15 > 10) # Result: True"
       },
       {
-        title: "Equality Test",
-        explanation: "Use double equals == to check if values match.",
-        code: "status = \"Active\"\nready = (status == \"Active\")"
+        title: "Equality",
+        explanation: "Checking if two things are exactly the same.",
+        code: "print(5 == 5) # Result: True"
+      },
+      {
+        title: "Difference",
+        explanation: "Checking if two things are not the same.",
+        code: "print(10 != 5) # Result: True"
+      }
+    ],
+    keyPoint: "Condition = Boolean Result (True/False)."
+  },
+  {
+    id: 202, title: "BOOLEAN", subtitle: "Boolean values (true/false)",
+    icon: ToggleLeft,
+    content: "Booleans are the simplest data type, having only two possible values: True and False.",
+    examples: [
+      {
+        title: "True",
+        explanation: "Represents 'Yes', 'Correct', or 'On'.",
+        code: "is_light_on = True"
+      },
+      {
+        title: "False",
+        explanation: "Represents 'No', 'Incorrect', or 'Off'.",
+        code: "is_game_over = False"
+      },
+      {
+        title: "Capitalization",
+        explanation: "In Python, True and False must always start with a Capital letter.",
+        code: "# true = False (ERROR, should be True)"
+      }
+    ],
+    keyPoint: "True and False are keywords."
+  },
+  {
+    id: 203, title: "IF", subtitle: "if statement",
+    icon: GitBranch,
+    content: "The if statement runs a block of code only when its condition is True.",
+    examples: [
+      {
+        title: "The Check",
+        explanation: "If the condition is met, do the task.",
+        code: "if score > 100:\n    print(\"New Record!\")"
+      },
+      {
+        title: "The Indent",
+        explanation: "Lines inside the if must be pushed forward (indented).",
+        code: "if True:\n    print(\"Inside the if\")"
+      },
+      {
+        title: "Skipping",
+        explanation: "If condition is False, the code just skips that block.",
+        code: "if False:\n    print(\"Hidden\")"
+      }
+    ],
+    keyPoint: "if [condition]: [indent] [code]"
+  },
+  {
+    id: 204, title: "IFELSE", subtitle: "if-else",
+    icon: GitBranch,
+    content: "The else block provides an alternative path when the if condition is False.",
+    examples: [
+      {
+        title: "The Choice",
+        explanation: "Either the first or the second, but never both.",
+        code: "if is_sunny:\n    print(\"Go out\")\nelse:\n    print(\"Stay in\")"
+      },
+      {
+        title: "Binary Logic",
+        explanation: "Modeling simple yes/no situations.",
+        code: "if age >= 18:\n    status = \"Adult\"\nelse:\n    status = \"Minor\""
+      },
+      {
+        title: "The Fallback",
+        explanation: "Else handles every case where the if failed.",
+        code: "if score == 10:\n    print(\"Win\")\nelse:\n    print(\"Keep playing\")"
+      }
+    ],
+    keyPoint: "One of the two must run."
+  },
+  {
+    id: 205, title: "NESTED", subtitle: "nested if (basic idea)",
+    icon: Filter,
+    content: "A nested if is an if statement placed inside another if statement for complex checks.",
+    examples: [
+      {
+        title: "Multi-Layer",
+        explanation: "Check one thing, then only check the next if the first was True.",
+        code: "if has_key:\n    if door_locked:\n        print(\"Unlock\")"
+      },
+      {
+        title: "Double Indent",
+        explanation: "Each level of nesting adds more spaces to the left.",
+        code: "if A:\n    if B:\n        print(\"Both are True\")"
+      },
+      {
+        title: "Precision",
+        explanation: "Used for drill-down logic (Age > 18 AND Has ID).",
+        code: "if age > 18:\n    if has_id:\n        print(\"Entry allowed\")"
+      }
+    ],
+    keyPoint: "Nesting = Decisions within decisions."
+  },
+  {
+    id: 206, title: "OPERATORS", subtitle: "Comparison operators (>, <, ==, !=)",
+    icon: CheckCircle2,
+    content: "Comparison operators allow you to mathematically compare two values.",
+    examples: [
+      {
+        title: "Greater/Smaller",
+        explanation: "> and < check the magnitude.",
+        code: "print(10 > 5) # True\nprint(3 < 1) # False"
+      },
+      {
+        title: "Exactly Equal",
+        explanation: "== checks if values are identical.",
+        code: "print(5 == 5) # True"
       },
       {
         title: "Not Equal",
-        explanation: "Use != to check if values are different.",
-        code: "score = 0\ngame_over = (score != 100)"
+        explanation: "!= checks if values are different.",
+        code: "print(5 != 3) # True"
       }
     ],
-    keyPoint: "Condition = a question with a True or False answer."
+    keyPoint: "Returns a Boolean result."
   },
   {
-    id: 202, title: "BOOLEAN", subtitle: "True & False",
-    icon: ToggleLeft,
-    content: "Python booleans are True and False. Capitalization is mandatory.",
+    id: 207, title: "LOGICAL", subtitle: "Logical operators (AND, OR)",
+    icon: FlaskConical,
+    content: "Logical operators combine multiple conditions into a single True/False result.",
     examples: [
       {
-        title: "Direct Assignment",
-        explanation: "Storing a truth value directly in a variable.",
-        code: "is_valid = True\nis_error = False"
-      },
-      {
-        title: "The bool() function",
-        explanation: "Python can convert almost any value to a boolean.",
-        code: "print(bool(1)) # True\nprint(bool(0)) # False\nprint(bool(\"\")) # False"
-      },
-      {
-        title: "Logic Flipping",
-        explanation: "Using 'not' to reverse a boolean value.",
-        code: "shield_up = True\nshield_down = not shield_up"
-      }
-    ],
-    keyPoint: "is_hot = True | is_raining = False | 5 > 3 evaluates to True"
-  },
-  {
-    id: 203, title: "IF", subtitle: "Branching Paths",
-    icon: GitBranch,
-    content: "The if statement runs code ONLY if its condition is True. Indentation defines the block.",
-    examples: [
-      {
-        title: "Basic If",
-        explanation: "A simple check that triggers an action.",
-        code: "energy = 100\nif energy == 100:\n    print(\"Full Power\")"
-      },
-      {
-        title: "Indentation Rule",
-        explanation: "All lines inside the IF must be indented (usually 4 spaces).",
-        code: "if True:\n    print(\"Step A\")\n    print(\"Step B\")"
-      },
-      {
-        title: "Skipped Block",
-        explanation: "If the condition is False, the code block is ignored.",
-        code: "if 1 > 10:\n    print(\"This won't print\")"
-      }
-    ],
-    keyPoint: "if temperature > 30:\\n    print('Hot!') — colon + indentation!"
-  },
-  {
-    id: 204, title: "IF-ELSE", subtitle: "The Dual Path",
-    icon: GitBranch,
-    content: "If-else provides a fallback for when the initial condition is False.",
-    examples: [
-      {
-        title: "Standard Choice",
-        explanation: "Define two mutually exclusive options.",
-        code: "password = \"123\"\nif password == \"123\":\n    print(\"Welcome\")\nelse:\n    print(\"Access Denied\")"
-      },
-      {
-        title: "The Ternary Expression",
-        explanation: "A compact one-line way to choose a value.",
-        code: "status = \"Safe\" if health > 20 else \"Critical\""
-      },
-      {
-        title: "Always One",
-        explanation: "Either the if runs, or the else runs, never both.",
-        code: "if False:\n    print(\"No\")\nelse:\n    print(\"Yes\")"
-      }
-    ],
-    keyPoint: "Exactly ONE block always runs."
-  },
-  {
-    id: 205, title: "ELIF", subtitle: "Multi-Path Logic",
-    icon: GitBranch,
-    content: "Elif (else if) allows you to check multiple independent conditions.",
-    examples: [
-      {
-        title: "The Rating System",
-        explanation: "Check ranges of values sequentially.",
-        code: "score = 85\nif score > 90: grade = 'A'\nelif score > 80: grade = 'B'\nelse: grade = 'C'"
-      },
-      {
-        title: "Exclusive Chains",
-        explanation: "Once a true condition is found, the rest are ignored.",
-        code: "x = 10\nif x > 5: print(\"Big\")\nelif x > 2: print(\"Small\") # Won't run!"
-      },
-      {
-        title: "Default Fallback",
-        explanation: "Always end with an else for total coverage.",
-        code: "if color == 'red': stop()\nelif color == 'green': go()\nelse: wait()"
-      }
-    ],
-    keyPoint: "if ... elif ... else — only FIRST true block runs!"
-  },
-  {
-    id: 206, title: "NESTED", subtitle: "Internal Decisions",
-    icon: Layers,
-    content: "Nesting lets you implement complex, multi-layered rules.",
-    examples: [
-      {
-        title: "Two-Factor Auth",
-        explanation: "Checking one thing, then another inside it.",
-        code: "if logged_in:\n    if has_permission:\n        edit_system()"
-      },
-      {
-        title: "Indent Levels",
-        explanation: "Each level of nesting adds 4 more spaces to the left.",
-        code: "if outer:\n    if inner:\n        print(\"Target hit\")"
-      },
-      {
-        title: "The Ladder of Logic",
-        explanation: "Careful nesting can model sophisticated flows.",
-        code: "if day == \"Mon\":\n    if task_count > 0:\n        start_work()"
-      }
-    ],
-    keyPoint: "Indentation tracks the depth of your logic."
-  },
-  {
-    id: 207, title: "COMPARE", subtitle: "Relational Tools",
-    icon: Code,
-    content: "Comparison operators form the backbone of all program logic.",
-    examples: [
-      {
-        title: "The Basic Six",
-        explanation: "==, !=, >, <, >=, <=",
-        code: "a = 5\nb = 10\nprint(a <= b) # True"
-      },
-      {
-        title: "Mixing Types",
-        explanation: "You can compare different numeric types easily.",
-        code: "print(5 == 5.0) # True in Python"
-      },
-      {
-        title: "String Identity",
-        explanation: "In Python, == is used for content matching even for strings.",
-        code: "print(\"hello\" == \"hello\") # True"
-      }
-    ],
-    keyPoint: "== equal | != not equal | > > | < < | >= >= | <= <= "
-  },
-  {
-    id: 208, title: "LOGICAL", subtitle: "And, Or, Not",
-    icon: Filter,
-    content: "Logical operators combine multiple conditions into one result.",
-    examples: [
-      {
-        title: "The Tight Requirement (AND)",
-        explanation: "Both halves must be True.",
+        title: "AND",
+        explanation: "Result is True only if BOTH sides are True.",
         code: "if age > 18 and has_ticket: enter()"
       },
       {
-        title: "The Flexible Choice (OR)",
-        explanation: "The block runs if either side is True.",
+        title: "OR",
+        explanation: "Result is True if AT LEAST ONE side is True.",
         code: "if is_admin or is_owner: grant_access()"
       },
       {
-        title: "The Flip (NOT)",
-        explanation: "Invert a boolean result.",
-        code: "if not is_locked: open_door()"
+        title: "Combining",
+        explanation: "Building complex requirements.",
+        code: "if (A or B) and C: run()"
       }
     ],
-    keyPoint: "and → both True | or → either True | not → flips the boolean"
+    keyPoint: "and (Both), or (Either)."
   },
   {
-    id: 209, title: "MULTIPLE", subtitle: "Pythonic Conditions",
-    icon: CheckCircle2,
-    content: "Python has unique shortcuts that make conditions more readable.",
+    id: 208, title: "MULTI_COND", subtitle: "Checking multiple conditions",
+    icon: Layers,
+    content: "Using 'elif' (else if) to check a series of different conditions in order.",
     examples: [
       {
-        title: "Chained Comparisons",
-        explanation: "Compare a value against a range in one line.",
-        code: "score = 85\nif 80 < score < 90:\n    print(\"B Grade\")"
+        title: "The Chain",
+        explanation: "If the first is False, check the second, then the third.",
+        code: "if x > 100: print(\"Huge\")\nelif x > 50: print(\"Big\")\nelse: print(\"Small\")"
       },
       {
-        title: "Membership (IN)",
-        explanation: "Check if a value exists in a list or string.",
-        code: "if \"virus\" in file_data:\n    quarantine()"
+        title: "Stop at First",
+        explanation: "Once one true condition is found, the rest of the elifs are skipped.",
+        code: "x = 10\nif x > 5: print(\"A\")\nelif x > 2: print(\"B\") # Skipped!"
       },
       {
-        title: "Empty Checks",
-        explanation: "Use the value itself as a boolean.",
-        code: "data = []\nif not data:\n    print(\"List is empty\")"
+        title: "The Default",
+        explanation: "Using else at the end to catch everything else.",
+        code: "if a: do()\nelif b: do()\nelse: reset()"
       }
     ],
-    keyPoint: "if 0 < age < 18: | if name in ['Alice', 'Bob']:"
+    keyPoint: "elif = 'If the previous failed, try this'."
   },
   {
-    id: 210, title: "REALLIFE", subtitle: "System Architecture",
-    icon: Star,
-    content: "If-else transforms simple data into complex behaviors.",
+    id: 209, title: "REAL_DECISION", subtitle: "Real-life decision examples",
+    icon: MapPin,
+    content: "Programming logic mimics how we make decisions in the physical world.",
     examples: [
       {
-        title: "Traffic Controller",
-        explanation: "Modeling real-world timing and logic.",
-        code: "if car_detected and phase == \"Red\":\n    timer = 0"
+        title: "Atmosphere",
+        explanation: "If it's cold, wear a jacket. Else, wear a shirt.",
+        code: "if temp < 15: wear(\"jacket\")"
       },
       {
-        title: "Enemy AI",
-        explanation: "Deciding what a game NPC does based on player distance.",
-        code: "if distance < 5: attack()\nelif distance < 20: chase()\nelse: patrol()"
+        title: "Finance",
+        explanation: "If balance >= price, buy. Else, save.",
+        code: "if balance >= 50: buy_pizza()"
       },
       {
-        title: "Health Monitor",
-        explanation: "Automated alerts based on threshold variables.",
-        code: "if heart_rate > 150: alert_user()"
+        title: "Traffic",
+        explanation: "If light is Green, Go. If Red, Stop.",
+        code: "if light == \"green\": move()"
       }
     ],
-    keyPoint: "Every app feature is built from layers of logic."
+    keyPoint: "Logic models reality."
   },
   {
-    id: 211, title: "DEBUG_IF", subtitle: "Logic Hunters",
+    id: 210, title: "DEBUG_COND", subtitle: "Simple debugging in conditions",
+    icon: Hammer,
+    content: "Finding why a decision path isn't being taken correctly.",
+    examples: [
+      {
+        title: "Print Debugging",
+        explanation: "Print the variable value right before the if to see its state.",
+        code: "print(score)\nif score > 10: print(\"Win\")"
+      },
+      {
+        title: "Trace Steps",
+        explanation: "Verify which block is actually running.",
+        code: "if color == 'red': print('In Red block')"
+      },
+      {
+        title: "Boolean Check",
+        explanation: "Testing the expression itself in isolation.",
+        code: "print(x == y) # Is it actually True or False?"
+      }
+    ],
+    keyPoint: "Verify data before deciding."
+  },
+  {
+    id: 211, title: "PREDICT_IF", subtitle: "Output prediction with if",
+    icon: HelpCircle,
+    content: "Mentally calculating which path the program will take based on data values.",
+    examples: [
+      {
+        title: "Variable Trace",
+        explanation: "x=10. if x > 5? Yes. Output: Pass.",
+        code: "x = 10\nif x > 5: print(\"Pass\")"
+      },
+      {
+        title: "Else Prediction",
+        explanation: "x=2. if x > 5? No. Goto Else. Output: Fail.",
+        code: "x = 2\nif x > 5: print(\"Pass\")\nelse: print(\"Fail\")"
+      },
+      {
+        title: "Multi Trace",
+        explanation: "x=7. Match elif x > 5. Output: Medium.",
+        code: "x = 7\nif x > 10: print(\"Hi\")\nelif x > 5: print(\"Med\")"
+      }
+    ],
+    keyPoint: "Follow the data path."
+  },
+  {
+    id: 212, title: "MISTAKES", subtitle: "Common mistakes in conditions",
     icon: AlertCircle,
-    content: "Learn the 3 common bugs that trip up even veteran coders.",
+    content: "Common errors that cause logic to fail or crash in Python.",
     examples: [
       {
-        title: "The Assignment Bug",
-        explanation: "accidentally using = in a condition (SyntaxError in Python).",
-        code: "# if score = 100: # ERROR\nif score == 100: # CORRECT"
+        title: "Assignment Error",
+        explanation: "Using = instead of == by mistake.",
+        code: "# if x = 10: (ERROR)\nif x == 10: (GOOD)"
       },
       {
-        title: "Off-By-One",
-        explanation: "Using > 10 when you really meant >= 10.",
-        code: "if age > 18: # 18 is not included\nif age >= 18: # 18 IS included"
+        title: "Colon Missing",
+        explanation: "Forgetting the colon : at the end of the if line.",
+        code: "# if x > 5 (ERROR)"
       },
       {
-        title: "Indent Error",
-        explanation: "Forgetting to indent or mixing tabs and spaces.",
-        code: "if True:\nprint(\"Fail\") # Error: Expected indent"
+        title: "Indentation",
+        explanation: "Not pushing the code block forward correctly.",
+        code: "if True:\nprint(\"Crash!\") # Error!"
       }
     ],
-    keyPoint: "= vs ==, wrong operator, bad indentation."
-  },
-  {
-    id: 212, title: "PREDICT", subtitle: "The Mental Engine",
-    icon: Zap,
-    content: "Trace code mentally to prevent bugs before you even write them.",
-    examples: [
-      {
-        title: "Sequential Trace",
-        explanation: "Step through conditions in order.",
-        code: "x = 10\nif x > 5: # YES -> Entry\n    print(\"Pass\")"
-      },
-      {
-        title: "False Path Trace",
-        explanation: "Tracing what happens when an if is skipped.",
-        code: "x = 5\nif x > 10: # NO -> Skip block\n    reboot()\nprint(\"Ready\") # Runs always"
-      },
-      {
-        title: "Logical Chain Trace",
-        explanation: "Calculating complex boolean results in your head.",
-        code: "a, b = True, False\nif a or b: # True or False is True\n    launch()"
-      }
-    ],
-    keyPoint: "Trace code -> x=15 -> 15>10? Yes -> prints 'Big' — think before you run!"
+    keyPoint: "Watch for =, :, and spaces."
   }
 ];
 
@@ -350,6 +350,36 @@ export const L2_TESTS = [
       { tokens: ["elif", "x", "==", "10:"],                                     answer: ["elif", "x", "==", "10:"] },
       { tokens: ["if", "a", "and", "b:"],                                       answer: ["if", "a", "and", "b:"] }
     ]
+  },
+  {
+    id: 218, title: "CODING LAB", subtitle: "Positive Protocol", icon: Terminal, type: 'coding',
+    gameData: {
+      title: "Binary Decisions",
+      objective: "Given n = 10, write an if-statement that prints 'Positive' if n is greater than 0.",
+      starterCode: "n = 10\n# Write your if-statement below\n",
+      hints: ["if n > 0:", "Remember the indentation and print('Positive')"],
+      validate: (logs) => logs.some(l => l.includes("Positive"))
+    }
+  },
+  {
+    id: 219, title: "CODING LAB", subtitle: "Pass/Fail Logic", icon: Zap, type: 'coding',
+    gameData: {
+      title: "The Divider",
+      objective: "Given score = 45, check if score >= 50. If true, print 'Pass', else print 'Fail'.",
+      starterCode: "score = 45\n# Write if-else logic here\n",
+      hints: ["Use if score >= 50:", "Use else: for the alternative"],
+      validate: (logs) => logs.some(l => l.includes("Fail"))
+    }
+  },
+  {
+    id: 220, title: "CODING LAB", subtitle: "Teenager Range", icon: Star, type: 'coding',
+    gameData: {
+      title: "Logical AND",
+      objective: "Given age = 15, print 'Teen' if age is between 13 and 19 (inclusive).",
+      starterCode: "age = 15\n# Use 'and' to check the range\n",
+      hints: ["if age >= 13 and age <= 19:", "Print 'Teen' if it matches"],
+      validate: (logs) => logs.some(l => l.includes("Teen"))
+    }
   }
 ];
 
