@@ -1,0 +1,46 @@
+{
+  "label": "PYTHON_ARCADE",
+  "foundation": [
+    {
+       "id": 601, "title": "FILE", "subtitle": "Open/Read/Write", "icon": "File",
+       "content": "Python can read and write to literal files (.txt, .json) on your hard drive. It uses 'open' to create a link to the disk.",
+       "scenario": "A Physical File Cabinet. You open it (open), put a new paper inside (write), and then CLOSE the door (close). If you don't close it, the cabinet's drawer gets stuck.",
+       "examples": [
+         { "title": "Writing", "explanation": "Creating a new file and putting text inside it instantly.", "code": "with open('f.txt', 'w') as f: f.write('Hi')" },
+         { "title": "Reading", "explanation": "Pulling text from a file into a variable.", "code": "with open('f.txt', 'r') as f: data = f.read()" },
+         { "title": "Context", "explanation": "Using 'with' to automatically close the file if a crash occurs.", "code": "with open('p.py') as f: pass" }
+       ],
+       "keyPoint": "w = write. r = read. a = append."
+    },
+    {
+       "id": 605, "title": "MODULE", "subtitle": "Toolboxes", "icon": "Layers",
+       "content": "Modules are pre-built libraries of code. You 'import' them to get new superpowers without writing the logic yourself.",
+       "scenario": "A Home Repair Kit. You don't build a screwdriver from scratch. You import (import) the tool from the kit (the module) and use it.",
+       "examples": [
+         { "title": "Math Lib", "explanation": "Importing a box of pre-built math tools like Square Root.", "code": "import math\nmath.sqrt(16)" },
+         { "title": "Time Lib", "explanation": "Accessing the computer's system clock for timing tasks.", "code": "import time\ntime.sleep(1)" },
+         { "title": "Random Lib", "explanation": "Creating unpredictable numbers for game logic.", "code": "import random\nrandom.randint(1, 6)" }
+       ],
+       "keyPoint": "import <module_name> provides its tools to you."
+    },
+    {
+       "id": 610, "title": "OS_SYS", "subtitle": "Talking to Windows", "icon": "Cpu",
+       "content": "Special modules like 'os' and 'sys' allow your program to talk back to Windows, create folders, and see your system specs.",
+       "scenario": "A Control Panel for your PC. Use os to make a folder (mkdir) or list every file in the current directory.",
+       "examples": [
+         { "title": "List Dir", "explanation": "Listing every document currently in the folder.", "code": "import os\nos.listdir('.')" },
+         { "title": "Exit Sys", "explanation": "Instantly killing the program by talking directly to the system.", "code": "import sys\nsys.exit(0)" },
+         { "title": "Make Path", "explanation": "Safe way to build file paths across different versions of Windows.", "code": "os.path.join('data', 'f.txt')" }
+       ],
+       "keyPoint": "os handles files. sys handles the Python interpreter."
+    }
+  ],
+  "tests": [
+    {
+      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "Python System Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which mode to write to a file?", "options": ["r","w","a","x"], "a": 1, "hint": "Short for write." }
+      ]
+    }
+  ]
+}

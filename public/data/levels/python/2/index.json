@@ -1,0 +1,107 @@
+{
+  "label": "PYTHON_BATTLE_2",
+  "pipeline": {
+    "teaching": [
+      {
+        "id": "card_1",
+        "title": "THE CORE OF LOGIC",
+        "topics": ["What is condition", "Boolean values (true/false)"],
+        "content": "A condition is a question that the computer can answer with only 'True' or 'False'. These are called Boolean values. They are the absolute foundation of all decision-making in programming.",
+        "examples": [
+          {
+            "title": "Boolean Logic",
+            "explanation": "True and False must be capitalized in Python.",
+            "code": "is_raining = True\nhas_umbrella = False"
+          }
+        ]
+      },
+      {
+        "id": "card_2",
+        "title": "MAKING CHOICES",
+        "topics": ["if statement", "if-else", "Real-life decision examples"],
+        "content": "The 'if' statement lets code run ONLY if a condition is True. The 'else' statement provides a backup plan if the condition is False. Think of it like a fork in the road.",
+        "examples": [
+          {
+            "title": "If / Else Block",
+            "explanation": "Notice the colon (:) and the strict indentation.",
+            "code": "if score >= 50:\n    print('Pass')\nelse:\n    print('Fail')"
+          }
+        ]
+      },
+      {
+        "id": "card_3",
+        "title": "OPERATORS",
+        "topics": ["Comparison operators", "Logical operators", "Checking multiple conditions"],
+        "content": "Comparisons like > (greater), < (less), and == (equals) create logic. You can combine multiple checks securely using the 'and' / 'or' keywords.",
+        "examples": [
+          {
+            "title": "Combining Logic",
+            "explanation": "Using 'and' requires both sides to be True.",
+            "code": "if hp > 0 and has_key == True:\n    open_door()"
+          }
+        ]
+      },
+      {
+        "id": "card_4",
+        "title": "ADVANCED FLOW",
+        "topics": ["nested if", "Simple debugging", "Output prediction", "Common mistakes"],
+        "content": "You can nest 'if' statements inside each other for complex logic. A major beginner mistake is using '=' (assignment) instead of '==' (comparison) inside conditions.",
+        "examples": [
+          {
+            "title": "Nested Logic",
+            "explanation": "Checking a second condition only if the first is True.",
+            "code": "if is_vip:\n    if age >= 18:\n        print('VIP Access')"
+          }
+        ]
+      }
+    ],
+    "practice": [
+      {
+        "q": "What is the only valid Boolean value pair in Python?",
+        "options": ["true / false", "True / False", "1 / -1", "Yes / No"],
+        "a": 1,
+        "explanation": "Python strictly requires a capital T and F: True and False."
+      },
+      {
+        "q": "What symbol is used to check if two values are EXACTLY equal?",
+        "options": ["=", "=>", "==", "!= "],
+        "a": 2,
+        "explanation": "A single '=' is for storing variables. The double '==' checks for equality!"
+      }
+    ],
+    "battle": {
+      "enemy": {
+        "name": "THE GATEKEEPER",
+        "maxHp": 130
+      },
+      "mcq": [
+        { "q": "If x = 10 and y = 5, what is (x > y)?", "options": ["True", "False", "15", "Error"], "a": 0, "damage": 10 },
+        { "q": "Which operator means 'Not Equal'?", "options": ["==", "=/=", "!=", "<>"], "a": 2, "damage": 10 },
+        { "q": "What happens if an 'if' condition is False?", "options": ["It crashes", "It runs anyway", "It skips the block", "It waits"], "a": 2, "damage": 10 },
+        { "q": "What is missing: if health > 0_", "options": [";", "()", ":", "{}"], "a": 2, "damage": 10 },
+        { "q": "True 'and' False equals...", "options": ["True", "False", "Syntax Error", "Both"], "a": 1, "damage": 10 },
+        { "q": "Which of these is assignment, NOT comparison?", "options": ["<=", "==", "!=", "="], "a": 3, "damage": 10 },
+        { "q": "What runs if a condition is False?", "options": ["The 'if' block", "The 'else' block", "The 'while' block", "Nothing"], "a": 1, "damage": 10 },
+        { "q": "True 'or' False equals...", "options": ["True", "False", "Null", "Error"], "a": 0, "damage": 10 }
+      ],
+      "coding": [
+        {
+          "type": "debug",
+          "title": "BOSS ATTACK: Fix the Syntax",
+          "code": "if score = 100:\n    print('Perfect')",
+          "missing": "==",
+          "damage": 25,
+          "hint": "You cannot use assignment (=) inside a condition check!"
+        },
+        {
+          "type": "output",
+          "title": "FINAL STRIKE: Predict Output",
+          "code": "x = 5\nif x > 2:\n  print('A')\nelse:\n  print('B')",
+          "answer": "A",
+          "damage": 25,
+          "hint": "Trace the logic. Is 5 greater than 2?"
+        }
+      ]
+    }
+  }
+}

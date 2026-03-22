@@ -1,0 +1,23 @@
+{
+  "learning": {
+    "concept": "Debugging is the process of finding and fixing mistakes in your program.",
+    "explanation": "If a program has a bug, it won't work correctly. To debug it, you have to find where the mistake is and then re-order or fix the steps. Debugging involves reading your code line-by-line to see where the logic breaks.",
+    "analogy": {
+      "title": "Finding a Glitch",
+      "body": "If you follow a recipe: \n1. Serve Tea\n2. Boil Water\n3. Add Powder\nYou would serve an empty cup first! You must re-order the steps to make it work. Debugging is re-ordering the logic."
+    },
+    "practice": [
+      { "q": "What is another name for a mistake in code?", "a": "A bug 🐛" },
+      { "q": "When should you debug your code?", "a": "As soon as you find something is wrong!" },
+      { "q": "Can you debug other people's code?", "a": "Yes, if you understand the logic!" }
+    ]
+  },
+  "game": {
+    "type": "bug",
+    "config": {
+      "scenario": "Tea is not getting ready",
+      "lines": ["Add tea powder", "Serve", "Boil water"],
+      "correctOrder": ["Boil water", "Add tea powder", "Serve"]
+    }
+  }
+}

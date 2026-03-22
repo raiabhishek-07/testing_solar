@@ -1,0 +1,46 @@
+{
+  "label": "JAVA_ARCADE",
+  "foundation": [
+    {
+       "id": 501, "title": "ARRAYLIST", "subtitle": "Dynamic Storage", "icon": "Layers",
+       "content": "An ArrayList is the most standard Java way to store lists of objects. Unlike regular arrays, it can shrink or grow as needed.",
+       "scenario": "A Growing Backpack. You can put things in (add), move them (remove), and see them (get) as you go. No fixed size.",
+       "examples": [
+         { "title": "Creation", "explanation": "Building an ArrayList using the generic <Type> syntax.", "code": "ArrayList<String> f = new ArrayList<>();" },
+         { "title": "Addition", "explanation": "Adding a new element to the end of your storage stream.", "code": "f.add(\"Apple\");" },
+         { "title": "Removal", "explanation": "Erasing an item by its specific index (e.g. 0 for first).", "code": "f.remove(0);" }
+       ],
+       "keyPoint": "ArrayList is part of java.util. Collections API."
+    },
+    {
+       "id": 504, "title": "MAP", "subtitle": "The HashMap", "icon": "Database",
+       "content": "A HashMap maps 'Keys' to 'Values'. Like a real dictionary, you look up a specific 'Word' (Key) to find its 'Definition' (Value) instantly.",
+       "scenario": "A Contact Phone Book. You have a huge list of names (Keys). You use the specific name to find the Number (Value).",
+       "examples": [
+         { "title": "The Put", "explanation": "Connecting a key (the name) to a value (the number) in memory.", "code": "m.put(\"Neo\", 555);" },
+         { "title": "The Get", "explanation": "Using the key to retrieve exactly the data you need.", "code": "int v = m.get(\"Neo\");" },
+         { "title": "The Check", "explanation": "Checking if a key even exists in the map to avoid crashes.", "code": "if (m.containsKey(\"Neo\")) { ... }" }
+       ],
+       "keyPoint": "HashMap uses Key:Value. Extremely fast lookup (O(1))."
+    },
+    {
+       "id": 508, "title": "SET", "subtitle": "Unique Bags", "icon": "Zap",
+       "content": "A Set is a collection that CANNOT have duplicate items. If you add the same thing twice, it's ignored. Everything is unique.",
+       "scenario": "A Guest List for a VIP Party. Once your name is on the list, you can't be added again. You are either ON it once or NOT ON it.",
+       "examples": [
+         { "title": "Double Add", "explanation": "Adding the same string twice; Java will silently ignore the second one.", "code": "s.add(\"Hi\"); s.add(\"Hi\"); # One 'Hi' only" },
+         { "title": "Search", "explanation": "Checking if a value already exists inside the uniqe bag.", "code": "if (s.contains(\"Hi\")) { ... }" },
+         { "title": "Size Reveal", "explanation": "Counting how many unique items are currently inside the set.", "code": "int count = s.size();" }
+       ],
+       "keyPoint": "HashSet = Unordered collection of unique objects."
+    }
+  ],
+  "tests": [
+    {
+      "id": 513, "title": "MCQ ADVENTURE", "subtitle": "Java Collection Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which allows NO duplicates?", "options": ["ArrayList","LinkedList","HashSet","Vector"], "a": 2, "hint": "A VIP guest list." }
+      ]
+    }
+  ]
+}

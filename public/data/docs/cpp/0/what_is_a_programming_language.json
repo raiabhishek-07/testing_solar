@@ -1,0 +1,25 @@
+{
+  "title": "What is a Programming Language?",
+  "learning": {
+    "concept": "A programming language is a way to communicate with computers.",
+    "explanation": "Computers naturally understand only binary (0 and 1). Programming languages like Python or Java allow humans to write instructions in a much more readable way, which is then translated for the computer.",
+    "analogy": {
+      "title": "Human Languages",
+      "body": "Just like humans use:\n* English\n* Hindi\n* Spanish\n\nComputers use:\n* Python\n* Java\n* C++\n\n👉 We use these languages to talk to the machine easily."
+    },
+    "practice": [
+      {
+        "q": "Why can’t we talk to computers in English directly?",
+        "a": "Computers don't understand context or nuances of human language like we do."
+      },
+      {
+        "q": "Is Python a programming language?",
+        "a": "Yes, it is one of the most popular languages for learning and professional work."
+      },
+      {
+        "q": "Why do we need languages?",
+        "a": "To give instructions efficiently without having to type in binary code manually."
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "label": "C_ARCADE",
+  "foundation": [
+    {
+       "id": 601, "title": "STRUCT", "subtitle": "Custom Records", "icon": "Layers",
+       "content": "A Struct allows you to cluster different data types (int, char, float) into a single logical 'Record' or object.",
+       "scenario": "A Student ID Card. It holds a Photo (Binary), a Name (Text), and a Number (Integer) simultaneously.",
+       "examples": [
+         { "title": "Creation", "explanation": "Defining a blueprint for a new record type using 'struct'.", "code": "struct Player { int hp; char id; };" },
+         { "title": "Accessing", "explanation": "Using a dot ('.') to see exactly one thing from inside the record.", "code": "p.hp = 100;" },
+         { "title": "Naming", "explanation": "Using 'typedef' to give your record a short name without saying 'struct' every time.", "code": "typedef struct Player P;" }
+       ],
+       "keyPoint": "struct allows multi-type containers in C."
+    },
+    {
+       "id": 604, "title": "FILES", "subtitle": "Disk I/O", "icon": "File",
+       "content": "C uses 'File Pointers' to read/write to your hard drive. You must manually open and close these connections.",
+       "scenario": "A Physical File Cabinet. You open it (fopen), put a new paper inside (fprintf), and then CLOSE the door (fclose).",
+       "examples": [
+         { "title": "Opening", "explanation": "Creating a link to a file on your disk using a special 'FILE' pointer.", "code": "FILE *f = fopen('d.txt', 'w');" },
+         { "title": "Writing", "explanation": "Pouring text into the file stream directly using the fprintf() function.", "code": "fprintf(f, \"Hi\");" },
+         { "title": "The Close", "explanation": "Releasing the file so other apps can see it.", "code": "fclose(f);" }
+       ],
+       "keyPoint": "Always check if f is NULL after opening."
+    },
+    {
+       "id": 608, "title": "HEADER", "subtitle": "Includes", "icon": "Cpu",
+       "content": "C uses Header files (.h) to share logic between different .c files in a large system.",
+       "scenario": "A Shared Recipe Book. Every chef (file) can include (include) the recipes (logic) in the .h file instantly.",
+       "examples": [
+         { "title": "Standard", "explanation": "Importing a box of pre-made tools from the official C compiler library.", "code": "#include <stdio.h>" },
+         { "title": "Local One", "explanation": "Including a file you wrote yourself in the same folder using quotes.", "code": "#include \"game.h\"" },
+         { "title": "The Guards", "explanation": "Adding special lines starting with # to prevent C from reading the same file twice.", "code": "#ifndef MY_H" }
+       ],
+       "keyPoint": "Headers connect different files together."
+    }
+  ],
+  "tests": [
+    {
+      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "C Record Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Access struct member?", "options": [".","::","->","both . and ->"], "a": 3, "hint": ". is normal, -> is for pointers." }
+      ]
+    }
+  ]
+}

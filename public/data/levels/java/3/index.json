@@ -1,0 +1,46 @@
+{
+  "label": "JAVA_ARCADE",
+  "foundation": [
+    {
+       "id": 301, "title": "LOOP", "subtitle": "For Loops", "icon": "Layers",
+       "content": "A Java 'for' loop is structured with an init, a test, and an update in a single part of the line. It's the standard for repeating tasks.",
+       "scenario": "A 100-Meter Dash. Before opening the race, you initialize the distance (int i=0), check if you've finished (i < 100), and add a step (i++).",
+       "examples": [
+         { "title": "The Standard For", "explanation": "The basic 3-part loop used in almost every Java app.", "code": "for (int i=0; i<5; i++) { do(); }" },
+         { "title": "Enhanced For", "explanation": "A simplified way to go through every item in a collection or list.", "code": "for (String name : names) { say(name); }" },
+         { "title": "Reverse Count", "explanation": "Starting at 10 and counting down precisely to zero.", "code": "for (int i=10; i>=0; i--) { print(i); }" }
+       ],
+       "keyPoint": "for (init; condition; update) { code }"
+    },
+    {
+       "id": 305, "title": "WHILE", "subtitle": "Until Loops", "icon": "Zap",
+       "content": "A 'while' loop in Java repeats as long as its condition remains True. It is evaluated at the top of every repeat.",
+       "scenario": "A Waiter standing by a customer. While (the customer is still eating), the waiter stands there. He can't leave until the bowl is empty (False).",
+       "examples": [
+         { "title": "Top-Down Test", "explanation": "Checking the switch before ever starting the first task.", "code": "while (energy > 0) { run(); }" },
+         { "title": "Sentinel Loop", "explanation": "Waiting for a user to type a specific word like 'QUIT'.", "code": "while (!input.equals('QUIT')) { ... }" },
+         { "title": "Do-While", "explanation": "A special loop that ALWAYS runs at least once, then checks the rule.", "code": "do { try(); } while (failed);" }
+       ],
+       "keyPoint": "while loop checks BEFORE running. do-while checks AFTER."
+    },
+    {
+       "id": 310, "title": "MATH", "subtitle": "Math Power", "icon": "Cpu",
+       "content": "Java handles arithmetic with high precision. It also provides the java.lang.Math toolkit for complex things like Square Roots.",
+       "scenario": "An Architect's Calculator. Finding the total load (+), subtracting waste (-), multiplying materials (*), and dividing space between rooms (/).",
+       "examples": [
+         { "title": "Basic Calc", "explanation": "Standard math (+, -, *, /) with fixed-type variables (int or double).", "code": "double result = (5 * 10) / 2.0;" },
+         { "title": "Exponentiation", "explanation": "Using the built-in Math library to calculate powers or square roots.", "code": "double pow = Math.pow(10, 2); # 100" },
+         { "title": "The Modulo %", "explanation": "Finding the remainder. Helpful for switching between two players (id % 2).", "code": "if (num % 2 == 0) { even(); }" }
+       ],
+       "keyPoint": "Math.pow(base, exp) for powers. % for remainder."
+    }
+  ],
+  "tests": [
+    {
+      "id": 313, "title": "MCQ ADVENTURE", "subtitle": "Java Loop Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which Java loop runs at least once?", "options": ["for","while","if","do-while"], "a": 3, "hint": "Checks at the bottom." }
+      ]
+    }
+  ]
+}

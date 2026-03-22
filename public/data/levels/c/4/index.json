@@ -1,0 +1,57 @@
+{
+  "label": "C_ARCADE",
+  "foundation": [
+    {
+       "id": 401, "title": "ARRAY", "subtitle": "Fixed Row of Data", "icon": "Layers",
+       "content": "An array is a fixed-size row of items, all of the same type. In C, you must tell the compiler exactly how many items (size) you will store when you create the array.",
+       "scenario": "A Row of 10 School Lockers. You can't add an 11th locker later (Fixed Size). You can only put 'Books' (Type) inside if the lockers are for books.",
+       "examples": [
+         { "title": "Creation", "explanation": "Asking for 5 integer slots in RAM instantly.", "code": "int scores[5];" },
+         { "title": "Initialization", "explanation": "Filling the slots with starting values at birth.", "code": "int nums[3] = {1, 2, 3};" },
+         { "title": "Zero Init", "explanation": "Starting every slot at 0 to avoid garbage memory values.", "code": "int arr[10] = {0};" }
+       ],
+       "keyPoint": "Fixed size at creation. Elements are side-by-side in RAM."
+    },
+    {
+       "id": 404, "title": "INDEX", "subtitle": "Accessing Doors", "icon": "Hash",
+       "content": "You access elements using their index []. In C, indexing starts at 0. The first item is at index 0, the second at 1, and so on.",
+       "scenario": "A Staircase. The Ground Floor is Step 0. To reach the first floor, you take Step 1, then 2. You can't go to Step 3 if the stairs only have 2 steps (Crash).",
+       "examples": [
+         { "title": "Read Data", "explanation": "Retrieving a value from the third locker (Index 2).", "code": "int val = arr[2];" },
+         { "title": "Write Data", "explanation": "Changing the value stored in the first locker (Index 0).", "code": "arr[0] = 500;" },
+         { "title": "The Bounds", "explanation": "Accessing index 5 when the size is ONLY 5 will crash with a 'Seg Fault'.", "code": "# Bounds Overflow Error!" }
+       ],
+       "keyPoint": "arr[index]. Index is 0 to (Size - 1)."
+    },
+    {
+       "id": 408, "title": "STRINGS", "subtitle": "Char Arrays", "icon": "Type",
+       "content": "C doesn't have a 'String' type. It uses an array of characters (char) that must end with a Null Terminator '\\0' to signal the end.",
+       "scenario": "A Sentence with a Period. A string is a list of letters. Without the period (Null Terminator), a computer will keep reading the blank wall behind the paper forever.",
+       "examples": [
+         { "title": "Literal", "explanation": "C adds the '\\0' automatically if you use double quotes.", "code": "char msg[] = \"Hello\";" },
+         { "title": "Manual Array", "explanation": "Building a string letter by letter, including the terminator.", "code": "char s[] = {'H', 'i', '\\0'};" },
+         { "title": "Length Check", "explanation": "Counting letters until the char equals '\\0'.", "code": "strlen(msg); # 5" }
+       ],
+       "keyPoint": "Strings in C are char arrays ending in \\0."
+    },
+    {
+       "id": 411, "title": "MEMORY", "subtitle": "Linear RAM", "icon": "Cpu",
+       "content": "In C, array elements are contiguous (touching) in memory. This is why C is so fast—the CPU can jump directly between them.",
+       "scenario": "A Train Track. Each carriage (Variable) is coupled tightly to the next. You don't jump gaps; the data flows in a straight, solid line.",
+       "examples": [
+         { "title": "Pointer Math", "explanation": "Adding 1 to an address jumps to the NEXT array slot.", "code": "ptr + 1; # Moves to next locker" },
+         { "title": "Sizeof Logic", "explanation": "Calculating how many total bytes the whole array takes in RAM.", "code": "sizeof(arr); # Size * 4 bytes" },
+         { "title": "Zero Gap", "explanation": "C guarantees there is NO wasted space between array items.", "code": "# Total Efficiency" }
+       ],
+       "keyPoint": "Contiguous memory = High performance loops."
+    }
+  ],
+  "tests": [
+    {
+      "id": 415, "title": "MCQ ADVENTURE", "subtitle": "C First Arrays Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "What is the first index of any C array?", "options": ["1","0","-1","Any"], "a": 1, "hint": "Computer-count starts at zero." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "label": "LEVEL 0: NOOB ZONE (FOUNDATIONS)",
+  "sublevels": [
+    {
+      "id": "0_1",
+      "title": "THE MACHINE",
+      "subtitle": "Computers & Programs",
+      "icon": "HardDrive",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c1",
+            "title": "What is a Computer?",
+            "topics": ["What is a computer", "What is a program"],
+            "content": "A computer is just dead hardware—metal, silicone, and wires. It cannot think. A program is the invisible 'ghost' inside the machine. It is a set of instructions that tells the dead hardware exactly what to do.",
+            "examples": [
+              { "title": "Hardware vs Software", "explanation": "If you can smash it with a hammer, it's hardware. If it's an invisible instruction in memory, it's a program.", "code": "CONCEPT: Hardware = Kitchen. Program = Recipe." }
+            ]
+          },
+          {
+            "id": "c2",
+            "title": "The Craft",
+            "topics": ["What is programming", "What is a programming language"],
+            "content": "Programming is the act of writing that 'recipe'. But computers don't speak English. We must use a 'Programming Language'—a special bridge language that humans can read, but computers can tightly translate into electricity.",
+            "examples": [
+              { "title": "The Bridge Language", "explanation": "You write in Python (readable). The computer translates it into 1s and 0s (electricity).", "code": "CONCEPT: English -> Python -> 1s and 0s" }
+            ]
+          },
+          {
+            "id": "c3",
+            "title": "Levels of Power",
+            "topics": ["Types of languages (low vs high level)"],
+            "content": "Low-level languages (like Assembly) are like driving a manual car with raw engine wires—hard, but fast. High-level languages (like Python) are like driving an automatic—easier to read, but slightly disconnected from the raw metal.",
+            "examples": [
+              { "title": "High vs Low", "explanation": "High level focuses on WHAT to do. Low level focuses on HOW to move the electricity.", "code": "CONCEPT: High Level (Python) vs Low Level (Assembly)" }
+            ]
+          }
+        ],
+        "practice": [
+          { "q": "What perfectly describes a 'Program'?", "options": ["A physical chip", "A set of invisible instructions", "A keyboard monitor", "A broken computer"], "a": 1, "explanation": "Programs are immaterial instructions driving the machine." }
+        ],
+        "battle": {
+          "enemy": { "name": "HARDWARE GOLEM", "maxHp": 80 },
+          "mcq": [
+            { "q": "Which of these is Hardware?", "options": ["A written Algorithm", "The CPU Core", "Python language", "A video game character"], "a": 1, "damage": 10 },
+            { "q": "Why do we need Programming Languages?", "options": ["Because CPUs only understand English", "To bridge the gap between Human thought and Machine Code", "To make hardware faster", "To replace keyboards"], "a": 1, "damage": 10 },
+            { "q": "What is the true act of 'Programming'?", "options": ["Building computer screens", "Writing strict instructions for the CPU", "Clicking the mouse fast", "Opening an application"], "a": 1, "damage": 10 },
+            { "q": "High-Level languages like Python are fundamentally designed to be:", "options": ["Extremely hard to read", "Easier for humans to read and write", "Directly understood by the CPU", "Used only for hardware design"], "a": 1, "damage": 10 }
+          ],
+          "coding": [
+            {
+              "type": "mcq", 
+              "title": "BOSS STRIKE: Identify the Layer",
+              "code": "You want to build a simple web game fast.\nDo you use a Low-Level or High-Level language?",
+              "options": ["Low-Level", "High-Level", "No Language", "Hardware"],
+              "answer": "High-Level",
+              "damage": 40,
+              "hint": "High-Level is for fast, readable development!"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "0_2",
+      "title": "THE INSTRUCTIONS",
+      "subtitle": "Flow & Operations",
+      "icon": "Terminal",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c4",
+            "title": "Dumb Machines",
+            "topics": ["Real-life examples of instructions"],
+            "content": "Computers have ZERO common sense. If you tell a robot 'Make a sandwich,' it will crash. You must explicitly say: 1) Open fridge, 2) Grab bread, 3) Grab knife. If you miss a step, the program explodes.",
+            "examples": [
+              { "title": "The Sandwich Crash", "explanation": "Never assume the computer inherently knows anything.", "code": "CONCEPT: Explicit commands only." }
+            ]
+          },
+          {
+            "id": "c5",
+            "title": "The World Portals",
+            "topics": ["Input concept", "Output concept"],
+            "content": "How does software interact with the world? 'Input' pulls data in (Keyboard presses, mouse clicks, camera feeds). 'Output' blasts data out (Pixels on a screen, sound in a speaker). Everything is an Input -> Output loop.",
+            "examples": [
+              { "title": "The Infinite Loop", "explanation": "Without input, a program is blind. Without output, it is silent.", "code": "CONCEPT: Input -> Process -> Output" }
+            ]
+          }
+        ],
+        "practice": [
+          { "q": "Pressing the 'spacebar' on a keyboard is an example of:", "options": ["Output", "Algorithm", "Input", "Hardware"], "a": 2, "explanation": "You are sending physical data INTO the machine." }
+        ],
+        "battle": {
+          "enemy": { "name": "I/O GUARDIAN", "maxHp": 80 },
+          "mcq": [
+            { "q": "Why do computers crash when given vague instructions?", "options": ["Because they lack human 'common sense'", "Because RAM fills up", "Because Python is slow", "Because monitors disconnect"], "a": 0, "damage": 10 },
+            { "q": "Hearing a beep track from a speaker is:", "options": ["Input", "Output", "Code", "Logic"], "a": 1, "damage": 10 },
+            { "q": "Swiping your finger on a mobile screen is:", "options": ["Output", "CPU processing", "Input", "Algorithm"], "a": 2, "damage": 10 },
+            { "q": "A program takes a photo (___), applies a filter, and shows it on screen (___).", "options": ["Output / Input", "Input / Output", "Process / Algorithm", "Hardware / Magic"], "a": 1, "damage": 10 }
+          ],
+          "coding": [
+             {
+              "type": "mcq", 
+              "title": "BOSS STRIKE: The Broken Robot",
+              "code": "'Robot, open the door!'\nWhy does the robot crash?",
+              "options": ["It doesn't have an output monitor", "You didn't explicitly instruct it to walk to the door first", "It is written in a High-Level language", "It is a hardware bug"],
+              "answer": "You didn't explicitly instruct it to walk to the door first",
+              "damage": 40,
+              "hint": "Computers cannot skip implicit steps!"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "0_3",
+      "title": "THE BRAIN",
+      "subtitle": "Logic & Algorithms",
+      "icon": "Brain",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c6",
+            "title": "True or False",
+            "topics": ["What is logic (simple meaning)"],
+            "content": "At its core, computer logic is simply making a choice based on Truth. 'If it starts raining, open umbrella'. The computer checks if the statement is TRUE, then executes the action. This 1/0 branching creates all software intelligence.",
+            "examples": [
+              { "title": "Boolean Branching", "explanation": "All artificial intelligence boils down to massive webs of True/False questions.", "code": "CONCEPT: True -> Go Left. False -> Go Right." }
+            ]
+          },
+          {
+            "id": "c7",
+            "title": "The Master Plan",
+            "topics": ["What is an algorithm (step-by-step idea)"],
+            "content": "An algorithm is a finite, step-by-step master plan designed to solve a specific problem. A cooking recipe, a Rubik's cube solution, or Google's search engine are all algorithms.",
+            "examples": [
+              { "title": "The Perfect Sequence", "explanation": "If the steps are out of order, the algorithm fails.", "code": "CONCEPT: Step 1 -> Step 2 -> Step 3 = Solution" }
+            ]
+          },
+          {
+            "id": "c8",
+            "title": "Hunting Errors",
+            "topics": ["What is debugging", "Why coding is useful"],
+            "content": "You WILL make mistakes. Identifying and fixing logic mistakes is called 'Debugging'. It is 80% of a developer's job. We do it because once the code is perfect, a computer can automate thousands of tasks instantly.",
+            "examples": [
+              { "title": "The Detective Work", "explanation": "A bug is just a flaw in your exact logic plan. Finding it takes patience.", "code": "CONCEPT: Fix the Logic, Fix the Bug." }
+            ]
+          }
+        ],
+        "practice": [
+          { "q": "What perfectly describes an 'Algorithm'?", "options": ["A hardware chip", "A finite step-by-step plan", "A bug in the system", "A programming language"], "a": 1, "explanation": "Algorithms are just logical recipes to achieve a goal." }
+        ],
+        "battle": {
+          "enemy": { "name": "LOGIC SPECTER", "maxHp": 80 },
+          "mcq": [
+            { "q": "Programs make decisions fundamentally relying on what concept?", "options": ["Magic", "Hardware speed", "Boolean Logic (True/False checks)", "Disk space"], "a": 2, "damage": 10 },
+            { "q": "What does 'Debugging' fundamentally mean?", "options": ["Deleting the program", "Finding and fixing logic/syntax mistakes", "Upgrading the RAM", "Turning off the monitor"], "a": 1, "damage": 10 },
+            { "q": "Why is coding so incredibly useful for humanity?", "options": ["It generates hardware", "It automates massive repetitive logic tasks instantly", "It proves humans are smart", "It eliminates the need for math"], "a": 1, "damage": 10 },
+            { "q": "An algorithm must have:", "options": ["Infinite steps", "A strictly ordered, finite set of steps", "No logic at all", "Bugs"], "a": 1, "damage": 10 }
+          ],
+          "coding": [
+            {
+              "type": "mcq", 
+              "title": "BOSS STRIKE: The Flawed Logic",
+              "code": "Step 1: Put on shoes.\nStep 2: Put on socks.\n\nWhat kind of error is this?",
+              "options": ["Hardware Error", "Input Error", "Logic/Algorithmic Error (Bug)", "Syntax Error"],
+              "answer": "Logic/Algorithmic Error (Bug)",
+              "damage": 40,
+              "hint": "The steps are perfectly readable, but the order is fatally flawed!"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

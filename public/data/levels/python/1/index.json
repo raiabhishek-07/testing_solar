@@ -1,0 +1,182 @@
+{
+  "label": "PYTHON_ARCADE",
+  "foundation": [
+    {
+       "id": 101, "title": "STRUCTURE", "subtitle": "Basic Program", "icon": "Layers",
+       "content": "A Python program focuses on clean execution without boilerplate. It executes top-to-bottom, line-by-line. Statements are simple lines of code, and sequence is critical.",
+       "scenario": "A Grocery List. You start at the top, buy the first item, then move down. You don't have to announce 'Start Shopping', you just start.",
+       "subtopics": ["What is a program structure", "Order of execution (top → bottom)", "Entry point (main idea, simplified)", "Statements vs lines", "Importance of sequence"],
+       "learningOutcome": "Code runs line by line in order",
+       "examples": [
+         { "title": "Top-Down Run", "explanation": "The CPU reads line 1, finishes it, then moves to line 2.", "code": "print('1')\nprint('2')" },
+         { "title": "Independent Line", "explanation": "Every line can be a complete thought.", "code": "x = 10\ny = 20" },
+         { "title": "Entry Point", "explanation": "Python starts right at line 1. No main() needed.", "code": "print('Start')" }
+       ],
+       "keyPoint": "Sequence matters. Execution flows downwards."
+    },
+    {
+       "id": 102, "title": "PRINT", "subtitle": "Display Output", "icon": "Terminal",
+       "content": "The print() function is your program's voice. It takes text, numbers, or logic and blasts it to the console. You can print numbers directly, but text needs quotes.",
+       "scenario": "A Megaphone. Whatever you whisper into the microphone gets blasted out to the whole world.",
+       "subtopics": ["What is output display", "Basic print syntax", "Printing text", "Printing numbers", "Multiple print statements", "Difference between text and values"],
+       "learningOutcome": "Display information to user",
+       "examples": [
+         { "title": "Printing Text", "explanation": "Printing standard text requires safe quotes.", "code": "print('Hello World')" },
+         { "title": "Printing Numbers", "explanation": "Values don't need quotes and can do math.", "code": "print(100 + 42)" },
+         { "title": "Multiple", "explanation": "Using multiple statements in a row.", "code": "print('A')\nprint('B')" }
+       ],
+       "keyPoint": "print() outputs data to the screen."
+    },
+    {
+       "id": 103, "title": "FORMAT", "subtitle": "Visual Output", "icon": "Type",
+       "content": "Formatting allows you to combine text and values beautifully. You can control spaces, new lines (\\n), and seamlessly inject values into strings using f-strings.",
+       "scenario": "A Fill-in-the-Blank Letter. 'Dear {name}', the curly braces are empty slots where you insert real data.",
+       "subtopics": ["Printing multiple values", "Spaces and separators", "New line (\\n)", "Combining text and values", "Basic formatting styles"],
+       "learningOutcome": "Control how output looks",
+       "examples": [
+         { "title": "The f-string", "explanation": "Placing values directly inside {} within a string.", "code": "print(f'Hello {name}')" },
+         { "title": "New Line", "explanation": "Using \\n to break lines manually.", "code": "print('Top\\nBottom')" },
+         { "title": "Multiple Values", "explanation": "Separating items with commas intelligently adds spaces.", "code": "print('Score:', 100)" }
+       ],
+       "keyPoint": "Format output quickly using f-strings or commas."
+    },
+    {
+       "id": 104, "title": "VARIABLE", "subtitle": "Data Containers", "icon": "Hash",
+       "content": "Variables are named boxes that hold data in memory. You need them because data changes (like a player's score). They let you store, change, and track information.",
+       "scenario": "A Moving Box. You write 'Kitchen Stuff' (Name) and put plates strictly inside (Value). Default data containers for the engine.",
+       "subtopics": ["What is a variable", "Why variables are needed", "Storing data", "Memory concept (simple idea)", "Changing values"],
+       "learningOutcome": "Understand variables as “containers”",
+       "examples": [
+         { "title": "Declaration", "explanation": "Giving a box a name and placing data inside.", "code": "health = 100" },
+         { "title": "Usage", "explanation": "Using the box's name to use the data.", "code": "print(health)" },
+         { "title": "Why Needed", "explanation": "Variables make logic readable and dynamic.", "code": "if speed > max: brake()" }
+       ],
+       "keyPoint": "Variables remember changing things in memory."
+    },
+    {
+       "id": 105, "title": "NAME_RULES", "subtitle": "Naming Rules", "icon": "AlertCircle",
+       "content": "Variables have strict naming rules. Meaningful naming is a best practice. They must use allowed characters, with absolutely no spaces and cannot start with a number.",
+       "scenario": "A System Password. You must use standard text characters, no weird spaces, or the parser rejects it completely.",
+       "subtopics": ["Allowed characters (a-z, A-Z, 0-9, _)", "Cannot start with number", "No spaces allowed", "Case sensitivity in names", "Meaningful naming (best practice)"],
+       "learningOutcome": "Write valid and readable variable names",
+       "examples": [
+         { "title": "Meaningful Name", "explanation": "Perfect names are clear and use underscores.", "code": "top_score = 100" },
+         { "title": "Invalid Start", "explanation": "A number at the start crashes Python.", "code": "1st_player = 5 # ERROR!" },
+         { "title": "No Spaces", "explanation": "Spaces break the text apart.", "code": "top score = 10 # ERROR!" }
+       ],
+       "keyPoint": "Start with a letter/_. No spaces allowed."
+    },
+    {
+       "id": 106, "title": "DATATYPES", "subtitle": "The 4 Core Types", "icon": "Database",
+       "content": "Data is divided into Types. Python relies on Integer (whole positive/negative), Float (decimals), String (text in quotes), and Boolean (True/False logic).",
+       "scenario": "A Recycling Bin. Glass goes in the Glass bin (String). Paper goes in Paper (Int). If you mix them blindly, the recycling machine breaks.",
+       "subtopics": ["Integer (int)", "Float", "String", "Boolean"],
+       "learningOutcome": "Identify and use correct data types",
+       "examples": [
+         { "title": "Whole Ints", "explanation": "Positive or negative numbers with no fraction.", "code": "lives = -3" },
+         { "title": "Floats & Bools", "explanation": "Decimals and logic flags.", "code": "price = 9.99\nis_on = True" },
+         { "title": "Strings", "explanation": "Text enclosed safely entirely in quotes.", "code": "name = 'Alice'" }
+       ],
+       "keyPoint": "int (1), float (1.5), str ('a'), bool (True)."
+    },
+    {
+       "id": 107, "title": "ASSIGN", "subtitle": "Storing Data", "icon": "Zap",
+       "content": "Assignment is the act of putting data into a variable box using the '=' operator. You can safely store numbers, strings, and booleans sequentially.",
+       "scenario": "A Shipping Label. You calculate the package's weight first (Right Side), and ONLY THEN do you write it on the label (Left Side).",
+       "subtopics": ["Assignment operator (=)", "Storing values in variables", "Assigning numbers", "Assigning text", "Assigning boolean values"],
+       "learningOutcome": "Store data correctly",
+       "examples": [
+         { "title": "Assign Text", "explanation": "Storing a fresh string to a label.", "code": "player = 'Neo'" },
+         { "title": "Assign Math", "explanation": "Storing complex math cleanly to a label.", "code": "score = 10 * 5" },
+         { "title": "Assign Logic", "explanation": "Storing powerful true/false logic directly.", "code": "is_admin = False" }
+       ],
+       "keyPoint": "The '=' operator moves data right-to-left."
+    },
+    {
+       "id": 108, "title": "REASSIGN", "subtitle": "Dynamic Values", "icon": "Code",
+       "content": "Variables are dynamic. You can change their value entirely, overwriting the old data. The 'latest' value is all the computer strictly remembers.",
+       "scenario": "A Lockbox. You take out the golden coin, throw it away, and put in a silver coin. The box is the same, but the inner content completely vanished and was replaced.",
+       "subtopics": ["Changing variable value", "Overwriting old value", "Updating values step-by-step", "Concept of latest value"],
+       "learningOutcome": "Understand dynamic behavior of variables",
+       "examples": [
+         { "title": "The Overwrite", "explanation": "Changing a variable's memory content completely.", "code": "x = 10\nx = 100 # 10 is gone!" },
+         { "title": "Step-by-Step", "explanation": "Variables update as the program goes down.", "code": "hp = 10\nhp = 5\nprint(hp) # It's 5" },
+         { "title": "Self-Update", "explanation": "Using the old value to brutally calculate the new value.", "code": "x = 10\nx = x + 1" }
+       ],
+       "keyPoint": "Variables can brutally overwrite old values at any time."
+    },
+    {
+       "id": 109, "title": "INPUT_CONCEPT", "subtitle": "Interaction flow", "icon": "HelpCircle",
+       "content": "Input allows user interaction. The system waits, takes user input conceptually, stores it, and then uses it. It is the direct opposite of Output.",
+       "scenario": "A Vending Machine. You press a button (Input), it processes, and gives a snack (Output). A continuous conceptual cycle.",
+       "subtopics": ["What is input in programming", "Taking user input (conceptual)", "Input → store → use flow", "Difference between input and output"],
+       "learningOutcome": "Understand interaction with user",
+       "examples": [
+         { "title": "Wait for User", "explanation": "Pausing the entire script until action occurs.", "code": "name = input()" },
+         { "title": "Store & Use", "explanation": "Capturing the data to use instantly below.", "code": "x = input()\nprint(x)" },
+         { "title": "Contrast", "explanation": "Input goes IN to memory, Output goes OUT to eyes.", "code": "x = input()  # IN\nprint(x) # OUT" }
+       ],
+       "keyPoint": "Input brings data IN. Output pushes data OUT."
+    },
+    {
+       "id": 110, "title": "COMMENTS", "subtitle": "Ignored text", "icon": "FileText",
+       "content": "Comments are notes for humans to keep code readable. The computer entirely ignores them. Single-line comments start perfectly with a hashtag (#).",
+       "scenario": "A Sticky Note on an Engine. The note says 'Do not touch the red wire!'. The engine doesn't read the note, but the mechanic does safely.",
+       "subtopics": ["What are comments", "Why comments are used", "Single-line comments", "Ignored by computer", "Writing readable code"],
+       "learningOutcome": "Write understandable code",
+       "examples": [
+         { "title": "Single-Line", "explanation": "Taking up a whole line to explain logic.", "code": "# Boss damage logic\nx = 10" },
+         { "title": "Ignored Logic", "explanation": "Testing lines by hiding them from Python.", "code": "# print('Hidden')" },
+         { "title": "Readability", "explanation": "Explaining the WHY, not the What.", "code": "hp = 100 # Default max hp" }
+       ],
+       "keyPoint": "# makes Python ignore the rest of the line."
+    },
+    {
+       "id": 111, "title": "KEYWORDS", "subtitle": "Reserved syntax", "icon": "Lock",
+       "content": "Keywords are completely reserved system words that Python uses for its own internal structure. You absolutely cannot use them as variable names to avoid mistakes.",
+       "scenario": "Reserved Parking. The spot marked 'CEO' (Keyword) cannot be casually parked in by 'Employee' (Variable). The system aggressively rejects you.",
+       "subtopics": ["What are keywords", "Reserved words concept", "Cannot use as variable names", "Examples (print, if, etc.)"],
+       "learningOutcome": "Avoid syntax mistakes",
+       "examples": [
+         { "title": "System Logic", "explanation": "Internal reserved words forming flow.", "code": "print, if, else, False" },
+         { "title": "The Error", "explanation": "Naming a variable 'if' shatters the language parser.", "code": "if = 10 # Syntax Error!" },
+         { "title": "Syntax Rules", "explanation": "Recognizing reserved words prevents major bugs.", "code": "is_true = False # Correct" }
+       ],
+       "keyPoint": "Keyword = Reserved system word you cannot hijack."
+    },
+    {
+       "id": 112, "title": "CASE", "subtitle": "Case Sensitivity", "icon": "ToggleRight",
+       "content": "Uppercase and lowercase are vastly different in programming. Case mismatch causes instant logical errors because 'Apple' and 'apple' are two separate objects.",
+       "scenario": "Two Cloned Twins. They look completely identical, but one is named 'John' and the other 'john'. In Python, they are two heavily disconnected people.",
+       "subtopics": ["Difference between uppercase & lowercase", "Variable name differences", "Language sensitivity rules"],
+       "learningOutcome": "Avoid logical errors due to case mismatch",
+       "examples": [
+         { "title": "Separate Boxes", "explanation": "Changing case strictly makes a totally fresh container.", "code": "Score = 10\nscore = 5" },
+         { "title": "Strict Language", "explanation": "Python system commands are always lower case.", "code": "Print('Hi') # Error!" },
+         { "title": "Case Crash", "explanation": "Forgetting the exact case you typed will cause \"Not Defined\" crashes.", "code": "hp = 1\nprint(Hp)" }
+       ],
+       "keyPoint": "Case matters totally. 'A' is NOT 'a'."
+    },
+    {
+       "id": 113, "title": "PREDICT", "subtitle": "Output Tracing", "icon": "Target",
+       "content": "Output tracing means reading code line-by-line, perfectly predicting variable changes manually like a CPU. It prevents common beginner execution mistakes.",
+       "scenario": "Playing 3D Chess purely in your Head. You picture entirely exactly what the board (RAM) will geometrically look like precisely 3 moves from now.",
+       "subtopics": ["Reading code line-by-line", "Predicting output manually", "Understanding variable changes", "Tracing execution", "Common beginner mistakes"],
+       "learningOutcome": "Build core programming thinking",
+       "examples": [
+         { "title": "Basic Trace", "explanation": "Following variable erasure cleanly.", "code": "x = 5\nx = 10\nprint(x) # Result: 10" },
+         { "title": "State Trace", "explanation": "Tracking variable mixing sequentially.", "code": "a = 2\nb = 3\nprint(a + b) # Result: 5" },
+         { "title": "Mistake Avoidance", "explanation": "Tracing forces you to spot simple logical bugs before running the code.", "code": "# Think before you run!" }
+       ],
+       "keyPoint": "Roleplay the CPU to build logic thinking."
+    }
+  ],
+  "tests": [
+    {
+      "id": 114, "title": "MCQ ADVENTURE", "subtitle": "Level 1 Matrix Test", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which is a valid variable name?", "options": ["1st_score","score 1","_score","my-score"], "a": 2, "hint": "Letters or underscores only to start." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Real-Life Instructions",
+  "learning": {
+    "concept": "Instructions are step-by-step actions that we follow in our daily lives.",
+    "explanation": "Every task we perform follows an exact sequence to reach a goal. Computers require the same level of sequence to function correctly.",
+    "analogy": {
+      "title": "Making Food",
+      "body": "Making Maggi noodles follows a program:\n\n1. Boil water\n2. Add noodles\n3. Add masala\n4. Cook for 2 minutes\n\n👉 If you skip a step, the results will not be what you expected!"
+    },
+    "practice": [
+      {
+        "q": "Write steps to brush teeth like a program.",
+        "a": "1. Pick up brush | 2. Apply toothpaste | 3. Brush teeth | 4. Rinse with water."
+      },
+      {
+        "q": "What happens if steps are in the wrong order?",
+        "a": "You will get an error or a wrong result, just like in code."
+      },
+      {
+        "q": "Is skipping a step okay in coding?",
+        "a": "No, every instruction is vital to the final output."
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1773809647903,
+    "name": "Super Tester",
+    "email": "test@example.com",
+    "password": "123456",
+    "progress": {
+      "level0": "completed",
+      "level1": "completed",
+      "level2": "completed",
+      "level3": "completed",
+      "level4": "completed",
+      "level5": "completed",
+      "level6": "completed",
+      "level7": "completed",
+      "totalXP": 5000
+    }
+  },
+  {
+    "id": 1773813813918,
+    "name": "Bug Hunter",
+    "email": "hunter@test.com",
+    "password": "password123password123",
+    "progress": {
+      "level0": "completed",
+      "totalXP": 100
+    }
+  },
+  {
+    "id": 1773884062059,
+    "name": "abhishek",
+    "email": "abhishek@example.com",
+    "password": "123456",
+    "progress": {
+      "level0": "completed",
+      "totalXP": 300
+    }
+  }
+]

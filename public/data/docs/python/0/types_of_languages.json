@@ -1,0 +1,25 @@
+{
+  "title": "Types of Languages?",
+  "learning": {
+    "concept": "There are two main types: Low-level and High-level languages.",
+    "explanation": "### Low-Level\n* Close to machine hardware\n* Fast but very hard for humans to understand\n\n### High-Level\n* Easy for humans to read/write\n* Used for real-world apps, AI, and games",
+    "analogy": {
+      "title": "Talking to Machines",
+      "body": "Low-level = Talking in machine codes (binary)\nHigh-level = Talking in English-like syntax\n\n👉 Python is a high-level language."
+    },
+    "practice": [
+      {
+        "q": "Which is easier for humans?",
+        "a": "High-level languages."
+      },
+      {
+        "q": "Which is closer to hardware?",
+        "a": "Low-level languages."
+      },
+      {
+        "q": "Why do beginners use high-level languages?",
+        "a": "They focus more on logic and less on hardware details."
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "label": "CPP_ARCADE",
+  "foundation": [
+    {
+       "id": 301, "title": "LOOP", "subtitle": "For Loops", "icon": "Layers",
+       "content": "A C++ 'for' loop is flexible. It allows you to initialize, test, and update with every repeat. Standard for array-traversal.",
+       "scenario": "A 100-Meter Dash. Before starting, initialize a count (int i=0), check for the goal (i < 100), and take a step (i++).",
+       "examples": [
+         { "title": "Standard Loop", "explanation": "The basic 3-part loop used in almost every C++ engine.", "code": "for (int i=0; i<5; i++) { cout << 'Step'; }" },
+         { "title": "Modern For", "explanation": "Go through every item in a container like a 'vector' or 'array' instantly.", "code": "for (auto x : vec) { x.move(); }" },
+         { "title": "Reverse Iter", "explanation": "Starting at 10 and counting down precisely to zero.", "code": "for (int i=10; i>=0; i--) { cout << i << endl; }" }
+       ],
+       "keyPoint": "for (int i=0; i<n; i++) { code }"
+    },
+    {
+       "id": 305, "title": "WHILE", "subtitle": "Condition Loops", "icon": "Zap",
+       "content": "A C++ 'while' loop repeats as long as its condition remains True. It is evaluated at the top of every cycle.",
+       "scenario": "A Waiter waiting for a customer to finish. While (is_eating is true), the waiter stands there. He can't leave until the bowl is empty (False).",
+       "examples": [
+         { "title": "Top-Down Test", "explanation": "Checking the switch before every single repeat of the code.", "code": "while (energy > 0) { run_motor(); }" },
+         { "title": "Wait for Input", "explanation": "Halting the program loop until a specific keyboard char like 'q' is hit.", "code": "while (key != 'q') { cin >> key; }" },
+         { "title": "Do-While", "explanation": "A special loop that runs at least once, then checks the rule at the bottom.", "code": "do { try(); } while (failed);" }
+       ],
+       "keyPoint": "while loop checks BEFORE running. do-while checks AFTER."
+    },
+    {
+       "id": 310, "title": "MATH", "subtitle": "Arithmetic Library", "icon": "Cpu",
+       "content": "C++ provides <cmath>. It's incredibly fast at math and used for physics-heavy games and simulations.",
+       "scenario": "A Rocket Launching Calculation. Calculating the thrust (+), the drag (-), the speed (*), and the fuel weight (/).",
+       "examples": [
+         { "title": "Basic Calc", "explanation": "Standard math (+, -, *, /) using memory-efficient types (float, double).", "code": "double res = (5.0 * 10) / 2.0;" },
+         { "title": "The Power Op", "explanation": "Using the pow() function for complex scientific powers.", "code": "pow(10, 2); # 100" },
+         { "title": "The Modulo %", "explanation": "Finding the remainder of integer division. Useful for screen wrapping logic.", "code": "if (num % 2 == 0) { even(); }" }
+       ],
+       "keyPoint": "pow() for powers. % for remainder."
+    }
+  ],
+  "tests": [
+    {
+      "id": 313, "title": "MCQ ADVENTURE", "subtitle": "C++ Loop Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which Java loop runs at least once?", "options": ["for","while","if","do-while"], "a": 3, "hint": "Checks at the bottom." }
+      ]
+    }
+  ]
+}

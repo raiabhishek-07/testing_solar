@@ -1,0 +1,68 @@
+{
+  "label": "PYTHON_ARCADE",
+  "foundation": [
+    {
+       "id": 401, "title": "STRING", "subtitle": "Textual DNA", "icon": "Type",
+       "content": "Strings are sequences of characters. In Python, they are immutable—this means once a string is born, it cannot be edited. It can only be reborn as a new string.",
+       "scenario": "A Name Tag. If you write 'Neo' and want it to say 'Nio', you can't erase a letter (Immutability). You must throw the tag away and write a new one.",
+       "examples": [
+         { "title": "Creation", "explanation": "Defining text using either single or double quotes.", "code": "s = 'Mission Alpha'" },
+         { "title": "Character Access", "explanation": "Retrieving a single character using its 0-indexed position.", "code": "first = s[0] # 'M'" },
+         { "title": "Index Logic", "explanation": "Using negative numbers to count backwards from the end (-1 is the last).", "code": "last = s[-1] # 'a'" }
+       ],
+       "keyPoint": "Strings are IMMUTABLE. You cannot do: s[0] = 'X'."
+    },
+    {
+       "id": 404, "title": "SLICE", "subtitle": "String Slicing", "icon": "Hash",
+       "content": "Slicing allows you to extract a specific 'chunk' of text from a larger string using the [start:stop] syntax.",
+       "scenario": "A Subway Sandwich. You don't always want the whole 12 inches. You take a slice from 4 inches to 8 inches to get exactly what you need.",
+       "examples": [
+         { "title": "Basic Slice", "explanation": "Extracting text starting at index 2 up to (but not including) index 5.", "code": "word = 'Python'\nprint(word[0:2]) # 'Py'" },
+         { "title": "The Shortcut", "explanation": "Leaving one side empty means 'from the beginning' or 'to the end'.", "code": "chunk = word[:2] # 'Py'\nend = word[2:] # 'thon'" },
+         { "title": "Step Slice", "explanation": "Using a third number to skip characters (e.g. every second char).", "code": "skip = word[::2] # 'Pto'" }
+       ],
+       "keyPoint": "[start:stop:step]. Stop is NOT included."
+    },
+    {
+       "id": 408, "title": "FUNCTION", "subtitle": "The Reusable Machine", "icon": "Braces",
+       "content": "A function is a pre-built machine. You build it once, give it a name, and press its button (Call it) whenever you need that job done.",
+       "scenario": "A Coffee Machine. You don't build the circuit every morning. You just press the 'Brew' button (Call), and out comes a result.",
+       "examples": [
+         { "title": "The Definition", "explanation": "Creating the blueprint for your machine using the 'def' keyword.", "code": "def scan():\n    print('Scanning...')" },
+         { "title": "The Call", "explanation": "Running the code inside the function by typing its name with ().", "code": "scan() # Starts the logic" },
+         { "title": "Scope Isolation", "explanation": "Variables created inside a function are private and don't exist outside.", "code": "def f(): x = 5\nprint(x) # Error: x is local!" }
+       ],
+       "keyPoint": "def name(): defines it. name() runs it."
+    },
+    {
+       "id": 411, "title": "PARAMS", "subtitle": "Machine Inputs", "icon": "Zap",
+       "content": "Parameters are holes in your machine where you pour data (Arguments) to change how the machine behaves.",
+       "scenario": "An Electric Oven. The 'Temperature' is a parameter. You set it to 200 (Argument) to bake pizza, or 50 to keep it warm.",
+       "examples": [
+         { "title": "Single Input", "explanation": "Passing one piece of data to become a variable inside the function.", "code": "def greet(name):\n    print(f'Hi {name}')" },
+         { "title": "Multi-Input", "explanation": "Providing multiple data points separated by commas.", "code": "def add(a, b):\n    print(a + b)" },
+         { "title": "Default Value", "explanation": "Giving a parameter a 'Plan B' value if the user forgets to provide one.", "code": "def power(on=True):\n    pass" }
+       ],
+       "keyPoint": "Arguments are the actual data. Parameters are the names used in the def."
+    },
+    {
+       "id": 412, "title": "RETURN", "subtitle": "Machine Results", "icon": "Terminal",
+       "content": "Return is the output slot of your machine. It hands data back to the rest of the program so you can use it later.",
+       "scenario": "A Cashier at a Store. You give money (Input), they process the transaction, and they RETURN your receipt and change (Output).",
+       "examples": [
+         { "title": "Basic Return", "explanation": "Sending a calculation result back to the main code line.", "code": "def cube(x):\n    return x * x * x" },
+         { "title": "Save to Variable", "explanation": "Capturing the returned value so you can store it in a new box.", "code": "val = cube(3)\nprint(val) # 27" },
+         { "title": "The Exit", "explanation": "'return' immediately kills the function. No code after return ever runs.", "code": "def f():\n    return 5\n    print('Hidden') # Never runs" }
+       ],
+       "keyPoint": "return exits the function and hands back data."
+    }
+  ],
+  "tests": [
+    {
+      "id": 415, "title": "MCQ ADVENTURE", "subtitle": "Strings & Functions Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Valid way to define a function?", "options": ["def my_func():","function my_func():","func my_func():","define my_func():"], "a": 0, "hint": "Short for define." }
+      ]
+    }
+  ]
+}

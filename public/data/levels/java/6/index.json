@@ -1,0 +1,46 @@
+{
+  "label": "JAVA_ARCADE",
+  "foundation": [
+    {
+       "id": 601, "title": "ERROR", "subtitle": "Exceptions", "icon": "AlertCircle",
+       "content": "Exceptions are 'Special Events' that happen when a Java program crashes. You use 'Try/Catch' to catch the error before the program dies.",
+       "scenario": "A Fire Alarm. If (the fire) occurs, the alarm (Exception) sounds. You catch (catch) the alarm and exit the building safely instead of burning.",
+       "examples": [
+         { "title": "Try Block", "explanation": "Defining a code area where a crash might occur safely.", "code": "try { x = 1/0; }" },
+         { "title": "Catch Block", "explanation": "The room you go to if a crash actually happens in the try.", "code": "catch (Exception e) { ... }" },
+         { "title": "Finally", "explanation": "A block that ALWAYS runs, whether you crashed or didn't.", "code": "finally { close(); }" }
+       ],
+       "keyPoint": "try, catch, finally. The safety loop."
+    },
+    {
+       "id": 604, "title": "FILEIO", "subtitle": "Reading Disk", "icon": "File",
+       "content": "Java uses 'Streams' to read from files on your disk. You must always close these streams to avoid leaking memory.",
+       "scenario": "A Paper Document in a file cabinet. You open the cabinet (FileReader), read the page (read), and close it (close) so others can use it.",
+       "examples": [
+         { "title": "FileReader", "explanation": "Creating a link to a file on your hard drive easily.", "code": "FileReader fr = new FileReader('f.txt');" },
+         { "title": "Buffered Read", "explanation": "Reading the file one whole line at a time to be faster.", "code": "BufferedReader br = new BufferedReader(fr);" },
+         { "title": "Close File", "explanation": "Manually closing the stream to free up system resources.", "code": "br.close();" }
+       ],
+       "keyPoint": "Always wrap File I/O in a try-catch-finally."
+    },
+    {
+       "id": 608, "title": "PACKAGE", "subtitle": "Toolboxes", "icon": "Layers",
+       "content": "Packages are folders of related Java classes. You 'import' a package to get tools like the Scanner or the ArrayList.",
+       "scenario": "A Toolbox. Each drawer (Package) has tools (Classes) for a different job. You open the 'Tools' drawer (import java.util.*) to get the Scanner.",
+       "examples": [
+         { "title": "Standard Lib", "explanation": "Importing a box of pre-made tools from the official Java library.", "code": "import java.util.*;" },
+         { "title": "Custom Pack", "explanation": "Creating your own package folder at the top of a file.", "code": "package game.logic;" },
+         { "title": "Specific One", "explanation": "Importing just one specific tool instead of the whole drawer.", "code": "import java.util.Scanner;" }
+       ],
+       "keyPoint": "The first line in a Java file is usually the package name."
+    }
+  ],
+  "tests": [
+    {
+      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "Java Safety Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which block always runs?", "options": ["try","catch","finally","exit"], "a": 2, "hint": "The ultimate finisher." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Logic",
+  "learning": {
+    "concept": "Logic is the process of decision making in code.",
+    "explanation": "Logic is what tells a program what to do if a certain condition is met. For example, if you have enough money, you can buy a game.",
+    "analogy": {
+      "title": "Hunger Switch",
+      "body": "Your brain uses logic for everything!\n\nIf you are hungry → eat food\nElse → don’t eat\n\n👉 This 'if/else' is the foundation of computer logic."
+    },
+    "practice": [
+      {
+        "q": "Rain condition?",
+        "a": "If it rains, take an umbrella."
+      },
+      {
+        "q": "Exam pass condition?",
+        "a": "If your marks are above 40, you pass."
+      },
+      {
+        "q": "Traffic signal logic?",
+        "a": "If red, stop | If green, go."
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "label": "PYTHON_ARCADE",
+  "foundation": [
+    {
+       "id": 501, "title": "LIST", "subtitle": "Dynamic Arrays", "icon": "Layers",
+       "content": "Python Lists are the ultimate storage tool. They can hold anything, in any order, and grow to any size.",
+       "scenario": "A Digital Backpack. You can put a shirt, a map (Text), and a compass (Number) in it. You can add more pockets or remove them easily.",
+       "examples": [
+         { "title": "Creation", "explanation": "Building a list of items using square brackets [].", "code": "inv = ['Key', 'Map']" },
+         { "title": "Appending", "explanation": "Adding a new item to the very end of the list instantly.", "code": "inv.append('Sword')" },
+         { "title": "Popping", "explanation": "Removing an item from the list by its index (like 0 for first).", "code": "inv.pop(0) # Bye Key" }
+       ],
+       "keyPoint": "Lists correspond to Brackets [ ]. They are MUTABLE."
+    },
+    {
+       "id": 504, "title": "TUPLE", "subtitle": "Immutable Rows", "icon": "Lock",
+       "content": "A Tuple is a list that CANNOT be changed once it's created. It's for data that must stay frozen.",
+       "scenario": "A Permanent Passport. Your photo and name are frozen (Tuple). If you want to change them, the old passport is gone, and you must get a new one.",
+       "examples": [
+         { "title": "Fixed Data", "explanation": "Creating a pair of values using parentheses ( ).", "code": "pos = (10, 20)" },
+         { "title": "Fast Read", "explanation": "Retrieving data from a tuple without worrying it's been edited.", "code": "x = pos[0]" },
+         { "title": "Error Logic", "explanation": "Trying to change a tuple item causes a crash—safety by design.", "code": "pos[0] = 5 # Error!" }
+       ],
+       "keyPoint": "Tuples are for Frozen data. They use Parentheses ( )."
+    },
+    {
+       "id": 508, "title": "DICT", "subtitle": "Key-Value Maps", "icon": "Database",
+       "content": "A Dictionary stores data as 'Key: Value' pairs. Like a real dictionary, you use a 'Word' (Key) to find its 'Definition' (Value).",
+       "scenario": "A Contacts List on your phone. To find the Number (Value), you look up the specific Name (Key). One key is tied to one value.",
+       "examples": [
+         { "title": "The Map", "explanation": "Building a storage map using curly braces { }.", "code": "p = {'hp': 100, 'lvl': 5}" },
+         { "title": "Lookup", "explanation": "Retrieving a value by its name instead of its index.", "code": "val = p['hp'] # 100" },
+         { "title": "The Update", "explanation": "Changing a value by specifying its key directly.", "code": "p['hp'] -= 10 # 90" }
+       ],
+       "keyPoint": "Dicts use Curly Braces { }. Access data by KEY."
+    }
+  ],
+  "tests": [
+    {
+      "id": 513, "title": "MCQ ADVENTURE", "subtitle": "Python Data Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which is immutable?", "options": ["List","Dictionary","Tuple","Set"], "a": 2, "hint": "Frozen like a passport." }
+      ]
+    }
+  ]
+}

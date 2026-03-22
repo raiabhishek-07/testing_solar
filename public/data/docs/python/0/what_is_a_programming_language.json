@@ -1,0 +1,43 @@
+{
+  "title": "What is a Programming Language?",
+  "learning": {
+    "concept": "A programming language is a way to communicate with computers.",
+    "explanation": "Computers naturally understand only binary (0 and 1). Programming languages like Python or Java allow humans to write instructions in a much more readable way, which is then translated for the computer.",
+    "analogies": [
+      {
+        "title": "Human Languages",
+        "body": "Just like humans use English, Hindi, or Spanish to talk to each other, computers use Python, Java, or C++ to receive commands from us."
+      },
+      {
+        "title": "A Musical Partition",
+        "body": "The language is the notation. One language (Classical) is perfect for a symphony, while another (Tablature) is perfect for guitar. Each language has its own symbols."
+      },
+      {
+        "title": "Architect's Blueprint",
+        "body": "A blueprint uses specific symbols to mean 'Wall' or 'Door'. A programming language uses symbols (+, -, if, print) to mean 'Add', 'Subtract', 'Decide', or 'Show'."
+      }
+    ],
+    "examples": [
+      {
+        "title": "High-Level Language",
+        "description": "Python is like simplified English. It's designed for humans to read and write easily.",
+        "icon": "Type"
+      },
+      {
+        "title": "Low-Level Language",
+        "description": "Assembly or Machine Code is very close to the 0s and 1s of the CPU hardware.",
+        "icon": "Cpu"
+      },
+      {
+        "title": "Specialized Language",
+        "description": "SQL is a language used ONLY for talking to databases, while HTML is for building the structure of websites.",
+        "icon": "Database"
+      }
+    ],
+    "practice": [
+      { "q": "Why can’t we talk to computers in English directly?", "a": "Computers don't understand context or nuances of human language like we do." },
+      { "q": "Is Python a programming language?", "a": "Yes, it is one of the most popular languages for learning and professional work." },
+      { "q": "Why do we need languages?", "a": "To give instructions efficiently without having to type in binary code manually." }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "label": "C_ARCADE",
+  "foundation": [
+    {
+       "id": 301, "title": "LOOP", "subtitle": "For Loops", "icon": "Layers",
+       "content": "A C 'for' loop has 3 parts: init, test, and update. It's the most common way to iterate through arrays precisely.",
+       "scenario": "A 100-Meter Dash. Before starting, initialize a count (int i=0), check for the goal (i < 100), and take a step (i++).",
+       "examples": [
+         { "title": "Standard For", "explanation": "Repeating code exactly X times using a built-in counter mechanism.", "code": "for (int i=0; i<5; i++) { printf('Step'); }" },
+         { "title": "Array Iter", "explanation": "Going through every slot in a physical RAM array one by one.", "code": "for (int i=0; i<len; i++) { arr[i] = 0; }" },
+         { "title": "Decrement", "explanation": "Starting at 10 and counting down with 'i--' until you reach zero.", "code": "for (int i=10; i>=0; i--) { print(i); }" }
+       ],
+       "keyPoint": "for (int i=0; i<n; i++) { code }"
+    },
+    {
+       "id": 305, "title": "WHILE", "subtitle": "Condition Loops", "icon": "Zap",
+       "content": "A C 'while' loop repeats as long as its condition remains True (not 0). It's great for waiting for user input.",
+       "scenario": "A Waiter standing at a table. While (food_is_on_plate is 1), the waiter stands there. He can't leave until the bowl is empty (0).",
+       "examples": [
+         { "title": "Top-Down Test", "explanation": "Checking the switch before every single repeat of the code.", "code": "while (energy > 0) { run(); }" },
+         { "title": "The Input Trap", "explanation": "Waiting for a user to type a specific character like 'y' specifically.", "code": "while (c != 'y') { scanf('%c', &c); }" },
+         { "title": "Infinite Loop", "explanation": "A special loop that runs forever until the CPU is stopped or a break occurs.", "code": "while (1) { blink(); }" }
+       ],
+       "keyPoint": "while (condition != 0) { code }"
+    },
+    {
+       "id": 310, "title": "PRECISION", "subtitle": "C Math", "icon": "Cpu",
+       "content": "C provides the math.h library. Arithmetic is fast and direct, but you must choose types (int vs float) very carefully.",
+       "scenario": "A Physical Engineer's Calculator. You calculate the force (+), the resistance (-), the speed (*), and the pressure (/).",
+       "examples": [
+         { "title": "Basic Calc", "explanation": "Perform standard math (+, -, *, /) using memory-efficient types.", "code": "float total = (5 * 10) / 2.0;" },
+         { "title": "The Exponent", "explanation": "Using the pow() function for complex scientific powers.", "code": "#include <math.h>\\npow(10, 2); # 100" },
+         { "title": "The Modulo %", "explanation": "Obtaining the remainder of an integer division.", "code": "if (x % 2 == 0) { even(); }" }
+       ],
+       "keyPoint": "% only works on integers. No floats allowed for modulo."
+    }
+  ],
+  "tests": [
+    {
+      "id": 313, "title": "MCQ ADVENTURE", "subtitle": "C Loop Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "In C, which loop tests at the bottom?", "options": ["for","while","if","do-while"], "a": 3, "hint": "Checks after it runs." }
+      ]
+    }
+  ]
+}

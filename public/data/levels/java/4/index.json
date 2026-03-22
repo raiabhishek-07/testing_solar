@@ -1,0 +1,68 @@
+{
+  "label": "JAVA_ARCADE",
+  "foundation": [
+    {
+       "id": 401, "title": "STRING", "subtitle": "Textual Objects", "icon": "Type",
+       "content": "In Java, Strings are actually objects. They are immutable—once a String is created 'in memory', it can never be changed. Any 'edit' creates a new String entirely.",
+       "scenario": "A Physical Stamp. You stamp 'S' on a paper. To change it to 'B', you can't erase it (Immutability). You must get a new piece of paper and stamp a new word.",
+       "examples": [
+         { "title": "The String Pool", "explanation": "Java stores strings in a special 'Pool' memory to save RAM.", "code": "String s1 = 'Alpha';" },
+         { "title": "The Null Check", "explanation": "Always remember a String can be null (EMPTY) in Java—this causes crashes.", "code": "if (s != null) { s.length(); }" },
+         { "title": "Equality Logic", "explanation": "Never use == for strings! Use .equals() to check the content inside.", "code": "s.equals('Beta') # True" }
+       ],
+       "keyPoint": "Always use .equals() for content comparison, not ==."
+    },
+    {
+       "id": 404, "title": "METHODS", "subtitle": "The Object Tools", "icon": "Braces",
+       "content": "String class provides built-in methods (tools) like .length(), .toUpperCase(), and .substring() to manipulate text safely.",
+       "scenario": "A Swiss Army Knife. The String comes with its own box of tools built-in. You don't build a 'length' tool; you just ask the string for it.",
+       "examples": [
+         { "title": "Length Reveal", "explanation": "Calling a method to count the characters (including spaces) inside.", "code": "int len = s.length();" },
+         { "title": "Case Shift", "explanation": "Creating a new version of the string that is all capitalized.", "code": "String loud = s.toUpperCase();" },
+         { "title": "Char At", "explanation": "Pulling out exactly one character at a specific index like 0 for the first.", "code": "char c = s.charAt(0);" }
+       ],
+       "keyPoint": "s.method() calls a tool on the string."
+    },
+    {
+       "id": 408, "title": "SUBSTRING", "subtitle": "String Cutting", "icon": "Hash",
+       "content": "substring() extracts a part of a larger string. You specify the start index (inclusive) and end index (exclusive).",
+       "scenario": "A Slice of Pizza. You have one large pizza (The Full String). You take a slice from 1 to 4 to give to a friend (The Substring).",
+       "examples": [
+         { "title": "Simple Cut", "explanation": "Starting at index 2 and taking everything until the very end.", "code": "s.substring(2);" },
+         { "title": "Precise Cut", "explanation": "Taking a slice from index 0 to index 3 (index 3 is NOT included).", "code": "s.substring(0, 3);" },
+         { "title": "Empty Slices", "explanation": "Trying to slice outside the string boundaries (e.g. 0 to 100) causes a crash.", "code": "# Bounds Exception!" }
+       ],
+       "keyPoint": "s.substring(start, end). End belongs to the NEXT slice."
+    },
+    {
+       "id": 411, "title": "METHOD_DEF", "subtitle": "Building Blueprints", "icon": "Code",
+       "content": "In Java, functions are called 'Methods'. They live inside classes and must specify exactly what data they return (int, String, etc.) or 'void' (nothing).",
+       "scenario": "A Coffee Machine blueprint. Before building, you must specify what goes in (Beans/Water) and exactly what comes out (Coffee).",
+       "examples": [
+         { "title": "The Void Method", "explanation": "A task that performs a job (like printing) but gives NO data back.", "code": "public void log() { ... }" },
+         { "title": "The Returner", "explanation": "A method that calculates a result and hands it back to the program.", "code": "public int add() { return 10; }" },
+         { "title": "Static Power", "explanation": "A method that belongs to the class itself, not just one specific object.", "code": "public static void main() {}" }
+       ],
+       "keyPoint": "Must declare return type. void = no return value."
+    },
+    {
+       "id": 414, "title": "PARAMS", "subtitle": "The Parameters", "icon": "Zap",
+       "content": "Methods take parameters. Java is strictly typed, so you must define the type (e.g. String name) for every input.",
+       "scenario": "An Electric Oven. The 'temp' is a parameter. You set it to 200 (Argument) to bake, or 50 to warm. You can only give it numbers (Type).",
+       "examples": [
+         { "title": "Single Input", "explanation": "Defining a name for the data going into the method.", "code": "void greet(String s) { ... }" },
+         { "title": "Multi-Input", "explanation": "Taking multiple pieces of information separated by commas.", "code": "void pos(int x, int y) { ... }" },
+         { "title": "Final Results", "explanation": "Using a parameter inside a logic calculation.", "code": "return score + level;" }
+       ],
+       "keyPoint": "Java Parameters = Type + Name. Required match."
+    }
+  ],
+  "tests": [
+    {
+      "id": 415, "title": "MCQ ADVENTURE", "subtitle": "Java First Methods Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Correct way to check string equality?", "options": ["s1 == s2","s1.equals(s2)","s1 = s2","s1.match(s2)"], "a": 1, "hint": "Objects need content checks." }
+      ]
+    }
+  ]
+}

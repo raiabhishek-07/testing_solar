@@ -1,0 +1,22 @@
+{
+  "learning": {
+    "concept": "A computer is an electronic machine that takes INPUT, processes it, and produces OUTPUT.",
+    "explanation": "A computer does not 'think' like humans. It simply follows instructions. It works in three steps:\n1. Input – Data is given\n2. Process – Computer works on it\n3. Output – Result is shown",
+    "analogy": {
+      "title": "The Juicing Machine",
+      "body": "Think of a juicer. \n- Input: Oranges 🍊\n- Process: Cutting and Blending 🌀\n- Output: Fresh Juice! 🥤\nThis is exactly how a computer works with data."
+    },
+    "practice": [
+      { "q": "If you type your name on a keyboard, is that Input or Output?", "a": "Input" },
+      { "q": "When a computer shows a movie on the screen, is that Input or Output?", "a": "Output" },
+      { "q": "What happens between Input and Output?", "a": "Processing" }
+    ]
+  },
+  "game": {
+    "type": "factory",
+    "config": {
+      "target": "Make Orange Juice",
+      "tasks": ["🍊", "🔪", "🌀", "Serve"]
+    }
+  }
+}

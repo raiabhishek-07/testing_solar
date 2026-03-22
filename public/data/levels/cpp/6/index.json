@@ -1,0 +1,46 @@
+{
+  "label": "CPP_ARCADE",
+  "foundation": [
+    {
+       "id": 601, "title": "STRUCT", "subtitle": "Data Records", "icon": "Layers",
+       "content": "A C++ Struct can hold multiple variables of different types. In C++, a Struct is almost identical to a 'Class', just with public default access.",
+       "scenario": "A Student ID Card. It holds a Photo (Binary), a Name (Text), and a Number (Integer). One card is one person.",
+       "examples": [
+         { "title": "Creation", "explanation": "Defining a blueprint for a new record type using 'struct'.", "code": "struct Player { int hp; char id; };" },
+         { "title": "Accessing", "explanation": "Using a dot ('.') to see exactly one thing from inside the record.", "code": "p.hp = 100;" },
+         { "title": "Self Methods", "explanation": "C++ allows شما to put functions directly inside the Struct's data.", "code": "struct P { void move(); };" }
+       ],
+       "keyPoint": "struct allows multi-type containers. Default is Public."
+    },
+    {
+       "id": 604, "title": "ENUM", "subtitle": "Named Constants", "icon": "CheckCircle2",
+       "content": "An Enum allows you to create a list of named numbers (like states) instead of using raw integers like 0, 1, 2.",
+       "scenario": "A Traffic Light. Instead of using 0 for Red and 1 for Green, you use the actual names RED, YELLOW, GREEN.",
+       "examples": [
+         { "title": "Basic List", "explanation": "Creating a map of human-readable words instead of numbers.", "code": "enum State { OFF, ON };" },
+         { "title": "Usage", "explanation": "Setting a variable specifically to one of the named states.", "code": "State s = ON;" },
+         { "title": "Switch Case", "explanation": "Using a Switch to check each state's name precisely and cleanly.", "code": "switch(s) { case ON: ... }" }
+       ],
+       "keyPoint": "Enums make code extremely readable."
+    },
+    {
+       "id": 608, "title": "HEADERS", "subtitle": "Code Blocks", "icon": "Cpu",
+       "content": "C++ uses Header files (.h) to share logic between different .cpp files in a massive engine.",
+       "scenario": "A Shared Recipe Book. Every chef (file) can include (include) the recipes (logic) in the .h file.",
+       "examples": [
+         { "title": "Standard Lib", "explanation": "Importing a box of pre-made tools from the official C++ library.", "code": "#include <iostream>" },
+         { "title": "Local One", "explanation": "Including a file you wrote yourself in the same folder with quotes.", "code": "#include \"game.h\"" },
+         { "title": "The Guards", "explanation": "Using #pragma once to prevent C++ from reading the same file twice.", "code": "#pragma once" }
+       ],
+       "keyPoint": "Headers connect different files together."
+    }
+  ],
+  "tests": [
+    {
+      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "C++ Record Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Access struct member?", "options": [".","::","->","both . and ->"], "a": 3, "hint": ". is normal, -> for pointers." }
+      ]
+    }
+  ]
+}

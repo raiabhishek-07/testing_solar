@@ -1,0 +1,46 @@
+{
+  "label": "CPP_ARCADE",
+  "foundation": [
+    {
+       "id": 401, "title": "STRING", "subtitle": "Modern Text Objects", "icon": "Type",
+       "content": "C++ uses the std::string class. Unlike C's char arrays, std::string is a dynamic object that manages its own memory and size.",
+       "scenario": "A Smart Locker. You don't have to choose a size at the start. If you add more books, the locker automatically expands to fit them.",
+       "examples": [
+         { "title": "Creation", "explanation": "Defining a modern string object using the std::string type.", "code": "string msg = \"Hello\";" },
+         { "title": "Chaining", "explanation": "Adding text to the end of a string easily using the + or += symbol.", "code": "msg += \" World\";" },
+         { "title": "Access Char", "explanation": "Retrieving a character at index 0 precisely using its [] position.", "code": "char first = msg[0];" }
+       ],
+       "keyPoint": "std::string is DYNAMIC and managed."
+    },
+    {
+       "id": 404, "title": "FUNCTIONS", "subtitle": "Code Capsules", "icon": "Braces",
+       "content": "Functions in C++ are reusable capsules of logic. They define what goes in (Parameters) and what results come out (Return).",
+       "scenario": "A Coffee Machine. You press a button (Call), it takes water and beans (Inputs), and produces a cup (Output).",
+       "examples": [
+         { "title": "The Prototype", "explanation": "Telling C++ that a function exists at the top of the file.", "code": "void scan();" },
+         { "title": "The Definition", "explanation": "Writing the actual logic inside the function's body.", "code": "void scan() { cout << \"Scan\"; }" },
+         { "title": "The Call", "explanation": "Running the code capsules by its name with parentheses.", "code": "scan(); # Starts the run" }
+       ],
+       "keyPoint": "Function = ReturnType + Name + (Params)."
+    },
+    {
+       "id": 408, "title": "PARAMETERS", "subtitle": "Data Slots", "icon": "Zap",
+       "content": "Parameters allow you to pass data into your functions. C++ supports passing by Value (copy) or by Reference (original).",
+       "scenario": "An Electric Oven. The 'temp' is a parameter. You set it to 200 (Argument) to bake, or 50 to warm. You pass it a number.",
+       "examples": [
+         { "title": "Single Input", "explanation": "Passing one piece of data to become a local variable inside the function.", "code": "void greet(string n) { ... }" },
+         { "title": "Multi-Input", "explanation": "Separating multiple data slots with commas for complex tasks.", "code": "void plot(int x, int y) { ... }" },
+         { "title": "Result Return", "explanation": "Calculating a value and sending it back from the function slot.", "code": "int add(int a, int b) { return a+b; }" }
+       ],
+       "keyPoint": "Parameters = Placeholders. Arguments = Real values."
+    }
+  ],
+  "tests": [
+    {
+      "id": 415, "title": "MCQ ADVENTURE", "subtitle": "C++ Logic Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Correct C++ function definition?", "options": ["def f()","func f()","void f()","f():"], "a": 2, "hint": "Needs a return type like void." }
+      ]
+    }
+  ]
+}

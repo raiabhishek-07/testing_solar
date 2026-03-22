@@ -1,0 +1,46 @@
+{
+  "label": "JAVA_ARCADE",
+  "foundation": [
+    {
+       "id": 201, "title": "SELECTION", "subtitle": "Boolean Decision", "icon": "Cpu",
+       "content": "Selection logic allows your Java program to choose between two paths. It works using the 'if/else' block, which depends on a condition that is either True or False.",
+       "scenario": "A Digital Bouncer. If your 'age' variable is at least 21, the bouncer (Java) lets you into the code block. If not, you are denied entry.",
+       "examples": [
+         { "title": "The Simple If", "explanation": "Checking one single condition. If it is false, nothing happens.", "code": "if (score > 100) { win(); }" },
+         { "title": "The Dual Path", "explanation": "Defining what happens when the first check fails using 'else'.", "code": "if (isAlive) { play(); } else { stop(); }" },
+         { "title": "Comparison Ops", "explanation": "Using math to create logic: == (equal), != (not equal), > (bigger).", "code": "if (x == 10) { match(); }" }
+       ],
+       "keyPoint": "Conditions must be inside parentheses ( )."
+    },
+    {
+       "id": 204, "title": "ELSE_IF", "subtitle": "Multiple Outcomes", "icon": "Layers",
+       "content": "For more than two choices, Java uses 'else if'. The JVM checks them in order until it finds a True one, then skips the rest.",
+       "scenario": "A Grade Calculator. If the score is 90 (A), the system finishes. It doesn't bother checking if it's 80 (B) or 70 (C).",
+       "examples": [
+         { "title": "The Chain", "explanation": "Rating results into multiple logical categories.", "code": "if (x > 9) { high(); } else if (x > 5) { mid(); } else { low(); }" },
+         { "title": "Input Mapping", "explanation": "Deciding which command to run based on a string character.", "code": "if (c == 'W') { up(); } else if (c == 'S') { down(); }" },
+         { "title": "Safety Nest", "explanation": "Ensuring a default action happens if all other checks fail.", "code": "else { error(); }" }
+       ],
+       "keyPoint": "Only the FIRST true block in the chain will execute."
+    },
+    {
+       "id": 210, "title": "LOGIC", "subtitle": "Complex Conditions", "icon": "Zap",
+       "content": "Use '&&' (AND) and '||' (OR) to combine multiple checks into a single intelligent instruction.",
+       "scenario": "A Bank ATM. To withdraw money, you must have the Correct PIN (AND) a Sufficient Balance (AND) the ATM must have Cash.",
+       "examples": [
+         { "title": "The Double AND", "explanation": "Both conditions must be True simultaneously.", "code": "if (hasInk && hasPaper) { print(); }" },
+         { "title": "The Double OR", "explanation": "The block runs if AT LEAST ONE part is True.", "code": "if (isAdmin || isVIP) { bypass(); }" },
+         { "title": "Logical NOT", "explanation": "The '!' symbol flips a True to a False. 'Not empty' means it has data.", "code": "if (!isDead) { run(); }" }
+       ],
+       "keyPoint": "&& = Both. || = Any. ! = Opposite."
+    }
+  ],
+  "tests": [
+    {
+      "id": 213, "title": "MCQ ADVENTURE", "subtitle": "Java Logic Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Correct Java if syntax?", "options": ["if x=10","if (x==10)","if x==10:","if x is 10"], "a": 1, "hint": "Needs () and no colon." }
+      ]
+    }
+  ]
+}

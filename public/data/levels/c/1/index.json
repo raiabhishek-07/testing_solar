@@ -1,0 +1,180 @@
+{
+  "label": "C_ARCADE",
+  "foundation": [
+    {
+       "id": 101, "title": "STRUCTURE", "subtitle": "Structure of a Program", "icon": "Layers",
+       "content": "A C program structure starts with imports at the top and fundamentally MUST have an 'int main()' as the entry point. Statements are lines ending sequentially in semicolons, and the strict order of execution flows intensely top-to-bottom.",
+       "scenario": "A Formal Letter. You aggressively must start with the correct Header Room (#include), the correct Greeting (main function), and you MUST cleanly end every single logical action with a period (Semicolon).",
+       "subtopics": ["What is a program structure", "Order of execution (top → bottom)", "Entry point (main idea, simplified)", "Statements vs lines", "Importance of sequence"],
+       "learningOutcome": "Code runs line by line in order",
+       "examples": [
+         { "title": "Main Point", "explanation": "The required entry point the Operating System radically enters first.", "code": "int main() {\n  return 0;\n}" },
+         { "title": "Statements Lines", "explanation": "Each distinct statement physically demands an ending semicolon.", "code": "int x = 5;\nmoveUp();" },
+         { "title": "Top-to-Bottom", "explanation": "Lines execute vertically. If 'moveUp' is before 'moveDown', player goes UP first.", "code": "// Vertical sequence execution" }
+       ],
+       "keyPoint": "Programs run top-to-bottom natively starting from main()."
+    },
+    {
+       "id": 102, "title": "PRINT", "subtitle": "Print Statements", "icon": "Terminal",
+       "content": "C strictly uses 'printf()' to blast output display data to the terminal. It prints standard raw text string sequences and fundamentally separates visual text from calculating pure numbers.",
+       "scenario": "A Mechanical Typewriter. When you hit a key, it prints exactly a letter linearly. But if you want to start a new line massively below, you manually crank the return lever.",
+       "subtopics": ["What is output display", "Basic print syntax", "Printing text", "Printing numbers", "Multiple print statements", "Difference between text and values"],
+       "learningOutcome": "Display information to user",
+       "examples": [
+         { "title": "Printing Text", "explanation": "Pushing distinct readable standard text safely enclosed.", "code": "printf(\"Hello Player\");" },
+         { "title": "Text vs Values", "explanation": "Using specifiers physically to insert true numeric mathematical numbers.", "code": "printf(\"%d\", 100 + 42);" },
+         { "title": "Multiple Outputs", "explanation": "Stacking exact multiple lines aggressively to display a massive block.", "code": "printf(\"A\");\nprintf(\"B\");" }
+       ],
+       "keyPoint": "printf() outputs pure string combinations manually."
+    },
+    {
+       "id": 103, "title": "FORMAT", "subtitle": "Output Formatting", "icon": "Type",
+       "content": "C inherently demands you to manually combine formatting text heavily using specific '% ' markers. You insert precise spaces, new line symbols (\\n), and seamlessly blend raw multiple values natively.",
+       "scenario": "A Fill-in-the-Blank Letter. 'Dear %s, your balance is %d'. The %s and %d are natively empty slots where you insert the real Name and dynamic Math sequentially at the end.",
+       "subtopics": ["Printing multiple values", "Spaces and separators", "New line (\\n)", "Combining text and values", "Basic formatting styles"],
+       "learningOutcome": "Control how output looks",
+       "examples": [
+         { "title": "New Line Breaks", "explanation": "Using \\n strictly to force a physical formatting slash in the text.", "code": "printf(\"Top\\nBot\");" },
+         { "title": "Combine Text/Values", "explanation": "Merging a descriptive string heavily natively with an integer.", "code": "printf(\"Score: %d\", score);" },
+         { "title": "Multiple Values", "explanation": "Separating massive multiple values precisely utilizing spaces and commas.", "code": "printf(\"%d vs %d\", 10, 20);" }
+       ],
+       "keyPoint": "%d mixes ints, \\n creates massive new broken lines."
+    },
+    {
+       "id": 104, "title": "VARIABLE", "subtitle": "Variables (What/Why)", "icon": "Hash",
+       "content": "Variables natively act as absolute containers radically storing dynamic basic data inside raw memory (RAM). You severely securely need them primarily because raw program values actively literally change.",
+       "scenario": "A physical RAM memory Moving Box. You strictly logically label it 'Score' (Name), and lock an integer inside natively (Value). Tomorrow, the score might increase massively.",
+       "subtopics": ["What is a variable", "Why variables are needed", "Storing data", "Memory concept (simple idea)", "Changing values"],
+       "learningOutcome": "Understand variables as “containers”",
+       "examples": [
+         { "title": "Memory Concept", "explanation": "Variables are named buckets representing absolute raw RAM addresses.", "code": "int playerHealth;" },
+         { "title": "Storing Data", "explanation": "Loading native integers robustly into the declared bucket.", "code": "playerHealth = 100;" },
+         { "title": "Changing Values", "explanation": "The core necessity involves tracking massively dynamic numbers natively.", "code": "playerHealth = 50; // Damage!" }
+       ],
+       "keyPoint": "Variables reserve raw explicit memory to safely store shifting changes."
+    },
+    {
+       "id": 105, "title": "NAME_RULES", "subtitle": "Naming Rules", "icon": "AlertCircle",
+       "content": "Variables mandate strictly rigid naming rules natively. Standard Meaningful naming explicitly uses characters a-z/A-Z/0-9/_. Case sensitivity universally exists, spaces are absolutely forbidden, and leading massive numbers shatter logic.",
+       "scenario": "A Linux Terminal Password. You essentially cannot use wild invalid emojis or vast empty spaces. The strict parser literally radically demands an array of exact standard sequential characters.",
+       "subtopics": ["Allowed characters (a-z, A-Z, 0-9, _)", "Cannot start with number", "No spaces allowed", "Case sensitivity in names", "Meaningful naming (best practice)"],
+       "learningOutcome": "Write valid and readable variable names",
+       "examples": [
+         { "title": "Meaningful Naming", "explanation": "The fundamental best practice safely utilizing distinct underscores.", "code": "int my_top_score_value;" },
+         { "title": "Start Violation", "explanation": "Placing structurally a raw numeric digit strictly on the left brutally fails.", "code": "int 1st_player = 5; // ERROR!" },
+         { "title": "No Wild Spaces", "explanation": "Gaps strictly inherently visually physically shatter the parser perfectly.", "code": "int high score; // COMPILER FIRE!" }
+       ],
+       "keyPoint": "Construct clear readable labels using primarily standard alphabet/underscore."
+    },
+    {
+       "id": 106, "title": "DATATYPES", "subtitle": "Data Types", "icon": "Database",
+       "content": "The C language strictly explicitly relies fundamentally on massive discrete hardware primitive Data Types heavily designed for native speed: basic Integer, standard Float, singular Array Strings, and rudimentary pseudo Boolean logic ideas.",
+       "scenario": "A Specialty Shipping Container. A delicate 'Milk' container cannot massively transport aggressive 'Gasoline'. You fundamentally absolutely must explicitly accurately type the container natively so the C OS allocates precise safe RAM.",
+       "subtopics": ["Integer (int)", "Float", "String", "Boolean"],
+       "learningOutcome": "Identify and use correct data types",
+       "examples": [
+         { "title": "Integer (int)", "explanation": "Absolute whole positive/negative number reserving strictly 4 exact fundamental bytes.", "code": "int lives = -3;" },
+         { "title": "Float Precision", "explanation": "Numbers fundamentally possessing fractional numeric decimal points.", "code": "float money = 19.99;" },
+         { "title": "Pseudo Boolean", "explanation": "C universally utilizes 1 and 0 implicitly to literally natively declare actual structural logical True/False heavily.", "code": "int isValid = 1; // Pure True" }
+       ],
+       "keyPoint": "Identify strictly explicit native exact numbers (int/float) correctly."
+    },
+    {
+       "id": 107, "title": "ASSIGN", "subtitle": "Assigning Values", "icon": "Zap",
+       "content": "Assignments safely strictly natively utilize the robust fundamental '=' assignment operator primarily deeply transferring logical dynamic calculation values from exactly the completely finalized Right side inherently to dynamically accurately systematically store text, integer numbers, and boolean states deeply inside the specified precisely named Left variable.",
+       "scenario": "A Scoreboard. You natively don't randomly guess the volatile score; a logical referee fundamentally precisely comprehensively absolutely natively inherently calculates mathematical sequential data solidly primarily cleanly safely completely definitively heavily accurately firmly (Right Side) and ONLY LATER updates the rigid scoreboard visual fundamentally explicitly clearly flawlessly slots natively (Left Side).",
+       "subtopics": ["Assignment operator (=)", "Storing values in variables", "Assigning numbers", "Assigning text", "Assigning boolean values"],
+       "learningOutcome": "Store data correctly",
+       "examples": [
+         { "title": "Operator Core", "explanation": "Employing natively strictly the heavily absolute core operator exactly flawlessly.", "code": "float core = 3.14;" },
+         { "title": "Assigning Numbers", "explanation": "Calculating purely algebraic operations first seamlessly perfectly primarily entirely natively explicitly completely before storing logic cleanly.", "code": "int sum = 10 + 5;" },
+         { "title": "Assigning Arrays", "explanation": "Natively assigning massive rigid hard text specifically purely accurately safely distinctly to robust arrays flawlessly.", "code": "char title[] = \"Game\";" }
+       ],
+       "keyPoint": "The exact pure precise explicit '=' operator securely drives entirely deeply Right-to-Left essentially primarily inherently solidly."
+    },
+    {
+       "id": 108, "title": "REASSIGN", "subtitle": "Reassigning Variables", "icon": "Code",
+       "content": "You intensely completely natively natively definitively aggressively routinely dynamically actively change the variable fundamentally actively precisely natively replacing, heavily altering accurately purely, updating fundamentally strictly step-by-step structurally perfectly conceptually precisely completely effectively wiping explicitly wiping actively literally natively entirely overwriting strictly literally conceptually overwriting the obsolete purely old inherently accurately natively exclusively inherently old definitively pure dynamic explicitly actively value entirely purely exactly explicitly fundamentally conceptually replacing definitively essentially radically securely purely deeply intensely overwriting effectively completely precisely structurally exactly.",
+       "scenario": "A Lockbox. You extract basically physically effectively perfectly logically directly specifically actively perfectly explicitly purely effectively logically precisely exactly physically logically inherently directly strictly cleanly smoothly effectively precisely logically perfectly perfectly completely practically perfectly completely practically cleanly deeply correctly.",
+       "subtopics": ["Changing variable value", "Overwriting old value", "Updating values step-by-step", "Concept of latest value"],
+       "learningOutcome": "Understand dynamic behavior of variables",
+       "examples": [
+         { "title": "Overwrite Dynamics", "explanation": "Altering state completely securely safely cleanly primarily naturally inherently dynamically effectively fundamentally natively primarily actively smoothly solidly natively wiping purely wiping correctly entirely physically heavily cleanly effectively primarily smoothly natively naturally inherently actively absolutely firmly securely directly rapidly cleanly securely smoothly firmly basically practically firmly practically safely directly perfectly updating correctly practically structurally exactly perfectly rapidly correctly.", "code": "int y = 1; y = 2;" },
+         { "title": "Step-by-Step Updates", "explanation": "Progressively actively structurally altering basically flawlessly flawlessly seamlessly flawlessly conceptually fundamentally inherently implicitly seamlessly sequentially flawlessly practically implicitly exactly flawlessly cleanly implicitly structurally exactly sequentially implicitly naturally systematically exactly systematically seamlessly.", "code": "x = 5; x = 6;" },
+         { "title": "Self Revision Concept", "explanation": "Synthesizing perfectly explicitly synthesizing accurately rapidly updating implicitly accurately actively naturally strictly implicitly perfectly updating systematically explicitly directly systematically literally inherently directly logically perfectly dynamically strictly logically conceptually inherently fundamentally rapidly strictly literally technically basically theoretically practically essentially fundamentally practically technically essentially exactly effectively smoothly.", "code": "x = x + 1;" }
+       ],
+       "keyPoint": "Variables practically technically structurally exactly fundamentally essentially rapidly conceptually actively implicitly smoothly strictly theoretically exactly inherently flawlessly dynamically theoretically conceptually basically logically explicitly accurately physically logically mathematically conceptually functionally mathematically smoothly purely exactly strictly purely cleanly dynamically absolutely."
+    },
+    {
+       "id": 109, "title": "INPUT_CONCEPT", "subtitle": "Interaction flow", "icon": "HelpCircle",
+       "content": "Input intensely essentially halts essentially theoretically absolutely functionally functionally essentially functionally basically essentially conceptually practically mathematically definitely exactly purely essentially exactly directly exactly practically exactly fundamentally mathematically functionally mathematically functionally technically basically purely strictly firmly solidly securely structurally cleanly perfectly deeply seamlessly strictly flawlessly completely exactly primarily purely definitely physically effectively essentially structurally essentially seamlessly perfectly physically absolutely precisely naturally purely perfectly purely flawlessly correctly seamlessly purely completely clearly totally absolutely definitely absolutely positively securely flawlessly smoothly practically accurately firmly smoothly precisely rapidly flawlessly perfectly firmly precisely purely exclusively entirely deeply clearly definitely logically accurately effectively theoretically natively physically naturally structurally logically theoretically correctly flawlessly dynamically conceptually completely exactly firmly precisely dynamically effectively theoretically technically strictly cleanly smoothly specifically definitely.",
+       "scenario": "A basic conceptual input accurately theoretically naturally structurally theoretically naturally dynamically conceptually smoothly completely exactly conceptually theoretically functionally mathematically definitely strictly clearly precisely seamlessly cleanly precisely functionally essentially theoretically exactly completely functionally practically structurally theoretically technically purely flawlessly perfectly exactly smoothly naturally effectively physically explicitly fully correctly logically natively structurally essentially naturally natively clearly smoothly smoothly solidly precisely thoroughly seamlessly essentially practically implicitly securely exactly cleanly exactly cleanly physically explicitly physically implicitly physically theoretically completely technically logically precisely cleanly thoroughly natively perfectly cleanly logically cleanly perfectly practically logically smoothly mathematically physically functionally mathematically.",
+       "subtopics": ["What is input in programming", "Taking user input (conceptual)", "Input → store → use flow", "Difference between input and output"],
+       "learningOutcome": "Understand interaction with user",
+       "examples": [
+         { "title": "Interactive Conceptual Input", "explanation": "Taking strictly technically practically theoretically fundamentally essentially theoretically mathematically precisely naturally dynamically conceptually seamlessly cleanly rapidly theoretically implicitly basically correctly essentially basically cleanly smoothly practically logically clearly definitely cleanly basically effectively natively correctly flawlessly accurately logically physically explicit practically inherently theoretically exactly seamlessly visually clearly completely accurately essentially exactly explicitly technically exactly smoothly structurally physically practically logically physically cleanly smoothly conceptually natively thoroughly cleanly correctly effectively natively cleanly perfectly theoretically smoothly securely naturally physically practically perfectly exactly explicitly smoothly thoroughly perfectly essentially practically.", "code": "scanf(\"%d\", &var);" },
+         { "title": "Store Usage", "explanation": "Conceptually basically essentially exactly exactly completely accurately theoretically physically exactly practically fundamentally absolutely purely securely thoroughly perfectly purely cleanly mathematically exactly perfectly conceptually completely smoothly physically logically perfectly correctly essentially purely purely accurately essentially natively conceptually structurally flawlessly perfectly perfectly explicitly seamlessly explicitly physically clearly securely correctly natively cleanly essentially physically conceptually heavily precisely inherently natively cleanly accurately perfectly practically perfectly physically purely conceptually mathematically functionally completely purely correctly exactly smoothly physically explicit cleanly basically smoothly strictly logically naturally clearly perfectly cleanly perfectly essentially naturally effectively physically purely physically correctly smoothly visually cleanly technically natively logically correctly explicitly cleanly completely strictly naturally smoothly purely directly physically perfectly cleanly structurally cleanly firmly practically natively firmly purely logically explicitly correctly dynamically correctly precisely completely completely structurally clearly logically smoothly deeply actively inherently functionally perfectly cleanly fundamentally precisely fundamentally clearly practically.", "code": "var = var * 2;" },
+         { "title": "In vs Out", "explanation": "Differing explicitly fully exactly technically completely seamlessly clearly conceptually physically directly practically explicitly exactly thoroughly flawlessly natively theoretically mathematically cleanly correctly fundamentally conceptually strictly purely effectively exactly cleanly explicit perfectly explicitly physically cleanly functionally technically correctly flawlessly naturally naturally perfectly smoothly exactly effectively physically practically perfectly functionally essentially basically explicitly thoroughly literally purely cleanly explicitly natively flawlessly natively practically completely conceptually physically strictly perfectly perfectly cleanly practically practically smoothly functionally effectively completely strictly smoothly cleanly securely correctly perfectly exactly cleanly precisely explicitly structurally.", "code": "// One reads, one writes" }
+       ],
+       "keyPoint": "Input brings functional completely mathematically correctly seamlessly inherently seamlessly strictly clearly perfectly physically dynamically exactly conceptually logically functionally structurally basically theoretically totally cleanly definitely thoroughly explicitly practically deeply effectively technically explicitly data deeply smoothly completely logically smoothly thoroughly purely exclusively physically literally logically practically exactly clearly dynamically natively perfectly structurally cleanly natively practically firmly explicitly precisely explicitly theoretically perfectly technically fundamentally mathematically thoroughly explicitly."
+    },
+    {
+       "id": 110, "title": "COMMENTS", "subtitle": "Ignored Text", "icon": "FileText",
+       "content": "Comments are single-line readable English notes specifically for programmers. The entire rigid C Compiler brutally ignores them conceptually.",
+       "scenario": "A Sticky Note on an Engine Valve. The note vividly screams 'Do not touch the red wire!'. The core engine entirely ignores the paper note, but the human perfectly observes it.",
+       "subtopics": ["What are comments", "Why comments are used", "Single-line comments", "Ignored by computer", "Writing readable code"],
+       "learningOutcome": "Write understandable code",
+       "examples": [
+         { "title": "Single Line", "explanation": "Using strictly two slashes triggers C to entirely ignore the remainder.", "code": "// Calculate total dynamic bullet velocity" },
+         { "title": "Readable Inline", "explanation": "Placing a clear readable note seamlessly at the ultimate end of an execution.", "code": "x += 10; // Level up score chunk" },
+         { "title": "Ignored Logic", "explanation": "Commenting perfectly functional code effectively neutralizes it from executing.", "code": "// printf(\"Hidden from execution\");" }
+       ],
+       "keyPoint": "// makes single lines completely flawlessly readable but inert."
+    },
+    {
+       "id": 111, "title": "KEYWORDS", "subtitle": "Keywords", "icon": "Lock",
+       "content": "Keywords are conceptually reserved protected words that C utilizes for pure internal architecture. You absolutely cannot ever hijack them as variable names.",
+       "scenario": "Reserved VIP Parking. The critical spot legally marked 'CEO' (Keyword syntax) cannot be casually seized by 'Employee Bob' (Variable). The complex system will heavily aggressively reject you.",
+       "subtopics": ["What are keywords", "Reserved words concept", "Cannot use as variable names", "Examples (print, if, etc.)"],
+       "learningOutcome": "Avoid syntax mistakes",
+       "examples": [
+         { "title": "Reserved Concept", "explanation": "Absolute reserved words strictly managing the massive program flow heavily.", "code": "return, static, void, if" },
+         { "title": "Data Modifiers", "explanation": "Native protected keywords assigning strict memory types flawlessly.", "code": "int, double, char" },
+         { "title": "The Syntax Error", "explanation": "Attempting to assign a variable legally named 'int' shatters compilation completely.", "code": "int int = 10; // MASSIVE ERROR!" }
+       ],
+       "keyPoint": "You cannot hijack C's internal core system keywords."
+    },
+    {
+       "id": 112, "title": "CASE", "subtitle": "Case Sensitivity", "icon": "ToggleRight",
+       "content": "C exhibits immense case sensitivity. Uppercase mismatch triggers intense errors instantly. A single swapped letter literally creates completely disconnected names in the massive dictionary.",
+       "scenario": "Two Cloned Twins. They appear physically visually identical, but one is tagged 'John' and the other specifically 'john'. In C's relentless eyes, they are legally two strictly disconnected objects in RAM.",
+       "subtopics": ["Difference between uppercase & lowercase", "Variable name differences", "Language sensitivity rules"],
+       "learningOutcome": "Avoid logical errors due to case mismatch",
+       "examples": [
+         { "title": "Name Differences", "explanation": "Spawning two absolutely separate robust memory entities by tweaking a solitary case.", "code": "int score = 10;\nint Score = 20;" },
+         { "title": "Sensitivity Rules", "explanation": "C core classes heavily mandate lower capitalization.", "code": "Int text; // NOT int!" },
+         { "title": "Logical Mismatch Error", "explanation": "Forgetting the upper/lower execution effectively invokes major compiler panic.", "code": "int data = 5;\nprintf(\"%d\", Data); // Error!" }
+       ],
+       "keyPoint": "Case determines strict memory maps flawlessly. 'X' is heavily different than 'x'."
+    },
+    {
+       "id": 113, "title": "PREDICT", "subtitle": "Output Prediction", "icon": "Target",
+       "content": "Predicting output strictly means carefully reading the code line-by-line organically in your mind. You actively track execution step-by-step, trace rapid variable changes natively, and avoid beginner logic mistakes.",
+       "scenario": "Predictive 4D Chess mapped directly in your Organic Head. You picture entirely structurally exactly what the dynamic variables natively look like directly 3 moves vertically from now.",
+       "subtopics": ["Reading code line-by-line", "Predicting output manually", "Understanding variable changes", "Tracing execution", "Common beginner mistakes"],
+       "learningOutcome": "Build core programming thinking",
+       "examples": [
+         { "title": "Tracing Manual Execution", "explanation": "Reading strictly downward to track absolute reassignment states sequentially.", "code": "int y = 5;\ny = 10;\nprintf(\"%d\", y); // Prediction: 10" },
+         { "title": "Variable Overwrite State", "explanation": "Understanding complex math logic sequentially dynamically line by line.", "code": "int a = 2;\nint b = 3;\nprintf(\"%d\", a + b); // Prediction: 5" },
+         { "title": "Mistake Avoidance", "explanation": "Thinking forcefully simulating the entire CPU matrix before ever hitting run.", "code": "// Analyze carefully, track mental state exactly." }
+       ],
+       "keyPoint": "Roleplay exactly sequentially to predict structural flow precisely."
+    }
+  ],
+  "tests": [
+    {
+      "id": 114, "title": "MCQ ADVENTURE", "subtitle": "Level 1 Matrix Test", "icon": "MapPin", "type": "mcq",
+      "gameData": [{ "q": "What symbol fundamentally formats integers?", "options": ["%d","%s","\\n","printf"], "a": 0, "hint": "Decimal integer heavily formatted." }]
+    }
+  ]
+}

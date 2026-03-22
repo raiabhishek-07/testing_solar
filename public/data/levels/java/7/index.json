@@ -1,0 +1,46 @@
+{
+  "label": "JAVA_ARCADE",
+  "foundation": [
+    {
+       "id": 701, "title": "CLASS", "subtitle": "Blueprints", "icon": "Layers",
+       "content": "A Java Class is a blueprint. In Java, objects are created on the 'Heap' using the 'new' keyword.",
+       "scenario": "A Blueprints for a Car. It defines 'Color' and 'Speed'. You can't drive the blueprint; you build a physical car (Object) from it.",
+       "examples": [
+         { "title": "The Template", "explanation": "Creating a new class structure using the 'class' keyword.", "code": "class Car { int hp; void drive(); }" },
+         { "title": "Encapsulate", "explanation": "Hiding certain data variables using private so they stay safe from outside code.", "code": "private int secret = 0;" },
+         { "title": "The Instance", "explanation": "Building an actual object 'in memory' by calling its constructor.", "code": "Car c = new Car();" }
+       ],
+       "keyPoint": "class Name { data; methods; }"
+    },
+    {
+       "id": 705, "title": "METHODS", "subtitle": "Class Skills", "icon": "Braces",
+       "content": "Methods define what an object can 'DO'. They must specify exactly what they return (like int) or 'void'.",
+       "scenario": "A Robot. The 'Walk' method is a skill the robot has (Action). You call the robot to use its skill (Call).",
+       "examples": [
+         { "title": "The Public", "explanation": "A skill that any part of the program can ask this object to use.", "code": "public void walk() { ... }" },
+         { "title": "The Private", "explanation": "A internal skill (like 'Heartbeat') that the object keeps to itself.", "code": "private void process() { ... }" },
+         { "title": "The Param", "explanation": "Passing information into a skill (like 'Walk 10 Steps').", "code": "void move(int steps) { ... }" }
+       ],
+       "keyPoint": "Methods = Actions. Visibility = Access control."
+    },
+    {
+       "id": 710, "title": "INHERIT", "subtitle": "Polymorphism", "icon": "Link",
+       "content": "Inheritance (extends) allows a 'Child' class to learn all the skills of its 'Parent' and add its own amazing powers.",
+       "scenario": "A General Phone vs a Smart Phone. Every smart phone is a phone (extends), but it adds apps and internet on top.",
+       "examples": [
+         { "title": "The Extends", "explanation": "Creating a new subclass that takes everything from its base parent class.", "code": "class SmartPhone extends Phone { ... }" },
+         { "title": "Override", "explanation": "Changing how an inherited method behaves in the child version.", "code": "@Override public void call();" },
+         { "title": "The Poly", "explanation": "Using a parent's name to hold any of its children objects flexibly.", "code": "Phone p = new SmartPhone();" }
+       ],
+       "keyPoint": "One class extends exactly ONE other class in Java."
+    }
+  ],
+  "tests": [
+    {
+      "id": 713, "title": "MCQ ADVENTURE", "subtitle": "Java OOP Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Keyword for inheritance?", "options": ["extends","inherits","subclass","is-a"], "a": 0, "hint": "Java uses extends." }
+      ]
+    }
+  ]
+}

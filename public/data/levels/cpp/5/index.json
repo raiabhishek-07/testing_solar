@@ -1,0 +1,46 @@
+{
+  "label": "CPP_ARCADE",
+  "foundation": [
+    {
+       "id": 501, "title": "POINTER", "subtitle": "Memory Index", "icon": "Cpu",
+       "content": "A C++ pointer stores the literal memory address (like 0x7ffd) of a variable. It's the key to high-performance game data.",
+       "scenario": "A Physical Pager. You have the pager device (the pointer). It points to EXACTLY one person (The data) who is in an exact house (Memory).",
+       "examples": [
+         { "title": "Creation", "explanation": "Asking for 4 bytes of RAM using the '*' symbol.", "code": "int *ptr;" },
+         { "title": "Extraction", "explanation": "Retrieving the literal memory address using the '&' (Address of) symbol.", "code": "ptr = &x;" },
+         { "title": "The Null", "explanation": "Assigning 'nullptr' to a pointer to show it's currently pointing at nothing.", "code": "ptr = nullptr;" }
+       ],
+       "keyPoint": "* = Value at. & = Address of. nullptr = Empty."
+    },
+    {
+       "id": 504, "title": "REFERENCE", "subtitle": "Aliases", "icon": "Link",
+       "content": "A Reference is just a second name for an existing variable. It's easier and safer than a pointer because it can never be null.",
+       "scenario": "A Nickname. You call your friend 'Robot' (Alias). If you give 'Robot' a coin, your friend has the coin. They are the same person.",
+       "examples": [
+         { "title": "Creation", "explanation": "Defining a reference using the '&' symbol next to the type name.", "code": "int &ref = orig;" },
+         { "title": "The Alias", "explanation": "Modifying the reference changes the original variable instantly.", "code": "ref = 10; # orig is 10" },
+         { "title": "Pass Ref", "explanation": "Using a reference as a function parameter to avoid copying large data.", "code": "void call(int &x);" }
+       ],
+       "keyPoint": "References are fixed nicknames. They can't be null."
+    },
+    {
+       "id": 508, "title": "ALLOC", "subtitle": "Dynamic Heap", "icon": "Layers",
+       "content": "C++ uses 'new' and 'delete' instead of C's malloc and free. It's built to create more complex objects on the 'Heap'.",
+       "scenario": "A Hotel Room. You call (new) and ask for a room for 5 people. You can keep the room as long as you want until you Check Out (delete).",
+       "examples": [
+         { "title": "The New", "explanation": "Asking the OS for RAM to store a single object or an array.", "code": "int *p = new int(5);" },
+         { "title": "The Delete", "explanation": "Giving the memory back to the OS so it doesn't leak away.", "code": "delete p;" },
+         { "title": "Array Delete", "explanation": "A special syntax to delete an entire array of items from memory at once.", "code": "delete[] arr;" }
+       ],
+       "keyPoint": "Always pair every 'new' with exactly one 'delete'."
+    }
+  ],
+  "tests": [
+    {
+      "id": 513, "title": "MCQ ADVENTURE", "subtitle": "C++ Memory Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "What is the safest empty pointer?", "options": ["0","NULL","nullptr","none"], "a": 2, "hint": "Modern C++ standard." }
+      ]
+    }
+  ]
+}

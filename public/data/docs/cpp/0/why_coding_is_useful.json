@@ -1,0 +1,25 @@
+{
+  "title": "Why Coding is Useful",
+  "learning": {
+    "concept": "Coding allows us to build real-world systems and automate work.",
+    "explanation": "From your microwave to rockets in space, everything is powered by code. Learning how it works gives you the power to create your own digital world.",
+    "analogy": {
+      "title": "Building Machines",
+      "body": "Coding is like building mechanical systems that work for you.\n\n👉 Robots, apps, games, and security are all machines built with code."
+    },
+    "practice": [
+      {
+        "q": "Why do apps need coding?",
+        "a": "To provide instructions on how to interact with users and data."
+      },
+      {
+        "q": "Can automation work without coding?",
+        "a": "No, because a machine needs to be explicitly told what to do."
+      },
+      {
+        "q": "Is coding useful for jobs?",
+        "a": "Yes, coding is a high-demand skill across almost every modern industry."
+      }
+    ]
+  }
+}

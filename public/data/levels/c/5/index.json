@@ -1,0 +1,46 @@
+{
+  "label": "C_ARCADE",
+  "foundation": [
+    {
+       "id": 501, "title": "POINTER", "subtitle": "Memory Addresses", "icon": "Cpu",
+       "content": "A C pointer is just a variable that stores a physical memory address (like 0x7ffd). It doesn't store 'data', it stores 'where data lives'.",
+       "scenario": "A Physical Address on an Envelope. The letter (the data) is inside. The address on top (the pointer) tells you exactly which house to go to in the city (RAM).",
+       "examples": [
+         { "title": "Creation", "explanation": "Defining a pointer variable using the '*' symbol.", "code": "int *ptr;" },
+         { "title": "Extraction", "explanation": "Retrieving the literal memory address of a normal variable using '&'.", "code": "ptr = &score;" },
+         { "title": "Dereference", "explanation": "Using the '*' on a pointer to 'open the door' and get the data inside.", "code": "int v = *ptr; # score" }
+       ],
+       "keyPoint": "* = Value at. & = Address of."
+    },
+    {
+       "id": 504, "title": "MALLOC", "subtitle": "Manual Heap", "icon": "Layers",
+       "content": "In C, you can ask for RAM yourself from the 'Heap' using malloc(). This memory stays yours until you manually give it back.",
+       "scenario": "A Hotel Room. You call (malloc) and ask for a room for 5 people. You can keep the room (RAM) as long as you want until you Check Out (free).",
+       "examples": [
+         { "title": "The Request", "explanation": "Asking for 100 bytes of raw memory directly from the operating system.", "code": "int *p = malloc(100);" },
+         { "title": "Check In", "explanation": "Ensuring the system actually HAD memory for you to take.", "code": "if (p == NULL) { exit(); }" },
+         { "title": "The Null Return", "explanation": "If there is no more RAM, malloc() returns NULL (A crash in your hands).", "code": "return NULL; # No RAM" }
+       ],
+       "keyPoint": "malloc(bytes) returns address of newly allocated RAM."
+    },
+    {
+       "id": 508, "title": "FREE_MEM", "subtitle": "The Check Out", "icon": "Zap",
+       "content": "C has no Garbage Collector. If you don't 'free()' the memory you took, your computer slowly runs out of RAM until it crashes.",
+       "scenario": "A Book Library. If you check out 1,000 books (malloc) and never return them (free), the library will run out of books and eventually close down (Crash).",
+       "examples": [
+         { "title": "The Return", "explanation": "Releasing the address back to the pool so other apps can use it.", "code": "free(p);" },
+         { "title": "Dangling Point", "explanation": "Forgetting to set the pointer to NULL after freeing can cause a crash.", "code": "p = NULL;" },
+         { "title": "Memory Leak", "explanation": "Losing the address before you free() the memory. Permanent loss.", "code": "# Byte Leak Detected" }
+       ],
+       "keyPoint": "Every malloc() must have exactly ONE free()."
+    }
+  ],
+  "tests": [
+    {
+      "id": 513, "title": "MCQ ADVENTURE", "subtitle": "C Pointers Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "What does *p do?", "options": ["Address of val","Value at address","Power of p","Multiply p"], "a": 1, "hint": "Opens the door of the address." }
+      ]
+    }
+  ]
+}

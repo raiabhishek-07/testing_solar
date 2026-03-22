@@ -1,0 +1,46 @@
+{
+  "label": "PYTHON_ARCADE",
+  "foundation": [
+    {
+       "id": 701, "title": "CLASS", "subtitle": "Object Blueprints", "icon": "Layers",
+       "content": "A Class is a recipe or blueprint for an 'Object'. It group together data (Variables) and actions (Methods) into a single entity.",
+       "scenario": "A Blueprints for a Car. It defines 'Color' (Data) and 'Drive' (Action). You don't drive the blueprint, you build an actual car from it.",
+       "examples": [
+         { "title": "The Blueprint", "explanation": "Creating a new class structure using the 'class' keyword.", "code": "class Car:\n    def drive(self): pass" },
+         { "title": "Self Param", "explanation": "Using 'self' to refer back to the specific instance being used.", "code": "def jump(self): self.hp = 0" },
+         { "title": "Grouping", "explanation": "Keeping all related data and logic in a single logical namespace.", "code": "p1 = Car()" }
+       ],
+       "keyPoint": "class Name: always capitalize classes."
+    },
+    {
+       "id": 705, "title": "CONSTRUCT", "subtitle": "Birth Methods", "icon": "Zap",
+       "content": "The __init__ method is the constructor. It's the first bit of code that runs exactly when an object is 'born' (created).",
+       "scenario": "A New Player character appearing in a game. The 'init' sets their base Level to 1 and their inventory to empty instantly.",
+       "examples": [
+         { "title": "Initialization", "explanation": "Setting the starting state for any object created from this blueprint.", "code": "def __init__(self, name):\n    self.name = name" },
+         { "title": "Default Value", "explanation": "Setting a value that every single object starts with automatically.", "code": "self.lvl = 1" },
+         { "title": "The Spawn", "explanation": "The moment you call the class name to bring a new instance to life.", "code": "p = Player('Neo')" }
+       ],
+       "keyPoint": "__init__ sets the birth state."
+    },
+    {
+       "id": 710, "title": "INHERIT", "subtitle": "Parent/Child", "icon": "Link",
+       "content": "Inheritance allows one class to 'steal' the features of another class and then add its own unique powers on top.",
+       "scenario": "A Parent and Child. The Child (Subclass) has the same eye color (Features) as the Parent (Superclass) but can also play guitar (Special Power).",
+       "examples": [
+         { "title": "Basic Link", "explanation": "Creating a subclass that takes everything from a main base class.", "code": "class Bird(Animal): pass" },
+         { "title": "Overriding", "explanation": "Changing how a inherited method behaves in the specific child class.", "code": "def move(self): fly()" },
+         { "title": "Super Case", "explanation": "Calling the parent's code from inside the child to build on top.", "code": "super().__init__()" }
+       ],
+       "keyPoint": "Class Child(Parent): creates the link."
+    }
+  ],
+  "tests": [
+    {
+      "id": 713, "title": "MCQ ADVENTURE", "subtitle": "Python OOP Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "What is __init__?", "options": ["Function","Method","Constructor","Class"], "a": 2, "hint": "Birth method." }
+      ]
+    }
+  ]
+}

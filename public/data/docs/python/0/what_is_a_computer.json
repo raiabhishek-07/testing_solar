@@ -1,0 +1,49 @@
+{
+  "learning": {
+    "concept": "A computer is an electronic machine that takes INPUT, processes it, and produces OUTPUT.",
+    "explanation": "A computer does not 'think' like humans. It simply follows instructions. It works in three steps:\n1. Input – Data is given\n2. Process – Computer works on it\n3. Output – Result is shown",
+    "analogies": [
+      {
+        "title": "The Juicing Machine",
+        "body": "Think of a juicer.\n- Input: Oranges 🍊\n- Process: Cutting and Blending 🌀\n- Output: Fresh Juice! 🥤"
+      },
+      {
+        "title": "The Chef's Kitchen",
+        "body": "Hardware = The Stove. Software = The Recipe. CPU = The Chef. RAM = The Prep Table."
+      },
+      {
+        "title": "The Musical Piano",
+        "body": "The Piano is the Hardware. The Sheet Music is the Program. Without music, the piano does nothing."
+      }
+    ],
+    "examples": [
+      {
+        "title": "Daily Compute",
+        "description": "Typing a message on your phone is input, the app sending it is the process, and the message on the other end is output.",
+        "icon": "Smartphone"
+      },
+      {
+        "title": "Gaming Logic",
+        "description": "Pressing 'A' to jump is input, the game engine calculating the jump arc is process, and the character moving on screen is output.",
+        "icon": "Gamepad"
+      },
+      {
+        "title": "Math Machine",
+        "description": "Entering 1+1 in a calculator is input, the internal circuit calculation is process, and '2' appearing on the screen is output.",
+        "icon": "Calculator"
+      }
+    ],
+    "practice": [
+      { "q": "If you type your name on a keyboard, is that Input or Output?", "a": "Input" },
+      { "q": "When a computer shows a movie on the screen, is that Input or Output?", "a": "Output" },
+      { "q": "What happens between Input and Output?", "a": "Processing" }
+    ]
+  },
+  "game": {
+    "type": "factory",
+    "config": {
+      "target": "Make Orange Juice",
+      "tasks": ["🍊", "🔪", "🌀", "Serve"]
+    }
+  }
+}

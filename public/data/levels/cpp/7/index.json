@@ -1,0 +1,46 @@
+{
+  "label": "CPP_ARCADE",
+  "foundation": [
+    {
+       "id": 701, "title": "CLASS", "subtitle": "Modern Records", "icon": "Layers",
+       "content": "A C++ Class can hold multiple variables and methods in one single object description.",
+       "scenario": "A Student ID Card. It holds a Photo (Binary), a Name (Text), and a Number (Integer). One card is one person (Object).",
+       "examples": [
+         { "title": "The Template", "explanation": "Defining a new class structure using the 'class' keyword.", "code": "class Player { int hp; void move(); };" },
+         { "title": "Visibility", "explanation": "Controlling which parts of the program can see your variables with 'public' or 'private'.", "code": "private: int secret;" },
+         { "title": "The Instance", "explanation": "Creating a new object directly on the stack easily.", "code": "Player p1;" }
+       ],
+       "keyPoint": "Classes keep data and actions together."
+    },
+    {
+       "id": 705, "title": "METHOD", "subtitle": "Object Skills", "icon": "Braces",
+       "content": "Method are functions that belong inside a class. They define what an object can 'DO'.",
+       "scenario": "A Robot. The 'Walk' method is a skill the robot has (Action). You call the robot to use its skill (Call).",
+       "examples": [
+         { "title": "Definition", "explanation": "Writing the logic inside the class body.", "code": "void walk() { ... }" },
+         { "title": "The Scope", "explanation": "Using '::' to define a method outside the class blueprint.", "code": "void Player::run();" },
+         { "title": "The Call", "explanation": "Running the code inside the object capsule using its name and a dot ('.').", "code": "p1.walk();" }
+       ],
+       "keyPoint": "Methods have direct access to their own object's data."
+    },
+    {
+       "id": 710, "title": "VIRTUAL", "subtitle": "Polymorphism", "icon": "Link",
+       "content": "A Virtual function allows you to redefine a skill in a child class while still seeing the same skill through the parent.",
+       "scenario": "A Universal Speaker. You have a 'Speak' button. If you give the speaker a French Person, they speak French. If you give it a English Person, they speak English.",
+       "examples": [
+         { "title": "The Super", "explanation": "Marking a function as 'virtual' in the parent blueprint.", "code": "virtual void talk();" },
+         { "title": "The Override", "explanation": "Using 'override' in the child class to change how the skill behaves.", "code": "void talk() override;" },
+         { "title": "The Link", "explanation": "Using a parent's pointer to hold any of its children objects dynamically.", "code": "Person *p = new French();" }
+       ],
+       "keyPoint": "virtual keyword enables true dynamic behavior."
+    }
+  ],
+  "tests": [
+    {
+      "id": 713, "title": "MCQ ADVENTURE", "subtitle": "C++ Logic Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Default C++ class access?", "options": ["public","private","protected","global"], "a": 1, "hint": "Unlike struct, it's safe by default." }
+      ]
+    }
+  ]
+}

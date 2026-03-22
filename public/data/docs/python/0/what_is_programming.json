@@ -1,0 +1,22 @@
+{
+  "learning": {
+    "concept": "Programming is the act of communicating a set of instructions to a computer.",
+    "explanation": "Programming is like giving directions to a robot. You can only use certain commands that the robot understands. If the robot goes the wrong way, you have to find and fix the bug in your instructions.",
+    "analogy": {
+      "title": "Teaching a Robot",
+      "body": "Imagine a robot that only knows MOVE, LEFT, RIGHT. If you want it to reach a goal, you have to think step-by-step to get it there. Programming is the bridge between human thinking and robot action."
+    },
+    "practice": [
+      { "q": "If you tell a robot GO but there is a wall, what happens?", "a": "A Crash/Error" },
+      { "q": "Can you use any word like 'Go' if the robot only understands 'MOVE'?", "a": "No, you must use specific commands." },
+      { "q": "Is programming easy or hard?", "a": "It is a skill that takes practice!" }
+    ]
+  },
+  "game": {
+    "type": "robot",
+    "config": {
+      "start": { "x": 0, "y": 0 },
+      "goal": { "x": 3, "y": 0 }
+    }
+  }
+}

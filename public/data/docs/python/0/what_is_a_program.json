@@ -1,0 +1,49 @@
+{
+  "learning": {
+    "concept": "A program is a specific set of instructions that tells the computer what to do.",
+    "explanation": "Computers are fast but dumb. Without a program, they are just expensive paperweights. A program must be:\n1. Precise (Not vague)\n2. Sequential (One by one)\n3. Correct (No mistakes)",
+    "analogies": [
+      {
+        "title": "The Cooking Recipe",
+        "body": "If you follow a recipe: \n1. Boil Water\n2. Add Tea\n3. Serve\nYou get tea. If you swap 1 and 3, you get an empty cup and a wet table! Order matters in a program."
+      },
+      {
+        "title": "Sheet Music for a Piano",
+        "body": "The Piano is the hardware. The Sheet Music is the Program. Without the music, the piano does nothing. The music tells which key to press and how long."
+      },
+      {
+        "title": "A Construction Plan",
+        "body": "Building a house requires a step-by-step plan. Layer bricks first, then roof. If you try to roof before bricks, the plan fails. Computers are the same."
+      }
+    ],
+    "examples": [
+      {
+        "title": "Personal App",
+        "description": "A weather app that reads your location (Input), talks to a weather station (Process), and shows the temperature (Output).",
+        "icon": "Sun"
+      },
+      {
+        "title": "Web Browser",
+        "description": "Chrome or Safari are massive programs that take a web address and transform it into a beautiful webpage.",
+        "icon": "Globe"
+      },
+      {
+        "title": "Game Logic",
+        "description": "A game program defining that falling into lava means taking -20 health and playing a sound effect.",
+        "icon": "Flame"
+      }
+    ],
+    "practice": [
+      { "q": "What do we call a mistake in a program?", "a": "A bug 🐛" },
+      { "q": "Does a program run all steps at once or one by one?", "a": "One by one (Sequentially)" },
+      { "q": "Who writes the program, the human or the machine?", "a": "The Human (Programmer)" }
+    ]
+  },
+  "game": {
+    "type": "factory",
+    "config": {
+      "target": "Make Banana Shake",
+      "tasks": ["🍌", "🥛", "🌀", "Serve"]
+    }
+  }
+}

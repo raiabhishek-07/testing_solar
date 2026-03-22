@@ -1,0 +1,46 @@
+{
+  "label": "CPP_ARCADE",
+  "foundation": [
+    {
+       "id": 201, "title": "CHOICE", "subtitle": "Truth Values", "icon": "Cpu",
+       "content": "C++ uses the 'bool' type for logic. It literally stores only True or False. If statements form the 'Choice Points' of every C++ game engine.",
+       "scenario": "A Physical Switch. If the switch is 'ON' (bool is true), the motor runs. If it's 'OFF' (bool is false), everything stops.",
+       "examples": [
+         { "title": "The Simple If", "explanation": "Checking one single condition. If it's false, the code inside the block is skipped.", "code": "if (score >= 100) { win(); }" },
+         { "title": "The Boolean Check", "explanation": "Using a bool variable to control the flow of a program.", "code": "bool isOnline = true;" },
+         { "title": "The Comparison", "explanation": "Checking two values for equality using '==' or difference with '!='.", "code": "if (x != y) { diff(); }" }
+       ],
+       "keyPoint": "C++ uses bool for literal True/False."
+    },
+    {
+       "id": 204, "title": "ELSE_IF", "subtitle": "Decision Chains", "icon": "Layers",
+       "content": "For more than two choices, C++ uses 'else if'. It is a chain of checks that the CPU evaluates one-by-one until it finds a match.",
+       "scenario": "A Skill Priority System. IF (Health below 10) { Heal } ELSE IF (Mana above 20) { Magic } ELSE { Attack }.",
+       "examples": [
+         { "title": "The Chain", "explanation": "Ranking results into multiple logical categories.", "code": "if (x > 9) { high(); } else if (x > 5) { mid(); } else { low(); }" },
+         { "title": "Input Mapping", "explanation": "Deciding which command to run based on a string mapping.", "code": "if (key == 'W') { up(); } else if (key == 'S') { down(); }" },
+         { "title": "Safe Default", "explanation": "Defining a baseline action if all other checks fail.", "code": "else { wait(); }" }
+       ],
+       "keyPoint": "Once a True one is found, the rest of the chain is ignored."
+    },
+    {
+       "id": 210, "title": "AND_OR", "subtitle": "Complex Logic", "icon": "Zap",
+       "content": "Combine checks with '&&' (AND) and '||' (OR). This allows you to create high-level tactical conditions for your AI characters.",
+       "scenario": "A Launch Protocol. IF (Key 1 AND Key 2 AND Weather is Clear) THEN Launch Rocket. Failing just ONE part stops the countdown.",
+       "examples": [
+         { "title": "The Double AND", "explanation": "The check ONLY passes if BOTH parts are true simultaneously.", "code": "if (hasInk && hasPaper) { print(); }" },
+         { "title": "The Double OR", "explanation": "The check passes if EITHER part is true (No need for both).", "code": "if (isVip || hasTicket) { enter(); }" },
+         { "title": "Logical Flip with !", "explanation": "Using 'not' to check for a missing state. '!dead' means alive.", "code": "if (!isDead) { move(); }" }
+       ],
+       "keyPoint": "&& = AND. || = OR. ! = NOT."
+    }
+  ],
+  "tests": [
+    {
+      "id": 213, "title": "MCQ ADVENTURE", "subtitle": "C++ Logic Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Correct C++ if syntax?", "options": ["if x=10","if (x==10)","if x==10:","if x is 10"], "a": 1, "hint": "Needs () and no colon." }
+      ]
+    }
+  ]
+}

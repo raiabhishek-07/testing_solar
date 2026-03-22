@@ -1,0 +1,25 @@
+{
+  "title": "Input Concept",
+  "learning": {
+    "concept": "Input is the data given to a computer.",
+    "explanation": "You use hardware like a keyboard, mouse, or microphone to provide input to a program.",
+    "analogy": {
+      "title": "Restaurant Orders",
+      "body": "Giving an order in a restaurant is an input to the kitchen staff.\n\n👉 Waiter (Input device) sends your order (Data) to the Chef (Processor)."
+    },
+    "practice": [
+      {
+        "q": "Keyboard input example?",
+        "a": "Typing a message to a friend."
+      },
+      {
+        "q": "Voice input example?",
+        "a": "Speaking to Siri or Google Assistant."
+      },
+      {
+        "q": "ATM input?",
+        "a": "Inserting card and typing your secret PIN."
+      }
+    ]
+  }
+}

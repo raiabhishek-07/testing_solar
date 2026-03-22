@@ -1,0 +1,25 @@
+{
+  "title": "Algorithm",
+  "learning": {
+    "concept": "An algorithm is a step-by-step solution to a problem.",
+    "explanation": "Algorithms don't have to be complex. Any sequence of steps to reach a goal is an algorithm. Programming is simply writing these steps clearly for a computer.",
+    "analogy": {
+      "title": "Google Maps Route",
+      "body": "The way Google Maps calculates your route is an algorithm:\n\n1. Find start point\n2. Find end point\n3. Calculate fastest path\n4. Show the route\n\n👉 That’s a sequence that solves a problem."
+    },
+    "practice": [
+      {
+        "q": "Steps to login to an app?",
+        "a": "1. Enter username | 2. Enter password | 3. Press login button."
+      },
+      {
+        "q": "Steps to cook rice?",
+        "a": "1. Wash rice | 2. Add water | 3. Boil until cooked."
+      },
+      {
+        "q": "Steps to solve a sum?",
+        "a": "1. Look at numbers | 2. Apply operator (+ or -) | 3. Write result."
+      }
+    ]
+  }
+}

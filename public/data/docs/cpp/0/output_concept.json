@@ -1,0 +1,25 @@
+{
+  "title": "Output Concept",
+  "learning": {
+    "concept": "Output is the result from the computer after processing.",
+    "explanation": "Once a program finishes its work, it needs to show the result on a monitor, printer, or speaker.",
+    "analogy": {
+      "title": "Restaurant Food",
+      "body": "Your food being served at the table is the output of the restaurant's process.\n\n👉 Kitchen (Process) results in a meal (Output)."
+    },
+    "practice": [
+      {
+        "q": "Screen output example?",
+        "a": "Reading a result text on your phone."
+      },
+      {
+        "q": "Printer output example?",
+        "a": "Getting a hard copy of an essay."
+      },
+      {
+        "q": "Speaker output example?",
+        "a": "Hearing music from a Spotify app."
+      }
+    ]
+  }
+}

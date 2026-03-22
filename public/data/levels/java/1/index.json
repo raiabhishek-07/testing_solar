@@ -1,0 +1,180 @@
+{
+  "label": "JAVA_ARCADE",
+  "foundation": [
+    {
+       "id": 101, "title": "STRUCTURE", "subtitle": "Structure of a Program", "icon": "Layers",
+       "content": "A Java program is built entirely of 'Classes' and 'Methods'. EVERY piece of code must live inside a class. Execution always starts perfectly at the top of the sequence in the 'main' method.",
+       "scenario": "A Formal Letter. You must start with the correct Header (Class), the correct Greeting (Main method), and you MUST end every sentence with a period (Semicolon) or it won't be sent.",
+       "subtopics": ["What is a program structure", "Order of execution (top → bottom)", "Entry point (main idea, simplified)", "Statements vs lines", "Importance of sequence"],
+       "learningOutcome": "Code runs line by line in order",
+       "examples": [
+         { "title": "Class Match", "explanation": "If your file is App.java, your class MUST be 'public class App'.", "code": "public class App {\n}" },
+         { "title": "Main Method", "explanation": "The specific portal the JVM enters to find and sequentially run your actual code.", "code": "public static void main(String[] a) {\n}" },
+         { "title": "Statements", "explanation": "Code lines end forcefully in semicolons forming strict sequences.", "code": "moveUp();\nattack();" }
+       ],
+       "keyPoint": "One File = One Primary Class. main() is the starting gate."
+    },
+    {
+       "id": 102, "title": "PRINT", "subtitle": "Print Statements", "icon": "Terminal",
+       "content": "Java uses 'System.out.println()' to print data to the screen. It separates text and visual values cleanly, blasting information onto the output display.",
+       "scenario": "A Shipping Department. 'System' is the warehouse, 'out' is the shipping dock, and 'println' is the command to load a box onto the truck and drive away.",
+       "subtopics": ["What is output display", "Basic print syntax", "Printing text", "Printing numbers", "Multiple print statements", "Difference between text and values"],
+       "learningOutcome": "Display information to user",
+       "examples": [
+         { "title": "Printing Text", "explanation": "Prints text and immediately moves the cursor to a brand new line.", "code": "System.out.println(\"Hello\");" },
+         { "title": "Printing Numbers", "explanation": "Printing raw numeric values separately from double-quoted text.", "code": "System.out.println(-42);" },
+         { "title": "Multiple", "explanation": "Chaining consecutive print commands logically.", "code": "System.out.print(\"Load\");\nSystem.out.print(\"ing...\");" }
+       ],
+       "keyPoint": "System.out.println() for a new line. System.out.print() stays on the line."
+    },
+    {
+       "id": 103, "title": "FORMAT", "subtitle": "Output Formatting", "icon": "Type",
+       "content": "Java allows you to format output using 'System.out.printf()'. You use spaces, line breaks (\\n), and special '% ' separator markers to combine distinct variables perfectly inside a text sentence.",
+       "scenario": "A Fill-in-the-Blank Letter. 'Dear %s, your balance is %d'. The %s and %d are empty slots where you insert the real Name and Math data right at the end.",
+       "subtopics": ["Printing multiple values", "Spaces and separators", "New line (\\n)", "Combining text and values", "Basic formatting styles"],
+       "learningOutcome": "Control how output looks",
+       "examples": [
+         { "title": "New Line Style", "explanation": "Using \\n inside quotes to slice the text output dramatically.", "code": "System.out.print(\"Top\\nBot\");" },
+         { "title": "Combining Values", "explanation": "Using %s for Strings and %d for Decimal Integers cleanly separated.", "code": "System.out.printf(\"%s has %d HP\", n, h);" },
+         { "title": "Float Formatting", "explanation": "Using %.2f to aggressively force a decimal to only show two fixed spots.", "code": "System.out.printf(\"Cost: $%.2f\", 19.99);" }
+       ],
+       "keyPoint": "%s = String. %d = Integer. %.2f = Float."
+    },
+    {
+       "id": 104, "title": "VARIABLE", "subtitle": "Variables (What/Why)", "icon": "Hash",
+       "content": "Variables are Strictly-Typed named memory containers that hold raw data. You violently need them because data changes actively during a running system.",
+       "scenario": "A Moving Box in a House. You label it heavily 'Kitchen Stuff', and put plates inside. To change values tomorrow, you could put cups inside. But it cannot hold 'Books'.",
+       "subtopics": ["What is a variable", "Why variables are needed", "Storing data", "Memory concept (simple idea)", "Changing values"],
+       "learningOutcome": "Understand variables as “containers”",
+       "examples": [
+         { "title": "Declaration", "explanation": "Reserving RAM memory logically by claiming a distinct type and a name.", "code": "int playerHealth;" },
+         { "title": "Storing Data", "explanation": "Loading data directly inside the labeled memory concept.", "code": "playerHealth = 100;" },
+         { "title": "The Why", "explanation": "Variables make logic readable. 'maxSpeed = 50' is better than raw disconnected '50's.", "code": "if (spd > maxSpeed) { break(); }" }
+       ],
+       "keyPoint": "Variables reserve raw bytes in RAM to track physical changes safely."
+    },
+    {
+       "id": 105, "title": "NAME_RULES", "subtitle": "Naming Rules", "icon": "AlertCircle",
+       "content": "Java variables have strictly unforgiving naming rules utilizing camelCase for readability. They CANNOT aggressively start with a valid number, or use any weird spaces.",
+       "scenario": "A Bank Vault Password. You can't use wild spaces or random illegal separators. The computer's rigid parser literally demands an unbroken unified character sequence.",
+       "subtopics": ["Allowed characters (a-z, A-Z, 0-9, _)", "Cannot start with number", "No spaces allowed", "Case sensitivity in names", "Meaningful naming (best practice)"],
+       "learningOutcome": "Write valid and readable variable names",
+       "examples": [
+         { "title": "Meaningful Naming", "explanation": "The Java best practice: camelCase using valid characters (a-z, _, 0-9).", "code": "int myTopScore = 100;" },
+         { "title": "Invalid Start", "explanation": "Starting maliciously with a number instantly ruins parsing.", "code": "int 1stPlayer = 5; // ERROR!" },
+         { "title": "No Spaces", "explanation": "Spaces physically snap the core variable string entirely.", "code": "int high score = 100; // ERROR!" }
+       ],
+       "keyPoint": "Use meaningful camelCase. NO spaces. Cannot start with a pure digit."
+    },
+    {
+       "id": 106, "title": "DATATYPES", "subtitle": "Data Types", "icon": "Database",
+       "content": "Java is Strongly Typed. You MUST identify the structural data type. Java separates basic primitives (Integer, Float, Boolean logicals) from Objects (massive String texts).",
+       "scenario": "A Specialty Shipping Container. A 'Milk' container cannot hold 'Gasoline' without failure. You physically must label the data type perfectly so Java allocates RAM.",
+       "subtopics": ["Integer (int)", "Float", "String", "Boolean"],
+       "learningOutcome": "Identify and use correct data types",
+       "examples": [
+         { "title": "Integer (int)", "explanation": "A massive signed positive/negative whole number without decimal logic.", "code": "int lives = -3;" },
+         { "title": "Float & Double", "explanation": "Precise decimal numbers. 'double' is the standard massive Java default.", "code": "double money = 19.99;" },
+         { "title": "String & Boolean", "explanation": "Capital-S String for quoted text sequences, and lowercase boolean for True/False logic.", "code": "String text = \"Alice\";\nboolean isValid = true;" }
+       ],
+       "keyPoint": "int, double, boolean, and Capital String are the absolute core."
+    },
+    {
+       "id": 107, "title": "ASSIGN", "subtitle": "Assigning Values", "icon": "Zap",
+       "content": "Java assignment uses the '=' operator exactly. It takes the finished calculation or boolean truth from the Right side and stores it physically into the distinct Left side container.",
+       "scenario": "A Scoreboard. You don't dynamically guess the score; the referee securely calculates the points (Right Side) and ONLY THEN flips the scoreboard slots (Left Side).",
+       "subtopics": ["Assignment operator (=)", "Storing values in variables", "Assigning numbers", "Assigning text", "Assigning boolean values"],
+       "learningOutcome": "Store data correctly",
+       "examples": [
+         { "title": "Assign Text", "explanation": "The most fundamental placement of textual data into a mapped memory box.", "code": "String user = \"Jack\";" },
+         { "title": "Assign Number", "explanation": "Java solves mathematical numbers dynamically first, storing the answer totally.", "code": "int total = 10 + 5;" },
+         { "title": "Assign Boolean", "explanation": "Assigning a pure logical truth flag flawlessly.", "code": "boolean dead = false;" }
+       ],
+       "keyPoint": "The '=' operator evaluates all Right elements completely, then locks Left."
+    },
+    {
+       "id": 108, "title": "REASSIGN", "subtitle": "Reassigning Variables", "icon": "Code",
+       "content": "To simulate dynamic behavior, variables literally change. You can update and deliberately overwrite the old original value with a new latest version. Java's absolute Type cannot swap, however.",
+       "scenario": "A Lockbox. You extract the old rusted coin, chuck it, and insert a new polished coin. The box name is exactly identical, but the previous payload completely vanished.",
+       "subtopics": ["Changing variable value", "Overwriting old value", "Updating values step-by-step", "Concept of latest value"],
+       "learningOutcome": "Understand dynamic behavior of variables",
+       "examples": [
+         { "title": "The Overwrite", "explanation": "Overwriting a variable's payload. The latest value (100) destroys the old (10).", "code": "int score = 10;\nscore = 100;" },
+         { "title": "Update Step-By-Step", "explanation": "Changing values consecutively downwards in sequence.", "code": "x = 1;\nx = 2;\nx = 3; // Latest wins" },
+         { "title": "Self-Update Tracker", "explanation": "Utilizing the old original value heavily to calculate the brand new latest value rapidly.", "code": "int x = 10;\nx = x + 1;" }
+       ],
+       "keyPoint": "Variables overwrite values constantly, utilizing the very latest operation."
+    },
+    {
+       "id": 109, "title": "INPUT_CONCEPT", "subtitle": "Interaction flow", "icon": "HelpCircle",
+       "content": "Input universally pauses the program conceptually. It creates intense interaction by taking user input directly, storing it safely into RAM, and eventually forcing output differences.",
+       "scenario": "A Toll Booth interaction. The machine (program) STOPS processing entirely. It conceptually forces you to input money before the transaction flow stores the fee and outputs a green light.",
+       "subtopics": ["What is input in programming", "Taking user input (conceptual)", "Input → store → use flow", "Difference between input and output"],
+       "learningOutcome": "Understand interaction with user",
+       "examples": [
+         { "title": "Conceptual Intake", "explanation": "Taking user inputs directly natively via System.in Scanner mechanisms.", "code": "Scanner sc = new Scanner(System.in);" },
+         { "title": "Input -> Store", "explanation": "Taking keyboard text flow fundamentally and safely storing it.", "code": "String data = sc.nextLine();" },
+         { "title": "Versus Output", "explanation": "Input logically halts and sucks data inward. Output violently vomits data outward.", "code": "int age = sc.nextInt();\nSystem.out.println(age);" }
+       ],
+       "keyPoint": "Input brings data IN interactively. Output aggressively pushes data OUT."
+    },
+    {
+       "id": 110, "title": "COMMENTS", "subtitle": "Ignored Text", "icon": "FileText",
+       "content": "Comments are single-line readable English notes specifically for programmers. The entire rigid Java Compiler brutally ignores them conceptually.",
+       "scenario": "A Sticky Note on an Engine Valve. The note vividly screams 'Do not touch the red wire!'. The core engine entirely ignores the paper note, but the human perfectly observes it.",
+       "subtopics": ["What are comments", "Why comments are used", "Single-line comments", "Ignored by computer", "Writing readable code"],
+       "learningOutcome": "Write understandable code",
+       "examples": [
+         { "title": "Single Line", "explanation": "Using strictly two slashes triggers Java to entirely ignore the remainder.", "code": "// Calculate total dynamic bullet velocity" },
+         { "title": "Readable Inline", "explanation": "Placing a clear readable note seamlessly at the ultimate end of an execution.", "code": "x += 10; // Level up score chunk" },
+         { "title": "Ignored Logic", "explanation": "Commenting perfectly functional code effectively neutralizes it from executing.", "code": "// System.out.println(\"Hidden from execution\");" }
+       ],
+       "keyPoint": "// makes single lines completely flawlessly readable but inert."
+    },
+    {
+       "id": 111, "title": "KEYWORDS", "subtitle": "Keywords", "icon": "Lock",
+       "content": "Keywords are conceptually reserved protected words that Java utilizes for pure internal architecture (like 'print', 'if', 'class'). You absolutely cannot ever hijack them as variable names.",
+       "scenario": "Reserved VIP Parking. The critical spot legally marked 'CEO' (Keyword syntax) cannot be casually seized by 'Employee Bob' (Variable). The complex system will heavily aggressively reject you.",
+       "subtopics": ["What are keywords", "Reserved words concept", "Cannot use as variable names", "Examples (print, if, etc.)"],
+       "learningOutcome": "Avoid syntax mistakes",
+       "examples": [
+         { "title": "Reserved Concept", "explanation": "Absolute reserved words strictly managing the massive program flow heavily.", "code": "public, class, static, void, if" },
+         { "title": "Data Modifiers", "explanation": "Native protected keywords assigning strict memory types flawlessly.", "code": "int, double, boolean" },
+         { "title": "The Syntax Error", "explanation": "Attempting to assign a variable legally named 'class' shatters compilation completely.", "code": "int class = 10; // MASSIVE ERROR!" }
+       ],
+       "keyPoint": "You cannot hijack Java's internal core system keywords."
+    },
+    {
+       "id": 112, "title": "CASE", "subtitle": "Case Sensitivity", "icon": "ToggleRight",
+       "content": "Java exhibits immense case sensitivity. Uppercase mismatch triggers intense errors instantly. A single swapped letter literally creates completely disconnected names in the massive dictionary.",
+       "scenario": "Two Cloned Twins. They appear physically visually identical, but one is tagged 'John' and the other specifically 'john'. In Java's relentless eyes, they are legally two strictly disconnected objects in RAM.",
+       "subtopics": ["Difference between uppercase & lowercase", "Variable name differences", "Language sensitivity rules"],
+       "learningOutcome": "Avoid logical errors due to case mismatch",
+       "examples": [
+         { "title": "Name Differences", "explanation": "Spawning two absolutely separate robust memory entities by tweaking a solitary case.", "code": "int score = 10;\nint Score = 20;" },
+         { "title": "Sensitivity Rules", "explanation": "Java's immense core classes like String heavily mandate capitalization.", "code": "String text; // NOT string text" },
+         { "title": "Logical Mismatch Error", "explanation": "Forgetting the upper/lower execution effectively invokes major compiler panic.", "code": "int data = 5;\nSystem.out.println(Data); // Error!" }
+       ],
+       "keyPoint": "Case determines strict memory maps flawlessly. 'X' is heavily different than 'x'."
+    },
+    {
+       "id": 113, "title": "PREDICT", "subtitle": "Output Prediction", "icon": "Target",
+       "content": "Predicting output strictly means carefully reading the code line-by-line organically in your mind. You actively track execution step-by-step, trace rapid variable changes natively, and avoid beginner logic mistakes.",
+       "scenario": "Predictive 4D Chess mapped directly in your Organic Head. You picture entirely structurally exactly what the dynamic variables natively look like directly 3 moves vertically from now.",
+       "subtopics": ["Reading code line-by-line", "Predicting output manually", "Understanding variable changes", "Tracing execution", "Common beginner mistakes"],
+       "learningOutcome": "Build core programming thinking",
+       "examples": [
+         { "title": "Tracing Manual Execution", "explanation": "Reading strictly downward to track absolute reassignment states sequentially.", "code": "int y = 5;\ny = 10;\nSystem.out.print(y); // Prediction: 10" },
+         { "title": "Variable Overwrite State", "explanation": "Understanding complex math logic sequentially dynamically line by line.", "code": "int a = 2;\nint b = 3;\nSystem.out.print(a + b); // Prediction: 5" },
+         { "title": "Mistake Avoidance", "explanation": "Thinking forcefully simulating the entire CPU matrix before ever hitting run.", "code": "// Analyze carefully, track mental state exactly." }
+       ],
+       "keyPoint": "Roleplay exactly sequentially to predict structural flow precisely."
+    }
+  ],
+  "tests": [
+    {
+      "id": 114, "title": "MCQ ADVENTURE", "subtitle": "Level 1 Matrix Test", "icon": "MapPin", "type": "mcq",
+      "gameData": [{ "q": "Which Java printing structurally natively outputs a new line break line?", "options": ["System.print","System.out.println","console.log","printf"], "a": 1, "hint": "The 'ln' absolutely strictly stands dynamically for line." }]
+    }
+  ]
+}

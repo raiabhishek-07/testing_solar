@@ -1,0 +1,46 @@
+{
+  "label": "C_ARCADE",
+  "foundation": [
+    {
+       "id": 201, "title": "DECISION", "subtitle": "Condition Theory", "icon": "Cpu",
+       "content": "C logic is based on 0 (False) and 1 (True). There is no explicit 'boolean' type in original C; every non-zero number is just seen as True.",
+       "scenario": "A Physical Switch. If the switch is 'ON' (1), the motor runs. If it's 'OFF' (0), everything stops instantly.",
+       "examples": [
+         { "title": "The Simple If", "explanation": "Checking a variable. If it's not zero, the code inside the brackets runs.", "code": "if (x > 0) { action(); }" },
+         { "title": "Math Check", "explanation": "A standard numerical comparison like 'if health is below 10'.", "code": "if (h < 10) { warn(); }" },
+         { "title": "Implicit True", "explanation": "Directly checking a variable; if it holds '5', C sees it as True (True > 0).", "code": "if (isOn) { run(); } # isOn is 1" }
+       ],
+       "keyPoint": "C sees 0 as False. Any other number is True."
+    },
+    {
+       "id": 204, "title": "IF_ELSE", "subtitle": "Branching Paths", "icon": "Layers",
+       "content": "C branches between two outcomes using 'else'. This creates a split in the algorithm where the CPU chooses one half or the other.",
+       "scenario": "A Railroad Switch. The train (the program) can go Left OR Right based on the track setting (the condition). It cannot go both ways.",
+       "examples": [
+         { "title": "The Split", "explanation": "Giving the system an alternative path if the condition is not met.", "code": "if (fuel > 0) { drive(); } else { stop(); }" },
+         { "title": "Status Mode", "explanation": "Updating a system flag based on a numerical threshold.", "code": "if (temp > 100) { hot = 1; } else { hot = 0; }" },
+         { "title": "The Fallback", "explanation": "Ensuring a safe action (like a default error) if the check fails.", "code": "else { printf('Error!'); }" }
+       ],
+       "keyPoint": "Brackets { } are only optional for single lines of code."
+    },
+    {
+       "id": 210, "title": "COMPOUND", "subtitle": "And/Or Logic", "icon": "Zap",
+       "content": "Combine checks with '&&' (AND) and '||' (OR). C is 'Short-circuiting'—it only checks what it needs to.",
+       "scenario": "A Fire Alarm. IF (Heat sensor is triggered OR Smoke sensor is triggered) THEN sound the alarm. Only one needs to be true.",
+       "examples": [
+         { "title": "The Double AND", "explanation": "The check ONLY passes if BOTH parts are true simultaneously.", "code": "if (hasKey && doorUnlocked) { enter(); }" },
+         { "title": "The Double OR", "explanation": "The check passes if EITHER the first or the second part is true.", "code": "if (price == 0 || hasCoupon) { getFree(); }" },
+         { "title": "Logic Flip with !", "explanation": "Using 'not' to check for a missing state. '!dead' means alive.", "code": "if (!isOffline) { connect(); }" }
+       ],
+       "keyPoint": "&& = AND. || = OR. ! = NOT."
+    }
+  ],
+  "tests": [
+    {
+      "id": 213, "title": "MCQ ADVENTURE", "subtitle": "C Logic Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "In C, which number is False?", "options": ["1","0","-1","Any"], "a": 1, "hint": "The digit of Zero." }
+      ]
+    }
+  ]
+}

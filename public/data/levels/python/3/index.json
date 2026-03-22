@@ -1,0 +1,46 @@
+{
+  "label": "PYTHON_ARCADE",
+  "foundation": [
+    {
+       "id": 301, "title": "REPEAT", "subtitle": "For Loops", "icon": "Layers",
+       "content": "Loops allow you to repeat a block of code multiple times without rewriting it. 'For' loops are used when you know exactly how many times you want to repeat.",
+       "scenario": "A 100-Meter Dash. You don't tell the runner to 'Step' 100 times. You say 'For every meter, take a step until you reach 100'.",
+       "examples": [
+         { "title": "The Range Loop", "explanation": "Repeating code exactly X times using the range() function.", "code": "for i in range(5): print('Step')" },
+         { "title": "Item Traversal", "explanation": "Going through a list of items and doing something with each one.", "code": "for item in inventory: use(item)" },
+         { "title": "Math Generation", "explanation": "Creating a sequence of numbers (like 2, 4, 6...) automatically.", "code": "for x in range(0, 10, 2): print(x)" }
+       ],
+       "keyPoint": "for <item> in <collection>: runs once for each item."
+    },
+    {
+       "id": 305, "title": "WHILE", "subtitle": "Until Loops", "icon": "Zap",
+       "content": "'While' loops repeat as long as a certain condition is True. They are used when you don't know how long the task will take.",
+       "scenario": "Eating a Bowl of Soup. You don't know many spoons it takes. You say 'While the bowl is not empty, keep eating'.",
+       "examples": [
+         { "title": "The Forever Loop", "explanation": "Running a task until a specific event (like 'Game Over') happens.", "code": "while playing: run_game()" },
+         { "title": "Input Wait", "explanation": "Asking the user for input until they give a valid answer.", "code": "while x < 10: x = int(input())" },
+         { "title": "Status Watch", "explanation": "Waiting for a background process to finish its job.", "code": "while is_loading: show_spinner()" }
+       ],
+       "keyPoint": "Ensure the condition eventually becomes False to avoid infinite loops!"
+    },
+    {
+       "id": 310, "title": "MATH", "subtitle": "Arithmetic Power", "icon": "Cpu",
+       "content": "Python is a powerful calculator. It can handle massive numbers and complex formulas with simple symbols like +, -, *, and /.",
+       "scenario": "A Checkout Counter. Adding item prices (+), applying discounts (-), multiplying for bulk quantities (*), and dividing the bill between friends (/).",
+       "examples": [
+         { "title": "Basic Calculus", "explanation": "Standard math operators (+, -, *, /) work exactly as in school.", "code": "total = (price * qty) - discount" },
+         { "title": "The Power Op", "explanation": "Using ** to calculate exponents (like 10 to the power of 2).", "code": "square = 10 ** 2 # 100" },
+         { "title": "Modulo Check", "explanation": "Using % to find the remainder. If x % 2 is 0, the number is even.", "code": "is_even = (num % 2 == 0)" }
+       ],
+       "keyPoint": "% (Modulo) gives the remainder of division."
+    }
+  ],
+  "tests": [
+    {
+      "id": 313, "title": "MCQ ADVENTURE", "subtitle": "Python Loop Quiz", "icon": "MapPin", "type": "mcq",
+      "gameData": [
+        { "q": "Which loop repeats forever?", "options": ["for i in range(5)","while True","if True","print()"], "a": 1, "hint": "A condition that is always true." }
+      ]
+    }
+  ]
+}
