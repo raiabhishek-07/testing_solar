@@ -47,8 +47,8 @@ export interface FunctionBlock {
 export interface BlockLevel {
   id: number;
   title: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   start: Position;
   gems: Gem[];
   obstacles: Position[];
