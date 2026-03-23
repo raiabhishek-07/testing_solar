@@ -9,58 +9,122 @@ const AlchemistEngine = dynamic(() => import('@/components/games/variable-alchem
     loading: () => <div className="absolute inset-0 bg-[#1e1b4b] flex items-center justify-center font-mono text-purple-400">BREWING ALCHEMY ENGINE...</div>
 });
 
-const QUESTS = [
-    {
-        id: 1,
-        desc: "I need a pure Integer potion with exactly the value 8.",
-        targetType: "number",
-        targetValue: 8,
-        ingredients: [
-            { var: 'item1', val: "5", type: 'String' },
-            { var: 'item2', val: 3, type: 'Number' },
-            { var: 'item3', val: true, type: 'Boolean' }
-        ],
-        defaultCode: `// item1 is "5" (String)\n// item2 is 3 (Number)\n// item3 is true (Boolean)\n\n// Brew the 'potion' variable to output exactly Number 8\nlet potion = Number(item1) + item2;`
-    },
-    {
-        id: 2,
-        desc: "I require a bizarre String potion that says exactly '10true'.",
-        targetType: "string",
-        targetValue: "10true",
-        ingredients: [
-            { var: 'item1', val: 5, type: 'Number' },
-            { var: 'item2', val: "5", type: 'String' },
-            { var: 'item3', val: true, type: 'Boolean' }
-        ],
-        defaultCode: `// Combine the elements to generate the exact string.\n// Remember how JavaScript concatenates types!\nlet potion = `
-    },
-    {
-        id: 3,
-        desc: "I need a Boolean potion of true, using only the integer and string!",
-        targetType: "boolean",
-        targetValue: true,
-        ingredients: [
-            { var: 'item1', val: "false", type: 'String' },
-            { var: 'item2', val: 0, type: 'Number' },
-            { var: 'item3', val: false, type: 'Boolean' }
-        ],
-        defaultCode: `// Hint: "false" is a string with length > 0. Is it truthy?\nlet potion = `
-    }
+const LANGS = [
+    { id: 'python', label: 'Python', icon: '🐍' },
+    { id: 'java',   label: 'Java',   icon: '☕' },
+    { id: 'c',      label: 'C',      icon: '⚙️' },
+    { id: 'cpp',    label: 'C++',    icon: '🔧' },
 ];
 
+const QUESTS = {
+    python: [
+        {
+            id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
+            targetType: "number", targetValue: 8,
+            ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `# item1 is "5" (String)\n# item2 is 3 (Number)\n# item3 is True (Boolean)\n\n# Brew the 'potion' variable to output exactly int 8\npotion = int(item1) + item2`
+        },
+        {
+            id: 2, desc: "I require a bizarre String potion that says exactly '53True'.",
+            targetType: "string", targetValue: "53True",
+            ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "3", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `# Combine the elements to generate the exact string.\n# Remember how Python concatenates types!\npotion = `
+        },
+        {
+            id: 3, desc: "I need a Boolean potion of True, using only the string!",
+            targetType: "boolean", targetValue: true,
+            ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
+            defaultCode: `# Hint: "false" is a non-empty string. Is bool("false") truthy?\npotion = `
+        }
+    ],
+    java: [
+        {
+            id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
+            targetType: "number", targetValue: 8,
+            ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `// item1 is "5" (String)\n// item2 is 3 (int)\n// item3 is true (boolean)\n\n// Brew the 'potion' variable to output exactly int 8\nint potion = Integer.parseInt(item1) + item2;`
+        },
+        {
+            id: 2, desc: "I require a bizarre String potion that says exactly '53true'.",
+            targetType: "string", targetValue: "53true",
+            ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "3", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `// Combine the elements to create the exact string.\n// Remember how Java concatenates with +\nString potion = `
+        },
+        {
+            id: 3, desc: "I need a Boolean potion of true!",
+            targetType: "boolean", targetValue: true,
+            ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
+            defaultCode: `// Hint: A non-empty string is not automatically truthy in Java\nboolean potion = `
+        }
+    ],
+    c: [
+        {
+            id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
+            targetType: "number", targetValue: 8,
+            ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `/* item1 is "5" (char*) */\n/* item2 is 3 (int)    */\n/* item3 is 1 (bool)   */\n\n/* Brew the 'potion' to output exactly int 8 */\nint potion = atoi(item1) + item2;`
+        },
+        {
+            id: 2, desc: "I need a Number potion of 6.",
+            targetType: "number", targetValue: 6,
+            ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "1", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `/* Combine int and char* to get 6 */\nint potion = `
+        },
+        {
+            id: 3, desc: "I need a Boolean potion of 1 (true)!",
+            targetType: "number", targetValue: 1,
+            ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
+            defaultCode: `/* Hint: In C, any non-zero is truthy */\nint potion = `
+        }
+    ],
+    cpp: [
+        {
+            id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
+            targetType: "number", targetValue: 8,
+            ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `// item1 is "5" (string)\n// item2 is 3 (int)\n// item3 is true (bool)\n\n// Brew the 'potion' to output exactly int 8\nint potion = stoi(item1) + item2;`
+        },
+        {
+            id: 2, desc: "I require a String potion that says exactly '53true'.",
+            targetType: "string", targetValue: "53true",
+            ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "3", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
+            defaultCode: `// Combine using to_string() and string concat\nstring potion = `
+        },
+        {
+            id: 3, desc: "I need a Boolean potion of true!",
+            targetType: "boolean", targetValue: true,
+            ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
+            defaultCode: `// Hint: A non-empty string is truthy when cast to bool\nbool potion = `
+        }
+    ]
+};
+
 export default function VariableAlchemistPage() {
+    const [selectedLang, setSelectedLang] = useState('python');
     const [questIdx, setQuestIdx] = useState(0);
-    const quest = QUESTS[questIdx];
+    const quest = (QUESTS[selectedLang] || QUESTS.python)[questIdx];
     
     const [code, setCode] = useState(quest.defaultCode);
     const [status, setStatus] = useState("IDLE"); // IDLE, RUNNING, SUCCESS, FAILED
     const [error, setError] = useState(null);
     const [triggerAnimation, setTriggerAnimation] = useState(0);
 
+    const handleLangChange = (lang) => {
+        setSelectedLang(lang);
+        const quests = QUESTS[lang] || QUESTS.python;
+        const idx = Math.min(questIdx, quests.length - 1);
+        setQuestIdx(idx);
+        setCode(quests[idx].defaultCode);
+        setStatus("IDLE");
+        setError(null);
+        setTriggerAnimation(Date.now());
+    };
+
     const handleNextQuest = () => {
-        const next = (questIdx + 1) % QUESTS.length;
+        const quests = QUESTS[selectedLang] || QUESTS.python;
+        const next = (questIdx + 1) % quests.length;
         setQuestIdx(next);
-        setCode(QUESTS[next].defaultCode);
+        setCode(quests[next].defaultCode);
         setStatus("IDLE");
         setError(null);
         setTriggerAnimation(Date.now());
@@ -129,6 +193,17 @@ export default function VariableAlchemistPage() {
                 </div>
                 
                 <div className="flex flex-col items-end gap-2">
+                    {/* Language Picker */}
+                    <div className="flex gap-1 p-1 bg-black/60 backdrop-blur-md border border-purple-400/20 rounded-xl">
+                        {LANGS.map(l => (
+                            <button key={l.id} onClick={() => handleLangChange(l.id)}
+                                className={`px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                                    selectedLang === l.id ? 'bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)]' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+                                }`}>
+                                <span>{l.icon}</span> {l.label}
+                            </button>
+                        ))}
+                    </div>
                     <button onClick={handleNextQuest} className="p-3 px-6 bg-[#160b24] border border-purple-500/20 hover:border-purple-400/50 rounded-xl flex items-center gap-3 transition-colors text-purple-300">
                         <span className="text-xs font-bold uppercase tracking-widest">Next Customer</span>
                     </button>

@@ -19,10 +19,19 @@ const BattleArena = dynamic(() => import('./BattleArena'), {
 });
 
 export default function BattlePipeline({ pipelineData, langLabel, onComplete, onBack }) {
+  // ── TEST USER BYPASS ──────────────────────────────────────────
+  const [isTestUser] = useState(() => {
+    try {
+      const u = JSON.parse(localStorage.getItem('clash_user') || '{}');
+      return u.email === 'test@example.com';
+    } catch { return false; }
+  });
+
   const [phase, setPhase]         = useState('concept_card');
   const [cardIdx, setCardIdx]     = useState(0);
   const [mcqIdx, setMcqIdx]       = useState(0);
   const [mcqResult, setMcqResult] = useState(null);
+  const [mcqSelected, setMcqSelected] = useState(null);
   const [mcqCorrect, setMcqCorrect] = useState(0);
   const [codeIdx, setCodeIdx]     = useState(0);
   const [codeAnswer, setCodeAnswer] = useState('');
@@ -31,6 +40,7 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
   const [codeAttempts, setCodeAttempts] = useState(0);
   const [debugIdx, setDebugIdx]   = useState(0);
   const [debugResult, setDebugResult] = useState(null);
+  const [debugSelected, setDebugSelected] = useState(null);
   const [oracleIdx, setOracleIdx] = useState(0);
   const [oracleResult, setOracleResult] = useState(null);
 
@@ -41,15 +51,37 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
   const [combatLog, setCombatLog] = useState(['BATTLE INITIALIZED...']);
   const [weakAreas, setWeakAreas] = useState([]);
 
+  // ── Overall score tracking ───────────────────────────────────────────
+  const [totalCorrect, setTotalCorrect] = useState(0);
+  const [totalAnswered, setTotalAnswered] = useState(0);
+
   const logCombat = (msg) => setCombatLog(prev => [msg, ...prev].slice(0, 6));
   const hitEnemy  = (dmg) => { setEnemyHp(p => Math.max(0, p - dmg)); setCombatAction({ type: 'player_attack', id: Date.now() }); };
-  const hitPlayer = (dmg) => { setPlayerHp(p => Math.max(0, p - dmg)); setCombatAction({ type: 'enemy_attack',  id: Date.now() }); };
+  const hitPlayer = (dmg) => { if (isTestUser) return; setPlayerHp(p => Math.max(0, p - dmg)); setCombatAction({ type: 'enemy_attack',  id: Date.now() }); };
 
   const cards   = pipelineData.teaching  || [];
   const mcqs    = pipelineData.battle?.mcq || [];
   const codings = pipelineData.coding    || [];
   const debugs  = pipelineData.debugging || [];
   const oracles = pipelineData.prediction|| [];
+
+  // ── Calculate damage per phase proportionally ────────────────────────
+  // MCQ gets 50% of enemy HP, Coding 20%, Debug 15%, Oracle 15%
+  const mcqDmgEach   = mcqs.length    ? Math.round((maxEnemyHp * 0.50) / mcqs.length)    : 0;
+  const codeDmgEach  = codings.length  ? Math.round((maxEnemyHp * 0.20) / codings.length) : 0;
+  const debugDmgEach = debugs.length   ? Math.round((maxEnemyHp * 0.15) / debugs.length)  : 0;
+  const oracleDmgEach= oracles.length  ? Math.round((maxEnemyHp * 0.15) / oracles.length) : 0;
+
+  // Player damage per wrong answer
+  const totalQuestions = mcqs.length + codings.length + debugs.length + oracles.length;
+  const playerDmgEach  = totalQuestions > 0 ? Math.round(100 / totalQuestions) : 10;
+
+  // ── Auto-route to results if player dies ─────────────────────────────
+  useEffect(() => {
+    if (playerHp <= 0 && phase !== 'results' && phase !== 'concept_card') {
+      setPhase('results');
+    }
+  }, [playerHp, phase]);
 
   // ── HP Bar ────────────────────────────────────────────────────────────
   const renderHP = (cur, max, isPlayer, name) => {
@@ -72,8 +104,10 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
   };
 
   // ── COMBAT LAYOUT (shared for MCQ, Coding, Debug, Oracle phases) ──────
-  const CombatLayout = ({ phaseName, phaseIcon: Icon, accentClass, children }) => {
-    const isCombat = ['battle_mcq','coding_lab','debug_mission','oracle_test'].includes(phase);
+  // NOTE: This must NOT be a component defined inside render — that causes
+  // React to unmount/remount on every state change, losing input focus.
+  // Instead we use a plain function that returns JSX.
+  const renderCombatLayout = (phaseName, Icon, accentClass, children) => {
     return (
       <div className="h-screen flex flex-col bg-[#020408] overflow-hidden">
 
@@ -100,8 +134,8 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
 
           {/* Score */}
           <div className="text-[9px] font-mono text-white/20 text-right flex-none">
-            <div className="text-brand-neon font-black">{mcqCorrect}/{mcqs.length}</div>
-            <div>HITS</div>
+            <div className="text-brand-neon font-black">{totalCorrect}/{totalAnswered}</div>
+            <div>SCORE</div>
           </div>
         </div>
 
@@ -226,31 +260,34 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
   if (phase === 'battle_mcq') {
     if (mcqs.length === 0) { setPhase('coding_lab'); return null; }
     const q = mcqs[mcqIdx];
-    const dmg = Math.round(maxEnemyHp / mcqs.length);
 
     const handleMcq = (idx) => {
       if (mcqResult) return;
+      setMcqSelected(idx);
+      setTotalAnswered(t => t + 1);
       if (idx === q.a) {
         setMcqResult('correct'); setMcqCorrect(c => c + 1);
-        hitEnemy(dmg);
-        logCombat(`⚔️ CRITICAL HIT! ${dmg} DMG DEALT`);
+        setTotalCorrect(t => t + 1);
+        hitEnemy(mcqDmgEach);
+        logCombat(`⚔️ CRITICAL HIT! ${mcqDmgEach} DMG DEALT`);
       } else {
         setMcqResult('wrong');
-        hitPlayer(10);
+        hitPlayer(playerDmgEach);
         if (q.topic && !weakAreas.includes(q.topic)) setWeakAreas(p => [...p, q.topic]);
-        logCombat(`💥 ENEMY COUNTERS! -10 HP`);
+        logCombat(`💥 ENEMY COUNTERS! -${playerDmgEach} HP`);
       }
       setTimeout(() => {
         setMcqResult(null);
+        setMcqSelected(null);
         const next = mcqIdx + 1;
         next < mcqs.length
           ? setMcqIdx(next)
           : setPhase(codings.length ? 'coding_lab' : debugs.length ? 'debug_mission' : oracles.length ? 'oracle_test' : 'results');
-      }, 1300);
+      }, isTestUser ? 800 : 2500);
     };
 
     return (
-      <CombatLayout phaseName="Tactical Combat" phaseIcon={Crosshair} accentClass="border-brand-orange/30 bg-brand-orange/10 text-brand-orange">
+      renderCombatLayout("Tactical Combat", Crosshair, "border-brand-orange/30 bg-brand-orange/10 text-brand-orange",
         <motion.div key={mcqIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-black/80 border border-white/10 rounded-2xl p-5 relative overflow-hidden h-full">
           {/* Progress bar */}
@@ -277,20 +314,31 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
             </motion.div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {q?.options.map((opt, i) => (
-              <button key={i} onClick={() => handleMcq(i)} disabled={!!mcqResult}
-                className={`text-left py-3.5 px-4 rounded-xl border text-sm transition-all active:scale-95 font-semibold ${
-                  mcqResult === 'correct' && i === q.a ? 'bg-brand-success/20 border-brand-success text-brand-success'
-                  : mcqResult === 'wrong'   && i === q.a ? 'bg-brand-success/10 border-brand-success/40 text-brand-success/70'
-                  : mcqResult ? 'opacity-40 border-white/5 cursor-not-allowed text-white/30'
-                  : 'bg-white/5 border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 text-white/80'
-                }`}>
-                <span className="text-[9px] font-black opacity-30 mr-2">{String.fromCharCode(65 + i)}.</span>{opt}
-              </button>
-            ))}
+            {q?.options.map((opt, i) => {
+              let btnClass = 'bg-white/5 border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 text-white/80';
+              if (mcqResult) {
+                if (i === q.a) {
+                  // Always show correct answer in GREEN
+                  btnClass = 'bg-brand-success/20 border-brand-success text-brand-success ring-2 ring-brand-success/40';
+                } else if (mcqResult === 'wrong' && i === mcqSelected) {
+                  // User's wrong pick in RED
+                  btnClass = 'bg-red-500/20 border-red-500 text-red-400 ring-2 ring-red-500/40';
+                } else {
+                  btnClass = 'opacity-30 border-white/5 cursor-not-allowed text-white/30';
+                }
+              }
+              return (
+                <button key={i} onClick={() => handleMcq(i)} disabled={!!mcqResult}
+                  className={`text-left py-3.5 px-4 rounded-xl border text-sm transition-all active:scale-95 font-semibold ${btnClass}`}>
+                  <span className="text-[9px] font-black opacity-30 mr-2">{String.fromCharCode(65 + i)}.</span>{opt}
+                  {mcqResult && i === q.a && <span className="ml-2 text-[9px]">✅ CORRECT</span>}
+                  {mcqResult === 'wrong' && i === mcqSelected && <span className="ml-2 text-[9px]">❌ YOUR PICK</span>}
+                </button>
+              );
+            })}
           </div>
         </motion.div>
-      </CombatLayout>
+      )
     );
   }
 
@@ -305,8 +353,10 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
       const ans = e.target.elements.code_ans.value.trim();
       const ok = q.validate ? q.validate(ans) : ans.toLowerCase() === (q.answer || '').toLowerCase();
       setCodeAttempts(a => a + 1);
+      setTotalAnswered(t => t + 1);
       if (ok) {
-        setCodeResult('correct'); hitEnemy(25); logCombat('💻 CODE EXECUTED! +25 DMG');
+        setCodeResult('correct'); setTotalCorrect(t => t + 1);
+        hitEnemy(codeDmgEach); logCombat(`💻 CODE EXECUTED! +${codeDmgEach} DMG`);
         setTimeout(() => {
           setCodeResult(null); setCodeAnswer(''); setCodeHintShown(false); setCodeAttempts(0);
           const next = codeIdx + 1;
@@ -315,12 +365,20 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
       } else {
         setCodeResult('wrong');
         if (codeAttempts >= 1) setCodeHintShown(true);
-        hitPlayer(15); logCombat('⚠️ SYNTAX ERROR! -15 HP');
-        setTimeout(() => setCodeResult(null), 1100);
+        hitPlayer(playerDmgEach); logCombat(`⚠️ SYNTAX ERROR! -${playerDmgEach} HP`);
+        if (isTestUser) {
+          // Test user: show answer briefly then auto-advance
+          setTimeout(() => {
+            setCodeResult(null); setCodeAnswer(''); setCodeHintShown(false); setCodeAttempts(0);
+            const next = codeIdx + 1;
+            next < codings.length ? setCodeIdx(next) : setPhase(debugs.length ? 'debug_mission' : oracles.length ? 'oracle_test' : 'results');
+          }, 1000);
+        } else {
+          setTimeout(() => setCodeResult(null), 2000);
+        }
       }
     };
-    return (
-      <CombatLayout phaseName="Coding Lab" phaseIcon={Code2} accentClass="border-blue-400/30 bg-blue-400/10 text-blue-400">
+    return renderCombatLayout("Coding Lab", Code2, "border-blue-400/30 bg-blue-400/10 text-blue-400",
         <motion.div key={codeIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-black/80 border border-blue-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(96,165,250,0.08)]">
           <div className="flex items-center gap-2 mb-4">
@@ -336,7 +394,14 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
           )}
           {codeResult && (
             <div className={`mb-3 p-3 rounded-xl text-sm font-black ${codeResult === 'correct' ? 'bg-brand-success/20 text-brand-success' : 'bg-red-500/20 text-red-400'}`}>
-              {codeResult === 'correct' ? '✅ PERFECT!' : '❌ Try again!'}
+              {codeResult === 'correct' ? '✅ PERFECT!' : (
+                <div>
+                  <p>❌ Not quite{codeAttempts >= 2 ? '' : ' — try again!'}</p>
+                  {codeAttempts >= 2 && q.answer && (
+                    <p className="mt-1.5 text-yellow-300 font-mono text-xs">💡 Correct answer: <span className="text-brand-success font-black">{q.answer}</span></p>
+                  )}
+                </div>
+              )}
             </div>
           )}
           <form onSubmit={handleCode} className="flex gap-2">
@@ -345,7 +410,6 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
             <button type="submit" className="px-5 bg-blue-500 hover:bg-blue-400 text-white font-black text-xs uppercase rounded-xl transition-all active:scale-95">RUN</button>
           </form>
         </motion.div>
-      </CombatLayout>
     );
   }
 
@@ -357,21 +421,33 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
     const q = debugs[debugIdx];
     const handleDebug = (opt) => {
       if (debugResult) return;
+      setDebugSelected(opt);
       const ok = opt === q.answer;
+      setTotalAnswered(t => t + 1);
       if (ok) {
-        setDebugResult('correct'); hitEnemy(30); logCombat('🐛 BUG ELIMINATED! +30 DMG');
+        setDebugResult('correct'); setTotalCorrect(t => t + 1);
+        hitEnemy(debugDmgEach); logCombat(`🐛 BUG ELIMINATED! +${debugDmgEach} DMG`);
         setTimeout(() => {
-          setDebugResult(null);
+          setDebugResult(null); setDebugSelected(null);
           const next = debugIdx + 1;
           next < debugs.length ? setDebugIdx(next) : setPhase(oracles.length ? 'oracle_test' : 'results');
-        }, 1400);
+        }, isTestUser ? 800 : 2000);
       } else {
-        setDebugResult('wrong'); hitPlayer(20); logCombat('🚨 PATCH FAILED! -20 HP');
-        setTimeout(() => setDebugResult(null), 1100);
+        setDebugResult('wrong'); hitPlayer(playerDmgEach); logCombat(`🚨 PATCH FAILED! -${playerDmgEach} HP`);
+        if (isTestUser) {
+          // Test user: show answer then auto-advance
+          setTimeout(() => {
+            setDebugResult(null); setDebugSelected(null);
+            const next = debugIdx + 1;
+            next < debugs.length ? setDebugIdx(next) : setPhase(oracles.length ? 'oracle_test' : 'results');
+          }, 1000);
+        } else {
+          setTimeout(() => { setDebugResult(null); setDebugSelected(null); }, 2500);
+        }
       }
     };
     return (
-      <CombatLayout phaseName="Debug Mission" phaseIcon={Bug} accentClass="border-orange-400/30 bg-orange-400/10 text-orange-400">
+      renderCombatLayout("Debug Mission", Bug, "border-orange-400/30 bg-orange-400/10 text-orange-400",
         <motion.div key={debugIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-black/80 border border-orange-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(251,146,60,0.08)]">
           <div className="flex items-center gap-2 mb-4">
@@ -394,22 +470,38 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
           )}
           {debugResult && (
             <div className={`mb-3 p-3 rounded-xl text-sm font-black ${debugResult === 'correct' ? 'bg-brand-success/20 text-brand-success' : 'bg-red-500/20 text-red-400'}`}>
-              {debugResult === 'correct' ? '✅ BUG FIXED!' : `❌ Not quite. ${q.hint || ''}`}
+              {debugResult === 'correct' ? '✅ BUG FIXED!' : (
+                <div>
+                  <p>❌ Not quite. {q.hint || ''}</p>
+                  <p className="mt-1.5 text-brand-success text-xs">✅ Correct fix: <strong>{q.answer}</strong></p>
+                </div>
+              )}
             </div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {q.options?.map((opt, i) => (
-              <button key={i} onClick={() => handleDebug(opt)} disabled={!!debugResult}
-                className={`text-left py-3 px-4 rounded-xl border text-xs font-mono transition-all active:scale-95 ${
-                  debugResult === 'correct' && opt === q.answer ? 'bg-brand-success/20 border-brand-success text-brand-success'
-                  : debugResult ? 'opacity-40 border-white/5 text-white/30'
-                  : 'bg-white/5 border-white/10 hover:border-orange-400 hover:bg-orange-400/10 text-white/70'}`}>
-                {opt}
-              </button>
-            ))}
+            {q.options?.map((opt, i) => {
+              let btnClass = 'bg-white/5 border-white/10 hover:border-orange-400 hover:bg-orange-400/10 text-white/70';
+              if (debugResult) {
+                if (opt === q.answer) {
+                  btnClass = 'bg-brand-success/20 border-brand-success text-brand-success ring-2 ring-brand-success/40';
+                } else if (debugResult === 'wrong' && opt === debugSelected) {
+                  btnClass = 'bg-red-500/20 border-red-500 text-red-400 ring-2 ring-red-500/40';
+                } else {
+                  btnClass = 'opacity-30 border-white/5 text-white/30';
+                }
+              }
+              return (
+                <button key={i} onClick={() => handleDebug(opt)} disabled={!!debugResult}
+                  className={`text-left py-3 px-4 rounded-xl border text-xs font-mono transition-all active:scale-95 ${btnClass}`}>
+                  {opt}
+                  {debugResult && opt === q.answer && <span className="ml-1 text-[8px]">✅</span>}
+                  {debugResult === 'wrong' && opt === debugSelected && <span className="ml-1 text-[8px]">❌</span>}
+                </button>
+              );
+            })}
           </div>
         </motion.div>
-      </CombatLayout>
+      )
     );
   }
 
@@ -422,8 +514,9 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
     const handleOracle = (opt) => {
       if (oracleResult) return;
       const ok = opt === q.answer;
-      if (ok) { setOracleResult('correct'); hitEnemy(20); logCombat('🔮 PREDICTION ACCURATE! +20 DMG'); }
-      else     { setOracleResult('wrong');   hitPlayer(15); logCombat('🔴 WRONG PREDICTION! -15 HP'); }
+      setTotalAnswered(t => t + 1);
+      if (ok) { setOracleResult('correct'); setTotalCorrect(t => t + 1); hitEnemy(oracleDmgEach); logCombat(`🔮 PREDICTION ACCURATE! +${oracleDmgEach} DMG`); }
+      else     { setOracleResult('wrong'); hitPlayer(playerDmgEach); logCombat(`🔴 WRONG PREDICTION! -${playerDmgEach} HP`); }
     };
     const goNext = () => {
       setOracleResult(null);
@@ -431,7 +524,7 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
       next < oracles.length ? setOracleIdx(next) : setPhase('results');
     };
     return (
-      <CombatLayout phaseName="Oracle Test" phaseIcon={Eye} accentClass="border-green-400/30 bg-green-400/10 text-green-400">
+      renderCombatLayout("Oracle Test", Eye, "border-green-400/30 bg-green-400/10 text-green-400",
         <motion.div key={oracleIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-black/80 border border-green-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(74,222,128,0.08)]">
           <div className="flex items-center gap-2 mb-4">
@@ -462,7 +555,7 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
             </motion.div>
           )}
         </motion.div>
-      </CombatLayout>
+      )
     );
   }
 
@@ -470,7 +563,9 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
   // 🔴 RESULTS
   // ════════════════════════════════════════════════════════════════════════
   if (phase === 'results') {
-    const isWin = playerHp > 0;
+    // Win requires: player alive AND (enemy dead OR at least 50% score)
+    const scorePct = totalAnswered > 0 ? (totalCorrect / totalAnswered) : 0;
+    const isWin = isTestUser ? true : (playerHp > 0 && (enemyHp <= 0 || scorePct >= 0.5));
     return (
       <div className="h-screen flex items-center justify-center bg-black text-white p-6">
         <div className={`w-full max-w-md border-2 p-10 rounded-[40px] text-center relative overflow-hidden ${isWin ? 'border-brand-success/30 bg-[#001a0d]' : 'border-red-600/30 bg-[#1a0000]'}`}>
@@ -483,7 +578,7 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
           </p>
           <div className="grid grid-cols-3 gap-3 mb-8">
             {[
-              { label: 'MCQ Hits', val: `${mcqCorrect}/${mcqs.length}` },
+              { label: 'Total Score', val: `${totalCorrect}/${totalAnswered}` },
               { label: 'HP Left', val: `${Math.max(0, playerHp)}` },
               { label: 'Enemy', val: enemyHp <= 0 ? '☠️' : `${Math.round(enemyHp)}hp` },
             ].map((s, i) => (
@@ -492,6 +587,15 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
                 <p className="text-[8px] uppercase tracking-widest text-white/30 mt-1">{s.label}</p>
               </div>
             ))}
+            {/* Phase-wise breakdown */}
+            <div className="col-span-3 grid grid-cols-4 gap-2">
+              {[{l:'MCQ',v:mcqCorrect,t:mcqs.length},{l:'Code',v:totalCorrect - mcqCorrect >= 0 ? '—' : '—',t:codings.length},{l:'Debug',v:'—',t:debugs.length},{l:'Oracle',v:'—',t:oracles.length}].filter(p => p.t > 0).map((p,i) => (
+                <div key={i} className="text-center p-2 bg-white/[0.03] rounded-xl">
+                  <p className="text-xs font-black text-white/50">{p.l}</p>
+                  <p className="text-[8px] text-white/20">{p.t} Q{p.t !== 1 ? 's' : ''}</p>
+                </div>
+              ))}
+            </div>
           </div>
           {weakAreas.length > 0 && (
             <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl mb-6 text-left">

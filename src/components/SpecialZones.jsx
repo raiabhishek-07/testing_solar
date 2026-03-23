@@ -63,7 +63,7 @@ const ZONES = [
     icon: Boxes,
     color: '#22d3ee',
     gradient: 'from-[#22d3ee] to-[#0f172a]',
-    desc: 'Write custom JavaScript loops to power the robotic sorting arms.',
+    desc: 'Write sorting algorithm loops to power the robotic sorting arms.',
     path: '/array-factory'
   },
   {
@@ -73,7 +73,7 @@ const ZONES = [
     icon: FlaskConical,
     color: '#a855f7',
     gradient: 'from-[#a855f7] to-[#1e1b4b]',
-    desc: 'Brew magic potions by writing precise JavaScript Data Type casts.',
+    desc: 'Brew magic potions by writing precise Data Type casts in your language.',
     path: '/variable-alchemist'
   },
   {
@@ -83,7 +83,7 @@ const ZONES = [
     icon: Swords,
     color: '#f43f5e',
     gradient: 'from-[#f43f5e] to-[#4c1d95]',
-    desc: 'Cast powerful RPG magic by correctly invoking JavaScript functions with exact arguments.',
+    desc: 'Cast powerful RPG magic by correctly invoking functions with exact arguments.',
     path: '/function-spellslinger'
   },
   {
@@ -93,7 +93,7 @@ const ZONES = [
     icon: Bug,
     color: '#e11d48',
     gradient: 'from-[#e11d48] to-[#4c0519]',
-    desc: 'Sprint through the mainframe and terminate runtime Javascript errors live.',
+    desc: 'Sprint through the mainframe and terminate runtime errors live.',
     path: '/bug-platformer'
   }
 ];

@@ -9,25 +9,54 @@ const ArrayFactoryEngine = dynamic(() => import('@/components/games/array-factor
     loading: () => <div className="absolute inset-0 bg-black flex items-center justify-center font-mono text-brand-neon">BOOTING FACTORY...</div>
 });
 
-const getAlgorithms = (order) => ({
-    "BUBBLE": {
-        name: "Bubble Sort",
-        code: `// BUBBLE SORT: Pushes ${order === 'ASC' ? 'largest' : 'smallest'} elements to the end\nfor (let i = 0; i < arr.length; i++) {\n  for (let j = 0; j < arr.length - 1 - i; j++) {\n    if (arr[j] ${order === 'ASC' ? '>' : '<'} arr[j + 1]) {\n      swap(j, j + 1);\n    }\n  }\n}`
-    },
-    "SELECTION": {
-        name: "Selection Sort",
-        code: `// SELECTION SORT: Finds ${order === 'ASC' ? 'min' : 'max'} element and strictly swaps it to the front\nfor (let i = 0; i < arr.length; i++) {\n  let targetIdx = i;\n  for (let j = i + 1; j < arr.length; j++) {\n    if (arr[j] ${order === 'ASC' ? '<' : '>'} arr[targetIdx]) targetIdx = j;\n  }\n  if (targetIdx !== i) swap(i, targetIdx);\n}`
-    },
-    "INSERTION": {
-        name: "Insertion Sort (Swaps)",
-        code: `// INSERTION SORT: Cascades items backward sequentially into their sorted place\nfor (let i = 1; i < arr.length; i++) {\n  let j = i;\n  while (j > 0 && arr[j - 1] ${order === 'ASC' ? '>' : '<'} arr[j]) {\n    swap(j, j - 1);\n    j--;\n  }\n}`
-    }
-});
+const LANGS = [
+    { id: 'python', label: 'Python', icon: '🐍' },
+    { id: 'java',   label: 'Java',   icon: '☕' },
+    { id: 'c',      label: 'C',      icon: '⚙️' },
+    { id: 'cpp',    label: 'C++',    icon: '🔧' },
+];
+
+const getAlgorithms = (order, lang = 'python') => {
+    const op = order === 'ASC' ? '>' : '<';
+    const opRev = order === 'ASC' ? '<' : '>';
+    const target = order === 'ASC' ? 'largest' : 'smallest';
+    const targetRev = order === 'ASC' ? 'min' : 'max';
+
+    const templates = {
+        python: {
+            BUBBLE: `# BUBBLE SORT: Pushes ${target} elements to the end\nfor i in range(len(arr)):\n    for j in range(len(arr) - 1 - i):\n        if arr[j] ${op} arr[j + 1]:\n            swap(j, j + 1)`,
+            SELECTION: `# SELECTION SORT: Finds ${targetRev} element and swaps it to the front\nfor i in range(len(arr)):\n    target_idx = i\n    for j in range(i + 1, len(arr)):\n        if arr[j] ${opRev} arr[target_idx]:\n            target_idx = j\n    if target_idx != i:\n        swap(i, target_idx)`,
+            INSERTION: `# INSERTION SORT: Cascades items backward into their sorted place\nfor i in range(1, len(arr)):\n    j = i\n    while j > 0 and arr[j - 1] ${op} arr[j]:\n        swap(j, j - 1)\n        j -= 1`
+        },
+        java: {
+            BUBBLE: `// BUBBLE SORT: Pushes ${target} elements to the end\nfor (int i = 0; i < arr.length; i++) {\n    for (int j = 0; j < arr.length - 1 - i; j++) {\n        if (arr[j] ${op} arr[j + 1]) {\n            swap(j, j + 1);\n        }\n    }\n}`,
+            SELECTION: `// SELECTION SORT: Finds ${targetRev} element and swaps\nfor (int i = 0; i < arr.length; i++) {\n    int targetIdx = i;\n    for (int j = i + 1; j < arr.length; j++) {\n        if (arr[j] ${opRev} arr[targetIdx]) targetIdx = j;\n    }\n    if (targetIdx != i) swap(i, targetIdx);\n}`,
+            INSERTION: `// INSERTION SORT: Cascades items backward into place\nfor (int i = 1; i < arr.length; i++) {\n    int j = i;\n    while (j > 0 && arr[j - 1] ${op} arr[j]) {\n        swap(j, j - 1);\n        j--;\n    }\n}`
+        },
+        c: {
+            BUBBLE: `/* BUBBLE SORT: Pushes ${target} elements to the end */\nfor (int i = 0; i < n; i++) {\n    for (int j = 0; j < n - 1 - i; j++) {\n        if (arr[j] ${op} arr[j + 1]) {\n            swap(j, j + 1);\n        }\n    }\n}`,
+            SELECTION: `/* SELECTION SORT: Finds ${targetRev} element */\nfor (int i = 0; i < n; i++) {\n    int target_idx = i;\n    for (int j = i + 1; j < n; j++) {\n        if (arr[j] ${opRev} arr[target_idx]) target_idx = j;\n    }\n    if (target_idx != i) swap(i, target_idx);\n}`,
+            INSERTION: `/* INSERTION SORT: Cascades items backward */\nfor (int i = 1; i < n; i++) {\n    int j = i;\n    while (j > 0 && arr[j - 1] ${op} arr[j]) {\n        swap(j, j - 1);\n        j--;\n    }\n}`
+        },
+        cpp: {
+            BUBBLE: `// BUBBLE SORT: Pushes ${target} elements to the end\nfor (int i = 0; i < arr.size(); i++) {\n    for (int j = 0; j < arr.size() - 1 - i; j++) {\n        if (arr[j] ${op} arr[j + 1]) {\n            swap(j, j + 1);\n        }\n    }\n}`,
+            SELECTION: `// SELECTION SORT: Finds ${targetRev} element\nfor (int i = 0; i < arr.size(); i++) {\n    int targetIdx = i;\n    for (int j = i + 1; j < arr.size(); j++) {\n        if (arr[j] ${opRev} arr[targetIdx]) targetIdx = j;\n    }\n    if (targetIdx != i) swap(i, targetIdx);\n}`,
+            INSERTION: `// INSERTION SORT: Cascades items backward\nfor (int i = 1; i < arr.size(); i++) {\n    int j = i;\n    while (j > 0 && arr[j - 1] ${op} arr[j]) {\n        swap(j, j - 1);\n        j--;\n    }\n}`
+        }
+    };
+
+    return {
+        BUBBLE:    { name: "Bubble Sort",             code: templates[lang].BUBBLE },
+        SELECTION: { name: "Selection Sort",          code: templates[lang].SELECTION },
+        INSERTION: { name: "Insertion Sort (Swaps)",   code: templates[lang].INSERTION }
+    };
+};
 
 export default function ArrayFactoryPage() {
     const [selectedAlgo, setSelectedAlgo] = useState("BUBBLE");
     const [targetOrder, setTargetOrder] = useState("ASC");
-    const [code, setCode] = useState(getAlgorithms("ASC")["BUBBLE"].code);
+    const [selectedLang, setSelectedLang] = useState('python');
+    const [code, setCode] = useState(getAlgorithms("ASC", 'python')["BUBBLE"].code);
     const [initialArray, setInitialArray] = useState([8, 2, 9, 1, 5]);
     const [operations, setOperations] = useState(null);
     const [error, setError] = useState(null);
@@ -115,7 +144,18 @@ export default function ArrayFactoryPage() {
                     </div>
                 </div>
                 
-                <div className="flex gap-4">
+                <div className="flex gap-4 items-center">
+                    {/* Language Picker */}
+                    <div className="flex gap-1 p-1 bg-black/60 backdrop-blur-md border border-cyan-400/20 rounded-xl">
+                        {LANGS.map(l => (
+                            <button key={l.id} onClick={() => { setSelectedLang(l.id); setCode(getAlgorithms(targetOrder, l.id)[selectedAlgo].code); }}
+                                className={`px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                                    selectedLang === l.id ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(34,211,238,0.3)]' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+                                }`}>
+                                <span>{l.icon}</span> {l.label}
+                            </button>
+                        ))}
+                    </div>
                     <button onClick={generateNewArray} className="p-3 px-6 bg-black/60 backdrop-blur-md border border-white/20 hover:border-white/50 rounded-xl flex items-center gap-3 transition-colors">
                         <RefreshCw className="w-4 h-4" />
                         <span className="text-xs font-bold uppercase">Generate New Load</span>
@@ -158,7 +198,7 @@ export default function ArrayFactoryPage() {
                                     value={targetOrder}
                                     onChange={(e) => {
                                         setTargetOrder(e.target.value);
-                                        setCode(getAlgorithms(e.target.value)[selectedAlgo].code);
+                                        setCode(getAlgorithms(e.target.value, selectedLang)[selectedAlgo].code);
                                     }}
                                     className="bg-[#091524] text-cyan-400 font-bold tracking-widest uppercase text-xs px-4 py-3 rounded-xl outline-none border border-cyan-900 cursor-pointer hover:border-cyan-500 transition-colors focus:ring-2 focus:ring-cyan-500/20"
                                 >
@@ -170,12 +210,12 @@ export default function ArrayFactoryPage() {
                                     value={selectedAlgo}
                                     onChange={(e) => {
                                         setSelectedAlgo(e.target.value);
-                                        setCode(getAlgorithms(targetOrder)[e.target.value].code);
+                                        setCode(getAlgorithms(targetOrder, selectedLang)[e.target.value].code);
                                     }}
                                     className="bg-[#091524] text-cyan-400 font-bold tracking-widest uppercase text-xs px-6 py-3 rounded-xl outline-none border border-cyan-900 cursor-pointer hover:border-cyan-500 transition-colors focus:ring-2 focus:ring-cyan-500/20"
                                 >
-                                    {Object.keys(getAlgorithms(targetOrder)).map(k => (
-                                        <option key={k} value={k}>{getAlgorithms(targetOrder)[k].name}</option>
+                                    {Object.keys(getAlgorithms(targetOrder, selectedLang)).map(k => (
+                                        <option key={k} value={k}>{getAlgorithms(targetOrder, selectedLang)[k].name}</option>
                                     ))}
                                 </select>
                             </div>

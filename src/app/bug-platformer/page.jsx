@@ -10,6 +10,13 @@ const BugHunterEngine = dynamic(
     { ssr: false, loading: () => <div className="absolute inset-0 bg-[#020617] flex items-center justify-center font-mono text-cyan-500">BOOTING MAINFRAME...</div> }
 );
 
+const LANGS = [
+    { id: 'python', label: 'Python', icon: '🐍', monacoLang: 'python' },
+    { id: 'java',   label: 'Java',   icon: '☕', monacoLang: 'java' },
+    { id: 'c',      label: 'C',      icon: '⚙️', monacoLang: 'c' },
+    { id: 'cpp',    label: 'C++',    icon: '🔧', monacoLang: 'cpp' },
+];
+
 const BUG_PUZZLES = {
     bug_1: {
         errorType: "ReferenceError",
@@ -116,6 +123,7 @@ const BUG_PUZZLES = {
 };
 
 export default function BugHunterPage() {
+    const [selectedLang, setSelectedLang] = useState('python');
     const [hp, setHp] = useState(3);
     const [score, setScore] = useState(0);
     const [status, setStatus] = useState("IDLE"); // IDLE, FIGHTING, COMPILING
@@ -171,6 +179,18 @@ export default function BugHunterPage() {
                 <Link href="/dashboard" className="p-3 bg-slate-800/50 hover:bg-slate-700 rounded-xl transition-colors border border-slate-600">
                     <ArrowLeft className="w-5 h-5 text-cyan-400" />
                 </Link>
+
+                {/* Language Picker */}
+                <div className="flex gap-1 p-1 bg-black/60 border border-slate-700 rounded-xl">
+                    {LANGS.map(l => (
+                        <button key={l.id} onClick={() => setSelectedLang(l.id)}
+                            className={`px-2 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1 ${
+                                selectedLang === l.id ? 'bg-rose-500 text-white shadow-[0_0_10px_rgba(225,29,72,0.3)]' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+                            }`}>
+                            <span>{l.icon}</span> {l.label}
+                        </button>
+                    ))}
+                </div>
 
                 <div className="flex flex-col items-center">
                     <h1 className="text-xl font-black tracking-widest text-white flex items-center gap-3 uppercase">
@@ -283,7 +303,7 @@ export default function BugHunterPage() {
                             <div className="flex-1 p-4 relative">
                                 <Editor
                                     height="100%"
-                                    defaultLanguage="javascript"
+                                    language={LANGS.find(l => l.id === selectedLang)?.monacoLang || 'python'}
                                     theme="vs-dark"
                                     value={code}
                                     onChange={(value) => setCode(value || "")}

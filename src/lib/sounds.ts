@@ -287,6 +287,9 @@ class GameAudioSystem {
         this.bgmNodes = [];
     }
 
+    // Legacy compat
+    public startBGM() { this.startThemeBGM(this.currentTheme || 'menu'); }
+
     /* ──────────────────────────────────────────────────────
      * AMBIENT SOUNDSCAPES
      * ──────────────────────────────────────────────────── */

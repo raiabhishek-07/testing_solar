@@ -9,6 +9,24 @@ const SpellslingerEngine = dynamic(() => import('@/components/games/function-spe
     loading: () => <div className="absolute inset-0 bg-[#020617] flex items-center justify-center font-mono text-cyan-500">INITIALIZING RPG ENGINE...</div>
 });
 
+const LANGS = [
+    { id: 'python', label: 'Python', icon: '🐍' },
+    { id: 'java',   label: 'Java',   icon: '☕' },
+    { id: 'c',      label: 'C',      icon: '⚙️' },
+    { id: 'cpp',    label: 'C++',    icon: '🔧' },
+];
+
+const langApiStyle = (lang, funcName, args) => {
+    const argsStr = args.map(a => typeof a === 'string' ? `"${a}"` : a).join(', ');
+    switch(lang) {
+        case 'python': return `${funcName}(${argsStr})`;
+        case 'java': return `${funcName}(${argsStr});`;
+        case 'c': return `${funcName}(${argsStr});`;
+        case 'cpp': return `${funcName}(${argsStr});`;
+        default: return `${funcName}(${argsStr});`;
+    }
+};
+
 const ARCANE_BEHEMOTH_PHASES = [
     {
         id: 0,
@@ -63,6 +81,7 @@ const ARCANE_BEHEMOTH_PHASES = [
 ];
 
 export default function SpellslingerPage() {
+    const [selectedLang, setSelectedLang] = useState('python');
     const [phaseIdx, setPhaseIdx] = useState(0);
     const phase = ARCANE_BEHEMOTH_PHASES[phaseIdx] || ARCANE_BEHEMOTH_PHASES[0];
     
@@ -178,7 +197,7 @@ export default function SpellslingerPage() {
         } catch (err) {
             setTimeout(() => {
                 setStatus("FAILED");
-                setError(`JAVASCRIPT EXCEPTION: ${err.message}`);
+                setError(`CODE EXCEPTION: ${err.message}`);
                 setLastAction({ func: 'bossAttack' });
                 
                 const newPartyHP = Math.max(0, partyHP - 500);
@@ -196,6 +215,18 @@ export default function SpellslingerPage() {
                 <Link href="/dashboard" className="p-3 bg-slate-800/50 hover:bg-slate-700 rounded-xl transition-colors border border-slate-600">
                     <ArrowLeft className="w-6 h-6 text-cyan-400" />
                 </Link>
+
+                {/* Language Picker */}
+                <div className="flex gap-1 p-1 bg-black/60 border border-slate-700 rounded-xl">
+                    {LANGS.map(l => (
+                        <button key={l.id} onClick={() => setSelectedLang(l.id)}
+                            className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1 ${
+                                selectedLang === l.id ? 'bg-cyan-500 text-black shadow-[0_0_10px_rgba(34,211,238,0.3)]' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+                            }`}>
+                            <span>{l.icon}</span> {l.label}
+                        </button>
+                    ))}
+                </div>
 
                 <div className="flex flex-col items-center flex-1">
                     <h1 className="text-2xl font-black tracking-[0.3em] text-white flex items-center gap-4 uppercase drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
@@ -320,7 +351,7 @@ export default function SpellslingerPage() {
                                 <div className="mt-4 pt-3 border-t border-rose-900/50">
                                     <span className="text-[10px] font-bold uppercase text-rose-400">Correct Tactical Command:</span>
                                     <code className="block mt-1 bg-rose-900/30 px-3 py-2 rounded text-emerald-300 text-[12px] font-mono font-black border border-rose-800/50">
-                                        {`${phase.expectedFunc}(${phase.expectedArgs.map(a => typeof a === 'string' ? '"' + a + '"' : a).join(", ")});`}
+                                        {langApiStyle(selectedLang, phase.expectedFunc, phase.expectedArgs)}
                                     </code>
                                 </div>
                             </div>
