@@ -1,786 +1,790 @@
 {
-  "label": "LEVEL 1: FIRST CODE (Basic Syntax)",
+  "label": "LEVEL 1: FIRST CODE (Basic C++ Syntax)",
   "sublevels": [
     {
       "id": "1_1",
-      "title": "STRUCTURE & PRINT",
-      "subtitle": "Your first lines of code",
+      "title": "CPP STRUCTURE",
+      "subtitle": "Your first C++ program",
       "icon": "Terminal",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c1",
-            "title": "Structure of a Basic Program",
+            "id": "cpp1c1",
+            "title": "The C++ Program Skeleton",
             "emoji": "🏗️",
-            "analogy": "A program is like a recipe card — it reads FROM TOP TO BOTTOM, one line at a time. Line 1 runs first, then Line 2, etc.",
-            "content": "Every Python program starts from the top line and runs downward. There's no special setup needed — just write your instructions and Python runs them in order!",
+            "analogy": "A C++ program is like C's program but with upgrades installed. The foundation (#include) is still there, but now you get a more powerful output system (cout) and the whole standard library at your fingertips via 'using namespace std'.",
+            "content": "C++ keeps C's structure but adds powerful features. The skeleton: #include <iostream> for input/output, optional 'using namespace std;' for convenience, int main() entry point, and cout for output instead of printf.",
             "examples": [
-              { "title": "Top-to-Bottom Execution", "explanation": "Python runs lines 1 → 2 → 3 in order.", "code": "print('Line ONE')\nprint('Line TWO')\nprint('Line THREE')" }
+              { "title": "Minimal C++ Program", "explanation": "Very similar to C but with iostream and cout.", "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello World\" << endl;\n    return 0;\n}" },
+              { "title": "C vs C++ Output", "explanation": "cout with << is C++'s way — cleaner than printf!", "code": "// C:\nprintf(\"Hello %s, age %d\\n\", name, age);\n\n// C++:\ncout << \"Hello \" << name << \", age \" << age << endl;" }
             ],
-            "funFact": "Python doesn't use semicolons or curly braces — just clean, readable lines! That's why it's popular. 🐍"
+            "funFact": "C++ was created by Bjarne Stroustrup in 1983 as 'C with Classes'. The ++ in C++ is literally the increment operator — meaning C++ is 'one better than C'! 🚀"
           },
           {
-            "id": "l1c2",
-            "title": "Print Statements",
+            "id": "cpp1c2",
+            "title": "cout & endl — C++'s Output System",
             "emoji": "📢",
-            "analogy": "The print() function is like a loudspeaker. You give it text, and it SHOUTS it onto the screen!",
-            "content": "print() is the most used function in Python. It takes whatever you put inside the parentheses and displays it on the screen. Text must be inside quotes.",
+            "analogy": "cout is C++'s output stream. The << operator is like a pipeline arrow — it pushes data from right to left into cout. endl flushes the stream and adds a newline. Think of it as: cout (screen) ← data ← data ← data.",
+            "content": "cout (character output stream) is C++'s standard output. Use << to send values. Chain multiple << to print multiple items. endl adds a newline and flushes the buffer. '\\n' is faster than endl (no flush).",
             "examples": [
-              { "title": "Basic Print", "explanation": "Anything inside quotes is displayed exactly as written.", "code": "print('Hello World!')\nprint(\"My name is Neo\")" },
-              { "title": "Print Numbers", "explanation": "Numbers don't need quotes!", "code": "print(42)\nprint(3.14)" }
+              { "title": "Basic cout Usage", "explanation": "Chain << to combine multiple values.", "code": "cout << \"Hello World\" << endl;\ncout << \"Score: \" << 100 << endl;\n\nstring name = \"Alex\";\nint age = 20;\ncout << name << \" is \" << age << \" years old\" << endl;" },
+              { "title": "endl vs \\n", "explanation": "Both add a newline. endl also flushes the buffer.", "code": "cout << \"Fast\" << '\\n';  // faster, no flush\ncout << \"Safe\" << endl;  // slower, flushes buffer" }
             ],
-            "funFact": "The very first 'Hello World' program was written in 1978 by Brian Kernighan! 🌍"
+            "funFact": "cout is part of std (the standard namespace). Without 'using namespace std;', you'd write std::cout — the :: is the scope resolution operator. Many professional C++ codebases use std::cout explicitly! 🎯"
           },
           {
-            "id": "l1c3",
-            "title": "Output Formatting",
-            "emoji": "🎨",
-            "analogy": "Output formatting is like decorating a cake — the content stays the same, but you control HOW it looks.",
-            "content": "You can print multiple things using commas (adds spaces automatically) or use '+' to glue strings together (no space added). You can also use f-strings for mixing text and variables.",
+            "id": "cpp1c3",
+            "title": "namespace std & #include",
+            "emoji": "⚙️",
+            "analogy": "'using namespace std' is like moving into a new city and learning all the local shortcuts. Without it, you must say the full address (std::cout, std::endl). With it, you can just say cout and endl — the compiler knows where to find them.",
+            "content": "#include <iostream> loads the input/output stream library. 'using namespace std;' brings all standard library names into scope so you can write cout instead of std::cout. Both are C++ — only #include exists in C.",
             "examples": [
-              { "title": "Comma vs Plus", "explanation": "Comma adds a space. Plus glues directly.", "code": "print('Hello', 'World')   # Hello World\nprint('Hello' + 'World')  # HelloWorld" },
-              { "title": "F-Strings", "explanation": "f-strings let you embed variables inside text.", "code": "name = 'Alex'\nprint(f'Hi, {name}!')  # Hi, Alex!" }
+              { "title": "With vs Without using namespace", "explanation": "Both approaches are valid C++.", "code": "// With 'using namespace std;':\ncout << \"Hello\" << endl;\n\n// Without (explicit scope):\nstd::cout << \"Hello\" << std::endl;\n\n// Many professionals prefer explicit std:: \n// to avoid name clashes in large projects" }
             ],
-            "funFact": "F-strings were added in Python 3.6 (2016). Before that, formatting was MUCH harder! 😅"
+            "funFact": "The C++ standard library (STL) lives in the 'std' namespace. Using 'using namespace std;' in header files is considered bad practice — it pollutes the namespace for everyone who includes that file! ⚠️"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE PRINTER", "maxHp": 100 },
+          "enemy": { "name": "THE LINKER", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does print('Hello') do?",
-              "options": ["Creates a variable called Hello", "Displays 'Hello' on the screen", "Saves 'Hello' to a file", "Sends an email"],
-              "a": 1, "damage": 20, "topic": "Print",
-              "explanation": "print() displays whatever is inside the parentheses onto the screen."
+              "q": "Which header provides cout and cin in C++?",
+              "options": ["#include <stdio.h>", "#include <iostream>", "#include <string>", "#include <output>"],
+              "a": 1, "damage": 20, "topic": "iostream",
+              "explanation": "Header Intel: <iostream> is the C++ input/output stream library. It provides cout (output), cin (input), and cerr (error output). <stdio.h> is C's version — they coexist but don't mix well."
             },
             {
-              "q": "Which of these will Python run FIRST?",
-              "options": ["The last line", "The middle line", "The first line", "All at once"],
-              "a": 2, "damage": 20, "topic": "Program Structure",
-              "explanation": "Python reads top-to-bottom. The first line always runs first."
+              "q": "What does 'using namespace std;' do?",
+              "options": ["Imports a file", "Allows writing cout instead of std::cout", "Creates a new namespace", "Links the standard library"],
+              "a": 1, "damage": 20, "topic": "namespace",
+              "explanation": "Namespace: std is the namespace where cout, cin, endl, string etc. live. 'using namespace std;' lets you write the short names. Without it, you'd need std::cout, std::endl every time."
             },
             {
-              "q": "What is the output of: print('5' + '3')?",
-              "options": ["8", "53", "5 + 3", "Error"],
-              "a": 1, "damage": 20, "topic": "Output Formatting",
-              "explanation": "'5' and '3' are strings (in quotes), so + glues them together: '53'."
+              "q": "What operator sends data to cout in C++?",
+              "options": [">>", "->", "<<", "=>"],
+              "a": 2, "damage": 20, "topic": "cout operator",
+              "explanation": "Stream Operator: << is the insertion operator for output streams. It pushes data into cout. >> is the extraction operator used with cin for input."
             },
             {
-              "q": "What does the 'f' in f'Hello {name}' do?",
-              "options": ["Makes text bold", "Formats the string so variables inside {} are replaced with their values", "Creates a file", "Deletes the variable"],
-              "a": 1, "damage": 20, "topic": "F-Strings",
-              "explanation": "f-strings let you embed variables directly inside curly braces {} within a string."
+              "q": "What does endl do when used with cout?",
+              "options": ["Ends the program", "Adds a newline AND flushes the output buffer", "Ends the class", "Prints 'end'"],
+              "a": 1, "damage": 20, "topic": "endl",
+              "explanation": "endl: Inserts a newline character AND flushes the output buffer (forces immediate display). '\\n' only adds a newline without flushing — faster but may delay display."
             },
             {
-              "q": "Text inside print() must be wrapped in ___.",
-              "options": ["Parentheses", "Quotes", "Square brackets", "Curly braces"],
-              "a": 1, "damage": 20, "topic": "Print Syntax",
-              "explanation": "String text must be inside single quotes '' or double quotes \"\" to work in print()."
+              "q": "Which is the correct C++ output for multiple values?",
+              "options": ["cout << \"Score\" << 100;", "cout(\"Score\", 100)", "printf(\"Score\", 100)", "print \"Score\", 100"],
+              "a": 0, "damage": 20, "topic": "cout chaining",
+              "explanation": "Chaining: cout << value1 << value2 chains multiple values with the << operator. Each << pushes another piece of data into the output stream."
             }
           ]
         },
         "coding": [
           {
-            "title": "Your First Print",
-            "objective": "What function displays text on the screen in Python? Type just the function name.",
-            "starterCode": "___(\"Hello World\")",
-            "answer": "print",
-            "hint": "It rhymes with 'mint' and starts with 'p'."
+            "title": "The C++ Header",
+            "objective": "What header file provides cout and cin in C++?",
+            "starterCode": "#include <___>",
+            "answer": "iostream",
+            "hint": "input-output stream — no .h for modern C++ standard headers."
           },
           {
-            "title": "Fix the Quote",
-            "objective": "What kind of characters must surround text in a print statement? Type the answer.",
-            "starterCode": "print(___Hello World___)",
-            "answer": "quotes",
-            "hint": "Either single ' or double \" characters wrap text."
+            "title": "Output Operator",
+            "objective": "What operator sends data to cout?",
+            "starterCode": "cout ___ \"Hello World\" ___ endl;",
+            "answer": "<<",
+            "hint": "Two less-than signs — the insertion operator."
           },
           {
-            "title": "Predict the Glue",
-            "objective": "What does print('Code' + 'Clash') output? Type the exact output.",
-            "starterCode": "print('Code' + 'Clash')\n# Output: ___",
-            "answer": "CodeClash",
-            "hint": "The + operator glues strings together WITHOUT adding a space."
+            "title": "Namespace Shortcut",
+            "objective": "What statement lets you write 'cout' instead of 'std::cout'?",
+            "starterCode": "using namespace ___;",
+            "answer": "std",
+            "hint": "The standard library namespace name."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nPrint('Hello World')\n\nWhat is the bug?",
-            "brokenCode": "Print('Hello World')",
+            "description": "🚨 Bug:\n\n#include <iostream>\nint main() {\n    cout << \"Hello\" << endl;\n    return 0;\n}",
+            "brokenCode": "cout << \"Hello\" << endl;",
             "bugLine": 0,
             "options": [
-              "Nothing wrong, it works fine",
-              "The 'P' in Print should be lowercase: print",
-              "The quotes should be removed",
-              "You need parentheses around Print"
+              "Nothing wrong",
+              "Missing 'using namespace std;' — without it, write std::cout and std::endl",
+              "endl should be \\n",
+              "<< should be >>"
             ],
-            "answer": "The 'P' in Print should be lowercase: print",
-            "hint": "Python is CASE SENSITIVE. Built-in functions are all lowercase."
+            "answer": "Missing 'using namespace std;' — without it, write std::cout and std::endl",
+            "hint": "Without 'using namespace std;', you must qualify cout as std::cout."
           },
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nprint(Hello World)\n\nWhat is the bug?",
-            "brokenCode": "print(Hello World)",
+            "description": "🚨 Bug:\n\n#include <iostream>\nusing namespace std;\nint main() {\n    cout >> \"Hello\" >> endl;\n    return 0;\n}",
+            "brokenCode": "cout >> \"Hello\" >> endl;",
             "bugLine": 0,
             "options": [
-              "Missing quotes around Hello World",
-              "Missing semicolon",
-              "print should be uppercase",
-              "Need to add import statement"
+              "Nothing wrong",
+              "Wrong operator — cout uses << (insertion), not >> (extraction)",
+              "Hello should be in single quotes",
+              "Missing semicolon"
             ],
-            "answer": "Missing quotes around Hello World",
-            "hint": "Text must be in quotes: 'Hello World' or \"Hello World\"."
+            "answer": "Wrong operator — cout uses << (insertion), not >> (extraction)",
+            "hint": "<< inserts INTO cout (output). >> extracts FROM cin (input). Don't mix them up!"
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\n#include <stdio.h>\nusing namespace std;\nint main() {\n    cout << \"Hello\" << endl;\n    return 0;\n}",
+            "brokenCode": "#include <stdio.h>",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "cout requires <iostream>, not <stdio.h>. Use #include <iostream>",
+              "using namespace std is wrong",
+              "endl should be return"
+            ],
+            "answer": "cout requires <iostream>, not <stdio.h>. Use #include <iostream>",
+            "hint": "<stdio.h> is C's I/O library. C++'s cout lives in <iostream>."
           }
         ],
         "prediction": [
           {
-            "code": "print('First')\nprint('Second')\nprint('Third')",
-            "options": ["Third Second First", "First Second Third", "First", "Error"],
-            "answer": "First Second Third",
-            "explanation": "Python runs top-to-bottom. Line 1 prints 'First', Line 2 prints 'Second', Line 3 prints 'Third'."
+            "code": "#include <iostream>\nusing namespace std;\nint main() {\n    cout << \"C++\" << \" \" << \"Rocks\" << endl;\n    return 0;\n}",
+            "options": ["C++Rocks", "C++ Rocks", "C++ \" \" Rocks", "Error"],
+            "answer": "C++ Rocks",
+            "explanation": "Three values chained with <<: \"C++\", \" \", \"Rocks\". They print consecutively: C++ Rocks. endl adds a newline."
           },
           {
-            "code": "print(10 + 5)\nprint('10' + '5')",
-            "options": ["15 and 15", "15 and 105", "105 and 15", "Error"],
-            "answer": "15 and 105",
-            "explanation": "10 + 5 = 15 (numbers add). '10' + '5' = '105' (strings concatenate/glue)."
+            "code": "cout << \"A\";\ncout << \"B\";\ncout << \"C\" << endl;",
+            "options": ["A↵B↵C", "ABC", "A B C", "Error"],
+            "answer": "ABC",
+            "explanation": "The first two couts have no endl or \\n, so no newline. All three print on the same line: ABC. Only the last endl moves to a new line."
           }
         ]
       }
     },
     {
       "id": "1_2",
-      "title": "VARIABLES",
-      "subtitle": "Named boxes in memory",
+      "title": "CPP VARIABLES",
+      "subtitle": "Types, auto & declarations",
       "icon": "Box",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c4",
-            "title": "What Are Variables?",
+            "id": "cpp1c4",
+            "title": "Variables in C++ — Types & auto",
             "emoji": "📦",
-            "analogy": "A variable is a labeled box. You give it a name (the label) and store a value (the contents) inside it. Later, you can peek inside using the label.",
-            "content": "Variables store data in your computer's memory with a name. You can create them, change them, and use them anytime. In Python, you just write: name = value.",
+            "analogy": "C++ inherited C's strict type system but added a smart upgrade: 'auto'. With auto, C++ can figure out the type from the value you provide — like a smart assistant who infers what container you need based on what you're putting in.",
+            "content": "C++ uses the same typed variable declarations as C: int, double, char, bool. But C++11 introduced 'auto' — the compiler infers the type. You still need to initialize auto variables so the compiler can determine the type.",
             "examples": [
-              { "title": "Creating Variables", "explanation": "The = sign means 'put this value into this box'.", "code": "score = 100\nplayer = 'Neo'\nprint(score)   # 100\nprint(player)  # Neo" }
+              { "title": "Standard Declarations", "explanation": "Same as C — explicit type names.", "code": "int score = 100;\ndouble price = 9.99;\nbool isAlive = true;\nchar grade = 'A';\nstring name = \"Alex\"; // std::string — NOT char[]!" },
+              { "title": "Using auto", "explanation": "auto deduces the type from the assigned value.", "code": "auto x = 5;         // int (deduced)\nauto pi = 3.14;     // double (deduced)\nauto name = \"Neo\";  // const char* (careful!)\nauto flag = true;   // bool (deduced)" }
             ],
-            "funFact": "Unlike Java or C, Python figures out the data type automatically — you never need to declare it! 🧠"
+            "funFact": "C++'s 'auto' keyword predates C++11 and meant something completely different (automatic storage). It was repurposed in C++11 for type deduction — a rare case of a keyword getting a new meaning! 🔄"
           },
           {
-            "id": "l1c5",
-            "title": "Naming Rules for Variables",
-            "emoji": "📝",
-            "analogy": "Variable names are like hashtags: they can have letters, numbers, and underscores, but NO spaces and can't start with a number.",
-            "content": "Rules: 1) Must start with a letter or underscore. 2) Can contain letters, numbers, underscores. 3) NO spaces or special characters. 4) Case sensitive (Score ≠ score). 5) Can't use Python keywords (if, for, while).",
+            "id": "cpp1c5",
+            "title": "string — C++'s Proper String Type",
+            "emoji": "💬",
+            "analogy": "C uses char arrays for text — like storing words by manually placing each letter in a filing cabinet. C++ gives you std::string — a smart shelf that grows, shrinks, and manages itself automatically. Same result, dramaticaly easier to use!",
+            "content": "C++ has a proper string type: std::string (from <string>). Unlike C's char arrays, strings can be concatenated with +, compared with ==, and have many built-in methods. Include <string> (or iostream already brings it).",
             "examples": [
-              { "title": "Valid vs Invalid Names", "explanation": "Learn the pattern!", "code": "✅ my_score = 10\n✅ _name = 'Alex'\n✅ player2 = 'Neo'\n❌ 2player = 'Bad'   # starts with number\n❌ my score = 'Bad'  # has a space\n❌ if = 10           # 'if' is a keyword" }
+              { "title": "string vs char[]", "explanation": "C++ string is far more user-friendly than C's char[].", "code": "// C style (manual, unsafe):\nchar name[20] = \"Alex\";\n\n// C++ style (smart, safe):\nstring name = \"Alex\";\ncout << name.length() << endl;   // 4\ncout << name + \" Smith\" << endl; // Alex Smith\ncout << (name == \"Alex\") << endl; // 1 (true)" },
+              { "title": "String Operations", "explanation": "string supports intuitive operators.", "code": "string first = \"Code\";\nstring second = \"Clash\";\nstring combined = first + second; // CodeClash\ncout << combined.length();        // 9" }
             ],
-            "funFact": "Python has 35 reserved keywords you can't use as variable names. 'if', 'else', 'for' are some! 🚫"
-          },
-          {
-            "id": "l1c6",
-            "title": "Assigning Values",
-            "emoji": "🎯",
-            "analogy": "The = sign in Python doesn't mean 'equals' like in math. It means 'PUT this value INTO this box'. Think of it as an arrow: box ← value.",
-            "content": "Assignment uses = to store values. You can assign numbers, text, booleans, or even calculations. Python evaluates the RIGHT side first, then stores it LEFT.",
-            "examples": [
-              { "title": "Assignment Flow", "explanation": "Right side is calculated first, then stored in the left.", "code": "x = 5 + 3        # x stores 8\nname = 'Neo'      # name stores 'Neo'\nis_hero = True    # is_hero stores True" }
-            ],
-            "funFact": "You can assign multiple variables in one line: a, b, c = 1, 2, 3 🎯"
+            "funFact": "C++ string handles memory automatically — it grows when you add content and frees memory when it goes out of scope. C's char arrays have FIXED sizes. Buffer overflow is one of the most exploited security vulnerabilities in C! 🔐"
           }
         ],
         "battle": {
           "enemy": { "name": "THE MEMORY GHOST", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does this line do? score = 100",
-              "options": ["Checks if score equals 100", "Creates a variable named 'score' and stores 100 in it", "Prints 100", "Deletes the value 100"],
-              "a": 1, "damage": 20, "topic": "Variables",
-              "explanation": "The = sign means 'Store the value 100 into a variable called score'."
+              "q": "What does 'auto x = 5;' declare?",
+              "options": ["A string variable", "An int variable — compiler deduces type from value 5", "An automatic machine", "A float variable"],
+              "a": 1, "damage": 20, "topic": "auto",
+              "explanation": "Type Deduction: auto tells the compiler to figure out the type from the assigned value. 5 is an integer literal, so x becomes int. auto pi = 3.14 makes pi a double."
             },
             {
-              "q": "Which of these is a VALID variable name?",
-              "options": ["2fast", "my score", "player_name", "for"],
-              "a": 2, "damage": 20, "topic": "Naming Rules",
-              "explanation": "player_name uses only letters and underscores, starts with a letter — valid! Others break rules."
+              "q": "Which C++ type should you use for text instead of char[]?",
+              "options": ["char[]", "varchar", "string", "text"],
+              "a": 2, "damage": 20, "topic": "string",
+              "explanation": "Modern String: Use std::string for text in C++. It's safer, resizable, supports + concatenation and == comparison. char[] is C-style and requires manual memory management."
             },
             {
-              "q": "After x = 5 + 3, what is x?",
-              "options": ["5 + 3", "53", "8", "Error"],
-              "a": 2, "damage": 20, "topic": "Assignment",
-              "explanation": "Python calculates 5 + 3 = 8 on the right, then stores 8 in x."
+              "q": "What is output of: string s = \"Hi\"; cout << s.length();",
+              "options": ["Hi", "2", "3", "Error"],
+              "a": 1, "damage": 20, "topic": "string method",
+              "explanation": "String Method: .length() returns the number of characters in the string. \"Hi\" has 2 characters: H and i."
             },
             {
-              "q": "Is 'Score' the same as 'score' in Python?",
-              "options": ["Yes, they are the same", "No, Python is case sensitive — they are different variables", "Only in Python 2", "Depends on the computer"],
-              "a": 1, "damage": 20, "topic": "Case Sensitivity",
-              "explanation": "Python treats uppercase and lowercase as different. Score ≠ score ≠ SCORE."
+              "q": "What does 'string a = \"Code\"; string b = a + \"Clash\";' produce?",
+              "options": ["CodeClash in b", "Error — can't use + with strings", "Code in a, Clash in b", "CodeClash in a"],
+              "a": 0, "damage": 20, "topic": "String concat",
+              "explanation": "String Concatenation: C++ string supports + operator for joining strings. a + \"Clash\" creates a new string \"CodeClash\" stored in b."
             },
             {
-              "q": "Why can't you use 'if' as a variable name?",
-              "options": ["It's too short", "It starts with 'i'", "It's a reserved Python keyword", "It has no vowels"],
-              "a": 2, "damage": 20, "topic": "Keywords",
-              "explanation": "'if' is a Python keyword used for conditions. Keywords can't be used as variable names."
+              "q": "C++ string comparison: does (name == \"Alex\") work correctly?",
+              "options": ["No — must use .equals()", "Yes — == compares string content in C++", "Only for char[]", "Only with strcmp()"],
+              "a": 1, "damage": 20, "topic": "String comparison",
+              "explanation": "C++ String ==: Unlike Java (where == compares references), C++ string's == operator compares the actual content. name == \"Alex\" returns true if the characters match."
             }
           ]
         },
         "coding": [
           {
-            "title": "Create a Variable",
-            "objective": "Create a variable called 'age' that stores the number 12. What goes on the right side of: age = ___?",
-            "starterCode": "age = ___",
-            "answer": "12",
-            "hint": "Just type the number. No quotes needed for numbers."
+            "title": "Auto Declaration",
+            "objective": "What keyword lets C++ deduce the type automatically?",
+            "starterCode": "___ score = 100;",
+            "answer": "auto",
+            "hint": "C++11 keyword — compiler figures out the type from the value."
           },
           {
-            "title": "Spot the Valid Name",
-            "objective": "Is '_secret' a valid variable name? Type 'yes' or 'no'.",
-            "starterCode": "_secret = 42\n# Valid? ___",
-            "answer": "yes",
-            "hint": "Variable names CAN start with an underscore."
+            "title": "C++ String Type",
+            "objective": "What is the C++ type for text that supports + and ==?",
+            "starterCode": "___ name = \"Neo\";",
+            "answer": "string",
+            "hint": "Not char[] — it's the C++ standard library string type."
           },
           {
-            "title": "Calculate & Assign",
-            "objective": "What value is stored in 'result' after this code? result = 10 * 3",
-            "starterCode": "result = 10 * 3\nprint(result)\n# Output: ___",
-            "answer": "30",
-            "hint": "Python calculates 10 * 3 = 30, then stores 30 in result."
+            "title": "String Length",
+            "objective": "What method returns the number of characters in a C++ string?",
+            "starterCode": "string s = \"Java\";\ncout << s.___();",
+            "answer": "length",
+            "hint": "Same as Java's String method — counts the characters."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\n1score = 100",
-            "brokenCode": "1score = 100",
+            "description": "🚨 Bug:\n\nauto x;\nx = 10;",
+            "brokenCode": "auto x;",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "Variable names can't START with a number — rename to score1",
-              "100 should be in quotes",
-              "Need to add 'var' keyword"
+              "auto variables MUST be initialized — the compiler needs a value to deduce the type",
+              "x is an invalid name with auto",
+              "Should be int x = 10 instead"
             ],
-            "answer": "Variable names can't START with a number — rename to score1",
-            "hint": "Rule: Variable names must start with a letter or underscore, never a number."
+            "answer": "auto variables MUST be initialized — the compiler needs a value to deduce the type",
+            "hint": "auto deduces type FROM the value. Without a value, there's nothing to deduce from!"
           },
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nmy name = 'Alex'",
-            "brokenCode": "my name = 'Alex'",
+            "description": "🚨 Bug — comparing C++ strings:\n\nstring name = \"Alex\";\nif (name.equals(\"Alex\"))",
+            "brokenCode": "if (name.equals(\"Alex\"))",
             "bugLine": 0,
             "options": [
-              "Names can't have spaces — use my_name instead",
-              "Alex should not be in quotes",
-              "Use MY NAME instead",
-              "Nothing wrong"
+              "Nothing wrong",
+              ".equals() is a Java method. In C++, use == operator: if (name == \"Alex\")",
+              "name should be char[]",
+              "if needs parentheses removed"
             ],
-            "answer": "Names can't have spaces — use my_name instead",
-            "hint": "Variable names cannot contain spaces. Use underscores instead."
+            "answer": ".equals() is a Java method. In C++, use == operator: if (name == \"Alex\")",
+            "hint": "C++ string uses == for comparison. .equals() is Java. Don't confuse the two!"
           }
         ],
         "prediction": [
           {
-            "code": "x = 10\ny = 20\nprint(x + y)",
-            "options": ["1020", "30", "xy", "Error"],
-            "answer": "30",
-            "explanation": "x stores 10, y stores 20. x + y = 10 + 20 = 30 (number addition)."
+            "code": "auto a = 5;\nauto b = 2.5;\ncout << a + b << endl;",
+            "options": ["7", "7.5", "52.5", "Error"],
+            "answer": "7.5",
+            "explanation": "a is int (5), b is double (2.5). Mixed arithmetic promotes to double: 5 + 2.5 = 7.5."
           },
           {
-            "code": "name = 'Code'\ntag = 'Clash'\nprint(name + tag)",
-            "options": ["Code Clash", "CodeClash", "name + tag", "Error"],
-            "answer": "CodeClash",
-            "explanation": "name stores 'Code', tag stores 'Clash'. + glues strings: 'CodeClash' (no space)."
+            "code": "string s = \"Hello\";\nstring t = s + \" World\";\ncout << t.length() << endl;",
+            "options": ["5", "11", "10", "Error"],
+            "answer": "11",
+            "explanation": "\"Hello\" (5) + \" World\" (6) = \"Hello World\" (11 characters total)."
           }
         ]
       }
     },
     {
       "id": "1_3",
-      "title": "DATA TYPES",
-      "subtitle": "int, float, string, boolean",
+      "title": "CPP DATA TYPES",
+      "subtitle": "Primitives, bool & string",
       "icon": "Shapes",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c7",
-            "title": "The 4 Basic Data Types",
+            "id": "cpp1c6",
+            "title": "C++ Primitive Types",
             "emoji": "🧬",
-            "analogy": "Data types are like jars in a kitchen: one jar holds flour (integers), one holds syrup (floats), one holds labels (strings), and one is a switch (boolean — ON or OFF).",
-            "content": "Python has 4 fundamental types: int (whole numbers), float (decimal numbers), str (text), and bool (True or False). Python auto-detects the type — you don't declare it!",
+            "analogy": "C++ inherits all of C's types but adds native bool. Think of C++'s type system as C's toolbox plus a few new tools that make life easier — especially bool (true/false) and string.",
+            "content": "C++ has all C types (int, float, double, char) plus a native bool type. bool stores true or false (lowercase). C++ also has long, short, unsigned variants. Unlike C, you don't need <stdbool.h> — bool is built-in.",
             "examples": [
-              { "title": "The 4 Types", "explanation": "Each type stores a different kind of data.", "code": "age = 18          # int (whole number)\nprice = 9.99      # float (decimal)\nname = 'Alex'     # str (text in quotes)\nis_alive = True   # bool (True or False)" }
+              { "title": "C++ Core Types", "explanation": "Includes bool natively — unlike C.", "code": "int score = 100;         // 4 bytes\ndouble price = 9.99;     // 8 bytes\nbool isAlive = true;     // true/false (native!)\nchar grade = 'A';        // 1 byte\nstring name = \"Alex\";   // dynamic size" },
+              { "title": "bool in C++", "explanation": "C++ bool prints as 1/0 by default.", "code": "bool win = true;\nbool lose = false;\ncout << win << endl;      // 1\ncout << lose << endl;     // 0\ncout << boolalpha << win; // true (with boolalpha)" }
             ],
-            "funFact": "You can check any variable's type using type(). Try type(3.14) — it returns <class 'float'>! 🔍"
+            "funFact": "cout prints bool as 1 or 0 by default. Use 'cout << boolalpha' to make it print 'true'/'false'. 'boolalpha' is a stream manipulator from <iostream>! 🎛️"
           },
           {
-            "id": "l1c8",
-            "title": "Integers & Floats",
-            "emoji": "🔢",
-            "analogy": "Integers are coins (whole, no fractions). Floats are liquid — they can fill any decimal point.",
-            "content": "int: 0, 5, -100, 9999. No decimal point. float: 3.14, 0.5, -2.7. Always has a decimal. Mixing int + float gives a float result.",
+            "id": "cpp1c7",
+            "title": "Type Comparison: Python vs Java vs C vs C++",
+            "emoji": "🔄",
+            "analogy": "Each language has its own flavor of the same basic types. Python infers everything. Java and C++ require declarations. C lacks bool and uses char arrays for strings. C++ bridges C's power with modern convenience.",
+            "content": "Understanding the differences across languages reveals the design philosophy of each. C++ adds bool and string to C, making it more developer-friendly while keeping C's raw speed and control.",
             "examples": [
-              { "title": "Int vs Float Math", "explanation": "When you mix them, Python converts to float.", "code": "print(5 + 3)     # 8 (int)\nprint(5 + 3.0)   # 8.0 (float!)\nprint(10 / 3)    # 3.333... (always float)" }
+              { "title": "Type Comparison Table", "explanation": "Same concept, different syntax across languages.", "code": "// Integer:\nPython:  x = 5\nJava:    int x = 5;\nC:       int x = 5;\nC++:     int x = 5;  // or auto x = 5;\n\n// Boolean:\nPython:  b = True      (capital T)\nJava:    boolean b = true;\nC:       int b = 1;   (no native bool)\nC++:     bool b = true;\n\n// Text:\nPython:  s = \"Hi\"\nJava:    String s = \"Hi\";\nC:       char s[] = \"Hi\";\nC++:     string s = \"Hi\";" }
             ],
-            "funFact": "Division (/) ALWAYS returns a float in Python 3, even 10 / 2 = 5.0! Use // for integer division. 🤓"
-          },
-          {
-            "id": "l1c9",
-            "title": "Strings & Booleans",
-            "emoji": "💬",
-            "analogy": "Strings are necklaces of characters strung together. Booleans are light switches — either ON (True) or OFF (False), nothing in between.",
-            "content": "Strings hold text wrapped in quotes. Booleans hold exactly one of two values: True or False (capital T and F). Booleans are the foundation of all decisions in programming.",
-            "examples": [
-              { "title": "Strings & Bools", "explanation": "Note: True and False must be capitalized!", "code": "greeting = 'Hello'\nis_cool = True\nis_boring = False\n\n# WRONG:\n# is_cool = true    # ERROR! Capital T needed" }
-            ],
-            "funFact": "In Python, empty strings '' are 'falsy' — they act like False in conditions! 🤯"
+            "funFact": "C++ is one of the only languages where you can write both high-level code (like Python) and low-level system code (like C) in the same file. This makes it ideal for game engines and operating systems! 🎮"
           }
         ],
         "battle": {
           "enemy": { "name": "TYPE SHIFTER", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What data type is 3.14?",
-              "options": ["int", "str", "float", "bool"],
-              "a": 2, "damage": 20, "topic": "Float",
-              "explanation": "3.14 has a decimal point — that makes it a float (floating-point number)."
+              "q": "Does C++ have a native bool type?",
+              "options": ["No — use int like C", "Yes — bool with true/false keywords (lowercase)", "Yes — Boolean with capital B", "Depends on the compiler"],
+              "a": 1, "damage": 20, "topic": "bool",
+              "explanation": "Native Bool: Yes! C++ has a built-in bool type with true and false keywords (all lowercase). This is unlike C, which required <stdbool.h> or using int values."
             },
             {
-              "q": "What data type is 'Hello'?",
-              "options": ["int", "str", "bool", "float"],
-              "a": 1, "damage": 20, "topic": "String",
-              "explanation": "Text inside quotes is always a string (str)."
+              "q": "What does 'cout << true;' print by default in C++?",
+              "options": ["true", "True", "1", "yes"],
+              "a": 2, "damage": 20, "topic": "bool output",
+              "explanation": "Bool Output: By default, cout prints bool as 1 (true) or 0 (false). To print 'true'/'false', use the boolalpha manipulator: cout << boolalpha << true."
             },
             {
-              "q": "What does print(type(True)) show?",
-              "options": ["<class 'str'>", "<class 'int'>", "<class 'bool'>", "<class 'true'>"],
-              "a": 2, "damage": 20, "topic": "Boolean",
-              "explanation": "True is a boolean value, so type() returns <class 'bool'>."
+              "q": "Which is the correct way to declare a string in C++?",
+              "options": ["char name[] = \"Alex\";", "String name = \"Alex\";", "string name = \"Alex\";", "str name = \"Alex\";"],
+              "a": 2, "damage": 20, "topic": "string type",
+              "explanation": "C++ String: string (lowercase) is the C++ standard type. String (uppercase) is Java. char name[] is C-style. In C++, use string — it's safer and easier."
             },
             {
-              "q": "What is the result of 10 / 2 in Python 3?",
-              "options": ["5", "5.0", "2", "Error"],
-              "a": 1, "damage": 20, "topic": "Division",
-              "explanation": "In Python 3, the / operator always returns a float: 10 / 2 = 5.0."
+              "q": "What is the size of bool in C++?",
+              "options": ["1 bit", "1 byte", "4 bytes", "Same as int"],
+              "a": 1, "damage": 20, "topic": "bool size",
+              "explanation": "Size Intel: bool is typically 1 byte in C++, even though only 1 bit is needed. Most CPUs work with bytes as the minimum addressable unit, so 1 byte is the practical minimum."
             },
             {
-              "q": "Which is NOT a valid boolean in Python?",
-              "options": ["True", "False", "true", "Both True and False are valid"],
-              "a": 2, "damage": 20, "topic": "Boolean Syntax",
-              "explanation": "'true' (lowercase) is NOT a boolean — Python requires capital T: True."
+              "q": "C++ string vs C char[] — which is dynamically sized?",
+              "options": ["char[] is dynamic", "string is dynamic — it resizes automatically", "Both are fixed", "Neither"],
+              "a": 1, "damage": 20, "topic": "string vs char[]",
+              "explanation": "Dynamic Size: std::string automatically manages its memory. It grows when you add content and shrinks when you remove it. char[] has a FIXED size declared at compile time — dangerous if you exceed it."
             }
           ]
         },
         "coding": [
           {
-            "title": "Name the Type",
-            "objective": "What data type is the number 42? Type: int, float, str, or bool.",
-            "starterCode": "x = 42\ntype(x) = ___",
-            "answer": "int",
-            "hint": "42 is a whole number with no decimal point."
+            "title": "Native Boolean",
+            "objective": "What is the C++ boolean type keyword (not Java's 'boolean')?",
+            "starterCode": "___ isReady = true;",
+            "answer": "bool",
+            "hint": "4 letters — shorter than Java's 'boolean'."
           },
           {
-            "title": "True or False?",
-            "objective": "What is the correct Python boolean for 'yes/on'? Type it exactly.",
-            "starterCode": "is_active = ___",
-            "answer": "True",
-            "hint": "It's capitalized. Not 'true' or 'TRUE'."
+            "title": "Boolean Value",
+            "objective": "What is the correct lowercase C++ boolean for true?",
+            "starterCode": "bool active = ___;",
+            "answer": "true",
+            "hint": "All lowercase — same as Java, different from Python's True."
           },
           {
-            "title": "Float Result",
-            "objective": "What does print(7 + 3.0) output? Type the exact output.",
-            "starterCode": "print(7 + 3.0)\n# Output: ___",
-            "answer": "10.0",
-            "hint": "Mixing int + float always gives a float result."
+            "title": "Print True as Word",
+            "objective": "What manipulator makes cout print 'true' instead of '1'?",
+            "starterCode": "cout << ___ << true << endl;",
+            "answer": "boolalpha",
+            "hint": "boolalpha = boolean + alphabet (alphabetical representation)."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has a bug:\n\nis_admin = true",
-            "brokenCode": "is_admin = true",
+            "description": "🚨 Bug:\n\nbool isWinner = True;",
+            "brokenCode": "bool isWinner = True;",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'true' must be capitalized to 'True'",
-              "Need quotes around true",
-              "is_admin is an invalid name"
+              "C++ bool uses lowercase: 'true' not 'True' (that's Python)",
+              "isWinner is invalid",
+              "bool should be boolean"
             ],
-            "answer": "'true' must be capitalized to 'True'",
-            "hint": "Python booleans require capital letters: True and False."
+            "answer": "C++ bool uses lowercase: 'true' not 'True' (that's Python)",
+            "hint": "C++ and Java use lowercase true/false. Python uses capitalized True/False."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug hunt:\n\nage = '18'\nprint(age + 2)",
-            "brokenCode": "age = '18'\nprint(age + 2)",
-            "bugLine": 1,
+            "description": "🚨 Bug:\n\nString name = \"Alex\";",
+            "brokenCode": "String name = \"Alex\";",
+            "bugLine": 0,
             "options": [
-              "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
-              "print should be Print",
-              "2 should be in quotes",
-              "Nothing wrong"
+              "Nothing wrong",
+              "C++ string type is lowercase: 'string', not 'String' (that's Java)",
+              "Alex should be in single quotes",
+              "Should use char[]"
             ],
-            "answer": "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
-            "hint": "You can't mix string + int. Either both must be strings or both must be numbers."
+            "answer": "C++ string type is lowercase: 'string', not 'String' (that's Java)",
+            "hint": "In C++, the string type is all lowercase. 'String' (capital S) is Java's class name."
           }
         ],
         "prediction": [
           {
-            "code": "x = '5'\ny = '3'\nprint(x + y)",
-            "options": ["8", "53", "5 + 3", "Error"],
-            "answer": "53",
-            "explanation": "'5' and '3' are strings (in quotes), so + concatenates them: '53'."
+            "code": "bool a = true;\nbool b = false;\ncout << a + b << endl;",
+            "options": ["truefalse", "1", "true", "Error"],
+            "answer": "1",
+            "explanation": "bool values are treated as 0/1 in arithmetic. true + false = 1 + 0 = 1. cout prints the integer result."
           },
           {
-            "code": "a = 10\nb = 3\nprint(a / b)",
-            "options": ["3", "3.0", "3.3333333333333335", "Error"],
-            "answer": "3.3333333333333335",
-            "explanation": "/ always returns a float in Python 3. 10 / 3 = 3.3333333333333335."
+            "code": "string s = \"C++\";\ncout << s.length() << endl;",
+            "options": ["3", "4", "C++", "Error"],
+            "answer": "3",
+            "explanation": "\"C++\" has 3 characters: C, +, +. length() returns 3."
           }
         ]
       }
     },
     {
       "id": "1_4",
-      "title": "REASSIGN & INPUT",
-      "subtitle": "Overwriting values & user input",
+      "title": "CPP INPUT",
+      "subtitle": "cin & the extraction operator",
       "icon": "RefreshCw",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c10",
-            "title": "Reassigning Variables",
-            "emoji": "🔄",
-            "analogy": "Reassigning a variable is like erasing a whiteboard and writing something new. The old value is GONE forever.",
-            "content": "You can change a variable's value at any time by assigning a new value with =. The old value is permanently overwritten. You can even change the data type!",
+            "id": "cpp1c8",
+            "title": "cin — C++'s Input Stream",
+            "emoji": "⌨️",
+            "analogy": "cin is cout's partner — if cout pushes data OUT to the screen with <<, then cin PULLS data IN from the keyboard with >>. The >> operator extracts data from the input stream and puts it in your variable.",
+            "content": "cin (character input stream) reads input from the keyboard. Use >> (extraction operator) to store the input in a variable. Unlike C's scanf, cin automatically handles the type — no format specifiers or & needed!",
             "examples": [
-              { "title": "Overwrite in Action", "explanation": "x starts as 10, then becomes 20. The 10 is gone.", "code": "x = 10\nprint(x)   # 10\nx = 20\nprint(x)   # 20 (10 is gone!)" },
-              { "title": "Self-Update", "explanation": "You can use the old value to calculate the new value!", "code": "score = 100\nscore = score + 50\nprint(score)  # 150" }
+              { "title": "Basic cin Usage", "explanation": "Much cleaner than C's scanf!", "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age;\n    string name;\n    cout << \"Enter name: \";\n    cin >> name;\n    cout << \"Enter age: \";\n    cin >> age;\n    cout << name << \" is \" << age << endl;\n    return 0;\n}" },
+              { "title": "cin vs scanf", "explanation": "No & needed, no format specifiers!", "code": "// C scanf:\nint x;\nscanf(\"%d\", &x);  // needs %d and &\n\n// C++ cin:\nint x;\ncin >> x;         // just works! type-safe" }
             ],
-            "funFact": "In Python, you can even change a variable's type: x = 5 then x = 'hello' — totally legal! 🤯"
+            "funFact": "cin >> skips whitespace automatically before reading. This is convenient but means reading a full line with spaces requires getline() instead! 🎯"
           },
           {
-            "id": "l1c11",
-            "title": "Basic Input (Concept)",
-            "emoji": "⌨️",
-            "analogy": "input() is like a pause button — the program STOPS and waits for the user to type something, then stores what they typed.",
-            "content": "The input() function pauses the program, shows a message, waits for the user to type, and stores whatever they type as a STRING. Always a string — even if they type numbers!",
+            "id": "cpp1c9",
+            "title": "getline() — Reading Full Lines",
+            "emoji": "🔄",
+            "analogy": "cin >> reads ONE word at a time (stops at spaces). getline() is like a vacuum cleaner — it sucks up the entire line including spaces, until it hits Enter. Use getline() whenever the input might have spaces.",
+            "content": "cin >> stops at whitespace — it reads word by word. To read a full line including spaces, use getline(cin, variable). Be careful mixing cin >> and getline() — there's a leftover newline trap!",
             "examples": [
-              { "title": "Getting User Input", "explanation": "input() always returns a string!", "code": "name = input('What is your name? ')\nprint('Hello', name)\n\n# User types: Alex\n# Output: Hello Alex" }
+              { "title": "cin >> vs getline", "explanation": "cin >> reads one word. getline reads the whole line.", "code": "string word, sentence;\n\ncin >> word;              // reads ONE word (no spaces)\ngetline(cin, sentence);   // reads FULL LINE with spaces\n\n// If user types \"Hello World\":\n// cin >> word → stores \"Hello\" only\n// getline → stores \"Hello World\"" },
+              { "title": "Mixing cin and getline", "explanation": "Flush the newline after cin >> before getline.", "code": "int age;\ncin >> age;\ncin.ignore();        // clear leftover newline\nstring name;\ngetline(cin, name);  // now reads correctly" }
             ],
-            "funFact": "input() ALWAYS returns a string. To get a number, you must convert: int(input('Age: ')). ⌨️"
+            "funFact": "The newline bug when mixing cin >> and getline() is one of the most common C++ beginner mistakes. cin.ignore() is the fix — it discards the leftover '\\n' from the input buffer! 🐛"
           }
         ],
         "battle": {
           "enemy": { "name": "OVERWRITE PHANTOM", "maxHp": 100 },
           "mcq": [
             {
-              "q": "After this code, what is x?\nx = 5\nx = 10",
-              "options": ["5", "10", "15", "Error"],
-              "a": 1, "damage": 25, "topic": "Reassignment",
-              "explanation": "The second line overwrites x. The old value 5 is gone. x is now 10."
+              "q": "What operator extracts data from cin?",
+              "options": ["<<", ">>", "->", "=>"],
+              "a": 1, "damage": 20, "topic": "cin operator",
+              "explanation": "Extraction Operator: >> extracts data FROM cin INTO your variable. Remember: cout uses << (insertion), cin uses >> (extraction). Opposite directions!"
             },
             {
-              "q": "What does hp = hp - 20 do?",
-              "options": ["Checks if hp equals hp minus 20", "Subtracts 20 from hp and stores the result back in hp", "Creates two variables", "Error"],
-              "a": 1, "damage": 25, "topic": "Self-Update",
-              "explanation": "Python calculates hp - 20 (right side), then stores the result back into hp (left side)."
+              "q": "Does cin >> require format specifiers like scanf?",
+              "options": ["Yes, always", "No — cin is type-aware and handles types automatically", "Only for integers", "Only on Windows"],
+              "a": 1, "damage": 20, "topic": "cin vs scanf",
+              "explanation": "Type-Safe: cin >> knows the type of your variable at compile time — no %d, %f needed. This is one of C++'s improvements over C's scanf."
             },
             {
-              "q": "What does input() return?",
-              "options": ["An integer", "A boolean", "Always a string", "Depends on what you type"],
-              "a": 2, "damage": 25, "topic": "Input",
-              "explanation": "input() ALWAYS returns a string, even if the user types a number like '42'."
+              "q": "Which reads a full name with spaces in C++?",
+              "options": ["cin >> name;", "scanf(\"%s\", name);", "getline(cin, name);", "cin.readLine(name);"],
+              "a": 2, "damage": 20, "topic": "getline",
+              "explanation": "Full Line: getline(cin, name) reads until Enter, including spaces. cin >> name would stop at the first space, so 'Alex Smith' would only store 'Alex'."
             },
             {
-              "q": "What happens when input() runs?",
-              "options": ["The program crashes", "The program pauses and waits for the user to type something", "It prints text", "It closes the program"],
-              "a": 1, "damage": 25, "topic": "Input Behavior",
-              "explanation": "input() is a pause — the program waits until the user types and presses Enter."
+              "q": "What does cin.ignore() do?",
+              "options": ["Ignores all input", "Discards one character (usually the leftover newline) from the input buffer", "Closes the input stream", "Resets the buffer"],
+              "a": 1, "damage": 20, "topic": "cin.ignore",
+              "explanation": "Buffer Clear: cin.ignore() discards the next character in the input buffer — usually the '\\n' left by cin >> age. Essential when mixing cin >> with getline() to avoid the newline bug."
             }
           ]
         },
         "coding": [
           {
-            "title": "Overwrite the Score",
-            "objective": "score = 100, then score = score + 50. What is score now?",
-            "starterCode": "score = 100\nscore = score + 50\nprint(score)\n# Output: ___",
-            "answer": "150",
-            "hint": "100 + 50 = 150. The new value replaces the old one."
+            "title": "Read an Integer",
+            "objective": "What operator reads data from cin into a variable?",
+            "starterCode": "int age;\ncin ___ age;",
+            "answer": ">>",
+            "hint": "The extraction operator — two greater-than signs."
           },
           {
-            "title": "Input Returns What?",
-            "objective": "User types '25' into input(). What type is the result? Type: int, float, str, or bool.",
-            "starterCode": "age = input('Age: ')  # user types 25\ntype(age) = ___",
-            "answer": "str",
-            "hint": "input() ALWAYS returns a string — even if the user types numbers."
+            "title": "Read Full Line",
+            "objective": "What function reads a full line including spaces?",
+            "starterCode": "string name;\n___(cin, name);",
+            "answer": "getline",
+            "hint": "get + line — gets the entire input line."
+          },
+          {
+            "title": "Fix the Buffer",
+            "objective": "After 'cin >> age;', what do you call to clear the leftover newline before getline?",
+            "starterCode": "int age;\ncin >> age;\ncin.___();",
+            "answer": "ignore",
+            "hint": "It ignores (discards) one character from the buffer."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nx = 10\nx + 5\nprint(x)",
-            "brokenCode": "x = 10\nx + 5\nprint(x)",
-            "bugLine": 1,
+            "description": "🚨 Bug — cin used backwards:\n\ncout >> \"Enter name: \";\ncin << name;",
+            "brokenCode": "cout >> \"Enter name: \";\ncin << name;",
+            "bugLine": 0,
             "options": [
-              "x + 5 calculates 15 but doesn't save it — need x = x + 5",
-              "x should be in quotes",
-              "print should have no parentheses",
-              "Nothing wrong, x is 15"
+              "Nothing wrong",
+              "Operators are swapped — cout uses << and cin uses >>",
+              "\"Enter name\" needs single quotes",
+              "Missing semicolons"
             ],
-            "answer": "x + 5 calculates 15 but doesn't save it — need x = x + 5",
-            "hint": "x + 5 alone does nothing. You must STORE the result: x = x + 5."
+            "answer": "Operators are swapped — cout uses << and cin uses >>",
+            "hint": "cout << sends data out. cin >> pulls data in. Don't swap them!"
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nage = input('Age: ')\nprint(age + 1)",
-            "brokenCode": "age = input('Age: ')\nprint(age + 1)",
-            "bugLine": 1,
+            "description": "🚨 Bug — reading a space-separated name:\n\nstring fullName;\ncin >> fullName;\n// User types: Alex Smith",
+            "brokenCode": "cin >> fullName;",
+            "bugLine": 0,
             "options": [
-              "input() returns a string, so age + 1 fails. Need: int(age) + 1",
-              "print is wrong",
-              "input doesn't need quotes",
-              "Nothing wrong"
+              "Nothing wrong — it reads Alex Smith",
+              "cin >> stops at spaces — use getline(cin, fullName) for full name",
+              "fullName is an invalid variable name",
+              "cin needs format specifiers"
             ],
-            "answer": "input() returns a string, so age + 1 fails. Need: int(age) + 1",
-            "hint": "You can't add a string '25' + number 1. Convert first: int(age)."
+            "answer": "cin >> stops at spaces — use getline(cin, fullName) for full name",
+            "hint": "cin >> reads word by word. 'Alex Smith' would only give 'Alex'. Use getline for full lines."
           }
         ],
         "prediction": [
           {
-            "code": "hp = 100\nhp = hp - 30\nhp = hp - 20\nprint(hp)",
-            "options": ["100", "70", "50", "Error"],
-            "answer": "50",
-            "explanation": "100 - 30 = 70 → hp is now 70. 70 - 20 = 50 → hp is now 50."
+            "code": "int x;\ncin >> x;\ncout << x * x << endl;\n// User types: 6",
+            "options": ["6", "36", "66", "Error"],
+            "answer": "36",
+            "explanation": "cin reads 6 into x. x * x = 6 * 6 = 36. Output: 36."
           },
           {
-            "code": "a = 5\nb = a\na = 99\nprint(b)",
-            "options": ["5", "99", "Error", "None"],
+            "code": "string s;\ncin >> s;\ncout << s.length() << endl;\n// User types: Hello World",
+            "options": ["11", "5", "10", "Error"],
             "answer": "5",
-            "explanation": "b = a copies the VALUE of a (5) into b. Changing a later doesn't affect b."
+            "explanation": "cin >> stops at the space. Only 'Hello' (5 chars) is stored in s. length() = 5."
           }
         ]
       }
     },
     {
       "id": "1_5",
-      "title": "META CODE",
-      "subtitle": "Comments, Keywords & Case Sensitivity",
+      "title": "CPP STYLE",
+      "subtitle": "Comments, namespaces & conventions",
       "icon": "Hash",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c12",
-            "title": "Comments in Code",
+            "id": "cpp1c10",
+            "title": "Comments in C++",
             "emoji": "💭",
-            "analogy": "Comments are sticky notes for humans. Python completely ignores them — they're invisible to the computer but GOLD for programmers reading your code later.",
-            "content": "Add a # before any line to make it a comment. Python skips it entirely. Use comments to explain tricky code, leave notes, or temporarily disable code.",
+            "analogy": "Comments in C++ are identical to modern C — // for single-line, /* */ for blocks. C++ programmers typically prefer // for most comments and reserve /* */ for temporarily disabling large blocks of code.",
+            "content": "C++ supports all C comment styles: // single-line (preferred) and /* */ multi-line blocks. C++ also introduced Doxygen-style comments (/** */ or ///) for generating API documentation, similar to Java's Javadoc.",
             "examples": [
-              { "title": "Comment Examples", "explanation": "Everything after # is invisible to Python.", "code": "# This calculates the damage\ndamage = 50 + 25\nprint(damage)  # This prints 75" }
+              { "title": "C++ Comment Styles", "explanation": "// is the standard; /* */ for multi-line or disabling code.", "code": "// Single-line: preferred in C++\nint x = 5; // inline comment\n\n/* Multi-line:\n   useful for temporarily\n   commenting out code blocks */\n\n/// Doxygen: generates documentation\n/// @param n The number to double\nint doubleIt(int n) { return n * 2; }" }
             ],
-            "funFact": "Good programmers write comments explaining WHY, not WHAT. The code already shows what — comments explain the reasoning! 💡"
+            "funFact": "Doxygen is a documentation generator for C, C++, Java, and more. Comments starting with /// or /** */ can automatically generate HTML/PDF documentation from your source code! 📚"
           },
           {
-            "id": "l1c13",
-            "title": "Keywords & Case Sensitivity",
+            "id": "cpp1c11",
+            "title": "C++ Conventions & Best Practices",
             "emoji": "🔐",
-            "analogy": "Keywords are like reserved parking spots — only Python can use them. Case sensitivity means 'Alex' ≠ 'alex' ≠ 'ALEX' — every letter's case matters.",
-            "content": "Python has 35 keywords (if, else, for, while, True, False, etc.) you CANNOT use as variable names. Also, Python is case sensitive: print ≠ Print ≠ PRINT.",
+            "analogy": "C++ conventions are like street rules for code: some are enforced (syntax) and some are just good manners (naming conventions). Breaking the enforced rules crashes your program; ignoring good manners just annoys your teammates.",
+            "content": "C++ naming: variables/functions use camelCase or snake_case (both common), classes use PascalCase, constants use UPPER_SNAKE_CASE. 'using namespace std;' is convenient but avoid it in headers. Prefer const over #define.",
             "examples": [
-              { "title": "Keywords & Case", "explanation": "The case of every letter matters in Python.", "code": "# These are ALL different:\nscore = 10\nScore = 20\nSCORE = 30\nprint(score)  # 10\nprint(Score)  # 20\nprint(SCORE)  # 30" }
+              { "title": "C++ Naming Conventions", "explanation": "C++ has more flexible conventions than Java.", "code": "// Classes — PascalCase:\nclass PlayerScore { };\n\n// Variables — camelCase or snake_case:\nint playerScore = 0;\nint player_score = 0; // both used in C++\n\n// Constants — UPPER_SNAKE_CASE:\nconst int MAX_HEALTH = 100;\n\n// Functions — camelCase:\nvoid calculateDamage() { }" },
+              { "title": "const vs #define in C++", "explanation": "Modern C++ strongly prefers const over #define.", "code": "// Old C-style (avoid in C++):\n#define MAX_HP 100\n\n// Modern C++ (preferred):\nconst int MAX_HP = 100;\n\n// C++11 constexpr (compile-time constant):\nconstexpr int MAX_HP = 100;" }
             ],
-            "funFact": "Python 3 has exactly 35 reserved keywords. 'print' used to be a keyword in Python 2 but became a function in Python 3! 🐍"
+            "funFact": "C++ has had multiple major standards: C++98, C++11, C++14, C++17, C++20. Each adds new features. C++11 was the biggest update (auto, range-for, lambdas, smart pointers). Always check which standard you're compiling with! 📅"
           }
         ],
         "battle": {
           "enemy": { "name": "SYNTAX WRAITH", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does the # symbol do in Python?",
-              "options": ["Makes text bold", "Creates a hashtag variable", "Starts a comment — Python ignores everything after it", "Multiplies numbers"],
+              "q": "Which comment style is preferred in modern C++?",
+              "options": ["# hashtag", "/* block only */", "// single-line", "<!-- html style -->"],
               "a": 2, "damage": 25, "topic": "Comments",
-              "explanation": "# starts a comment. Python completely ignores everything after # on that line."
+              "explanation": "C++ Preference: // single-line comments are the standard in modern C++. /* */ is still used for multi-line blocks or temporarily disabling code sections."
             },
             {
-              "q": "Which of these is a Python keyword?",
-              "options": ["score", "player", "if", "hello"],
-              "a": 2, "damage": 25, "topic": "Keywords",
-              "explanation": "'if' is a reserved keyword used for conditions. You can't use it as a variable name."
+              "q": "Why is 'using namespace std;' avoided in header files?",
+              "options": ["It causes syntax errors", "It pollutes the namespace for all files that include that header", "It's not supported", "It slows compilation"],
+              "a": 1, "damage": 25, "topic": "namespace",
+              "explanation": "Namespace Pollution: If a header has 'using namespace std;', every file that includes it gets all std names imported — even if they don't want that. Use std:: explicitly in headers."
             },
             {
-              "q": "In Python, are 'Name' and 'name' the same variable?",
-              "options": ["Yes, exactly the same", "No, they are completely different variables", "Same in Python 3, different in Python 2", "Depends on the computer"],
-              "a": 1, "damage": 25, "topic": "Case Sensitivity",
-              "explanation": "Python is case sensitive. Different capitalization = different variables."
+              "q": "Which is preferred in modern C++ for defining constants?",
+              "options": ["#define MAX 100", "static MAX = 100;", "const int MAX = 100;", "define MAX as 100;"],
+              "a": 2, "damage": 25, "topic": "const",
+              "explanation": "Modern Constants: const int (or constexpr) is preferred over #define. const is type-safe, respects scope, and is visible to the debugger. #define is a raw text replacement with no type."
             },
             {
-              "q": "What happens if you write: If x > 5: ?",
-              "options": ["It works fine", "Error — 'If' should be lowercase 'if'", "It creates a variable called If", "Python converts it automatically"],
-              "a": 1, "damage": 25, "topic": "Case Sensitivity",
-              "explanation": "'If' (capital I) is NOT a keyword. Only lowercase 'if' is the keyword. This causes an error."
+              "q": "What naming convention do C++ classes use?",
+              "options": ["snake_case", "camelCase", "UPPER_CASE", "PascalCase"],
+              "a": 3, "damage": 25, "topic": "Naming",
+              "explanation": "Class Names: C++ classes use PascalCase — every word starts with uppercase: GameEngine, PlayerScore, DataManager. This is the same as Java's convention."
             }
           ]
         },
         "coding": [
           {
-            "title": "Write a Comment",
-            "objective": "What character starts a comment in Python? Type the single character.",
-            "starterCode": "___ This is a comment\nprint('Hello')",
-            "answer": "#",
-            "hint": "It's a single character used before lines Python should ignore."
+            "title": "Single Line Comment",
+            "objective": "What starts a single-line comment in C++?",
+            "starterCode": "___ This is a C++ comment",
+            "answer": "//",
+            "hint": "Same as Java and modern C."
           },
           {
-            "title": "Case Check",
-            "objective": "After this code, what does print(name) output?\n\nname = 'Alex'\nName = 'Sam'",
-            "starterCode": "name = 'Alex'\nName = 'Sam'\nprint(name)\n# Output: ___",
-            "answer": "Alex",
-            "hint": "'name' and 'Name' are DIFFERENT variables. print(name) uses the lowercase one."
+            "title": "Typed Constant",
+            "objective": "What keyword creates an immutable typed constant in C++?",
+            "starterCode": "___ int MAX_LEVEL = 10;",
+            "answer": "const",
+            "hint": "Preferred over #define — it has a type and respects scope."
           },
           {
-            "title": "Keyword Check",
-            "objective": "Can you use 'while' as a variable name? Type 'yes' or 'no'.",
-            "starterCode": "while = 10  # Is this valid?\n# Answer: ___",
-            "answer": "no",
-            "hint": "'while' is a reserved Python keyword for loops."
+            "title": "Explicit Namespace",
+            "objective": "Without 'using namespace std;', how do you write cout?",
+            "starterCode": "___ cout << \"Hello\" << endl;",
+            "answer": "std::",
+            "hint": "scope resolution operator — namespace::name"
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nIf score > 10:\n    print('Win')",
-            "brokenCode": "If score > 10:\n    print('Win')",
+            "description": "🚨 Bug:\n\n# include <iostream>",
+            "brokenCode": "# include <iostream>",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'If' must be lowercase 'if' — Python keywords are all lowercase",
-              "Missing semicolon",
-              "print should be Print"
+              "No space between # and include: must be #include <iostream>",
+              "iostream needs .h extension",
+              "# should be //"
             ],
-            "answer": "'If' must be lowercase 'if' — Python keywords are all lowercase",
-            "hint": "Python is case sensitive. All keywords are lowercase: if, else, for, while, etc."
+            "answer": "No space between # and include: must be #include <iostream>",
+            "hint": "Preprocessor directives have no space after #. #include not # include."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nScore = 5\nprint(score)",
-            "brokenCode": "Score = 5\nprint(score)",
-            "bugLine": 1,
+            "description": "🚨 Bug:\n\nconst int MAX = 100;\nMAX = 200;",
+            "brokenCode": "MAX = 200;",
+            "bugLine": 0,
             "options": [
-              "Nothing wrong, it prints 5",
-              "'Score' and 'score' are different — score (lowercase) was never created, so Error",
-              "print needs uppercase P",
-              "5 needs quotes"
+              "Nothing wrong",
+              "const variables cannot be reassigned — MAX is a constant",
+              "Should be #define MAX 200",
+              "Missing semicolon"
             ],
-            "answer": "'Score' and 'score' are different — score (lowercase) was never created, so Error",
-            "hint": "You created 'Score' (capital S) but tried to print 'score' (lowercase s) — they're different!"
+            "answer": "const variables cannot be reassigned — MAX is a constant",
+            "hint": "const means constant — you can't change it after initialization. That's the whole point!"
           }
         ],
         "prediction": [
           {
-            "code": "# print('Hidden')\nprint('Visible')",
-            "options": ["Hidden Visible", "Visible", "Hidden", "Error"],
-            "answer": "Visible",
-            "explanation": "The first line is a comment (starts with #) so Python skips it entirely. Only 'Visible' is printed."
+            "code": "const int x = 5;\ncout << x * 2 << endl;",
+            "options": ["5", "10", "Error — const can't be used in expressions", "x * 2"],
+            "answer": "10",
+            "explanation": "const just prevents reassignment — you can still READ and USE the value. x * 2 = 5 * 2 = 10."
           },
           {
-            "code": "X = 10\nx = 20\nprint(X + x)",
-            "options": ["10", "20", "30", "Error"],
-            "answer": "30",
-            "explanation": "X = 10 and x = 20 are different variables (case sensitive). X + x = 10 + 20 = 30."
+            "code": "// cout << \"Hidden\" << endl;\ncout << \"Visible\" << endl;",
+            "options": ["Hidden Visible", "Visible", "Hidden", "Error"],
+            "answer": "Visible",
+            "explanation": "The first line is a // comment — compiler ignores it. Only 'Visible' is printed."
           }
         ]
       }
     },
     {
       "id": "1_boss",
-      "title": "THE COMPILER",
-      "subtitle": "BOSS FIGHT — All Level 1",
+      "title": "THE NAMESPACE GUARDIAN",
+      "subtitle": "BOSS FIGHT — All Level 1 C++",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss1_intro",
-            "title": "⚠️ BOSS — THE COMPILER",
+            "id": "boss_cpp1_intro",
+            "title": "⚠️ BOSS — THE NAMESPACE GUARDIAN",
             "emoji": "👾",
-            "analogy": "The Compiler checks every line of your code. One mistake and it REJECTS everything. Prove you've mastered the basics!",
-            "content": "THE COMPILER has absorbed all of Level 1's knowledge: print statements, variables, data types, reassignment, comments, and case sensitivity. Defeat it to earn your 'First Code' badge!",
+            "analogy": "The Namespace Guardian is the gatekeeper of the C++ standard library. It controls access to cout, cin, string, and endl. To defeat it, prove you understand not just the syntax, but WHY C++ works the way it does!",
+            "content": "THE NAMESPACE GUARDIAN has absorbed all of Level 1's C++ knowledge: #include <iostream>, cout/cin with <</>>, string vs char[], auto type deduction, bool, getline(), and C++ style conventions. Defeat it for your 'First C++ Code' badge!",
             "examples": [
-              { "title": "What you've mastered", "explanation": "Everything from Level 1 will be tested!", "code": "✅ print() & formatting\n✅ Variables & naming rules\n✅ int, float, str, bool\n✅ Reassignment & input\n✅ Comments, keywords, case" }
+              { "title": "What you've mastered", "explanation": "Everything from C++ Level 1!", "code": "✅ #include <iostream> + using namespace std\n✅ cout << with << chaining, endl vs \\n\n✅ cin >> and getline() for input\n✅ int, double, bool, char, string types\n✅ auto type deduction\n✅ const, // comments, PascalCase" }
             ],
-            "funFact": "A real compiler translates ALL your code to machine language before running it. Python uses an interpreter instead (runs line by line)! ⚡"
+            "funFact": "C++ compiles to native machine code AND has full access to hardware — yet it also has high-level features like objects, templates, and smart pointers. That's why it powers game engines like Unreal, browsers like Chrome, and databases like MySQL! 🚀"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE COMPILER", "maxHp": 150 },
+          "enemy": { "name": "THE NAMESPACE GUARDIAN", "maxHp": 150 },
           "mcq": [
             {
-              "q": "What is the output of print(10 + '5')?",
-              "options": ["15", "105", "Error — can't add int and str", "10 + 5"],
-              "a": 2, "damage": 30, "topic": "Type Mixing",
-              "explanation": "You can't add an integer (10) and a string ('5'). Python throws a TypeError."
+              "q": "What is output?\ncout << \"Code\" << \"Clash\" << endl;",
+              "options": ["Code Clash", "CodeClash", "Code\\nClash", "Error"],
+              "a": 1, "damage": 30, "topic": "cout chaining",
+              "explanation": "Chaining two strings with << concatenates them without spaces. Output: CodeClash."
             },
             {
-              "q": "After this code, what is result?\nresult = 10\nresult = result * 2\nresult = result - 5",
-              "options": ["10", "20", "15", "5"],
-              "a": 2, "damage": 30, "topic": "Reassignment Chain",
-              "explanation": "10 → 10*2=20 → 20-5=15. Each line overwrites result."
+              "q": "Which line has a bug?\nLine 1: auto x = 5;\nLine 2: x = \"hello\";",
+              "options": ["Line 1", "Line 2 — x was deduced as int, can't store string", "Both", "Neither"],
+              "a": 1, "damage": 30, "topic": "auto type lock",
+              "explanation": "Auto Lock: auto x = 5 deduces x as int. Once deduced, the type is locked — you can't assign a string to an int variable, even with auto."
             },
             {
-              "q": "Which line has a bug?\nLine 1: name = 'Alex'\nLine 2: Print(name)",
-              "options": ["Line 1", "Line 2 — Print should be print (lowercase)", "Both lines", "Neither"],
-              "a": 1, "damage": 30, "topic": "Case Sensitivity",
-              "explanation": "Python is case sensitive. 'Print' is not a function — only 'print' (lowercase) works."
+              "q": "User types 'Alex Smith'. What does 'cin >> name' store?",
+              "options": ["Alex Smith", "Alex", "Smith", "AlexSmith"],
+              "a": 1, "damage": 30, "topic": "cin >> stops at space",
+              "explanation": "Word Reading: cin >> reads one word at a time, stopping at whitespace. 'Alex Smith' → only 'Alex' is stored. Use getline(cin, name) for the full name."
             },
             {
-              "q": "What does type('True') return?",
-              "options": ["<class 'bool'>", "<class 'str'>", "<class 'int'>", "True"],
-              "a": 1, "damage": 30, "topic": "Types Trick",
-              "explanation": "'True' is in QUOTES, so it's a string — not a boolean! type('True') → <class 'str'>."
+              "q": "What does std::cout mean?",
+              "options": ["Standard error output", "cout from the std namespace (used without 'using namespace std;')", "Create output terminal", "A new variable"],
+              "a": 1, "damage": 30, "topic": "std:: scope",
+              "explanation": "Scope Resolution: std::cout means 'cout from the std (standard) namespace'. The :: is the scope resolution operator. This is the explicit form, avoiding 'using namespace std;'."
             },
             {
-              "q": "x = 5\n# x = 10\nprint(x)",
-              "options": ["5", "10", "15", "Error"],
-              "a": 0, "damage": 30, "topic": "Comments",
-              "explanation": "Line 2 is a comment (starts with #), so Python ignores it. x stays as 5."
+              "q": "What is the recommended modern C++ alternative to #define PI 3.14?",
+              "options": ["static double PI = 3.14;", "const double PI = 3.14;", "define PI = 3.14;", "final double PI = 3.14;"],
+              "a": 1, "damage": 30, "topic": "const vs #define",
+              "explanation": "Modern Constant: const double PI = 3.14 is type-safe, scoped, and debugger-visible. #define is a dumb text replacement with no type checking. Always prefer const in C++."
             }
           ]
         },
         "coding": [
           {
-            "title": "Boss Challenge: What's the Type?",
-            "objective": "What data type is the value False? Type: int, float, str, or bool.",
-            "starterCode": "x = False\ntype(x) = ___",
-            "answer": "bool",
-            "hint": "False (with capital F) is one of the two boolean values."
+            "title": "Boss Challenge: Complete the Program",
+            "objective": "What header is needed for cout and cin in C++?",
+            "starterCode": "#include <___>\nusing namespace std;\nint main() {\n    cout << \"Ready\" << endl;\n}",
+            "answer": "iostream",
+            "hint": "Input-output stream library for C++."
           },
           {
-            "title": "Boss Challenge: Chain Math",
-            "objective": "x = 5, then x = x * 4, then x = x - 10. What is x?",
-            "starterCode": "x = 5\nx = x * 4\nx = x - 10\nprint(x)\n# Output: ___",
-            "answer": "10",
-            "hint": "5 * 4 = 20. Then 20 - 10 = 10."
+            "title": "Boss Challenge: Read Full Name",
+            "objective": "Which reads a user's full name including spaces?",
+            "starterCode": "string name;\n___(cin, name);",
+            "answer": "getline",
+            "hint": "cin >> stops at spaces. This function reads the entire line."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 BOSS BUG:\n\nfor = 10\nprint(for)",
-            "brokenCode": "for = 10\nprint(for)",
+            "description": "🚨 BOSS BUG:\n\n#include <iostream>\nint main() {\n    int age;\n    string name;\n    cin >> age;\n    getline(cin, name);\n    cout << name << \" \" << age << endl;\n    return 0;\n}",
+            "brokenCode": "getline(cin, name);",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'for' is a reserved keyword — you can't use it as a variable name",
-              "10 should be in quotes",
-              "print needs to be capitalized"
+              "Missing cin.ignore() between cin >> age and getline — the leftover newline is consumed as the name",
+              "getline should be readline",
+              "name and age order is wrong"
             ],
-            "answer": "'for' is a reserved keyword — you can't use it as a variable name",
-            "hint": "'for' is used for loops in Python — it's a reserved keyword."
+            "answer": "Missing cin.ignore() between cin >> age and getline — the leftover newline is consumed as the name",
+            "hint": "cin >> leaves a \\n in the buffer. getline immediately reads it as an empty string. Fix: add cin.ignore() after cin >> age."
           }
         ],
         "prediction": [
           {
-            "code": "a = '3'\nb = 3\n# print(a + b)\nprint(a * b)",
-            "options": ["333", "9", "Error", "3 3 3"],
-            "answer": "333",
-            "explanation": "Line 3 is a comment. a * b = '3' * 3 = '333' (string repeated 3 times!)."
+            "code": "#include <iostream>\nusing namespace std;\nint main() {\n    auto a = 10;\n    auto b = 3;\n    cout << a / b << endl;\n    return 0;\n}",
+            "options": ["3.33", "3", "3.0", "Error"],
+            "answer": "3",
+            "explanation": "auto a = 10 and auto b = 3 both deduce as int. int / int = integer division. 10 / 3 = 3 (truncated, not 3.33)."
           }
         ]
       }

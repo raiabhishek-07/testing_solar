@@ -1,786 +1,790 @@
 {
-  "label": "LEVEL 1: FIRST CODE (Basic Syntax)",
+  "label": "LEVEL 1: FIRST CODE (Basic Java Syntax)",
   "sublevels": [
     {
       "id": "1_1",
-      "title": "STRUCTURE & PRINT",
-      "subtitle": "Your first lines of code",
+      "title": "JAVA STRUCTURE",
+      "subtitle": "Your first Java program",
       "icon": "Terminal",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c1",
-            "title": "Structure of a Basic Program",
+            "id": "j1c1",
+            "title": "The Java Program Skeleton",
             "emoji": "🏗️",
-            "analogy": "A program is like a recipe card — it reads FROM TOP TO BOTTOM, one line at a time. Line 1 runs first, then Line 2, etc.",
-            "content": "Every Python program starts from the top line and runs downward. There's no special setup needed — just write your instructions and Python runs them in order!",
+            "analogy": "Every Java program is like a building — it MUST have a foundation (class), a main entrance (main method), and each floor ends with a semicolon (;). Miss any part and the building collapses!",
+            "content": "Java requires a specific structure for every program. You need: a class, a main method, and statements ending with semicolons. Unlike Python, Java won't run without this skeleton.",
             "examples": [
-              { "title": "Top-to-Bottom Execution", "explanation": "Python runs lines 1 → 2 → 3 in order.", "code": "print('Line ONE')\nprint('Line TWO')\nprint('Line THREE')" }
+              { "title": "Minimal Java Program", "explanation": "This is the smallest valid Java program. Every piece is required.", "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello World\");\n    }\n}" },
+              { "title": "Python vs Java", "explanation": "See how much more structure Java requires!", "code": "// Python (1 line):\nprint(\"Hello World\")\n\n// Java (5 lines):\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello World\");\n    }\n}" }
             ],
-            "funFact": "Python doesn't use semicolons or curly braces — just clean, readable lines! That's why it's popular. 🐍"
+            "funFact": "Java was created in 1995 by James Gosling at Sun Microsystems. Its motto was 'Write Once, Run Anywhere'! ☕"
           },
           {
-            "id": "l1c2",
-            "title": "Print Statements",
+            "id": "j1c2",
+            "title": "System.out.println()",
             "emoji": "📢",
-            "analogy": "The print() function is like a loudspeaker. You give it text, and it SHOUTS it onto the screen!",
-            "content": "print() is the most used function in Python. It takes whatever you put inside the parentheses and displays it on the screen. Text must be inside quotes.",
+            "analogy": "System.out.println() is Java's loudspeaker. System = the computer, out = the output screen, println = print line. It's verbose but crystal clear about what it does!",
+            "content": "System.out.println() displays text on screen and moves to a new line. System.out.print() stays on the same line. Text must be in double quotes.",
             "examples": [
-              { "title": "Basic Print", "explanation": "Anything inside quotes is displayed exactly as written.", "code": "print('Hello World!')\nprint(\"My name is Neo\")" },
-              { "title": "Print Numbers", "explanation": "Numbers don't need quotes!", "code": "print(42)\nprint(3.14)" }
+              { "title": "println vs print", "explanation": "println adds a newline, print does not.", "code": "System.out.println(\"Line 1\"); // Line 1↵\nSystem.out.println(\"Line 2\"); // Line 2↵\nSystem.out.print(\"No\");\nSystem.out.print(\"Break\");   // NoBreak" },
+              { "title": "Printing Numbers", "explanation": "Numbers don't need quotes in Java.", "code": "System.out.println(42);      // 42\nSystem.out.println(3.14);    // 3.14\nSystem.out.println(10 + 5);  // 15" }
             ],
-            "funFact": "The very first 'Hello World' program was written in 1978 by Brian Kernighan! 🌍"
+            "funFact": "Java uses double quotes for Strings. Single quotes are only for single characters (char type)! 🔤"
           },
           {
-            "id": "l1c3",
-            "title": "Output Formatting",
-            "emoji": "🎨",
-            "analogy": "Output formatting is like decorating a cake — the content stays the same, but you control HOW it looks.",
-            "content": "You can print multiple things using commas (adds spaces automatically) or use '+' to glue strings together (no space added). You can also use f-strings for mixing text and variables.",
+            "id": "j1c3",
+            "title": "Semicolons & Curly Braces",
+            "emoji": "⚙️",
+            "analogy": "Semicolons are like periods ending sentences. Curly braces {} are like chapter boundaries that group code belonging together.",
+            "content": "Every statement in Java ends with a semicolon ;. Curly braces {} define blocks — the class body, method body, if-blocks, loops. Forgetting either causes a compile error.",
             "examples": [
-              { "title": "Comma vs Plus", "explanation": "Comma adds a space. Plus glues directly.", "code": "print('Hello', 'World')   # Hello World\nprint('Hello' + 'World')  # HelloWorld" },
-              { "title": "F-Strings", "explanation": "f-strings let you embed variables inside text.", "code": "name = 'Alex'\nprint(f'Hi, {name}!')  # Hi, Alex!" }
+              { "title": "Where ; and {} go", "explanation": "Statements end with ;. Blocks are wrapped in {}.", "code": "public class Main {              // { opens class\n    public static void main(...) { // { opens method\n        int x = 5;               // ; ends statement\n        System.out.println(x);   // ; ends statement\n    }                            // } closes method\n}                                // } closes class" }
             ],
-            "funFact": "F-strings were added in Python 3.6 (2016). Before that, formatting was MUCH harder! 😅"
+            "funFact": "If even ONE semicolon is missing, the entire Java program refuses to compile! 🚨"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE PRINTER", "maxHp": 100 },
+          "enemy": { "name": "THE JVM GATE", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does print('Hello') do?",
-              "options": ["Creates a variable called Hello", "Displays 'Hello' on the screen", "Saves 'Hello' to a file", "Sends an email"],
-              "a": 1, "damage": 20, "topic": "Print",
-              "explanation": "print() displays whatever is inside the parentheses onto the screen."
+              "q": "What is the correct method signature to start a Java program?",
+              "options": ["def main():", "void main()", "public static void main(String[] args)", "start()"],
+              "a": 2, "damage": 20, "topic": "Main Method",
+              "explanation": "Entry Point: public static void main(String[] args) is Java's required entry point. The JVM looks for this exact signature to know where to start execution."
             },
             {
-              "q": "Which of these will Python run FIRST?",
-              "options": ["The last line", "The middle line", "The first line", "All at once"],
-              "a": 2, "damage": 20, "topic": "Program Structure",
-              "explanation": "Python reads top-to-bottom. The first line always runs first."
+              "q": "Which statement correctly prints 'Hello' in Java?",
+              "options": ["print(\"Hello\")", "console.log(\"Hello\")", "System.out.println(\"Hello\");", "echo \"Hello\""],
+              "a": 2, "damage": 20, "topic": "Output",
+              "explanation": "Output Channel: System.out.println() is Java's standard output method. System.out is the output stream, println() writes text followed by a newline character."
             },
             {
-              "q": "What is the output of: print('5' + '3')?",
-              "options": ["8", "53", "5 + 3", "Error"],
-              "a": 1, "damage": 20, "topic": "Output Formatting",
-              "explanation": "'5' and '3' are strings (in quotes), so + glues them together: '53'."
+              "q": "What does every Java statement end with?",
+              "options": ["A colon :", "A period .", "A semicolon ;", "Nothing"],
+              "a": 2, "damage": 20, "topic": "Syntax",
+              "explanation": "Syntax Rule: Every Java statement must end with ;. This tells the compiler where one instruction ends and the next begins."
             },
             {
-              "q": "What does the 'f' in f'Hello {name}' do?",
-              "options": ["Makes text bold", "Formats the string so variables inside {} are replaced with their values", "Creates a file", "Deletes the variable"],
-              "a": 1, "damage": 20, "topic": "F-Strings",
-              "explanation": "f-strings let you embed variables directly inside curly braces {} within a string."
+              "q": "What do curly braces {} define in Java?",
+              "options": ["Arrays only", "Strings only", "Blocks of code that belong together", "Comments"],
+              "a": 2, "damage": 20, "topic": "Code Blocks",
+              "explanation": "Block Intel: Curly braces {} define a code block — the body of a class, method, if-statement, or loop."
             },
             {
-              "q": "Text inside print() must be wrapped in ___.",
-              "options": ["Parentheses", "Quotes", "Square brackets", "Curly braces"],
-              "a": 1, "damage": 20, "topic": "Print Syntax",
-              "explanation": "String text must be inside single quotes '' or double quotes \"\" to work in print()."
+              "q": "In Java, String values must be wrapped in ___.",
+              "options": ["Single quotes ''", "Double quotes \"\"", "Backticks ``", "Parentheses ()"],
+              "a": 1, "damage": 20, "topic": "String Literals",
+              "explanation": "String Syntax: Java uses double quotes for String values. Single quotes are reserved for char (single character) only."
             }
           ]
         },
         "coding": [
           {
-            "title": "Your First Print",
-            "objective": "What function displays text on the screen in Python? Type just the function name.",
-            "starterCode": "___(\"Hello World\")",
-            "answer": "print",
-            "hint": "It rhymes with 'mint' and starts with 'p'."
+            "title": "Complete the Output",
+            "objective": "What Java method prints text and moves to new line? Fill in the blank.",
+            "starterCode": "System.out.___(\"Hello World\");",
+            "answer": "println",
+            "hint": "It stands for 'print line'."
           },
           {
-            "title": "Fix the Quote",
-            "objective": "What kind of characters must surround text in a print statement? Type the answer.",
-            "starterCode": "print(___Hello World___)",
-            "answer": "quotes",
-            "hint": "Either single ' or double \" characters wrap text."
+            "title": "Spot the Ending",
+            "objective": "Every Java statement must end with what character?",
+            "starterCode": "int x = 10___",
+            "answer": ";",
+            "hint": "It looks like a period with a comma below it."
           },
           {
-            "title": "Predict the Glue",
-            "objective": "What does print('Code' + 'Clash') output? Type the exact output.",
-            "starterCode": "print('Code' + 'Clash')\n# Output: ___",
-            "answer": "CodeClash",
-            "hint": "The + operator glues strings together WITHOUT adding a space."
+            "title": "Identify the Error",
+            "objective": "System.out.println(\"Hi\") — What is missing?",
+            "starterCode": "// Missing character at end:\nSystem.out.println(\"Hi\")___",
+            "answer": ";",
+            "hint": "Every Java statement needs this terminator."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nPrint('Hello World')\n\nWhat is the bug?",
-            "brokenCode": "Print('Hello World')",
+            "description": "🚨 Bug:\n\nSystem.out.println(\"Hello\")",
+            "brokenCode": "System.out.println(\"Hello\")",
             "bugLine": 0,
             "options": [
-              "Nothing wrong, it works fine",
-              "The 'P' in Print should be lowercase: print",
-              "The quotes should be removed",
-              "You need parentheses around Print"
+              "Nothing wrong",
+              "Missing semicolon at the end of the println statement",
+              "println should be PRINTLN",
+              "Double quotes should be single quotes"
             ],
-            "answer": "The 'P' in Print should be lowercase: print",
-            "hint": "Python is CASE SENSITIVE. Built-in functions are all lowercase."
+            "answer": "Missing semicolon at the end of the println statement",
+            "hint": "Every Java statement must end with ;"
           },
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nprint(Hello World)\n\nWhat is the bug?",
-            "brokenCode": "print(Hello World)",
+            "description": "🚨 Bug:\n\nsystem.out.println(\"Hello\");",
+            "brokenCode": "system.out.println(\"Hello\");",
             "bugLine": 0,
             "options": [
-              "Missing quotes around Hello World",
-              "Missing semicolon",
-              "print should be uppercase",
-              "Need to add import statement"
+              "Nothing wrong",
+              "'system' must be capitalized to 'System' — Java is case sensitive",
+              "println needs a capital P",
+              "The semicolon is wrong"
             ],
-            "answer": "Missing quotes around Hello World",
-            "hint": "Text must be in quotes: 'Hello World' or \"Hello World\"."
+            "answer": "'system' must be capitalized to 'System' — Java is case sensitive",
+            "hint": "System (capital S) is the correct class name. Java is case sensitive."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\npublic class Main\n    public static void main(String[] args) {\n        System.out.println(\"Hi\");\n    }\n}",
+            "brokenCode": "public class Main",
+            "bugLine": 0,
+            "options": [
+              "Missing opening curly brace { after class Main",
+              "Main should be lowercase",
+              "public is wrong",
+              "Nothing wrong"
+            ],
+            "answer": "Missing opening curly brace { after class Main",
+            "hint": "Every class declaration must be followed by { to open the code block."
           }
         ],
         "prediction": [
           {
-            "code": "print('First')\nprint('Second')\nprint('Third')",
-            "options": ["Third Second First", "First Second Third", "First", "Error"],
-            "answer": "First Second Third",
-            "explanation": "Python runs top-to-bottom. Line 1 prints 'First', Line 2 prints 'Second', Line 3 prints 'Third'."
+            "code": "System.out.println(\"Java\");\nSystem.out.println(\"is\");\nSystem.out.println(\"awesome\");",
+            "options": ["Java is awesome", "awesome is Java", "Java\\nis\\nawesome", "Error"],
+            "answer": "Java\\nis\\nawesome",
+            "explanation": "Each println adds a newline. Three separate print calls = three separate lines of output."
           },
           {
-            "code": "print(10 + 5)\nprint('10' + '5')",
-            "options": ["15 and 15", "15 and 105", "105 and 15", "Error"],
-            "answer": "15 and 105",
-            "explanation": "10 + 5 = 15 (numbers add). '10' + '5' = '105' (strings concatenate/glue)."
+            "code": "System.out.print(\"Code\");\nSystem.out.print(\"Clash\");",
+            "options": ["Code Clash", "CodeClash", "Code↵Clash", "Error"],
+            "answer": "CodeClash",
+            "explanation": "print() without 'ln' does NOT add a newline — both outputs appear on the same line."
           }
         ]
       }
     },
     {
       "id": "1_2",
-      "title": "VARIABLES",
-      "subtitle": "Named boxes in memory",
+      "title": "JAVA VARIABLES",
+      "subtitle": "Typed declarations & assignment",
       "icon": "Box",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c4",
-            "title": "What Are Variables?",
+            "id": "j1c4",
+            "title": "Variables in Java — Declare the Type First!",
             "emoji": "📦",
-            "analogy": "A variable is a labeled box. You give it a name (the label) and store a value (the contents) inside it. Later, you can peek inside using the label.",
-            "content": "Variables store data in your computer's memory with a name. You can create them, change them, and use them anytime. In Python, you just write: name = value.",
+            "analogy": "In Java, variables are labeled jars where you must say what KIND of jar it is (int, String, double) BEFORE putting anything inside. Python lets you use any jar — Java makes you commit to a type upfront.",
+            "content": "Java requires you to declare the TYPE of a variable before using it. Format: type name = value; — e.g., int score = 100;. The type cannot change after declaration.",
             "examples": [
-              { "title": "Creating Variables", "explanation": "The = sign means 'put this value into this box'.", "code": "score = 100\nplayer = 'Neo'\nprint(score)   # 100\nprint(player)  # Neo" }
+              { "title": "Java Variable Declarations", "explanation": "Type always comes first.", "code": "int score = 100;\nString name = \"Alex\";\ndouble price = 9.99;\nboolean isAlive = true;" },
+              { "title": "Python vs Java", "explanation": "Java is explicit, Python is implicit.", "code": "// Python:\nx = 5\nname = \"Alex\"\n\n// Java:\nint x = 5;\nString name = \"Alex\";" }
             ],
-            "funFact": "Unlike Java or C, Python figures out the data type automatically — you never need to declare it! 🧠"
+            "funFact": "Java is 'statically typed' — types checked at compile time. Python is 'dynamically typed' — types checked at runtime. Static typing catches bugs early! 🔍"
           },
           {
-            "id": "l1c5",
-            "title": "Naming Rules for Variables",
+            "id": "j1c5",
+            "title": "camelCase & Reassignment",
             "emoji": "📝",
-            "analogy": "Variable names are like hashtags: they can have letters, numbers, and underscores, but NO spaces and can't start with a number.",
-            "content": "Rules: 1) Must start with a letter or underscore. 2) Can contain letters, numbers, underscores. 3) NO spaces or special characters. 4) Case sensitive (Score ≠ score). 5) Can't use Python keywords (if, for, while).",
+            "analogy": "Java naming convention is camelCase — like a camel's humps. First word lowercase, each next word capitalized: playerScore, firstName, isGameOver.",
+            "content": "Variable naming rules: start with letter or _, no spaces, case sensitive. Convention: use camelCase. You can reassign without re-stating the type. You CANNOT change the type once declared.",
             "examples": [
-              { "title": "Valid vs Invalid Names", "explanation": "Learn the pattern!", "code": "✅ my_score = 10\n✅ _name = 'Alex'\n✅ player2 = 'Neo'\n❌ 2player = 'Bad'   # starts with number\n❌ my score = 'Bad'  # has a space\n❌ if = 10           # 'if' is a keyword" }
+              { "title": "camelCase in action", "explanation": "Java uses camelCase — not snake_case like Python.", "code": "int playerScore = 0;       // ✅ camelCase\nString firstName = \"Alex\"; // ✅ camelCase\nboolean isGameOver = false; // ✅ camelCase\n\n// Reassign — no type keyword:\nplayerScore = 100;" },
+              { "title": "Cannot Change Type", "explanation": "Once int, always int.", "code": "int x = 5;\nx = 10;       // ✅ still int\nx = \"hello\";  // ❌ ERROR! int cannot store String" }
             ],
-            "funFact": "Python has 35 reserved keywords you can't use as variable names. 'if', 'else', 'for' are some! 🚫"
-          },
-          {
-            "id": "l1c6",
-            "title": "Assigning Values",
-            "emoji": "🎯",
-            "analogy": "The = sign in Python doesn't mean 'equals' like in math. It means 'PUT this value INTO this box'. Think of it as an arrow: box ← value.",
-            "content": "Assignment uses = to store values. You can assign numbers, text, booleans, or even calculations. Python evaluates the RIGHT side first, then stores it LEFT.",
-            "examples": [
-              { "title": "Assignment Flow", "explanation": "Right side is calculated first, then stored in the left.", "code": "x = 5 + 3        # x stores 8\nname = 'Neo'      # name stores 'Neo'\nis_hero = True    # is_hero stores True" }
-            ],
-            "funFact": "You can assign multiple variables in one line: a, b, c = 1, 2, 3 🎯"
+            "funFact": "Java class names use PascalCase (MyClass). Variables/methods use camelCase (myVariable). The compiler doesn't enforce style, but all Java devs follow this convention! 📐"
           }
         ],
         "battle": {
           "enemy": { "name": "THE MEMORY GHOST", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does this line do? score = 100",
-              "options": ["Checks if score equals 100", "Creates a variable named 'score' and stores 100 in it", "Prints 100", "Deletes the value 100"],
-              "a": 1, "damage": 20, "topic": "Variables",
-              "explanation": "The = sign means 'Store the value 100 into a variable called score'."
+              "q": "Which is the correct Java variable declaration?",
+              "options": ["score = 100", "var score = 100", "int score = 100;", "integer score = 100;"],
+              "a": 2, "damage": 20, "topic": "Declaration",
+              "explanation": "Declaration Syntax: Java requires: type name = value; — int is the type, score is the name, 100 is the value, ; ends the statement."
             },
             {
-              "q": "Which of these is a VALID variable name?",
-              "options": ["2fast", "my score", "player_name", "for"],
-              "a": 2, "damage": 20, "topic": "Naming Rules",
-              "explanation": "player_name uses only letters and underscores, starts with a letter — valid! Others break rules."
+              "q": "After 'int x = 5;', can you write 'x = \"hello\";'?",
+              "options": ["Yes, Java allows it", "No — x is int and cannot store a String", "Only with casting", "Yes in Java 17+"],
+              "a": 1, "damage": 20, "topic": "Type Safety",
+              "explanation": "Type Lock: Once declared as int, x can ONLY hold integers. This is Java's static typing — it catches type mismatches at compile time."
             },
             {
-              "q": "After x = 5 + 3, what is x?",
-              "options": ["5 + 3", "53", "8", "Error"],
-              "a": 2, "damage": 20, "topic": "Assignment",
-              "explanation": "Python calculates 5 + 3 = 8 on the right, then stores 8 in x."
+              "q": "Which follows Java's camelCase convention?",
+              "options": ["player_score", "PlayerScore", "playerscore", "playerScore"],
+              "a": 3, "damage": 20, "topic": "Naming",
+              "explanation": "Naming Convention: Java variables use camelCase — first word lowercase, subsequent words start with uppercase: playerScore, isGameOver."
             },
             {
-              "q": "Is 'Score' the same as 'score' in Python?",
-              "options": ["Yes, they are the same", "No, Python is case sensitive — they are different variables", "Only in Python 2", "Depends on the computer"],
-              "a": 1, "damage": 20, "topic": "Case Sensitivity",
-              "explanation": "Python treats uppercase and lowercase as different. Score ≠ score ≠ SCORE."
+              "q": "When reassigning a variable, do you repeat the type keyword?",
+              "options": ["Yes: int x = 10;", "No — just: x = 10;", "Only for Strings", "You can't reassign"],
+              "a": 1, "damage": 20, "topic": "Reassignment",
+              "explanation": "Reassignment Rule: The type keyword is only used during declaration. To update the value, just write: variableName = newValue;"
             },
             {
-              "q": "Why can't you use 'if' as a variable name?",
-              "options": ["It's too short", "It starts with 'i'", "It's a reserved Python keyword", "It has no vowels"],
-              "a": 2, "damage": 20, "topic": "Keywords",
-              "explanation": "'if' is a Python keyword used for conditions. Keywords can't be used as variable names."
+              "q": "What does 'String name = \"Alex\";' create?",
+              "options": ["An int variable", "A String variable named 'name' holding 'Alex'", "A method called Alex", "A class"],
+              "a": 1, "damage": 20, "topic": "String variable",
+              "explanation": "Variable Intel: This declares a variable 'name' of type String and stores the text 'Alex' in it."
             }
           ]
         },
         "coding": [
           {
-            "title": "Create a Variable",
-            "objective": "Create a variable called 'age' that stores the number 12. What goes on the right side of: age = ___?",
-            "starterCode": "age = ___",
-            "answer": "12",
-            "hint": "Just type the number. No quotes needed for numbers."
+            "title": "Declare an Integer",
+            "objective": "What type keyword is used for whole numbers in Java?",
+            "starterCode": "___ age = 18;",
+            "answer": "int",
+            "hint": "int = integer — it holds whole numbers like 5, 100, -42."
           },
           {
-            "title": "Spot the Valid Name",
-            "objective": "Is '_secret' a valid variable name? Type 'yes' or 'no'.",
-            "starterCode": "_secret = 42\n# Valid? ___",
-            "answer": "yes",
-            "hint": "Variable names CAN start with an underscore."
+            "title": "String Declaration",
+            "objective": "What Java type holds text? Fill in to store 'Neo'.",
+            "starterCode": "___ hero = \"Neo\";",
+            "answer": "String",
+            "hint": "Java's text type starts with uppercase S — it's a class."
           },
           {
-            "title": "Calculate & Assign",
-            "objective": "What value is stored in 'result' after this code? result = 10 * 3",
-            "starterCode": "result = 10 * 3\nprint(result)\n# Output: ___",
-            "answer": "30",
-            "hint": "Python calculates 10 * 3 = 30, then stores 30 in result."
+            "title": "Reassign Without Type",
+            "objective": "After 'int score = 0;', what's the correct way to change score to 100?",
+            "starterCode": "int score = 0;\n___ = 100;",
+            "answer": "score",
+            "hint": "Just use the variable name — no type keyword needed for reassignment."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\n1score = 100",
-            "brokenCode": "1score = 100",
+            "description": "🚨 Bug:\n\nx = 42;",
+            "brokenCode": "x = 42;",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "Variable names can't START with a number — rename to score1",
-              "100 should be in quotes",
-              "Need to add 'var' keyword"
+              "Missing type declaration — should be: int x = 42;",
+              "42 should be in quotes",
+              "Need 'var' keyword"
             ],
-            "answer": "Variable names can't START with a number — rename to score1",
-            "hint": "Rule: Variable names must start with a letter or underscore, never a number."
+            "answer": "Missing type declaration — should be: int x = 42;",
+            "hint": "Java requires a type when first declaring a variable."
           },
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nmy name = 'Alex'",
-            "brokenCode": "my name = 'Alex'",
+            "description": "🚨 Bug:\n\nint score = 100;\nScore = 200;",
+            "brokenCode": "Score = 200;",
             "bugLine": 0,
             "options": [
-              "Names can't have spaces — use my_name instead",
-              "Alex should not be in quotes",
-              "Use MY NAME instead",
-              "Nothing wrong"
+              "Nothing wrong",
+              "Case mismatch — 'Score' ≠ 'score'. Use: score = 200;",
+              "200 should be a String",
+              "Need semicolon"
             ],
-            "answer": "Names can't have spaces — use my_name instead",
-            "hint": "Variable names cannot contain spaces. Use underscores instead."
+            "answer": "Case mismatch — 'Score' ≠ 'score'. Use: score = 200;",
+            "hint": "Java is case sensitive. score and Score are completely different identifiers."
           }
         ],
         "prediction": [
           {
-            "code": "x = 10\ny = 20\nprint(x + y)",
-            "options": ["1020", "30", "xy", "Error"],
-            "answer": "30",
-            "explanation": "x stores 10, y stores 20. x + y = 10 + 20 = 30 (number addition)."
+            "code": "int x = 10;\nint y = 3;\nSystem.out.println(x + y);",
+            "options": ["103", "13", "x + y", "Error"],
+            "answer": "13",
+            "explanation": "Both x and y are int. x + y = 10 + 3 = 13. Integer addition."
           },
           {
-            "code": "name = 'Code'\ntag = 'Clash'\nprint(name + tag)",
-            "options": ["Code Clash", "CodeClash", "name + tag", "Error"],
-            "answer": "CodeClash",
-            "explanation": "name stores 'Code', tag stores 'Clash'. + glues strings: 'CodeClash' (no space)."
+            "code": "int hp = 100;\nhp = hp - 30;\nhp = hp - 20;\nSystem.out.println(hp);",
+            "options": ["100", "70", "50", "Error"],
+            "answer": "50",
+            "explanation": "100 - 30 = 70, then 70 - 20 = 50. Each line reassigns hp with the new result."
           }
         ]
       }
     },
     {
       "id": "1_3",
-      "title": "DATA TYPES",
-      "subtitle": "int, float, string, boolean",
+      "title": "JAVA DATA TYPES",
+      "subtitle": "Primitives vs String",
       "icon": "Shapes",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c7",
-            "title": "The 4 Basic Data Types",
+            "id": "j1c6",
+            "title": "Java's Primitive Types",
             "emoji": "🧬",
-            "analogy": "Data types are like jars in a kitchen: one jar holds flour (integers), one holds syrup (floats), one holds labels (strings), and one is a switch (boolean — ON or OFF).",
-            "content": "Python has 4 fundamental types: int (whole numbers), float (decimal numbers), str (text), and bool (True or False). Python auto-detects the type — you don't declare it!",
+            "analogy": "Java's primitives are specific-purpose containers: int for whole numbers, double for decimals, boolean for ON/OFF, char for exactly ONE character.",
+            "content": "Java has 8 primitive types. The 4 you'll use most: int (whole numbers), double (decimals), boolean (true/false), char (single character in single quotes).",
             "examples": [
-              { "title": "The 4 Types", "explanation": "Each type stores a different kind of data.", "code": "age = 18          # int (whole number)\nprice = 9.99      # float (decimal)\nname = 'Alex'     # str (text in quotes)\nis_alive = True   # bool (True or False)" }
+              { "title": "The 4 Core Primitives", "explanation": "Each stores a different kind of data.", "code": "int lives = 3;           // whole number\ndouble price = 9.99;     // decimal\nboolean isWinner = true; // true or false\nchar grade = 'A';        // ONE char, single quotes" },
+              { "title": "Type Limits", "explanation": "Each type has memory limits.", "code": "// int range: -2,147,483,648 to 2,147,483,647\n// double: up to 15 decimal digits precision\n// boolean: true or false only\n// char: 0 to 65,535 (Unicode)" }
             ],
-            "funFact": "You can check any variable's type using type(). Try type(3.14) — it returns <class 'float'>! 🔍"
+            "funFact": "Java's char is 2 bytes (not 1 like in C) because it supports Unicode — characters from every language on Earth! 🌍"
           },
           {
-            "id": "l1c8",
-            "title": "Integers & Floats",
-            "emoji": "🔢",
-            "analogy": "Integers are coins (whole, no fractions). Floats are liquid — they can fill any decimal point.",
-            "content": "int: 0, 5, -100, 9999. No decimal point. float: 3.14, 0.5, -2.7. Always has a decimal. Mixing int + float gives a float result.",
-            "examples": [
-              { "title": "Int vs Float Math", "explanation": "When you mix them, Python converts to float.", "code": "print(5 + 3)     # 8 (int)\nprint(5 + 3.0)   # 8.0 (float!)\nprint(10 / 3)    # 3.333... (always float)" }
-            ],
-            "funFact": "Division (/) ALWAYS returns a float in Python 3, even 10 / 2 = 5.0! Use // for integer division. 🤓"
-          },
-          {
-            "id": "l1c9",
-            "title": "Strings & Booleans",
+            "id": "j1c7",
+            "title": "String — The Object Type",
             "emoji": "💬",
-            "analogy": "Strings are necklaces of characters strung together. Booleans are light switches — either ON (True) or OFF (False), nothing in between.",
-            "content": "Strings hold text wrapped in quotes. Booleans hold exactly one of two values: True or False (capital T and F). Booleans are the foundation of all decisions in programming.",
+            "analogy": "String is like a necklace made of char beads. While primitives are simple raw values, String is a CLASS — a complex object. That's why it starts with capital S!",
+            "content": "String is not a primitive — it's a class. It has built-in methods. Use double quotes for String values. Strings can be joined with the + operator.",
             "examples": [
-              { "title": "Strings & Bools", "explanation": "Note: True and False must be capitalized!", "code": "greeting = 'Hello'\nis_cool = True\nis_boring = False\n\n# WRONG:\n# is_cool = true    # ERROR! Capital T needed" }
+              { "title": "String Methods", "explanation": "String has methods because it's a class.", "code": "String name = \"Alex\";\nSystem.out.println(name.length());      // 4\nSystem.out.println(name.toUpperCase()); // ALEX\nSystem.out.println(name + \" Smith\");   // Alex Smith" },
+              { "title": "char vs String", "explanation": "char = single quotes, ONE character. String = double quotes.", "code": "char letter = 'A';      // single quotes\nString word = \"Hello\";  // double quotes\nString one = \"A\";       // String, NOT char!" }
             ],
-            "funFact": "In Python, empty strings '' are 'falsy' — they act like False in conditions! 🤯"
+            "funFact": "Java Strings are IMMUTABLE — methods like toUpperCase() return a NEW String; they don't modify the original! 🔒"
           }
         ],
         "battle": {
           "enemy": { "name": "TYPE SHIFTER", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What data type is 3.14?",
-              "options": ["int", "str", "float", "bool"],
-              "a": 2, "damage": 20, "topic": "Float",
-              "explanation": "3.14 has a decimal point — that makes it a float (floating-point number)."
+              "q": "Which Java type stores decimal numbers like 9.99?",
+              "options": ["int", "char", "boolean", "double"],
+              "a": 3, "damage": 20, "topic": "double",
+              "explanation": "Type Intel: double stores floating-point (decimal) numbers. Use double for prices, measurements, or any value needing decimals."
             },
             {
-              "q": "What data type is 'Hello'?",
-              "options": ["int", "str", "bool", "float"],
-              "a": 1, "damage": 20, "topic": "String",
-              "explanation": "Text inside quotes is always a string (str)."
+              "q": "What is wrong with: char grade = \"A\";",
+              "options": ["Nothing wrong", "char uses single quotes: char grade = 'A';", "grade is an invalid name", "Should be String"],
+              "a": 1, "damage": 20, "topic": "char syntax",
+              "explanation": "Char Rule: char uses single quotes — 'A'. Double quotes \"A\" create a String. char can hold EXACTLY ONE character."
             },
             {
-              "q": "What does print(type(True)) show?",
-              "options": ["<class 'str'>", "<class 'int'>", "<class 'bool'>", "<class 'true'>"],
-              "a": 2, "damage": 20, "topic": "Boolean",
-              "explanation": "True is a boolean value, so type() returns <class 'bool'>."
+              "q": "Why does 'String' start with a capital S?",
+              "options": ["Just a convention", "String is a class (object type), not a primitive", "Java rule for all types", "It doesn't matter"],
+              "a": 1, "damage": 20, "topic": "String class",
+              "explanation": "Class Convention: Class names start with uppercase in Java. String is a class, so it's capitalized. int, double, boolean, char are primitives — lowercase."
             },
             {
-              "q": "What is the result of 10 / 2 in Python 3?",
-              "options": ["5", "5.0", "2", "Error"],
-              "a": 1, "damage": 20, "topic": "Division",
-              "explanation": "In Python 3, the / operator always returns a float: 10 / 2 = 5.0."
+              "q": "What does 'boolean isReady = true;' store?",
+              "options": ["The text 'true'", "The number 1", "A true/false logical value", "A char"],
+              "a": 2, "damage": 20, "topic": "boolean",
+              "explanation": "Boolean Intel: boolean stores true or false (both lowercase in Java — unlike Python's True/False). It's the foundation of all decisions in your code."
             },
             {
-              "q": "Which is NOT a valid boolean in Python?",
-              "options": ["True", "False", "true", "Both True and False are valid"],
-              "a": 2, "damage": 20, "topic": "Boolean Syntax",
-              "explanation": "'true' (lowercase) is NOT a boolean — Python requires capital T: True."
+              "q": "Output of: System.out.println(\"Hi\" + \" \" + \"Java\");",
+              "options": ["Hi Java", "HiJava", "Hi  Java", "Error"],
+              "a": 0, "damage": 20, "topic": "String concat",
+              "explanation": "Concatenation: + joins Strings. \"Hi\" + \" \" + \"Java\" = \"Hi Java\". The space string \" \" adds the gap."
             }
           ]
         },
         "coding": [
           {
-            "title": "Name the Type",
-            "objective": "What data type is the number 42? Type: int, float, str, or bool.",
-            "starterCode": "x = 42\ntype(x) = ___",
-            "answer": "int",
-            "hint": "42 is a whole number with no decimal point."
+            "title": "Decimal Type",
+            "objective": "What Java type stores decimals like 3.14?",
+            "starterCode": "___ pi = 3.14;",
+            "answer": "double",
+            "hint": "8 bytes, high-precision decimals."
           },
           {
-            "title": "True or False?",
-            "objective": "What is the correct Python boolean for 'yes/on'? Type it exactly.",
-            "starterCode": "is_active = ___",
-            "answer": "True",
-            "hint": "It's capitalized. Not 'true' or 'TRUE'."
+            "title": "Single Character",
+            "objective": "What type holds exactly ONE character with single quotes?",
+            "starterCode": "___ initial = 'J';",
+            "answer": "char",
+            "hint": "Single quotes ' ' are used for this primitive type."
           },
           {
-            "title": "Float Result",
-            "objective": "What does print(7 + 3.0) output? Type the exact output.",
-            "starterCode": "print(7 + 3.0)\n# Output: ___",
-            "answer": "10.0",
-            "hint": "Mixing int + float always gives a float result."
+            "title": "Boolean Value",
+            "objective": "What is the correct Java boolean for true — capital or lowercase?",
+            "starterCode": "boolean isActive = ___;",
+            "answer": "true",
+            "hint": "All lowercase in Java — unlike Python's True."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has a bug:\n\nis_admin = true",
-            "brokenCode": "is_admin = true",
+            "description": "🚨 Bug:\n\nchar letter = \"B\";",
+            "brokenCode": "char letter = \"B\";",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'true' must be capitalized to 'True'",
-              "Need quotes around true",
-              "is_admin is an invalid name"
+              "char uses single quotes: char letter = 'B';",
+              "B should be lowercase",
+              "letter is invalid name"
             ],
-            "answer": "'true' must be capitalized to 'True'",
-            "hint": "Python booleans require capital letters: True and False."
+            "answer": "char uses single quotes: char letter = 'B';",
+            "hint": "char values go in single quotes 'B'. Double quotes make it a String."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug hunt:\n\nage = '18'\nprint(age + 2)",
-            "brokenCode": "age = '18'\nprint(age + 2)",
-            "bugLine": 1,
+            "description": "🚨 Bug:\n\nboolean isOn = True;",
+            "brokenCode": "boolean isOn = True;",
+            "bugLine": 0,
             "options": [
-              "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
-              "print should be Print",
-              "2 should be in quotes",
-              "Nothing wrong"
+              "Nothing wrong",
+              "Java boolean is lowercase: 'true' not 'True' (that's Python)",
+              "isOn is an invalid name",
+              "Use 1 instead of True"
             ],
-            "answer": "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
-            "hint": "You can't mix string + int. Either both must be strings or both must be numbers."
+            "answer": "Java boolean is lowercase: 'true' not 'True' (that's Python)",
+            "hint": "Unlike Python (True/False with capital), Java uses: true / false (all lowercase)."
           }
         ],
         "prediction": [
           {
-            "code": "x = '5'\ny = '3'\nprint(x + y)",
-            "options": ["8", "53", "5 + 3", "Error"],
-            "answer": "53",
-            "explanation": "'5' and '3' are strings (in quotes), so + concatenates them: '53'."
+            "code": "int a = 5;\ndouble b = 2.0;\nSystem.out.println(a + b);",
+            "options": ["7", "7.0", "52.0", "Error"],
+            "answer": "7.0",
+            "explanation": "When int and double mix, Java promotes the result to double. 5 + 2.0 = 7.0."
           },
           {
-            "code": "a = 10\nb = 3\nprint(a / b)",
-            "options": ["3", "3.0", "3.3333333333333335", "Error"],
-            "answer": "3.3333333333333335",
-            "explanation": "/ always returns a float in Python 3. 10 / 3 = 3.3333333333333335."
+            "code": "String s = \"Java\";\nSystem.out.println(s.length());",
+            "options": ["4", "5", "Java", "Error"],
+            "answer": "4",
+            "explanation": "length() returns the character count. 'J','a','v','a' = 4 characters."
           }
         ]
       }
     },
     {
       "id": "1_4",
-      "title": "REASSIGN & INPUT",
-      "subtitle": "Overwriting values & user input",
+      "title": "JAVA INPUT",
+      "subtitle": "Scanner & reading user input",
       "icon": "RefreshCw",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c10",
-            "title": "Reassigning Variables",
-            "emoji": "🔄",
-            "analogy": "Reassigning a variable is like erasing a whiteboard and writing something new. The old value is GONE forever.",
-            "content": "You can change a variable's value at any time by assigning a new value with =. The old value is permanently overwritten. You can even change the data type!",
+            "id": "j1c8",
+            "title": "The Scanner Class",
+            "emoji": "⌨️",
+            "analogy": "Scanner is like a ticket booth operator — it stands at the keyboard and reads whatever the user types, then hands it to your program. You must first set up the booth (create Scanner), then ask it to read.",
+            "content": "Java reads input using the Scanner class. You must import it, create an instance connected to System.in (keyboard), then call methods to read different types of input.",
             "examples": [
-              { "title": "Overwrite in Action", "explanation": "x starts as 10, then becomes 20. The 10 is gone.", "code": "x = 10\nprint(x)   # 10\nx = 20\nprint(x)   # 20 (10 is gone!)" },
-              { "title": "Self-Update", "explanation": "You can use the old value to calculate the new value!", "code": "score = 100\nscore = score + 50\nprint(score)  # 150" }
+              { "title": "Scanner Setup & Use", "explanation": "Import → Create → Read. Three steps always.", "code": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.print(\"Enter your name: \");\n        String name = sc.nextLine();\n        System.out.println(\"Hello, \" + name);\n    }\n}" },
+              { "title": "Reading Different Types", "explanation": "Use the right method for each type.", "code": "Scanner sc = new Scanner(System.in);\nint age = sc.nextInt();       // reads integer\ndouble price = sc.nextDouble(); // reads decimal\nString name = sc.nextLine();  // reads full line of text" }
             ],
-            "funFact": "In Python, you can even change a variable's type: x = 5 then x = 'hello' — totally legal! 🤯"
+            "funFact": "Python's input() is one function that always returns String. Java's Scanner has separate methods per type: nextInt(), nextDouble(), nextLine() — more explicit but more precise! 🎯"
           },
           {
-            "id": "l1c11",
-            "title": "Basic Input (Concept)",
-            "emoji": "⌨️",
-            "analogy": "input() is like a pause button — the program STOPS and waits for the user to type something, then stores what they typed.",
-            "content": "The input() function pauses the program, shows a message, waits for the user to type, and stores whatever they type as a STRING. Always a string — even if they type numbers!",
+            "id": "j1c9",
+            "title": "nextLine() vs nextInt()",
+            "emoji": "🔄",
+            "analogy": "nextInt() is like picking only the first apple from a bag and leaving the bag on the counter. nextLine() grabs everything that's left in the bag. Be careful mixing them — leftover 'Enter' keys cause bugs!",
+            "content": "nextInt() reads only the number — it leaves the newline (Enter key) in the buffer. nextLine() reads the whole line including spaces. Mixing them requires an extra sc.nextLine() to clear the buffer.",
             "examples": [
-              { "title": "Getting User Input", "explanation": "input() always returns a string!", "code": "name = input('What is your name? ')\nprint('Hello', name)\n\n# User types: Alex\n# Output: Hello Alex" }
+              { "title": "Safe Pattern", "explanation": "Always close the Scanner when done.", "code": "Scanner sc = new Scanner(System.in);\nint age = sc.nextInt();\nsc.nextLine(); // clear leftover newline!\nString name = sc.nextLine(); // now this works\nSystem.out.println(name + \" is \" + age);\nsc.close();" }
             ],
-            "funFact": "input() ALWAYS returns a string. To get a number, you must convert: int(input('Age: ')). ⌨️"
+            "funFact": "Forgetting sc.close() causes a resource leak warning in Java. Always close your Scanner when you're done reading! 🔒"
           }
         ],
         "battle": {
           "enemy": { "name": "OVERWRITE PHANTOM", "maxHp": 100 },
           "mcq": [
             {
-              "q": "After this code, what is x?\nx = 5\nx = 10",
-              "options": ["5", "10", "15", "Error"],
-              "a": 1, "damage": 25, "topic": "Reassignment",
-              "explanation": "The second line overwrites x. The old value 5 is gone. x is now 10."
+              "q": "What must you import to use Scanner in Java?",
+              "options": ["import java.io.*", "import java.util.Scanner", "import Scanner", "No import needed"],
+              "a": 1, "damage": 20, "topic": "Import",
+              "explanation": "Import Rule: Scanner lives in the java.util package. You must write 'import java.util.Scanner;' at the top of your file before using it."
             },
             {
-              "q": "What does hp = hp - 20 do?",
-              "options": ["Checks if hp equals hp minus 20", "Subtracts 20 from hp and stores the result back in hp", "Creates two variables", "Error"],
-              "a": 1, "damage": 25, "topic": "Self-Update",
-              "explanation": "Python calculates hp - 20 (right side), then stores the result back into hp (left side)."
+              "q": "What does 'Scanner sc = new Scanner(System.in);' do?",
+              "options": ["Prints user input", "Creates a Scanner connected to the keyboard", "Creates a new file", "Imports Scanner"],
+              "a": 1, "damage": 20, "topic": "Scanner creation",
+              "explanation": "Object Creation: This creates a Scanner object 'sc' connected to System.in (the keyboard). Now sc can read whatever the user types."
             },
             {
-              "q": "What does input() return?",
-              "options": ["An integer", "A boolean", "Always a string", "Depends on what you type"],
-              "a": 2, "damage": 25, "topic": "Input",
-              "explanation": "input() ALWAYS returns a string, even if the user types a number like '42'."
+              "q": "Which method reads a full line of text from the user?",
+              "options": ["sc.nextInt()", "sc.next()", "sc.nextLine()", "sc.read()"],
+              "a": 2, "damage": 20, "topic": "nextLine",
+              "explanation": "Input Method: sc.nextLine() reads everything the user types until they press Enter, including spaces. sc.next() only reads one word."
             },
             {
-              "q": "What happens when input() runs?",
-              "options": ["The program crashes", "The program pauses and waits for the user to type something", "It prints text", "It closes the program"],
-              "a": 1, "damage": 25, "topic": "Input Behavior",
-              "explanation": "input() is a pause — the program waits until the user types and presses Enter."
+              "q": "What method reads an integer from user input?",
+              "options": ["sc.nextString()", "sc.readInt()", "sc.nextInt()", "sc.getInt()"],
+              "a": 2, "damage": 20, "topic": "nextInt",
+              "explanation": "Type Reading: sc.nextInt() reads and returns the next integer the user types. Use sc.nextDouble() for decimals."
             }
           ]
         },
         "coding": [
           {
-            "title": "Overwrite the Score",
-            "objective": "score = 100, then score = score + 50. What is score now?",
-            "starterCode": "score = 100\nscore = score + 50\nprint(score)\n# Output: ___",
-            "answer": "150",
-            "hint": "100 + 50 = 150. The new value replaces the old one."
+            "title": "Import Scanner",
+            "objective": "What package does Scanner live in? Complete the import.",
+            "starterCode": "import java.util.___;",
+            "answer": "Scanner",
+            "hint": "The class name is Scanner — same as what you use in code."
           },
           {
-            "title": "Input Returns What?",
-            "objective": "User types '25' into input(). What type is the result? Type: int, float, str, or bool.",
-            "starterCode": "age = input('Age: ')  # user types 25\ntype(age) = ___",
-            "answer": "str",
-            "hint": "input() ALWAYS returns a string — even if the user types numbers."
+            "title": "Read a String",
+            "objective": "Which Scanner method reads a full line of text?",
+            "starterCode": "String name = sc.___();",
+            "answer": "nextLine",
+            "hint": "It reads everything until the user presses Enter."
+          },
+          {
+            "title": "Read an Integer",
+            "objective": "Which Scanner method reads a whole number?",
+            "starterCode": "int age = sc.___();",
+            "answer": "nextInt",
+            "hint": "next + the type name."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nx = 10\nx + 5\nprint(x)",
-            "brokenCode": "x = 10\nx + 5\nprint(x)",
-            "bugLine": 1,
+            "description": "🚨 Bug — Scanner not working:\n\nScanner sc = new Scanner(System.in);\nString name = sc.nextLine();",
+            "brokenCode": "Scanner sc = new Scanner(System.in);",
+            "bugLine": 0,
             "options": [
-              "x + 5 calculates 15 but doesn't save it — need x = x + 5",
-              "x should be in quotes",
-              "print should have no parentheses",
-              "Nothing wrong, x is 15"
+              "Nothing wrong",
+              "Missing 'import java.util.Scanner;' at the top of the file",
+              "System.in should be System.out",
+              "nextLine should be readLine"
             ],
-            "answer": "x + 5 calculates 15 but doesn't save it — need x = x + 5",
-            "hint": "x + 5 alone does nothing. You must STORE the result: x = x + 5."
+            "answer": "Missing 'import java.util.Scanner;' at the top of the file",
+            "hint": "Scanner requires 'import java.util.Scanner;' before the class declaration."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nage = input('Age: ')\nprint(age + 1)",
-            "brokenCode": "age = input('Age: ')\nprint(age + 1)",
-            "bugLine": 1,
+            "description": "🚨 Bug — wrong method for reading text:\n\nint name = sc.nextInt();",
+            "brokenCode": "int name = sc.nextInt();",
+            "bugLine": 0,
             "options": [
-              "input() returns a string, so age + 1 fails. Need: int(age) + 1",
-              "print is wrong",
-              "input doesn't need quotes",
-              "Nothing wrong"
+              "Nothing wrong",
+              "To store text, use String name = sc.nextLine(); — not int and nextInt()",
+              "sc should be scanner",
+              "nextInt() is fine for text"
             ],
-            "answer": "input() returns a string, so age + 1 fails. Need: int(age) + 1",
-            "hint": "You can't add a string '25' + number 1. Convert first: int(age)."
+            "answer": "To store text, use String name = sc.nextLine(); — not int and nextInt()",
+            "hint": "nextInt() reads integers. For text/names, use nextLine() with String type."
           }
         ],
         "prediction": [
           {
-            "code": "hp = 100\nhp = hp - 30\nhp = hp - 20\nprint(hp)",
-            "options": ["100", "70", "50", "Error"],
-            "answer": "50",
-            "explanation": "100 - 30 = 70 → hp is now 70. 70 - 20 = 50 → hp is now 50."
+            "code": "Scanner sc = new Scanner(System.in);\nint x = sc.nextInt();\nSystem.out.println(x * 2);\n// User types: 5",
+            "options": ["5", "10", "52", "Error"],
+            "answer": "10",
+            "explanation": "sc.nextInt() reads 5. Then 5 * 2 = 10 is printed."
           },
           {
-            "code": "a = 5\nb = a\na = 99\nprint(b)",
-            "options": ["5", "99", "Error", "None"],
-            "answer": "5",
-            "explanation": "b = a copies the VALUE of a (5) into b. Changing a later doesn't affect b."
+            "code": "Scanner sc = new Scanner(System.in);\nString s = sc.nextLine();\nSystem.out.println(s.length());\n// User types: Java",
+            "options": ["Java", "4", "5", "Error"],
+            "answer": "4",
+            "explanation": "sc.nextLine() reads 'Java'. s.length() = 4 characters (J,a,v,a)."
           }
         ]
       }
     },
     {
       "id": "1_5",
-      "title": "META CODE",
-      "subtitle": "Comments, Keywords & Case Sensitivity",
+      "title": "JAVA STYLE",
+      "subtitle": "Comments, conventions & best practices",
       "icon": "Hash",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c12",
-            "title": "Comments in Code",
+            "id": "j1c10",
+            "title": "Comments in Java",
             "emoji": "💭",
-            "analogy": "Comments are sticky notes for humans. Python completely ignores them — they're invisible to the computer but GOLD for programmers reading your code later.",
-            "content": "Add a # before any line to make it a comment. Python skips it entirely. Use comments to explain tricky code, leave notes, or temporarily disable code.",
+            "analogy": "Comments are sticky notes for humans. Java ignores them completely — they're invisible to the compiler but gold for developers reading your code later.",
+            "content": "Java supports two comment styles: // for single-line comments and /* ... */ for multi-line comments. Javadoc comments /** ... */ are used to generate documentation.",
             "examples": [
-              { "title": "Comment Examples", "explanation": "Everything after # is invisible to Python.", "code": "# This calculates the damage\ndamage = 50 + 25\nprint(damage)  # This prints 75" }
+              { "title": "Comment Styles", "explanation": "Three types of comments in Java.", "code": "// Single-line comment — Java ignores this\n\n/* Multi-line comment\n   spans multiple lines\n   all ignored by compiler */\n\n/**\n * Javadoc comment — used to auto-generate docs\n * @param name The user's name\n */\npublic static void greet(String name) { }" },
+              { "title": "Practical Comments", "explanation": "Comments explain the WHY, not the WHAT.", "code": "// Calculate total damage including bonus\nint damage = baseDamage + (level * 5);\nSystem.out.println(damage); // Print to console" }
             ],
-            "funFact": "Good programmers write comments explaining WHY, not WHAT. The code already shows what — comments explain the reasoning! 💡"
+            "funFact": "Javadoc comments /** */ can automatically generate HTML documentation for your code. Major Java libraries like the JDK itself are documented this way! 📚"
           },
           {
-            "id": "l1c13",
-            "title": "Keywords & Case Sensitivity",
+            "id": "j1c11",
+            "title": "Java Conventions & Keywords",
             "emoji": "🔐",
-            "analogy": "Keywords are like reserved parking spots — only Python can use them. Case sensitivity means 'Alex' ≠ 'alex' ≠ 'ALEX' — every letter's case matters.",
-            "content": "Python has 35 keywords (if, else, for, while, True, False, etc.) you CANNOT use as variable names. Also, Python is case sensitive: print ≠ Print ≠ PRINT.",
+            "analogy": "Java has reserved parking spots (keywords) that only the language can use. Convention is the unwritten dress code all Java developers follow — not enforced by the compiler but respected by every team.",
+            "content": "Java has 50+ keywords: int, class, public, static, void, if, else, for, while, true, false, return, new, import, etc. Java conventions: PascalCase for classes, camelCase for variables/methods, UPPER_CASE for constants.",
             "examples": [
-              { "title": "Keywords & Case", "explanation": "The case of every letter matters in Python.", "code": "# These are ALL different:\nscore = 10\nScore = 20\nSCORE = 30\nprint(score)  # 10\nprint(Score)  # 20\nprint(SCORE)  # 30" }
+              { "title": "Naming Conventions Summary", "explanation": "The convention every Java developer follows.", "code": "// Classes — PascalCase:\npublic class PlayerScore { }\n\n// Variables/Methods — camelCase:\nint playerScore = 0;\nvoid calculateDamage() { }\n\n// Constants — UPPER_SNAKE_CASE:\nfinal int MAX_HEALTH = 100;" }
             ],
-            "funFact": "Python 3 has exactly 35 reserved keywords. 'print' used to be a keyword in Python 2 but became a function in Python 3! 🐍"
+            "funFact": "Java has more reserved keywords than Python — 51 vs Python's 35. Keywords like 'goto' and 'const' are reserved but not actually used in Java! They exist to prevent confusion. 🤯"
           }
         ],
         "battle": {
           "enemy": { "name": "SYNTAX WRAITH", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does the # symbol do in Python?",
-              "options": ["Makes text bold", "Creates a hashtag variable", "Starts a comment — Python ignores everything after it", "Multiplies numbers"],
-              "a": 2, "damage": 25, "topic": "Comments",
-              "explanation": "# starts a comment. Python completely ignores everything after # on that line."
+              "q": "How do you write a single-line comment in Java?",
+              "options": ["# This is a comment", "// This is a comment", "<!-- comment -->", "* comment *"],
+              "a": 1, "damage": 25, "topic": "Comments",
+              "explanation": "Comment Syntax: Java uses // for single-line comments. Python uses #. Java also supports /* */ for multi-line blocks."
             },
             {
-              "q": "Which of these is a Python keyword?",
-              "options": ["score", "player", "if", "hello"],
+              "q": "Which naming convention does Java use for class names?",
+              "options": ["camelCase", "snake_case", "PascalCase", "UPPER_CASE"],
+              "a": 2, "damage": 25, "topic": "Conventions",
+              "explanation": "Class Convention: Java class names use PascalCase — every word starts with uppercase: PlayerScore, BattleEngine, DataManager."
+            },
+            {
+              "q": "Which is a valid Java keyword?",
+              "options": ["score", "player", "static", "hello"],
               "a": 2, "damage": 25, "topic": "Keywords",
-              "explanation": "'if' is a reserved keyword used for conditions. You can't use it as a variable name."
+              "explanation": "Keyword Intel: 'static' is a Java keyword defining class-level members. You cannot use Java keywords (int, class, public, static, void etc.) as variable names."
             },
             {
-              "q": "In Python, are 'Name' and 'name' the same variable?",
-              "options": ["Yes, exactly the same", "No, they are completely different variables", "Same in Python 3, different in Python 2", "Depends on the computer"],
-              "a": 1, "damage": 25, "topic": "Case Sensitivity",
-              "explanation": "Python is case sensitive. Different capitalization = different variables."
-            },
-            {
-              "q": "What happens if you write: If x > 5: ?",
-              "options": ["It works fine", "Error — 'If' should be lowercase 'if'", "It creates a variable called If", "Python converts it automatically"],
-              "a": 1, "damage": 25, "topic": "Case Sensitivity",
-              "explanation": "'If' (capital I) is NOT a keyword. Only lowercase 'if' is the keyword. This causes an error."
+              "q": "How do you declare a constant in Java?",
+              "options": ["const MAX = 100;", "final int MAX = 100;", "constant MAX = 100;", "int MAX = 100;"],
+              "a": 1, "damage": 25, "topic": "Constants",
+              "explanation": "Constant Declaration: Java uses the 'final' keyword to declare constants. Once set, a final variable cannot be changed. By convention, constants use UPPER_SNAKE_CASE."
             }
           ]
         },
         "coding": [
           {
-            "title": "Write a Comment",
-            "objective": "What character starts a comment in Python? Type the single character.",
-            "starterCode": "___ This is a comment\nprint('Hello')",
-            "answer": "#",
-            "hint": "It's a single character used before lines Python should ignore."
+            "title": "Single Line Comment",
+            "objective": "What symbol starts a single-line comment in Java?",
+            "starterCode": "___ This is a Java comment",
+            "answer": "//",
+            "hint": "Java uses two forward slashes — different from Python's single #"
           },
           {
-            "title": "Case Check",
-            "objective": "After this code, what does print(name) output?\n\nname = 'Alex'\nName = 'Sam'",
-            "starterCode": "name = 'Alex'\nName = 'Sam'\nprint(name)\n# Output: ___",
-            "answer": "Alex",
-            "hint": "'name' and 'Name' are DIFFERENT variables. print(name) uses the lowercase one."
+            "title": "Constant Declaration",
+            "objective": "What keyword makes a variable's value permanently unchangeable in Java?",
+            "starterCode": "___ int MAX_HP = 100;",
+            "answer": "final",
+            "hint": "This keyword locks the value so it can never be reassigned."
           },
           {
-            "title": "Keyword Check",
-            "objective": "Can you use 'while' as a variable name? Type 'yes' or 'no'.",
-            "starterCode": "while = 10  # Is this valid?\n# Answer: ___",
-            "answer": "no",
-            "hint": "'while' is a reserved Python keyword for loops."
+            "title": "Class Naming",
+            "objective": "Which correctly follows Java's class naming convention?",
+            "starterCode": "// Option A: playerScore\n// Option B: PlayerScore\n// Correct convention: ___",
+            "answer": "PlayerScore",
+            "hint": "Classes use PascalCase — every word starts with uppercase."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nIf score > 10:\n    print('Win')",
-            "brokenCode": "If score > 10:\n    print('Win')",
+            "description": "🚨 Bug:\n\n# This is a comment in Java\nSystem.out.println(\"Hello\");",
+            "brokenCode": "# This is a comment in Java",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'If' must be lowercase 'if' — Python keywords are all lowercase",
-              "Missing semicolon",
-              "print should be Print"
+              "Java uses // not # for single-line comments",
+              "Comments don't exist in Java",
+              "Use <!-- --> for comments"
             ],
-            "answer": "'If' must be lowercase 'if' — Python keywords are all lowercase",
-            "hint": "Python is case sensitive. All keywords are lowercase: if, else, for, while, etc."
+            "answer": "Java uses // not # for single-line comments",
+            "hint": "In Java, single-line comments start with //. Python uses #."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nScore = 5\nprint(score)",
-            "brokenCode": "Score = 5\nprint(score)",
-            "bugLine": 1,
+            "description": "🚨 Bug:\n\nfinal int maxHp = 100;\nmaxHp = 200;",
+            "brokenCode": "maxHp = 200;",
+            "bugLine": 0,
             "options": [
-              "Nothing wrong, it prints 5",
-              "'Score' and 'score' are different — score (lowercase) was never created, so Error",
-              "print needs uppercase P",
-              "5 needs quotes"
+              "Nothing wrong",
+              "'final' variables cannot be reassigned — maxHp is a constant",
+              "Should be int not final int",
+              "200 needs quotes"
             ],
-            "answer": "'Score' and 'score' are different — score (lowercase) was never created, so Error",
-            "hint": "You created 'Score' (capital S) but tried to print 'score' (lowercase s) — they're different!"
+            "answer": "'final' variables cannot be reassigned — maxHp is a constant",
+            "hint": "The 'final' keyword makes a variable a constant — it can never be changed after initialization."
           }
         ],
         "prediction": [
           {
-            "code": "# print('Hidden')\nprint('Visible')",
+            "code": "// System.out.println(\"Hidden\");\nSystem.out.println(\"Visible\");",
             "options": ["Hidden Visible", "Visible", "Hidden", "Error"],
             "answer": "Visible",
-            "explanation": "The first line is a comment (starts with #) so Python skips it entirely. Only 'Visible' is printed."
+            "explanation": "The first line is a comment (starts with //) — Java ignores it. Only 'Visible' is printed."
           },
           {
-            "code": "X = 10\nx = 20\nprint(X + x)",
-            "options": ["10", "20", "30", "Error"],
-            "answer": "30",
-            "explanation": "X = 10 and x = 20 are different variables (case sensitive). X + x = 10 + 20 = 30."
+            "code": "final int x = 10;\nSystem.out.println(x);",
+            "options": ["10", "x", "Error — final can't be printed", "0"],
+            "answer": "10",
+            "explanation": "final just means the value can't be changed — you can still read and print it normally."
           }
         ]
       }
     },
     {
       "id": "1_boss",
-      "title": "THE COMPILER",
-      "subtitle": "BOSS FIGHT — All Level 1",
+      "title": "THE JVM",
+      "subtitle": "BOSS FIGHT — All Level 1 Java",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss1_intro",
-            "title": "⚠️ BOSS — THE COMPILER",
+            "id": "boss_j1_intro",
+            "title": "⚠️ BOSS — THE JVM",
             "emoji": "👾",
-            "analogy": "The Compiler checks every line of your code. One mistake and it REJECTS everything. Prove you've mastered the basics!",
-            "content": "THE COMPILER has absorbed all of Level 1's knowledge: print statements, variables, data types, reassignment, comments, and case sensitivity. Defeat it to earn your 'First Code' badge!",
+            "analogy": "The JVM (Java Virtual Machine) is the ultimate judge. It compiles your code, checks every type, every semicolon, every brace. One mistake and it REJECTS everything. Prove you've mastered Java Level 1!",
+            "content": "THE JVM has absorbed all of Level 1's Java knowledge: program structure, System.out.println, typed variables, data types (int/double/boolean/char/String), Scanner input, and Java style conventions. Defeat it to earn your 'First Java Code' badge!",
             "examples": [
-              { "title": "What you've mastered", "explanation": "Everything from Level 1 will be tested!", "code": "✅ print() & formatting\n✅ Variables & naming rules\n✅ int, float, str, bool\n✅ Reassignment & input\n✅ Comments, keywords, case" }
+              { "title": "What you've mastered", "explanation": "Everything from Java Level 1!", "code": "✅ public class + main() + semicolons\n✅ System.out.println() vs print()\n✅ int, double, boolean, char, String\n✅ Typed variable declarations\n✅ Scanner for user input\n✅ // comments, final, camelCase" }
             ],
-            "funFact": "A real compiler translates ALL your code to machine language before running it. Python uses an interpreter instead (runs line by line)! ⚡"
+            "funFact": "The JVM compiles your Java code to bytecode first, then interprets that bytecode. This is why Java is 'compiled AND interpreted' — and why it can 'Write Once, Run Anywhere'! ⚡"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE COMPILER", "maxHp": 150 },
+          "enemy": { "name": "THE JVM", "maxHp": 150 },
           "mcq": [
             {
-              "q": "What is the output of print(10 + '5')?",
-              "options": ["15", "105", "Error — can't add int and str", "10 + 5"],
-              "a": 2, "damage": 30, "topic": "Type Mixing",
-              "explanation": "You can't add an integer (10) and a string ('5'). Python throws a TypeError."
+              "q": "What is wrong with this code?\npublic class main { }",
+              "options": ["Nothing wrong", "Class name should be capitalized: 'Main' not 'main' (PascalCase)", "Missing semicolon", "public is wrong"],
+              "a": 1, "damage": 30, "topic": "Class naming",
+              "explanation": "Convention Check: Java class names use PascalCase. 'main' (lowercase) doesn't follow convention and will confuse the JVM looking for the main entry point."
             },
             {
-              "q": "After this code, what is result?\nresult = 10\nresult = result * 2\nresult = result - 5",
-              "options": ["10", "20", "15", "5"],
-              "a": 2, "damage": 30, "topic": "Reassignment Chain",
-              "explanation": "10 → 10*2=20 → 20-5=15. Each line overwrites result."
+              "q": "What is the output?\nint x = 4;\nSystem.out.println(x * x);",
+              "options": ["4 * 4", "44", "16", "Error"],
+              "a": 2, "damage": 30, "topic": "Expression",
+              "explanation": "Java evaluates x * x = 4 * 4 = 16 before passing it to println. Output: 16."
             },
             {
-              "q": "Which line has a bug?\nLine 1: name = 'Alex'\nLine 2: Print(name)",
-              "options": ["Line 1", "Line 2 — Print should be print (lowercase)", "Both lines", "Neither"],
-              "a": 1, "damage": 30, "topic": "Case Sensitivity",
-              "explanation": "Python is case sensitive. 'Print' is not a function — only 'print' (lowercase) works."
+              "q": "Which line causes an error?\nLine 1: int score = 100;\nLine 2: score = \"champion\";",
+              "options": ["Line 1", "Line 2 — can't assign String to an int variable", "Both lines", "Neither"],
+              "a": 1, "damage": 30, "topic": "Type safety",
+              "explanation": "Type Error: score was declared as int. Attempting to store a String in it causes a compile-time type mismatch error."
             },
             {
-              "q": "What does type('True') return?",
-              "options": ["<class 'bool'>", "<class 'str'>", "<class 'int'>", "True"],
-              "a": 1, "damage": 30, "topic": "Types Trick",
-              "explanation": "'True' is in QUOTES, so it's a string — not a boolean! type('True') → <class 'str'>."
+              "q": "What does 'final' do when applied to a variable?",
+              "options": ["Deletes it", "Makes it a class", "Prevents it from being reassigned (constant)", "Makes it public"],
+              "a": 2, "damage": 30, "topic": "final keyword",
+              "explanation": "Constant Lock: final makes a variable a constant — its value is set once and can never be changed. Convention: name constants in UPPER_SNAKE_CASE."
             },
             {
-              "q": "x = 5\n# x = 10\nprint(x)",
-              "options": ["5", "10", "15", "Error"],
-              "a": 0, "damage": 30, "topic": "Comments",
-              "explanation": "Line 2 is a comment (starts with #), so Python ignores it. x stays as 5."
+              "q": "What is output of: System.out.println(\"Score: \" + 100);",
+              "options": ["Score: + 100", "Score: 100", "100", "Error"],
+              "a": 1, "damage": 30, "topic": "String + int",
+              "explanation": "Concatenation: When + is used between a String and a number, Java converts the number to String and concatenates. \"Score: \" + 100 = \"Score: 100\"."
             }
           ]
         },
         "coding": [
           {
-            "title": "Boss Challenge: What's the Type?",
-            "objective": "What data type is the value False? Type: int, float, str, or bool.",
-            "starterCode": "x = False\ntype(x) = ___",
-            "answer": "bool",
-            "hint": "False (with capital F) is one of the two boolean values."
+            "title": "Boss Challenge: Type the Declaration",
+            "objective": "Declare a double variable 'gpa' with value 3.8. What type keyword goes first?",
+            "starterCode": "___ gpa = 3.8;",
+            "answer": "double",
+            "hint": "double is Java's type for decimal numbers."
           },
           {
-            "title": "Boss Challenge: Chain Math",
-            "objective": "x = 5, then x = x * 4, then x = x - 10. What is x?",
-            "starterCode": "x = 5\nx = x * 4\nx = x - 10\nprint(x)\n# Output: ___",
-            "answer": "10",
-            "hint": "5 * 4 = 20. Then 20 - 10 = 10."
+            "title": "Boss Challenge: Complete the Program",
+            "objective": "What is the entry point method name in a Java program?",
+            "starterCode": "public class Main {\n    public static void ___(String[] args) {\n        System.out.println(\"Go!\");\n    }\n}",
+            "answer": "main",
+            "hint": "It's the one method the JVM looks for to start execution."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 BOSS BUG:\n\nfor = 10\nprint(for)",
-            "brokenCode": "for = 10\nprint(for)",
+            "description": "🚨 BOSS BUG:\n\npublic class Main {\n    public static void main(String[] args) {\n        int score = 0\n        score = score + 10;\n        System.out.println(score);\n    }\n}",
+            "brokenCode": "int score = 0",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'for' is a reserved keyword — you can't use it as a variable name",
-              "10 should be in quotes",
-              "print needs to be capitalized"
+              "Missing semicolon after 'int score = 0'",
+              "score should be a String",
+              "0 is invalid for int"
             ],
-            "answer": "'for' is a reserved keyword — you can't use it as a variable name",
-            "hint": "'for' is used for loops in Python — it's a reserved keyword."
+            "answer": "Missing semicolon after 'int score = 0'",
+            "hint": "Every Java statement ends with ; — including variable declarations."
           }
         ],
         "prediction": [
           {
-            "code": "a = '3'\nb = 3\n# print(a + b)\nprint(a * b)",
-            "options": ["333", "9", "Error", "3 3 3"],
-            "answer": "333",
-            "explanation": "Line 3 is a comment. a * b = '3' * 3 = '333' (string repeated 3 times!)."
+            "code": "int a = 3;\nint b = 4;\nSystem.out.println(a + b);\nSystem.out.println(\"\" + a + b);",
+            "options": ["7 and 7", "7 and 34", "34 and 7", "Error"],
+            "answer": "7 and 34",
+            "explanation": "a + b with two ints = 7. But \"\" + a + b starts string concatenation: \"\" + 3 = \"3\", then \"3\" + 4 = \"34\". Order matters!"
           }
         ]
       }

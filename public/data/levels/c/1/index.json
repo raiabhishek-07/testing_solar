@@ -1,689 +1,694 @@
 {
-  "label": "LEVEL 1: FIRST CODE (Basic Syntax)",
+  "label": "LEVEL 1: FIRST CODE (Basic C Syntax)",
   "sublevels": [
     {
       "id": "1_1",
-      "title": "STRUCTURE & PRINT",
-      "subtitle": "Your first lines of code",
+      "title": "C STRUCTURE",
+      "subtitle": "Your first C program",
       "icon": "Terminal",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c1",
-            "title": "Structure of a Basic Program",
+            "id": "c1c1",
+            "title": "The C Program Skeleton",
             "emoji": "🏗️",
-            "analogy": "A program is like a recipe card — it reads FROM TOP TO BOTTOM, one line at a time. Line 1 runs first, then Line 2, etc.",
-            "content": "Every Python program starts from the top line and runs downward. There's no special setup needed — just write your instructions and Python runs them in order!",
+            "analogy": "A C program is like a recipe card with strict requirements — it MUST start with ingredients list (#include), have a main kitchen (main function), and every instruction ends with a semicolon. Skip any part and the recipe fails!",
+            "content": "Every C program has the same skeleton: #include directives at the top, then the main() function where execution begins, and return 0; at the end to signal success. This structure is non-negotiable.",
             "examples": [
-              { "title": "Top-to-Bottom Execution", "explanation": "Python runs lines 1 → 2 → 3 in order.", "code": "print('Line ONE')\nprint('Line TWO')\nprint('Line THREE')" }
+              { "title": "Minimal C Program", "explanation": "This is the smallest valid C program. Every part is necessary.", "code": "#include <stdio.h>\n\nint main() {\n    printf(\"Hello World\\n\");\n    return 0;\n}" },
+              { "title": "Python vs C", "explanation": "C requires much more explicit structure than Python.", "code": "# Python (1 line):\nprint(\"Hello World\")\n\n// C (6 lines):\n#include <stdio.h>\nint main() {\n    printf(\"Hello World\\n\");\n    return 0;\n}" }
             ],
-            "funFact": "Python doesn't use semicolons or curly braces — just clean, readable lines! That's why it's popular. 🐍"
+            "funFact": "C was created in 1972 by Dennis Ritchie at Bell Labs. The Unix operating system itself was rewritten in C — making C the mother of modern computing! 🖥️"
           },
           {
-            "id": "l1c2",
-            "title": "Print Statements",
+            "id": "c1c2",
+            "title": "printf() — C's Output Function",
             "emoji": "📢",
-            "analogy": "The print() function is like a loudspeaker. You give it text, and it SHOUTS it onto the screen!",
-            "content": "print() is the most used function in Python. It takes whatever you put inside the parentheses and displays it on the screen. Text must be inside quotes.",
+            "analogy": "printf() is C's megaphone. The 'f' stands for 'formatted' — because unlike Python's print(), C's printf() needs you to specify the FORMAT of every value you print using special codes called format specifiers.",
+            "content": "printf() prints text to the screen. String text goes in double quotes. Use \\n to go to a new line. To print variables, use format specifiers like %d for integers and %s for strings.",
             "examples": [
-              { "title": "Basic Print", "explanation": "Anything inside quotes is displayed exactly as written.", "code": "print('Hello World!')\nprint(\"My name is Neo\")" },
-              { "title": "Print Numbers", "explanation": "Numbers don't need quotes!", "code": "print(42)\nprint(3.14)" }
+              { "title": "Basic printf", "explanation": "\\n is the newline character — like pressing Enter.", "code": "printf(\"Hello World\\n\");  // Hello World + new line\nprintf(\"No newline\");      // stays on same line\nprintf(\"Line 2\\n\");       // Line 2" },
+              { "title": "printf with Variables", "explanation": "Format specifiers tell printf what type of variable to print.", "code": "int age = 20;\nprintf(\"Age: %d\\n\", age);   // Age: 20\n\nfloat price = 9.99;\nprintf(\"Price: %f\\n\", price); // Price: 9.990000" }
             ],
-            "funFact": "The very first 'Hello World' program was written in 1978 by Brian Kernighan! 🌍"
+            "funFact": "printf() stands for 'print formatted'. The % format specifiers are what make it powerful — %d, %f, %s, %c each handle a different data type! 🎯"
           },
           {
-            "id": "l1c3",
-            "title": "Output Formatting",
-            "emoji": "🎨",
-            "analogy": "Output formatting is like decorating a cake — the content stays the same, but you control HOW it looks.",
-            "content": "You can print multiple things using commas (adds spaces automatically) or use '+' to glue strings together (no space added). You can also use f-strings for mixing text and variables.",
+            "id": "c1c3",
+            "title": "#include & return 0",
+            "emoji": "⚙️",
+            "analogy": "#include is like bringing a toolbox into the kitchen before you cook. Without it, the tools (functions like printf) don't exist. return 0 is like signing off — telling the OS the program finished successfully.",
+            "content": "#include <stdio.h> gives access to input/output functions like printf and scanf. The 'h' means header file. return 0 in main() tells the operating system the program ended without errors.",
             "examples": [
-              { "title": "Comma vs Plus", "explanation": "Comma adds a space. Plus glues directly.", "code": "print('Hello', 'World')   # Hello World\nprint('Hello' + 'World')  # HelloWorld" },
-              { "title": "F-Strings", "explanation": "f-strings let you embed variables inside text.", "code": "name = 'Alex'\nprint(f'Hi, {name}!')  # Hi, Alex!" }
+              { "title": "Headers & Return", "explanation": "Always include what you need. Always return from main.", "code": "#include <stdio.h>  // standard input/output\n#include <math.h>   // math functions: sqrt, pow, etc.\n\nint main() {\n    printf(\"Ready!\\n\");\n    return 0;  // 0 = success, any other number = error\n}" }
             ],
-            "funFact": "F-strings were added in Python 3.6 (2016). Before that, formatting was MUCH harder! 😅"
+            "funFact": "In C, return 0 is a signal to the OS. Scripts and programs check this 'exit code'. return 1 or higher means something went wrong — powerful for automation! 🤖"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE PRINTER", "maxHp": 100 },
+          "enemy": { "name": "THE COMPILER GATE", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does print('Hello') do?",
-              "options": ["Creates a variable called Hello", "Displays 'Hello' on the screen", "Saves 'Hello' to a file", "Sends an email"],
-              "a": 1, "damage": 20, "topic": "Print",
-              "explanation": "print() displays whatever is inside the parentheses onto the screen."
+              "q": "Which line gives C access to printf() and scanf()?",
+              "options": ["import stdio", "#include <stdio.h>", "using stdio;", "load print"],
+              "a": 1, "damage": 20, "topic": "Header",
+              "explanation": "Header Intel: #include <stdio.h> loads the Standard Input/Output library, which contains printf(), scanf(), and other essential functions. Without it, those functions don't exist."
             },
             {
-              "q": "Which of these will Python run FIRST?",
-              "options": ["The last line", "The middle line", "The first line", "All at once"],
-              "a": 2, "damage": 20, "topic": "Program Structure",
-              "explanation": "Python reads top-to-bottom. The first line always runs first."
+              "q": "Where does a C program always start executing?",
+              "options": ["The first #include line", "The main() function", "The last line", "Wherever you tell it"],
+              "a": 1, "damage": 20, "topic": "main()",
+              "explanation": "Entry Point: C always starts at main(). No matter how many functions you write, execution begins inside main() and flows from there."
             },
             {
-              "q": "What is the output of: print('5' + '3')?",
-              "options": ["8", "53", "5 + 3", "Error"],
-              "a": 1, "damage": 20, "topic": "Output Formatting",
-              "explanation": "'5' and '3' are strings (in quotes), so + glues them together: '53'."
+              "q": "What does 'return 0;' mean in main()?",
+              "options": ["Reset to zero", "Print nothing", "Signal to the OS that the program finished successfully", "End the loop"],
+              "a": 2, "damage": 20, "topic": "return",
+              "explanation": "Exit Code: return 0 tells the operating system the program completed without errors. Non-zero return values indicate errors — used in shell scripts and automation."
             },
             {
-              "q": "What does the 'f' in f'Hello {name}' do?",
-              "options": ["Makes text bold", "Formats the string so variables inside {} are replaced with their values", "Creates a file", "Deletes the variable"],
-              "a": 1, "damage": 20, "topic": "F-Strings",
-              "explanation": "f-strings let you embed variables directly inside curly braces {} within a string."
+              "q": "How do you print a new line in printf()?",
+              "options": ["\\t", "\\n", "/n", "endl"],
+              "a": 1, "damage": 20, "topic": "Newline",
+              "explanation": "Escape Sequence: \\n is the newline escape sequence. It moves the cursor to the next line. \\t is tab, \\\\ is a backslash. C uses these escape sequences in strings."
             },
             {
-              "q": "Text inside print() must be wrapped in ___.",
-              "options": ["Parentheses", "Quotes", "Square brackets", "Curly braces"],
-              "a": 1, "damage": 20, "topic": "Print Syntax",
-              "explanation": "String text must be inside single quotes '' or double quotes \"\" to work in print()."
+              "q": "Which is the correct C output statement?",
+              "options": ["print(\"Hello\");", "System.out.println(\"Hello\");", "printf(\"Hello\\n\");", "echo \"Hello\""],
+              "a": 2, "damage": 20, "topic": "printf",
+              "explanation": "C Output: printf() is C's standard output function from stdio.h. Unlike Python's print() or Java's System.out.println(), C requires \\n explicitly for new lines."
             }
           ]
         },
         "coding": [
           {
-            "title": "Your First Print",
-            "objective": "What function displays text on the screen in Python? Type just the function name.",
-            "starterCode": "___(\"Hello World\")",
-            "answer": "print",
-            "hint": "It rhymes with 'mint' and starts with 'p'."
+            "title": "The Required Header",
+            "objective": "What header gives access to printf()? Fill in the library name.",
+            "starterCode": "#include <___>",
+            "answer": "stdio.h",
+            "hint": "Standard Input/Output — the .h means header file."
           },
           {
-            "title": "Fix the Quote",
-            "objective": "What kind of characters must surround text in a print statement? Type the answer.",
-            "starterCode": "print(___Hello World___)",
-            "answer": "quotes",
-            "hint": "Either single ' or double \" characters wrap text."
+            "title": "Add the Newline",
+            "objective": "What escape sequence moves to a new line inside printf()?",
+            "starterCode": "printf(\"Hello World___\");",
+            "answer": "\\n",
+            "hint": "Backslash + the letter n."
           },
           {
-            "title": "Predict the Glue",
-            "objective": "What does print('Code' + 'Clash') output? Type the exact output.",
-            "starterCode": "print('Code' + 'Clash')\n# Output: ___",
-            "answer": "CodeClash",
-            "hint": "The + operator glues strings together WITHOUT adding a space."
+            "title": "Return Success",
+            "objective": "What value does main() return to signal successful completion?",
+            "starterCode": "int main() {\n    printf(\"Done\\n\");\n    return ___;\n}",
+            "answer": "0",
+            "hint": "Zero means success, non-zero means error."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nPrint('Hello World')\n\nWhat is the bug?",
-            "brokenCode": "Print('Hello World')",
+            "description": "🚨 Bug:\n\nint main() {\n    printf(\"Hello\\n\");\n    return 0;\n}",
+            "brokenCode": "int main() {",
             "bugLine": 0,
             "options": [
-              "Nothing wrong, it works fine",
-              "The 'P' in Print should be lowercase: print",
-              "The quotes should be removed",
-              "You need parentheses around Print"
+              "Nothing wrong",
+              "Missing #include <stdio.h> — printf is undefined without it",
+              "main should be Main",
+              "return 0 should be return 1"
             ],
-            "answer": "The 'P' in Print should be lowercase: print",
-            "hint": "Python is CASE SENSITIVE. Built-in functions are all lowercase."
+            "answer": "Missing #include <stdio.h> — printf is undefined without it",
+            "hint": "printf() lives in stdio.h. Without the #include, the compiler doesn't know what printf is."
           },
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nprint(Hello World)\n\nWhat is the bug?",
-            "brokenCode": "print(Hello World)",
+            "description": "🚨 Bug:\n\n#include <stdio.h>\nint main() {\n    printf(\"Hello\\n\")\n    return 0;\n}",
+            "brokenCode": "printf(\"Hello\\n\")",
             "bugLine": 0,
             "options": [
-              "Missing quotes around Hello World",
-              "Missing semicolon",
-              "print should be uppercase",
-              "Need to add import statement"
+              "Nothing wrong",
+              "Missing semicolon after printf() — every C statement ends with ;",
+              "printf should be Printf",
+              "\\n should be removed"
             ],
-            "answer": "Missing quotes around Hello World",
-            "hint": "Text must be in quotes: 'Hello World' or \"Hello World\"."
+            "answer": "Missing semicolon after printf() — every C statement ends with ;",
+            "hint": "In C, every statement ends with a semicolon ; including printf calls."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\n#include <stdio.h>\nvoid main() {\n    printf(\"Hi\\n\");\n    return 0;\n}",
+            "brokenCode": "void main() {",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "main() should return int, not void — use: int main()",
+              "Hi should be in single quotes",
+              "return 0 is wrong"
+            ],
+            "answer": "main() should return int, not void — use: int main()",
+            "hint": "C's main() must have return type 'int' because it returns an exit code to the OS."
           }
         ],
         "prediction": [
           {
-            "code": "print('First')\nprint('Second')\nprint('Third')",
-            "options": ["Third Second First", "First Second Third", "First", "Error"],
-            "answer": "First Second Third",
-            "explanation": "Python runs top-to-bottom. Line 1 prints 'First', Line 2 prints 'Second', Line 3 prints 'Third'."
+            "code": "#include <stdio.h>\nint main() {\n    printf(\"C \");\n    printf(\"is \");\n    printf(\"powerful\\n\");\n    return 0;\n}",
+            "options": ["C\\nis\\npowerful", "C is powerful", "powerful is C", "Error"],
+            "answer": "C is powerful",
+            "explanation": "printf() without \\n stays on the same line. All three printf calls print on one line: 'C is powerful'."
           },
           {
-            "code": "print(10 + 5)\nprint('10' + '5')",
-            "options": ["15 and 15", "15 and 105", "105 and 15", "Error"],
-            "answer": "15 and 105",
-            "explanation": "10 + 5 = 15 (numbers add). '10' + '5' = '105' (strings concatenate/glue)."
+            "code": "#include <stdio.h>\nint main() {\n    printf(\"Line 1\\n\");\n    printf(\"Line 2\\n\");\n    return 0;\n}",
+            "options": ["Line 1 Line 2", "Line 1\\nLine 2", "Line 1↵Line 2", "Error"],
+            "answer": "Line 1↵Line 2",
+            "explanation": "Each printf has \\n which moves to a new line. Output is two separate lines: Line 1 then Line 2."
           }
         ]
       }
     },
     {
       "id": "1_2",
-      "title": "VARIABLES",
-      "subtitle": "Named boxes in memory",
+      "title": "C VARIABLES",
+      "subtitle": "Typed declarations in C",
       "icon": "Box",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c4",
-            "title": "What Are Variables?",
+            "id": "c1c4",
+            "title": "Variables in C — Always Declare First",
             "emoji": "📦",
-            "analogy": "A variable is a labeled box. You give it a name (the label) and store a value (the contents) inside it. Later, you can peek inside using the label.",
-            "content": "Variables store data in your computer's memory with a name. You can create them, change them, and use them anytime. In Python, you just write: name = value.",
+            "analogy": "In C, declaring a variable is like booking a hotel room. You specify the room type (int, float, char) and room number (variable name) BEFORE you check in (assign a value). No booking = no room!",
+            "content": "C requires you to declare the type of every variable before using it. The format is: type name = value; or type name; then assign later. In classic C (C89), declarations must come BEFORE any statements in a block.",
             "examples": [
-              { "title": "Creating Variables", "explanation": "The = sign means 'put this value into this box'.", "code": "score = 100\nplayer = 'Neo'\nprint(score)   # 100\nprint(player)  # Neo" }
+              { "title": "C Variable Declarations", "explanation": "Type must come first, always.", "code": "int score = 100;\nfloat price = 9.99;\nchar grade = 'A';\ndouble pi = 3.14159;\n\n// Or declare first, assign later:\nint lives;\nlives = 3;" },
+              { "title": "Python vs C Variables", "explanation": "C is explicit about types — Python infers them.", "code": "# Python:\nx = 5\nname = \"Alex\"\n\n// C:\nint x = 5;\nchar name[] = \"Alex\";" }
             ],
-            "funFact": "Unlike Java or C, Python figures out the data type automatically — you never need to declare it! 🧠"
+            "funFact": "In C89/C90, ALL variable declarations must be at the TOP of a function block — before any executable statements. C99 and later relaxed this rule. Many old codebases still use C89 style! 📜"
           },
           {
-            "id": "l1c5",
-            "title": "Naming Rules for Variables",
+            "id": "c1c5",
+            "title": "Naming Rules & Reassignment",
             "emoji": "📝",
-            "analogy": "Variable names are like hashtags: they can have letters, numbers, and underscores, but NO spaces and can't start with a number.",
-            "content": "Rules: 1) Must start with a letter or underscore. 2) Can contain letters, numbers, underscores. 3) NO spaces or special characters. 4) Case sensitive (Score ≠ score). 5) Can't use Python keywords (if, for, while).",
+            "analogy": "C variable names are like street addresses — must be unique, start with a letter or underscore, no spaces, no special characters. C convention uses snake_case: player_score, max_health, is_active.",
+            "content": "Rules: start with letter or _, no spaces, case sensitive. C convention is snake_case (underscores between words). You can reassign without re-stating the type. Type never changes after declaration.",
             "examples": [
-              { "title": "Valid vs Invalid Names", "explanation": "Learn the pattern!", "code": "✅ my_score = 10\n✅ _name = 'Alex'\n✅ player2 = 'Neo'\n❌ 2player = 'Bad'   # starts with number\n❌ my score = 'Bad'  # has a space\n❌ if = 10           # 'if' is a keyword" }
+              { "title": "C Naming Convention", "explanation": "C uses snake_case — different from Java's camelCase.", "code": "int player_score = 0;    // snake_case ✅\nfloat item_price = 9.99; // snake_case ✅\nchar first_name[20];     // snake_case ✅\n\n// Reassign — no type keyword:\nplayer_score = 100;\nplayer_score = player_score + 50;" },
+              { "title": "Case Sensitivity", "explanation": "C treats uppercase and lowercase as different.", "code": "int Score = 10;\nint score = 20;\nint SCORE = 30;\n// ALL three are different variables in C!" }
             ],
-            "funFact": "Python has 35 reserved keywords you can't use as variable names. 'if', 'else', 'for' are some! 🚫"
-          },
-          {
-            "id": "l1c6",
-            "title": "Assigning Values",
-            "emoji": "🎯",
-            "analogy": "The = sign in Python doesn't mean 'equals' like in math. It means 'PUT this value INTO this box'. Think of it as an arrow: box ← value.",
-            "content": "Assignment uses = to store values. You can assign numbers, text, booleans, or even calculations. Python evaluates the RIGHT side first, then stores it LEFT.",
-            "examples": [
-              { "title": "Assignment Flow", "explanation": "Right side is calculated first, then stored in the left.", "code": "x = 5 + 3        # x stores 8\nname = 'Neo'      # name stores 'Neo'\nis_hero = True    # is_hero stores True" }
-            ],
-            "funFact": "You can assign multiple variables in one line: a, b, c = 1, 2, 3 🎯"
+            "funFact": "C variables that start with an underscore and uppercase letter (like _Score) are reserved for the C standard library. Avoid using them in your own code! ⚠️"
           }
         ],
         "battle": {
           "enemy": { "name": "THE MEMORY GHOST", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does this line do? score = 100",
-              "options": ["Checks if score equals 100", "Creates a variable named 'score' and stores 100 in it", "Prints 100", "Deletes the value 100"],
-              "a": 1, "damage": 20, "topic": "Variables",
-              "explanation": "The = sign means 'Store the value 100 into a variable called score'."
+              "q": "Which is the correct C variable declaration?",
+              "options": ["score = 100", "var score = 100;", "int score = 100;", "integer score = 100;"],
+              "a": 2, "damage": 20, "topic": "Declaration",
+              "explanation": "C Syntax: int declares the type, score is the name, 100 is the value, ; ends the statement. You cannot skip the type in C."
             },
             {
-              "q": "Which of these is a VALID variable name?",
-              "options": ["2fast", "my score", "player_name", "for"],
-              "a": 2, "damage": 20, "topic": "Naming Rules",
-              "explanation": "player_name uses only letters and underscores, starts with a letter — valid! Others break rules."
+              "q": "Which follows C's naming convention?",
+              "options": ["playerScore", "PlayerScore", "player_score", "PLAYER-SCORE"],
+              "a": 2, "damage": 20, "topic": "Naming",
+              "explanation": "C Convention: C traditionally uses snake_case — all lowercase with underscores between words: player_score, max_health. Java uses camelCase, C uses snake_case."
             },
             {
-              "q": "After x = 5 + 3, what is x?",
-              "options": ["5 + 3", "53", "8", "Error"],
-              "a": 2, "damage": 20, "topic": "Assignment",
-              "explanation": "Python calculates 5 + 3 = 8 on the right, then stores 8 in x."
+              "q": "After 'int x = 5;', can you write 'x = 3.7;'?",
+              "options": ["Yes, C converts automatically", "It assigns 3 (truncates the decimal)", "Compile error — can't assign float to int directly", "Yes, x becomes 3.7"],
+              "a": 1, "damage": 20, "topic": "Type truncation",
+              "explanation": "Type Warning: Assigning 3.7 to an int truncates the decimal — x gets 3, not 3.7. C may warn but won't always error. This is a common source of silent bugs!"
             },
             {
-              "q": "Is 'Score' the same as 'score' in Python?",
-              "options": ["Yes, they are the same", "No, Python is case sensitive — they are different variables", "Only in Python 2", "Depends on the computer"],
-              "a": 1, "damage": 20, "topic": "Case Sensitivity",
-              "explanation": "Python treats uppercase and lowercase as different. Score ≠ score ≠ SCORE."
+              "q": "What does 'int lives; lives = 3;' do?",
+              "options": ["Error — must assign on declaration", "Declares lives first (undefined value), then assigns 3", "Prints 3", "Creates two variables"],
+              "a": 1, "damage": 20, "topic": "Declaration vs Assignment",
+              "explanation": "Separate Steps: In C you can declare without initializing, then assign later. But be careful — uninitialized variables have garbage values in C, not 0!"
             },
             {
-              "q": "Why can't you use 'if' as a variable name?",
-              "options": ["It's too short", "It starts with 'i'", "It's a reserved Python keyword", "It has no vowels"],
-              "a": 2, "damage": 20, "topic": "Keywords",
-              "explanation": "'if' is a Python keyword used for conditions. Keywords can't be used as variable names."
+              "q": "Is 'Score' the same variable as 'score' in C?",
+              "options": ["Yes, C ignores case", "No, C is case sensitive — they are different", "Only if on the same line", "Depends on the compiler"],
+              "a": 1, "damage": 20, "topic": "Case sensitivity",
+              "explanation": "Case Intel: C is fully case sensitive. Score, score, and SCORE are three completely different variable names."
             }
           ]
         },
         "coding": [
           {
-            "title": "Create a Variable",
-            "objective": "Create a variable called 'age' that stores the number 12. What goes on the right side of: age = ___?",
-            "starterCode": "age = ___",
-            "answer": "12",
-            "hint": "Just type the number. No quotes needed for numbers."
+            "title": "Integer Declaration",
+            "objective": "What type keyword declares a whole number variable in C?",
+            "starterCode": "___ health = 100;",
+            "answer": "int",
+            "hint": "Same as Java — int for integers."
           },
           {
-            "title": "Spot the Valid Name",
-            "objective": "Is '_secret' a valid variable name? Type 'yes' or 'no'.",
-            "starterCode": "_secret = 42\n# Valid? ___",
-            "answer": "yes",
-            "hint": "Variable names CAN start with an underscore."
+            "title": "Float Declaration",
+            "objective": "What C type stores decimal numbers with single precision?",
+            "starterCode": "___ speed = 9.8;",
+            "answer": "float",
+            "hint": "4 bytes, single precision decimal — shorter than double."
           },
           {
-            "title": "Calculate & Assign",
-            "objective": "What value is stored in 'result' after this code? result = 10 * 3",
-            "starterCode": "result = 10 * 3\nprint(result)\n# Output: ___",
-            "answer": "30",
-            "hint": "Python calculates 10 * 3 = 30, then stores 30 in result."
+            "title": "Reassign Only",
+            "objective": "After 'int score = 0;', reassign score to 50 (no type keyword).",
+            "starterCode": "int score = 0;\n___ = 50;",
+            "answer": "score",
+            "hint": "Just use the variable name — no type needed for reassignment."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\n1score = 100",
-            "brokenCode": "1score = 100",
+            "description": "🚨 Bug:\n\nx = 42;",
+            "brokenCode": "x = 42;",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "Variable names can't START with a number — rename to score1",
-              "100 should be in quotes",
-              "Need to add 'var' keyword"
+              "Missing type declaration — should be: int x = 42;",
+              "42 should be in quotes",
+              "Need 'var' keyword"
             ],
-            "answer": "Variable names can't START with a number — rename to score1",
-            "hint": "Rule: Variable names must start with a letter or underscore, never a number."
+            "answer": "Missing type declaration — should be: int x = 42;",
+            "hint": "In C, every variable must be declared with its type before first use."
           },
           {
             "type": "mcq",
-            "description": "🚨 This code has an error:\n\nmy name = 'Alex'",
-            "brokenCode": "my name = 'Alex'",
+            "description": "🚨 Bug:\n\nfloat radius = 5;\nprintf(\"%d\\n\", radius);",
+            "brokenCode": "printf(\"%d\\n\", radius);",
             "bugLine": 0,
             "options": [
-              "Names can't have spaces — use my_name instead",
-              "Alex should not be in quotes",
-              "Use MY NAME instead",
-              "Nothing wrong"
+              "Nothing wrong",
+              "Wrong format specifier — use %f for float, not %d",
+              "radius should be int",
+              "printf needs a semicolon"
             ],
-            "answer": "Names can't have spaces — use my_name instead",
-            "hint": "Variable names cannot contain spaces. Use underscores instead."
+            "answer": "Wrong format specifier — use %f for float, not %d",
+            "hint": "%d is for integers (int). For float/double, use %f."
           }
         ],
         "prediction": [
           {
-            "code": "x = 10\ny = 20\nprint(x + y)",
-            "options": ["1020", "30", "xy", "Error"],
-            "answer": "30",
-            "explanation": "x stores 10, y stores 20. x + y = 10 + 20 = 30 (number addition)."
+            "code": "int x = 10;\nint y = 3;\nprintf(\"%d\\n\", x + y);",
+            "options": ["103", "13", "x + y", "Error"],
+            "answer": "13",
+            "explanation": "x = 10, y = 3. x + y = 13. %d prints it as integer. Output: 13."
           },
           {
-            "code": "name = 'Code'\ntag = 'Clash'\nprint(name + tag)",
-            "options": ["Code Clash", "CodeClash", "name + tag", "Error"],
-            "answer": "CodeClash",
-            "explanation": "name stores 'Code', tag stores 'Clash'. + glues strings: 'CodeClash' (no space)."
+            "code": "int hp = 100;\nhp = hp - 30;\nhp = hp - 20;\nprintf(\"%d\\n\", hp);",
+            "options": ["100", "70", "50", "Error"],
+            "answer": "50",
+            "explanation": "100 - 30 = 70, then 70 - 20 = 50. Each line reassigns hp. printf with %d prints the integer."
           }
         ]
       }
     },
     {
       "id": "1_3",
-      "title": "DATA TYPES",
-      "subtitle": "int, float, string, boolean",
+      "title": "C DATA TYPES",
+      "subtitle": "Types & format specifiers",
       "icon": "Shapes",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c7",
-            "title": "The 4 Basic Data Types",
+            "id": "c1c6",
+            "title": "C's Core Data Types",
             "emoji": "🧬",
-            "analogy": "Data types are like jars in a kitchen: one jar holds flour (integers), one holds syrup (floats), one holds labels (strings), and one is a switch (boolean — ON or OFF).",
-            "content": "Python has 4 fundamental types: int (whole numbers), float (decimal numbers), str (text), and bool (True or False). Python auto-detects the type — you don't declare it!",
+            "analogy": "C's types are like different-sized boxes: int is a medium box (4 bytes), char is a tiny box (1 byte, one character), float is a glass container for decimals (4 bytes), double is an extra-large glass container (8 bytes, more precision).",
+            "content": "C's 4 fundamental types: int (whole numbers), float (single-precision decimals), double (double-precision decimals), char (single character). C has NO built-in boolean or String type — you simulate them!",
             "examples": [
-              { "title": "The 4 Types", "explanation": "Each type stores a different kind of data.", "code": "age = 18          # int (whole number)\nprice = 9.99      # float (decimal)\nname = 'Alex'     # str (text in quotes)\nis_alive = True   # bool (True or False)" }
+              { "title": "The 4 Core Types", "explanation": "Each type has a fixed size in memory.", "code": "int lives = 3;          // 4 bytes, whole numbers\nfloat speed = 9.8;      // 4 bytes, ~7 decimal digits\ndouble pi = 3.14159265; // 8 bytes, ~15 decimal digits\nchar grade = 'A';       // 1 byte, single character" },
+              { "title": "Type Sizes", "explanation": "sizeof() returns bytes used by a type.", "code": "printf(\"%lu\\n\", sizeof(int));    // 4\nprintf(\"%lu\\n\", sizeof(float));  // 4\nprintf(\"%lu\\n\", sizeof(double)); // 8\nprintf(\"%lu\\n\", sizeof(char));   // 1" }
             ],
-            "funFact": "You can check any variable's type using type(). Try type(3.14) — it returns <class 'float'>! 🔍"
+            "funFact": "C has NO boolean type by default! Programmers use int — where 0 means false and any non-zero means true. C99 added <stdbool.h> for proper bool support. 🔢"
           },
           {
-            "id": "l1c8",
-            "title": "Integers & Floats",
-            "emoji": "🔢",
-            "analogy": "Integers are coins (whole, no fractions). Floats are liquid — they can fill any decimal point.",
-            "content": "int: 0, 5, -100, 9999. No decimal point. float: 3.14, 0.5, -2.7. Always has a decimal. Mixing int + float gives a float result.",
+            "id": "c1c7",
+            "title": "Format Specifiers — The Key to printf/scanf",
+            "emoji": "🎯",
+            "analogy": "Format specifiers are like translation codes between C and the screen. When you tell printf '%d', it's saying 'translate this number as an integer'. Get the code wrong and you get garbage output!",
+            "content": "Every type has a format specifier: %d for int, %f for float/double, %c for char, %s for char arrays (strings). Use these in printf() to display and scanf() to read values.",
             "examples": [
-              { "title": "Int vs Float Math", "explanation": "When you mix them, Python converts to float.", "code": "print(5 + 3)     # 8 (int)\nprint(5 + 3.0)   # 8.0 (float!)\nprint(10 / 3)    # 3.333... (always float)" }
+              { "title": "Format Specifier Table", "explanation": "Each type has its own code.", "code": "int n = 42;\nfloat f = 3.14;\nchar c = 'X';\nchar s[] = \"Hello\";\n\nprintf(\"%d\\n\", n);  // 42\nprintf(\"%f\\n\", f);  // 3.140000\nprintf(\"%c\\n\", c);  // X\nprintf(\"%s\\n\", s);  // Hello" },
+              { "title": "Controlling Decimal Places", "explanation": "You can format float output.", "code": "float price = 9.99;\nprintf(\"%.2f\\n\", price); // 9.99 (2 decimal places)\nprintf(\"%.0f\\n\", price); // 10  (0 decimal places)" }
             ],
-            "funFact": "Division (/) ALWAYS returns a float in Python 3, even 10 / 2 = 5.0! Use // for integer division. 🤓"
-          },
-          {
-            "id": "l1c9",
-            "title": "Strings & Booleans",
-            "emoji": "💬",
-            "analogy": "Strings are necklaces of characters strung together. Booleans are light switches — either ON (True) or OFF (False), nothing in between.",
-            "content": "Strings hold text wrapped in quotes. Booleans hold exactly one of two values: True or False (capital T and F). Booleans are the foundation of all decisions in programming.",
-            "examples": [
-              { "title": "Strings & Bools", "explanation": "Note: True and False must be capitalized!", "code": "greeting = 'Hello'\nis_cool = True\nis_boring = False\n\n# WRONG:\n# is_cool = true    # ERROR! Capital T needed" }
-            ],
-            "funFact": "In Python, empty strings '' are 'falsy' — they act like False in conditions! 🤯"
+            "funFact": "Using the WRONG format specifier with printf() in C causes 'undefined behavior' — anything can happen, from garbage output to a crash. C does NOT protect you from this! ⚠️"
           }
         ],
         "battle": {
           "enemy": { "name": "TYPE SHIFTER", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What data type is 3.14?",
-              "options": ["int", "str", "float", "bool"],
-              "a": 2, "damage": 20, "topic": "Float",
-              "explanation": "3.14 has a decimal point — that makes it a float (floating-point number)."
+              "q": "Which format specifier prints an integer in C?",
+              "options": ["%s", "%f", "%d", "%c"],
+              "a": 2, "damage": 20, "topic": "Format specifier",
+              "explanation": "Format Intel: %d is the format specifier for int (decimal integer). %f is for float/double, %c for char, %s for strings (char arrays)."
             },
             {
-              "q": "What data type is 'Hello'?",
-              "options": ["int", "str", "bool", "float"],
-              "a": 1, "damage": 20, "topic": "String",
-              "explanation": "Text inside quotes is always a string (str)."
+              "q": "What is the size of a char in C?",
+              "options": ["4 bytes", "8 bytes", "2 bytes", "1 byte"],
+              "a": 3, "damage": 20, "topic": "char size",
+              "explanation": "Size Intel: char is 1 byte in C — it holds values 0–255, representing ASCII characters. This is different from Java's 2-byte char (Unicode)."
             },
             {
-              "q": "What does print(type(True)) show?",
-              "options": ["<class 'str'>", "<class 'int'>", "<class 'bool'>", "<class 'true'>"],
-              "a": 2, "damage": 20, "topic": "Boolean",
-              "explanation": "True is a boolean value, so type() returns <class 'bool'>."
+              "q": "Does C have a built-in boolean type by default?",
+              "options": ["Yes, bool", "No — use int where 0=false, non-zero=true", "Yes, Boolean", "Yes, it's called bit"],
+              "a": 1, "damage": 20, "topic": "Boolean in C",
+              "explanation": "No Bool: Classic C has no boolean type. 0 is treated as false, any non-zero (usually 1) is true. C99 added <stdbool.h> for bool/true/false keywords."
             },
             {
-              "q": "What is the result of 10 / 2 in Python 3?",
-              "options": ["5", "5.0", "2", "Error"],
-              "a": 1, "damage": 20, "topic": "Division",
-              "explanation": "In Python 3, the / operator always returns a float: 10 / 2 = 5.0."
+              "q": "Which C type gives more decimal precision: float or double?",
+              "options": ["float (more precise)", "double (more precise)", "They are identical", "Depends on the OS"],
+              "a": 1, "damage": 20, "topic": "float vs double",
+              "explanation": "Precision Intel: double has DOUBLE the precision of float. float ≈ 7 decimal digits, double ≈ 15 digits. For serious math, always use double."
             },
             {
-              "q": "Which is NOT a valid boolean in Python?",
-              "options": ["True", "False", "true", "Both True and False are valid"],
-              "a": 2, "damage": 20, "topic": "Boolean Syntax",
-              "explanation": "'true' (lowercase) is NOT a boolean — Python requires capital T: True."
+              "q": "What does printf(\"%.2f\", 3.14159); output?",
+              "options": ["3.14159", "3.14", "3", "Error"],
+              "a": 1, "damage": 20, "topic": "Formatting float",
+              "explanation": "Float Format: %.2f means print as float with exactly 2 decimal places. 3.14159 rounded to 2 places = 3.14."
             }
           ]
         },
         "coding": [
           {
-            "title": "Name the Type",
-            "objective": "What data type is the number 42? Type: int, float, str, or bool.",
-            "starterCode": "x = 42\ntype(x) = ___",
-            "answer": "int",
-            "hint": "42 is a whole number with no decimal point."
+            "title": "Print an Integer",
+            "objective": "What format specifier prints an int with printf()?",
+            "starterCode": "int x = 42;\nprintf(\"___ \\n\", x);",
+            "answer": "%d",
+            "hint": "d stands for decimal integer."
           },
           {
-            "title": "True or False?",
-            "objective": "What is the correct Python boolean for 'yes/on'? Type it exactly.",
-            "starterCode": "is_active = ___",
-            "answer": "True",
-            "hint": "It's capitalized. Not 'true' or 'TRUE'."
+            "title": "Print a Float",
+            "objective": "What format specifier prints a float/double?",
+            "starterCode": "float pi = 3.14;\nprintf(\"___\\n\", pi);",
+            "answer": "%f",
+            "hint": "f stands for floating-point."
           },
           {
-            "title": "Float Result",
-            "objective": "What does print(7 + 3.0) output? Type the exact output.",
-            "starterCode": "print(7 + 3.0)\n# Output: ___",
-            "answer": "10.0",
-            "hint": "Mixing int + float always gives a float result."
+            "title": "Print a Character",
+            "objective": "What format specifier prints a single char?",
+            "starterCode": "char g = 'A';\nprintf(\"___\\n\", g);",
+            "answer": "%c",
+            "hint": "c stands for character."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 This code has a bug:\n\nis_admin = true",
-            "brokenCode": "is_admin = true",
+            "description": "🚨 Bug:\n\nint score = 95;\nprintf(\"%f\\n\", score);",
+            "brokenCode": "printf(\"%f\\n\", score);",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'true' must be capitalized to 'True'",
-              "Need quotes around true",
-              "is_admin is an invalid name"
+              "Wrong specifier — score is int, use %d not %f",
+              "printf needs double quotes removed",
+              "score should be float"
             ],
-            "answer": "'true' must be capitalized to 'True'",
-            "hint": "Python booleans require capital letters: True and False."
+            "answer": "Wrong specifier — score is int, use %d not %f",
+            "hint": "%f is for float/double. For int, use %d."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug hunt:\n\nage = '18'\nprint(age + 2)",
-            "brokenCode": "age = '18'\nprint(age + 2)",
-            "bugLine": 1,
+            "description": "🚨 Bug:\n\nchar letter = \"Z\";",
+            "brokenCode": "char letter = \"Z\";",
+            "bugLine": 0,
             "options": [
-              "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
-              "print should be Print",
-              "2 should be in quotes",
-              "Nothing wrong"
+              "Nothing wrong",
+              "char uses single quotes: char letter = 'Z';",
+              "Z should be lowercase",
+              "char should be string"
             ],
-            "answer": "Can't add a string '18' to a number 2 — Remove quotes: age = 18",
-            "hint": "You can't mix string + int. Either both must be strings or both must be numbers."
+            "answer": "char uses single quotes: char letter = 'Z';",
+            "hint": "C char values use single quotes 'Z'. Double quotes make it a string literal."
           }
         ],
         "prediction": [
           {
-            "code": "x = '5'\ny = '3'\nprint(x + y)",
-            "options": ["8", "53", "5 + 3", "Error"],
-            "answer": "53",
-            "explanation": "'5' and '3' are strings (in quotes), so + concatenates them: '53'."
+            "code": "float x = 7.9;\nint y = (int)x;\nprintf(\"%d\\n\", y);",
+            "options": ["7.9", "8", "7", "Error"],
+            "answer": "7",
+            "explanation": "Casting float to int truncates (cuts off) the decimal. 7.9 becomes 7 — it does NOT round up."
           },
           {
-            "code": "a = 10\nb = 3\nprint(a / b)",
-            "options": ["3", "3.0", "3.3333333333333335", "Error"],
-            "answer": "3.3333333333333335",
-            "explanation": "/ always returns a float in Python 3. 10 / 3 = 3.3333333333333335."
+            "code": "printf(\"%.1f\\n\", 3.75);",
+            "options": ["3.75", "3.7", "3.8", "4"],
+            "answer": "3.8",
+            "explanation": "%.1f rounds to 1 decimal place. 3.75 rounds to 3.8."
           }
         ]
       }
     },
     {
       "id": "1_4",
-      "title": "REASSIGN & INPUT",
-      "subtitle": "Overwriting values & user input",
+      "title": "C INPUT",
+      "subtitle": "scanf & the address operator",
       "icon": "RefreshCw",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c10",
-            "title": "Reassigning Variables",
-            "emoji": "🔄",
-            "analogy": "Reassigning a variable is like erasing a whiteboard and writing something new. The old value is GONE forever.",
-            "content": "You can change a variable's value at any time by assigning a new value with =. The old value is permanently overwritten. You can even change the data type!",
+            "id": "c1c8",
+            "title": "scanf() — Reading User Input",
+            "emoji": "⌨️",
+            "analogy": "scanf() is like a delivery driver — it picks up what the user types and delivers it to a specific ADDRESS in memory. You must give it the ADDRESS (using &) of where to store the value, not just the variable name!",
+            "content": "scanf() reads input from the keyboard. It uses the same format specifiers as printf(). But critically, for most types you must prefix the variable name with & (the address-of operator) to tell C WHERE in memory to store the value.",
             "examples": [
-              { "title": "Overwrite in Action", "explanation": "x starts as 10, then becomes 20. The 10 is gone.", "code": "x = 10\nprint(x)   # 10\nx = 20\nprint(x)   # 20 (10 is gone!)" },
-              { "title": "Self-Update", "explanation": "You can use the old value to calculate the new value!", "code": "score = 100\nscore = score + 50\nprint(score)  # 150" }
+              { "title": "Basic scanf Usage", "explanation": "& is required for most types in scanf.", "code": "#include <stdio.h>\nint main() {\n    int age;\n    printf(\"Enter your age: \");\n    scanf(\"%d\", &age);  // & gives the address!\n    printf(\"You are %d years old\\n\", age);\n    return 0;\n}" },
+              { "title": "Reading Different Types", "explanation": "Match the format specifier to the variable type.", "code": "int n;\nfloat f;\nchar c;\n\nscanf(\"%d\", &n);  // read integer\nscanf(\"%f\", &f);  // read float\nscanf(\" %c\", &c); // read char (space before %c skips whitespace)" }
             ],
-            "funFact": "In Python, you can even change a variable's type: x = 5 then x = 'hello' — totally legal! 🤯"
+            "funFact": "The & in scanf is the 'address-of' operator — one of C's most important concepts. It's the gateway to understanding pointers, which make C incredibly powerful (and dangerous)! 🔓"
           },
           {
-            "id": "l1c11",
-            "title": "Basic Input (Concept)",
-            "emoji": "⌨️",
-            "analogy": "input() is like a pause button — the program STOPS and waits for the user to type something, then stores what they typed.",
-            "content": "The input() function pauses the program, shows a message, waits for the user to type, and stores whatever they type as a STRING. Always a string — even if they type numbers!",
+            "id": "c1c9",
+            "title": "Why & is Required",
+            "emoji": "🔑",
+            "analogy": "Without &, you hand the delivery driver a piece of paper with the word 'house'. With &, you hand them the actual GPS coordinates of your house. The driver NEEDS the exact address to deliver the package correctly!",
+            "content": "C functions receive copies of values by default. To let scanf modify a variable, you must pass its memory address with &. This is 'pass by reference' — a foundational C concept. Without &, scanf writes to a random memory location (crash!)",
             "examples": [
-              { "title": "Getting User Input", "explanation": "input() always returns a string!", "code": "name = input('What is your name? ')\nprint('Hello', name)\n\n# User types: Alex\n# Output: Hello Alex" }
+              { "title": "With vs Without &", "explanation": "Missing & is a very common beginner mistake in C.", "code": "int x;\n\n// CORRECT:\nscanf(\"%d\", &x);  // &x = address of x ✅\n\n// WRONG — undefined behavior, likely crash:\nscanf(\"%d\", x);   // x = current value, not address ❌\n\n// Reading a string (char array) — NO & needed:\nchar name[20];\nscanf(\"%s\", name); // arrays are already addresses!" }
             ],
-            "funFact": "input() ALWAYS returns a string. To get a number, you must convert: int(input('Age: ')). ⌨️"
+            "funFact": "char arrays (strings) in C are already addresses — that's why scanf(\"%s\", name) doesn't need &. Arrays and pointers are deeply intertwined in C! 🔗"
           }
         ],
         "battle": {
-          "enemy": { "name": "OVERWRITE PHANTOM", "maxHp": 100 },
+          "enemy": { "name": "THE ADDRESS PHANTOM", "maxHp": 100 },
           "mcq": [
             {
-              "q": "After this code, what is x?\nx = 5\nx = 10",
-              "options": ["5", "10", "15", "Error"],
-              "a": 1, "damage": 25, "topic": "Reassignment",
-              "explanation": "The second line overwrites x. The old value 5 is gone. x is now 10."
+              "q": "Which correctly reads an integer from the user in C?",
+              "options": ["scanf(\"%d\", x);", "scanf(\"%d\", &x);", "input(x)", "cin >> x;"],
+              "a": 1, "damage": 20, "topic": "scanf & operator",
+              "explanation": "Address Operator: scanf(\"%d\", &x) passes the memory address of x. scanf writes the input value TO that address. Without &, it's undefined behavior."
             },
             {
-              "q": "What does hp = hp - 20 do?",
-              "options": ["Checks if hp equals hp minus 20", "Subtracts 20 from hp and stores the result back in hp", "Creates two variables", "Error"],
-              "a": 1, "damage": 25, "topic": "Self-Update",
-              "explanation": "Python calculates hp - 20 (right side), then stores the result back into hp (left side)."
+              "q": "What does the & symbol mean in scanf(\"%d\", &age)?",
+              "options": ["AND operator", "Address-of operator — gives the memory address of age", "Bitwise AND", "Reference to another file"],
+              "a": 1, "damage": 20, "topic": "& meaning",
+              "explanation": "Address-Of: & is the address-of operator. &age gives the memory address where age is stored. scanf needs this address to know WHERE to write the user's input."
             },
             {
-              "q": "What does input() return?",
-              "options": ["An integer", "A boolean", "Always a string", "Depends on what you type"],
-              "a": 2, "damage": 25, "topic": "Input",
-              "explanation": "input() ALWAYS returns a string, even if the user types a number like '42'."
+              "q": "When reading a string into a char array, do you need & in scanf?",
+              "options": ["Yes, always", "No — char arrays are already addresses", "Only for short strings", "Depends on the compiler"],
+              "a": 1, "damage": 20, "topic": "char array & scanf",
+              "explanation": "Array Address: char name[20] — 'name' already IS a memory address (pointer to first element). So scanf(\"%s\", name) — no & needed. Adding & would be an error!"
             },
             {
-              "q": "What happens when input() runs?",
-              "options": ["The program crashes", "The program pauses and waits for the user to type something", "It prints text", "It closes the program"],
-              "a": 1, "damage": 25, "topic": "Input Behavior",
-              "explanation": "input() is a pause — the program waits until the user types and presses Enter."
+              "q": "What format specifier reads a float with scanf()?",
+              "options": ["%d", "%lf or %f", "%s", "%c"],
+              "a": 1, "damage": 20, "topic": "scanf float",
+              "explanation": "Float Input: Use %f for reading into float, %lf (long float) for reading into double with scanf. Note: printf uses %f for both, but scanf distinguishes them!"
             }
           ]
         },
         "coding": [
           {
-            "title": "Overwrite the Score",
-            "objective": "score = 100, then score = score + 50. What is score now?",
-            "starterCode": "score = 100\nscore = score + 50\nprint(score)\n# Output: ___",
-            "answer": "150",
-            "hint": "100 + 50 = 150. The new value replaces the old one."
+            "title": "Read an Integer",
+            "objective": "Complete the scanf to read an integer into variable 'age'. What goes before age?",
+            "starterCode": "int age;\nscanf(\"%d\", ___age);",
+            "answer": "&",
+            "hint": "The address-of operator — tells scanf WHERE to store the value."
           },
           {
-            "title": "Input Returns What?",
-            "objective": "User types '25' into input(). What type is the result? Type: int, float, str, or bool.",
-            "starterCode": "age = input('Age: ')  # user types 25\ntype(age) = ___",
-            "answer": "str",
-            "hint": "input() ALWAYS returns a string — even if the user types numbers."
+            "title": "Read a Float",
+            "objective": "What format specifier reads a float with scanf()?",
+            "starterCode": "float price;\nscanf(\"___\", &price);",
+            "answer": "%f",
+            "hint": "Same as printf for float — lowercase f."
+          },
+          {
+            "title": "Read a String",
+            "objective": "Reading a char array — does it need & in scanf? Type yes or no.",
+            "starterCode": "char name[20];\nscanf(\"%s\", name); // needs &? ___",
+            "answer": "no",
+            "hint": "Arrays in C are already memory addresses — & is not needed and would be wrong."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nx = 10\nx + 5\nprint(x)",
-            "brokenCode": "x = 10\nx + 5\nprint(x)",
-            "bugLine": 1,
+            "description": "🚨 Bug:\n\nint x;\nscanf(\"%d\", x);",
+            "brokenCode": "scanf(\"%d\", x);",
+            "bugLine": 0,
             "options": [
-              "x + 5 calculates 15 but doesn't save it — need x = x + 5",
-              "x should be in quotes",
-              "print should have no parentheses",
-              "Nothing wrong, x is 15"
+              "Nothing wrong",
+              "Missing & — should be scanf(\"%d\", &x); to pass the address",
+              "%d should be %s",
+              "x must be initialized first"
             ],
-            "answer": "x + 5 calculates 15 but doesn't save it — need x = x + 5",
-            "hint": "x + 5 alone does nothing. You must STORE the result: x = x + 5."
+            "answer": "Missing & — should be scanf(\"%d\", &x); to pass the address",
+            "hint": "scanf needs the address of x (&x) to know where to write the user's input."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nage = input('Age: ')\nprint(age + 1)",
-            "brokenCode": "age = input('Age: ')\nprint(age + 1)",
-            "bugLine": 1,
+            "description": "🚨 Bug:\n\nfloat temp;\nscanf(\"%d\", &temp);",
+            "brokenCode": "scanf(\"%d\", &temp);",
+            "bugLine": 0,
             "options": [
-              "input() returns a string, so age + 1 fails. Need: int(age) + 1",
-              "print is wrong",
-              "input doesn't need quotes",
-              "Nothing wrong"
+              "Nothing wrong",
+              "Wrong format specifier — temp is float, use %f not %d",
+              "& should be removed",
+              "float should be int"
             ],
-            "answer": "input() returns a string, so age + 1 fails. Need: int(age) + 1",
-            "hint": "You can't add a string '25' + number 1. Convert first: int(age)."
+            "answer": "Wrong format specifier — temp is float, use %f not %d",
+            "hint": "%d reads an int. For float, use %f in scanf."
           }
         ],
         "prediction": [
           {
-            "code": "hp = 100\nhp = hp - 30\nhp = hp - 20\nprint(hp)",
-            "options": ["100", "70", "50", "Error"],
-            "answer": "50",
-            "explanation": "100 - 30 = 70 → hp is now 70. 70 - 20 = 50 → hp is now 50."
+            "code": "int x;\nscanf(\"%d\", &x);\nprintf(\"%d\\n\", x * 2);\n// User types: 7",
+            "options": ["7", "14", "72", "Error"],
+            "answer": "14",
+            "explanation": "scanf reads 7 into x. printf prints x * 2 = 7 * 2 = 14."
           },
           {
-            "code": "a = 5\nb = a\na = 99\nprint(b)",
-            "options": ["5", "99", "Error", "None"],
+            "code": "float f;\nscanf(\"%f\", &f);\nprintf(\"%.0f\\n\", f);\n// User types: 4.7",
+            "options": ["4.7", "4", "5", "Error"],
             "answer": "5",
-            "explanation": "b = a copies the VALUE of a (5) into b. Changing a later doesn't affect b."
+            "explanation": "scanf reads 4.7 into f. printf with %.0f rounds to 0 decimal places — 4.7 rounds up to 5."
           }
         ]
       }
     },
     {
       "id": "1_5",
-      "title": "META CODE",
-      "subtitle": "Comments, Keywords & Case Sensitivity",
+      "title": "C STYLE",
+      "subtitle": "Comments, preprocessor & conventions",
       "icon": "Hash",
       "pipeline": {
         "teaching": [
           {
-            "id": "l1c12",
-            "title": "Comments in Code",
+            "id": "c1c10",
+            "title": "Comments in C",
             "emoji": "💭",
-            "analogy": "Comments are sticky notes for humans. Python completely ignores them — they're invisible to the computer but GOLD for programmers reading your code later.",
-            "content": "Add a # before any line to make it a comment. Python skips it entirely. Use comments to explain tricky code, leave notes, or temporarily disable code.",
+            "analogy": "Comments are the sticky notes of code — the compiler ignores them completely, but future-you will thank the current-you for writing them. C supports two styles: old-school block comments and modern line comments.",
+            "content": "C supports // single-line comments (added in C99) and /* ... */ multi-line block comments. Block comments are the original C style. Single-line // comments are practical for quick notes.",
             "examples": [
-              { "title": "Comment Examples", "explanation": "Everything after # is invisible to Python.", "code": "# This calculates the damage\ndamage = 50 + 25\nprint(damage)  # This prints 75" }
+              { "title": "Both Comment Styles", "explanation": "Both work in modern C (C99 and later).", "code": "// Single-line comment (C99+)\nint x = 5; // inline comment\n\n/* Multi-line block comment\n   spans multiple lines\n   original C style */\n\n/* Also works on one line */" },
+              { "title": "Comment Best Practices", "explanation": "Comment the WHY, not the WHAT.", "code": "/* Calculate damage with armor reduction\n   Formula: raw * (100 / (100 + armor)) */\nfloat damage = raw * (100.0 / (100 + armor));" }
             ],
-            "funFact": "Good programmers write comments explaining WHY, not WHAT. The code already shows what — comments explain the reasoning! 💡"
+            "funFact": "The original C standard (C89) only supported /* */ block comments. The // single-line style was borrowed from C++ and officially added to C in the C99 standard (1999)! 📜"
           },
           {
-            "id": "l1c13",
-            "title": "Keywords & Case Sensitivity",
-            "emoji": "🔐",
-            "analogy": "Keywords are like reserved parking spots — only Python can use them. Case sensitivity means 'Alex' ≠ 'alex' ≠ 'ALEX' — every letter's case matters.",
-            "content": "Python has 35 keywords (if, else, for, while, True, False, etc.) you CANNOT use as variable names. Also, Python is case sensitive: print ≠ Print ≠ PRINT.",
+            "id": "c1c11",
+            "title": "Preprocessor Directives & Constants",
+            "emoji": "⚙️",
+            "analogy": "Preprocessor directives (lines starting with #) are like the chef's prep work before cooking. The #include brings in tools (libraries), and #define creates named constants — all done BEFORE the actual compilation starts.",
+            "content": "#include loads library headers. #define creates constants or macros — they are text substitutions done before compilation. Using #define for constants is traditional C style; modern C uses const instead.",
             "examples": [
-              { "title": "Keywords & Case", "explanation": "The case of every letter matters in Python.", "code": "# These are ALL different:\nscore = 10\nScore = 20\nSCORE = 30\nprint(score)  # 10\nprint(Score)  # 20\nprint(SCORE)  # 30" }
+              { "title": "#include & #define", "explanation": "Preprocessor directives start with # and have NO semicolon.", "code": "#include <stdio.h>   // load stdio library\n#include <math.h>    // load math library\n\n#define MAX_HEALTH 100  // NO semicolon! text replacement\n#define PI 3.14159\n\nint main() {\n    printf(\"Max HP: %d\\n\", MAX_HEALTH);\n    printf(\"PI: %f\\n\", PI);\n    return 0;\n}" },
+              { "title": "const vs #define", "explanation": "Modern C prefers const over #define for typed constants.", "code": "// Old style (no type, text replacement):\n#define MAX_SCORE 1000\n\n// Modern style (typed, debugger-visible):\nconst int MAX_SCORE = 1000;" }
             ],
-            "funFact": "Python 3 has exactly 35 reserved keywords. 'print' used to be a keyword in Python 2 but became a function in Python 3! 🐍"
+            "funFact": "#define macros are pure text substitution — no type checking at all! This is why modern C prefers 'const' for constants. #define macros can create very tricky bugs if misused. 🐛"
           }
         ],
         "battle": {
           "enemy": { "name": "SYNTAX WRAITH", "maxHp": 100 },
           "mcq": [
             {
-              "q": "What does the # symbol do in Python?",
-              "options": ["Makes text bold", "Creates a hashtag variable", "Starts a comment — Python ignores everything after it", "Multiplies numbers"],
+              "q": "Which was the ORIGINAL comment style in C (C89)?",
+              "options": ["// single line", "# hashtag", "/* block comment */", "-- SQL style"],
               "a": 2, "damage": 25, "topic": "Comments",
-              "explanation": "# starts a comment. Python completely ignores everything after # on that line."
+              "explanation": "History: /* */ block comments are the original C style from 1972. The // single-line comment was added in C99 (1999), borrowed from C++."
             },
             {
-              "q": "Which of these is a Python keyword?",
-              "options": ["score", "player", "if", "hello"],
-              "a": 2, "damage": 25, "topic": "Keywords",
-              "explanation": "'if' is a reserved keyword used for conditions. You can't use it as a variable name."
+              "q": "What is wrong with: #define MAX_HP 100;",
+              "options": ["Nothing wrong", "#define macros must NOT end with a semicolon", "100 should be in quotes", "#define is invalid"],
+              "a": 1, "damage": 25, "topic": "#define",
+              "explanation": "No Semicolon: #define is a preprocessor directive, not a C statement. It should NOT end with ; because the ; would become part of the text substitution, causing bugs!"
             },
             {
-              "q": "In Python, are 'Name' and 'name' the same variable?",
-              "options": ["Yes, exactly the same", "No, they are completely different variables", "Same in Python 3, different in Python 2", "Depends on the computer"],
-              "a": 1, "damage": 25, "topic": "Case Sensitivity",
-              "explanation": "Python is case sensitive. Different capitalization = different variables."
+              "q": "Which correctly includes the math library in C?",
+              "options": ["import math", "using math;", "#include <math.h>", "load <math>"],
+              "a": 2, "damage": 25, "topic": "#include",
+              "explanation": "Include Syntax: #include <math.h> loads the math library header. Angle brackets < > are for standard library headers. Use quotes \"file.h\" for your own header files."
             },
             {
-              "q": "What happens if you write: If x > 5: ?",
-              "options": ["It works fine", "Error — 'If' should be lowercase 'if'", "It creates a variable called If", "Python converts it automatically"],
-              "a": 1, "damage": 25, "topic": "Case Sensitivity",
-              "explanation": "'If' (capital I) is NOT a keyword. Only lowercase 'if' is the keyword. This causes an error."
+              "q": "What does #define PI 3.14 do?",
+              "options": ["Declares a float variable", "Creates a text replacement — everywhere PI appears, it becomes 3.14 before compiling", "Imports the math library", "Creates a function"],
+              "a": 1, "damage": 25, "topic": "Macro",
+              "explanation": "Text Substitution: #define creates a macro. Before compilation, the preprocessor replaces every occurrence of PI in the code with 3.14. No type, no memory — pure text swap."
             }
           ]
         },
         "coding": [
           {
-            "title": "Write a Comment",
-            "objective": "What character starts a comment in Python? Type the single character.",
-            "starterCode": "___ This is a comment\nprint('Hello')",
-            "answer": "#",
-            "hint": "It's a single character used before lines Python should ignore."
+            "title": "Single Line Comment",
+            "objective": "What starts a single-line comment in C (C99 style)?",
+            "starterCode": "___ This is a comment",
+            "answer": "//",
+            "hint": "Two forward slashes — same as Java."
           },
           {
-            "title": "Case Check",
-            "objective": "After this code, what does print(name) output?\n\nname = 'Alex'\nName = 'Sam'",
-            "starterCode": "name = 'Alex'\nName = 'Sam'\nprint(name)\n# Output: ___",
-            "answer": "Alex",
-            "hint": "'name' and 'Name' are DIFFERENT variables. print(name) uses the lowercase one."
+            "title": "Define a Constant",
+            "objective": "Complete the #define macro. Note: NO semicolon at the end.",
+            "starterCode": "#define MAX_LIVES ___",
+            "answer": "3",
+            "hint": "Just the value — no = sign, no semicolon in #define."
           },
           {
-            "title": "Keyword Check",
-            "objective": "Can you use 'while' as a variable name? Type 'yes' or 'no'.",
-            "starterCode": "while = 10  # Is this valid?\n# Answer: ___",
-            "answer": "no",
-            "hint": "'while' is a reserved Python keyword for loops."
+            "title": "Include Math",
+            "objective": "What header gives access to math functions like sqrt() in C?",
+            "starterCode": "#include <___>",
+            "answer": "math.h",
+            "hint": "It's the math header file — ends with .h"
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nIf score > 10:\n    print('Win')",
-            "brokenCode": "If score > 10:\n    print('Win')",
+            "description": "🚨 Bug:\n\n#define PI = 3.14;",
+            "brokenCode": "#define PI = 3.14;",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'If' must be lowercase 'if' — Python keywords are all lowercase",
-              "Missing semicolon",
-              "print should be Print"
+              "Two bugs: #define uses NO = sign and NO semicolon. Correct: #define PI 3.14",
+              "PI should be lowercase",
+              "#define needs parentheses"
             ],
-            "answer": "'If' must be lowercase 'if' — Python keywords are all lowercase",
-            "hint": "Python is case sensitive. All keywords are lowercase: if, else, for, while, etc."
+            "answer": "Two bugs: #define uses NO = sign and NO semicolon. Correct: #define PI 3.14",
+            "hint": "#define is: #define NAME value — no = and no ; at the end."
           },
           {
             "type": "mcq",
-            "description": "🚨 Bug:\n\nScore = 5\nprint(score)",
-            "brokenCode": "Score = 5\nprint(score)",
-            "bugLine": 1,
+            "description": "🚨 Bug — comment not working:\n\n# This is a comment in C\nprintf(\"Hello\\n\");",
+            "brokenCode": "# This is a comment in C",
+            "bugLine": 0,
             "options": [
-              "Nothing wrong, it prints 5",
-              "'Score' and 'score' are different — score (lowercase) was never created, so Error",
-              "print needs uppercase P",
-              "5 needs quotes"
+              "Nothing wrong",
+              "C uses // or /* */ for comments, not # like Python",
+              "Comments don't exist in C",
+              "Use <!-- --> instead"
             ],
-            "answer": "'Score' and 'score' are different — score (lowercase) was never created, so Error",
-            "hint": "You created 'Score' (capital S) but tried to print 'score' (lowercase s) — they're different!"
+            "answer": "C uses // or /* */ for comments, not # like Python",
+            "hint": "# in C starts a preprocessor directive, not a comment. Use // or /* */ for C comments."
           }
         ],
         "prediction": [
           {
-            "code": "# print('Hidden')\nprint('Visible')",
-            "options": ["Hidden Visible", "Visible", "Hidden", "Error"],
-            "answer": "Visible",
-            "explanation": "The first line is a comment (starts with #) so Python skips it entirely. Only 'Visible' is printed."
+            "code": "#define DOUBLE(x) x * 2\nprintf(\"%d\\n\", DOUBLE(5));",
+            "options": ["5", "10", "DOUBLE(5)", "Error"],
+            "answer": "10",
+            "explanation": "DOUBLE(x) is a function-like macro. DOUBLE(5) is replaced with 5 * 2 = 10 before compilation."
           },
           {
-            "code": "X = 10\nx = 20\nprint(X + x)",
-            "options": ["10", "20", "30", "Error"],
-            "answer": "30",
-            "explanation": "X = 10 and x = 20 are different variables (case sensitive). X + x = 10 + 20 = 30."
+            "code": "// printf(\"Hidden\\n\");\nprintf(\"Visible\\n\");",
+            "options": ["Hidden Visible", "Visible", "Hidden", "Error"],
+            "answer": "Visible",
+            "explanation": "The first line is a // comment — compiler ignores it. Only 'Visible' is printed."
           }
         ]
       }
@@ -691,96 +696,96 @@
     {
       "id": "1_boss",
       "title": "THE COMPILER",
-      "subtitle": "BOSS FIGHT — All Level 1",
+      "subtitle": "BOSS FIGHT — All Level 1 C",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss1_intro",
+            "id": "boss_c1_intro",
             "title": "⚠️ BOSS — THE COMPILER",
             "emoji": "👾",
-            "analogy": "The Compiler checks every line of your code. One mistake and it REJECTS everything. Prove you've mastered the basics!",
-            "content": "THE COMPILER has absorbed all of Level 1's knowledge: print statements, variables, data types, reassignment, comments, and case sensitivity. Defeat it to earn your 'First Code' badge!",
+            "analogy": "The C Compiler is the strictest boss in the game. It checks every semicolon, every format specifier, every & sign. One mistake and it outputs a wall of errors. Show it you've mastered C Level 1!",
+            "content": "THE COMPILER has absorbed all of Level 1's C knowledge: program structure (#include, main, return 0), printf/scanf, typed variables, data types (int/float/double/char), format specifiers (%d %f %c %s), and the & address operator. Defeat it to earn your 'First C Code' badge!",
             "examples": [
-              { "title": "What you've mastered", "explanation": "Everything from Level 1 will be tested!", "code": "✅ print() & formatting\n✅ Variables & naming rules\n✅ int, float, str, bool\n✅ Reassignment & input\n✅ Comments, keywords, case" }
+              { "title": "What you've mastered", "explanation": "Everything from C Level 1!", "code": "✅ #include <stdio.h> + int main() + return 0\n✅ printf() with \\n and format specifiers\n✅ int, float, double, char declarations\n✅ %d, %f, %c, %s format specifiers\n✅ scanf() with & address operator\n✅ // and /* */ comments, #define" }
             ],
-            "funFact": "A real compiler translates ALL your code to machine language before running it. Python uses an interpreter instead (runs line by line)! ⚡"
+            "funFact": "The C compiler translates your source code directly to machine code — processor instructions your CPU understands. No virtual machine needed. That's why C programs are blazing fast! ⚡"
           }
         ],
         "battle": {
           "enemy": { "name": "THE COMPILER", "maxHp": 150 },
           "mcq": [
             {
-              "q": "What is the output of print(10 + '5')?",
-              "options": ["15", "105", "Error — can't add int and str", "10 + 5"],
-              "a": 2, "damage": 30, "topic": "Type Mixing",
-              "explanation": "You can't add an integer (10) and a string ('5'). Python throws a TypeError."
+              "q": "What is the output?\nint x = 7;\nprintf(\"%d\\n\", x * x);",
+              "options": ["7 * 7", "77", "49", "Error"],
+              "a": 2, "damage": 30, "topic": "Expression",
+              "explanation": "7 * 7 = 49. printf with %d prints the integer result. Output: 49."
             },
             {
-              "q": "After this code, what is result?\nresult = 10\nresult = result * 2\nresult = result - 5",
-              "options": ["10", "20", "15", "5"],
-              "a": 2, "damage": 30, "topic": "Reassignment Chain",
-              "explanation": "10 → 10*2=20 → 20-5=15. Each line overwrites result."
+              "q": "What is wrong with this code?\nfloat price = 5.99;\nprintf(\"%d\\n\", price);",
+              "options": ["Nothing", "Wrong format specifier — float needs %f, not %d", "price is invalid name", "Missing &"],
+              "a": 1, "damage": 30, "topic": "Format specifier error",
+              "explanation": "Type Mismatch: %d is for integers. Using %d with a float causes undefined behavior — you'd get garbage output. Always match the specifier to the type."
             },
             {
-              "q": "Which line has a bug?\nLine 1: name = 'Alex'\nLine 2: Print(name)",
-              "options": ["Line 1", "Line 2 — Print should be print (lowercase)", "Both lines", "Neither"],
-              "a": 1, "damage": 30, "topic": "Case Sensitivity",
-              "explanation": "Python is case sensitive. 'Print' is not a function — only 'print' (lowercase) works."
+              "q": "Which line has the bug?\nLine 1: int n;\nLine 2: scanf(\"%d\", n);",
+              "options": ["Line 1", "Line 2 — missing & before n: scanf(\"%d\", &n);", "Both lines", "Neither"],
+              "a": 1, "damage": 30, "topic": "Missing &",
+              "explanation": "Address Missing: scanf needs &n (address of n) to write the input. Without &, it tries to write to a random memory address — undefined behavior, likely a crash."
             },
             {
-              "q": "What does type('True') return?",
-              "options": ["<class 'bool'>", "<class 'str'>", "<class 'int'>", "True"],
-              "a": 1, "damage": 30, "topic": "Types Trick",
-              "explanation": "'True' is in QUOTES, so it's a string — not a boolean! type('True') → <class 'str'>."
+              "q": "What does '\\n' do inside a printf string?",
+              "options": ["Prints the letter n", "Moves to a new line", "Ends the program", "Creates a tab"],
+              "a": 1, "damage": 30, "topic": "Escape sequence",
+              "explanation": "Newline: \\n is the newline escape sequence. It moves the cursor to the beginning of the next line — equivalent to pressing Enter."
             },
             {
-              "q": "x = 5\n# x = 10\nprint(x)",
-              "options": ["5", "10", "15", "Error"],
-              "a": 0, "damage": 30, "topic": "Comments",
-              "explanation": "Line 2 is a comment (starts with #), so Python ignores it. x stays as 5."
+              "q": "What is the return type of main() in C?",
+              "options": ["void", "String", "int", "char"],
+              "a": 2, "damage": 30, "topic": "main return type",
+              "explanation": "Return Type: main() in C returns int. return 0 signals success to the OS. return 1 (or other non-zero) signals an error. The OS and shell scripts use this exit code."
             }
           ]
         },
         "coding": [
           {
-            "title": "Boss Challenge: What's the Type?",
-            "objective": "What data type is the value False? Type: int, float, str, or bool.",
-            "starterCode": "x = False\ntype(x) = ___",
-            "answer": "bool",
-            "hint": "False (with capital F) is one of the two boolean values."
+            "title": "Boss Challenge: Complete printf",
+            "objective": "Print integer variable 'score' using printf. What format specifier?",
+            "starterCode": "int score = 95;\nprintf(\"Score: ___\\n\", score);",
+            "answer": "%d",
+            "hint": "%d is the format specifier for integers."
           },
           {
-            "title": "Boss Challenge: Chain Math",
-            "objective": "x = 5, then x = x * 4, then x = x - 10. What is x?",
-            "starterCode": "x = 5\nx = x * 4\nx = x - 10\nprint(x)\n# Output: ___",
-            "answer": "10",
-            "hint": "5 * 4 = 20. Then 20 - 10 = 10."
+            "title": "Boss Challenge: Fix the scanf",
+            "objective": "Reading an integer into variable 'age'. What is missing before age?",
+            "starterCode": "int age;\nscanf(\"%d\", ___age);",
+            "answer": "&",
+            "hint": "The address-of operator — tells scanf where in memory to write."
           }
         ],
         "debugging": [
           {
             "type": "mcq",
-            "description": "🚨 BOSS BUG:\n\nfor = 10\nprint(for)",
-            "brokenCode": "for = 10\nprint(for)",
+            "description": "🚨 BOSS BUG:\n\n#include <stdio.h>\nint main() {\n    int x = 10\n    float y = 3.5;\n    printf(\"%d %.1f\\n\", x, y);\n    return 0;\n}",
+            "brokenCode": "int x = 10",
             "bugLine": 0,
             "options": [
               "Nothing wrong",
-              "'for' is a reserved keyword — you can't use it as a variable name",
-              "10 should be in quotes",
-              "print needs to be capitalized"
+              "Missing semicolon after 'int x = 10'",
+              "x should be float",
+              "printf format is wrong"
             ],
-            "answer": "'for' is a reserved keyword — you can't use it as a variable name",
-            "hint": "'for' is used for loops in Python — it's a reserved keyword."
+            "answer": "Missing semicolon after 'int x = 10'",
+            "hint": "Every C statement ends with ; — including variable declarations."
           }
         ],
         "prediction": [
           {
-            "code": "a = '3'\nb = 3\n# print(a + b)\nprint(a * b)",
-            "options": ["333", "9", "Error", "3 3 3"],
-            "answer": "333",
-            "explanation": "Line 3 is a comment. a * b = '3' * 3 = '333' (string repeated 3 times!)."
+            "code": "#include <stdio.h>\nint main() {\n    int a = 5, b = 3;\n    printf(\"%d %d %d\\n\", a, b, a + b);\n    return 0;\n}",
+            "options": ["5 3 5+3", "5 3 8", "a b a+b", "Error"],
+            "answer": "5 3 8",
+            "explanation": "printf with three %d specifiers prints a=5, b=3, a+b=8. Output: '5 3 8'."
           }
         ]
       }
