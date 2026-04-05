@@ -51,31 +51,31 @@
               "q": "What does print('Hello') do?",
               "options": ["Creates a variable called Hello", "Displays 'Hello' on the screen", "Saves 'Hello' to a file", "Sends an email"],
               "a": 1, "damage": 20, "topic": "Print",
-              "explanation": "print() displays whatever is inside the parentheses onto the screen."
+              "explanation": "Core Logic: print() is a built-in function that takes data and sends it to the Standard Output (the screen) for you to see. It does not create variables unless assigned to one!"
             },
             {
               "q": "Which of these will Python run FIRST?",
               "options": ["The last line", "The middle line", "The first line", "All at once"],
               "a": 2, "damage": 20, "topic": "Program Structure",
-              "explanation": "Python reads top-to-bottom. The first line always runs first."
+              "explanation": "Sequential Sync: Python is an interpreted language that reads your instructions exactly like a book—starting at line 1 and moving down systematically."
             },
             {
               "q": "What is the output of: print('5' + '3')?",
               "options": ["8", "53", "5 + 3", "Error"],
               "a": 1, "damage": 20, "topic": "Output Formatting",
-              "explanation": "'5' and '3' are strings (in quotes), so + glues them together: '53'."
+              "explanation": "String Logic: Because 5 and 3 are in quotes, Python treats them as characters (text), not math. The + operator glues them together ('concatenation') to make 53."
             },
             {
               "q": "What does the 'f' in f'Hello {name}' do?",
               "options": ["Makes text bold", "Formats the string so variables inside {} are replaced with their values", "Creates a file", "Deletes the variable"],
               "a": 1, "damage": 20, "topic": "F-Strings",
-              "explanation": "f-strings let you embed variables directly inside curly braces {} within a string."
+              "explanation": "F-String Magic: The 'f' stands for Format. It tells Python to 'look inside' the string for curly braces {} and swap them with the actual values stored in your variables."
             },
             {
               "q": "Text inside print() must be wrapped in ___.",
               "options": ["Parentheses", "Quotes", "Square brackets", "Curly braces"],
               "a": 1, "damage": 20, "topic": "Print Syntax",
-              "explanation": "String text must be inside single quotes '' or double quotes \"\" to work in print()."
+              "explanation": "Syntax Rule: Text (strings) must always be inside quotes ('' or \"\"). Without them, Python thinks you are trying to use a variable name that doesn't exist yet!"
             }
           ]
         },

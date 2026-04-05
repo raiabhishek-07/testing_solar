@@ -41,7 +41,9 @@ export default function PlayPage({ params }) {
 
     const fetchLevelData = async () => {
       try {
-        const response = await fetch(`/data/levels/${langId}/${levelId}/index.json`);
+        const response = await fetch(`/data/levels/${langId}/${levelId}/index.json?v=${Date.now()}`, {
+          cache: 'no-store'
+        });
         if (!response.ok) throw new Error("Level Index Breach");
         
         const data = await response.json();

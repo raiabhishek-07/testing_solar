@@ -33,11 +33,11 @@
         "battle": {
           "enemy": { "name": "LOOP WARDEN", "maxHp": 100 },
           "mcq": [
-            { "q": "What does range(4) produce?", "options": ["1,2,3,4", "0,1,2,3", "0,1,2,3,4", "4,3,2,1"], "a": 1, "damage": 20, "topic": "range()", "explanation": "range(4) starts at 0 and goes to 3 (stops BEFORE 4): 0,1,2,3." },
-            { "q": "How many times does 'for i in range(3)' loop?", "options": ["2", "3", "4", "1"], "a": 1, "damage": 20, "topic": "For Loop", "explanation": "range(3) = 0,1,2 — that's 3 values, so 3 iterations." },
-            { "q": "When does a while loop stop?", "options": ["After 10 runs", "When the condition becomes False", "After 1 run", "It never stops"], "a": 1, "damage": 20, "topic": "While Loop", "explanation": "A while loop stops when its condition becomes False." },
-            { "q": "What happens if the while condition is NEVER False?", "options": ["Error", "The loop runs once", "Infinite loop — it runs forever", "Python auto-stops it"], "a": 2, "damage": 20, "topic": "Infinite Loop", "explanation": "If the condition never becomes False, the loop runs infinitely. Use Ctrl+C to stop!" },
-            { "q": "What keyword starts a counting loop in Python?", "options": ["loop", "repeat", "for", "each"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "Python uses 'for' to iterate over sequences." }
+            { "q": "What does range(4) produce?", "options": ["1,2,3,4", "0,1,2,3", "0,1,2,3,4", "4,3,2,1"], "a": 1, "damage": 20, "topic": "range()", "explanation": "0️⃣ ZERO-INDEXING INTEL: range(n) always starts at 0 and stops BEFORE n. So range(4) is 0, 1, 2, 3. It NEVER hits 4!" },
+            { "q": "How many times does 'for i in range(3)' loop?", "options": ["2", "3", "4", "1"], "a": 1, "damage": 20, "topic": "For Loop", "explanation": "🔄 REPETITION LOGIC: range(3) produces 3 distinct values (0, 1, 2). The loop body will execute exactly once for EACH value—totaling 3 runs." },
+            { "q": "When does a while loop stop?", "options": ["After 10 runs", "When the condition becomes False", "After 1 run", "It never stops"], "a": 1, "damage": 20, "topic": "While Loop", "explanation": "💡 GATEKEEPER INTEL: The 'while' loop is a persistent guard. It checks the condition BEFORE every lap. The moment it detects 'False', it slams the gate shut!" },
+            { "q": "What happens if the while condition is NEVER False?", "options": ["Error", "The loop runs once", "Infinite loop — it runs forever", "Python auto-stops it"], "a": 2, "damage": 20, "topic": "Infinite Loop", "explanation": "⚠️ CRITICAL SYSTEM FAILURE: This creates an 'Infinite Loop'. The computer will repeat the code until it runs out of memory or you force-quit it. Always ensure your loop has an exit!" },
+            { "q": "What keyword starts a counting loop in Python?", "options": ["loop", "repeat", "for", "each"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "🔍 KEYWORD INTEL: 'for' is the standard Python keyword for 'definite iteration'—when you know (or can calculate) exactly how many times to repeat." }
           ]
         },
         "coding": [
@@ -80,10 +80,10 @@
         "battle": {
           "enemy": { "name": "NESTED NIGHTMARE", "maxHp": 100 },
           "mcq": [
-            { "q": "In a 3×4 nested loop, how many total iterations?", "options": ["3", "4", "7", "12"], "a": 3, "damage": 25, "topic": "Nested Loops", "explanation": "3 outer × 4 inner = 12 total iterations." },
-            { "q": "What does 'break' do?", "options": ["Pauses the loop", "Skips current iteration", "Exits the loop entirely", "Restarts the loop"], "a": 2, "damage": 25, "topic": "Break", "explanation": "break immediately exits the entire loop." },
-            { "q": "What does 'continue' do?", "options": ["Exits the loop", "Skips rest of current iteration, starts next", "Runs the code twice", "Pauses"], "a": 1, "damage": 25, "topic": "Continue", "explanation": "continue skips the remaining code in the current iteration and jumps to the next one." },
-            { "q": "Can break exit an outer loop from inside an inner loop?", "options": ["Yes, it exits all loops", "No, break only exits the innermost loop", "Only with a flag", "Error"], "a": 1, "damage": 25, "topic": "Break Scope", "explanation": "break only exits the loop it's directly inside — not outer loops." }
+            { "q": "In a 3×4 nested loop, how many total iterations?", "options": ["3", "4", "7", "12"], "a": 3, "damage": 25, "topic": "Nested Loops", "explanation": "📐 MULTIPLICATION RULE: For every 1 round of the outer loop, the inner loop finishes ALL its rounds. So 3 × 4 = 12 total system operations." },
+            { "q": "What does 'break' do?", "options": ["Pauses the loop", "Skips current iteration", "Exits the loop entirely", "Restarts the loop"], "a": 2, "damage": 25, "topic": "Break", "explanation": "🚨 EMERGENCY EXIT: 'break' is aggressive. It stops the loop immediately and jumps to the first line AFTER the loop block. No more laps!" },
+            { "q": "What does 'continue' do?", "options": ["Exits the loop", "Skips rest of current iteration, starts next", "Runs the code twice", "Pauses"], "a": 1, "damage": 25, "topic": "Continue", "explanation": "⏭️ SKIP INTEL: 'continue' only stops the CURRENT lap. It skips anything left in that specific round and immediately moves to the start of the next lap." },
+            { "q": "Can break exit an outer loop from inside an inner loop?", "options": ["Yes, it exits all loops", "No, break only exits the innermost loop", "Only with a flag", "Error"], "a": 1, "damage": 25, "topic": "Break Scope", "explanation": "🎯 SCOPE WARNING: 'break' only has power over the loop it is physically inside. It cannot reach out and stop the parent (outer) loop." }
           ]
         },
         "coding": [
@@ -124,11 +124,11 @@
         "battle": {
           "enemy": { "name": "ARRAY OVERLORD", "maxHp": 100 },
           "mcq": [
-            { "q": "What index is the FIRST element in a list?", "options": ["1", "0", "-1", "First"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Lists use zero-based indexing. First element = index 0." },
-            { "q": "How do you create a list in Python?", "options": ["list()", "{}", "()", "[]"], "a": 3, "damage": 20, "topic": "Syntax", "explanation": "Lists use square brackets: [item1, item2, item3]." },
-            { "q": "What does .append(x) do?", "options": ["Removes x", "Adds x at the beginning", "Adds x at the end", "Replaces everything with x"], "a": 2, "damage": 20, "topic": "append", "explanation": ".append(x) adds x to the END of the list." },
-            { "q": "colors = ['red', 'blue', 'green']. What is colors[2]?", "options": ["red", "blue", "green", "Error"], "a": 2, "damage": 20, "topic": "Indexing", "explanation": "Index 0='red', 1='blue', 2='green'." },
-            { "q": "What happens if you access list[10] on a 3-item list?", "options": ["Returns None", "Returns 0", "IndexError", "Returns the last item"], "a": 2, "damage": 20, "topic": "Bounds", "explanation": "Accessing an index that doesn't exist raises an IndexError." }
+            { "q": "What index is the FIRST element in a list?", "options": ["1", "0", "-1", "First"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "0️⃣ THE GROUND FLOOR: In Python (and most code), the counting starts at 0. The first item is always at the 0 index, not 1!" },
+            { "q": "How do you create a list in Python?", "options": ["list()", "{}", "()", "[]"], "a": 3, "damage": 20, "topic": "Syntax", "explanation": "📦 STORAGE BOX: Square brackets [] define a list. Curly braces {} are for 'dictionaries' which you'll face in future levels!" },
+            { "q": "What does .append(x) do?", "options": ["Removes x", "Adds x at the beginning", "Adds x at the end", "Replaces everything with x"], "a": 2, "damage": 20, "topic": "append", "explanation": "➕ EXPANSION: .append() pushes the new item to the very END of the list, increasing its total size by one." },
+            { "q": "colors = ['red', 'blue', 'green']. What is colors[2]?", "options": ["red", "blue", "green", "Error"], "a": 2, "damage": 20, "topic": "Indexing", "explanation": "🎯 TARGET CHECK: count from 0. 0 is 'red', 1 is 'blue', 2 is 'green'. So colors[2] is 'green'." },
+            { "q": "What happens if you access list[10] on a 3-item list?", "options": ["Returns None", "Returns 0", "IndexError", "Returns the last item"], "a": 2, "damage": 20, "topic": "Bounds", "explanation": "🚫 RANGE BREACH: Accessing a locker that doesn't exist triggers an `IndexError`. You must stay within the list's actual boundaries (0 up to len-1)." }
           ]
         },
         "coding": [
@@ -165,11 +165,11 @@
         "battle": {
           "enemy": { "name": "THE INFINITE ENGINE", "maxHp": 150 },
           "mcq": [
-            { "q": "What is the output?\nfor i in range(3):\n    if i == 1: continue\n    print(i)", "options": ["0 1 2", "0 2", "1 2", "0"], "a": 1, "damage": 30, "topic": "Continue", "explanation": "continue skips i=1. Prints 0, then skips 1, then prints 2." },
-            { "q": "x = [1,2,3]; x.append(4); print(len(x))", "options": ["3", "4", "5", "Error"], "a": 1, "damage": 30, "topic": "List Length", "explanation": "[1,2,3] has 3 items. append(4) adds one → 4 items." },
-            { "q": "What does range(2,5) produce?", "options": ["2,3,4", "2,3,4,5", "0,1,2,3,4", "2,5"], "a": 0, "damage": 30, "topic": "Range Args", "explanation": "range(2,5) starts at 2, stops before 5: 2,3,4." },
-            { "q": "Can you modify an item in a list by its index?", "options": ["No, lists are read-only", "Yes: list[index] = new_value", "Only the last item", "Only strings"], "a": 1, "damage": 30, "topic": "List Update", "explanation": "Lists are mutable. list[index] = value overwrites that position." },
-            { "q": "Nested loop: 4 outer × 5 inner. Total iterations?", "options": ["9", "20", "45", "54"], "a": 1, "damage": 30, "topic": "Nested Count", "explanation": "4 × 5 = 20 total iterations." }
+            { "q": "What is the output?\nfor i in range(3):\n    if i == 1: continue\n    print(i)", "options": ["0 1 2", "0 2", "1 2", "0"], "a": 1, "damage": 30, "topic": "Continue", "explanation": "⏭️ SKIP TRAP: i goes 0, 1, 2. When i is 1, 'continue' skips the print. So only 0 and 2 survive!" },
+            { "q": "x = [1,2,3]; x.append(4); print(len(x))", "options": ["3", "4", "5", "Error"], "a": 1, "damage": 30, "topic": "List Length", "explanation": "📏 GROWTH INTEL: The list started with 3. .append() added 1 more. Now the total length (len) is exactly 4." },
+            { "q": "What does range(2,5) produce?", "options": ["2,3,4", "2,3,4,5", "0,1,2,3,4", "2,5"], "a": 0, "damage": 30, "topic": "Range Args", "explanation": "🎯 RANGE SCALE: When you give TWO numbers, the first is the 'start' and the second is the 'stop'. It stops BEFORE 5, so: 2, 3, 4." },
+            { "q": "Can you modify an item in a list by its index?", "options": ["No, lists are read-only", "Yes: list[index] = new_value", "Only the last item", "Only strings"], "a": 1, "damage": 30, "topic": "List Update", "explanation": "🔃 MUTABILITY: Lists are 'mutable'—meaning changeable. You can overwrite any locker at any time using its index number." },
+            { "q": "Nested loop: 4 outer × 5 inner. Total iterations?", "options": ["9", "20", "45", "54"], "a": 1, "damage": 30, "topic": "Nested Count", "explanation": "📐 CALCULATED VOLLEY: 4 outer waves, and for EACH wave, 5 inner pulses happen. 4 × 5 = 20 total impacts." }
           ]
         },
         "coding": [

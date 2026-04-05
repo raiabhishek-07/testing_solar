@@ -49,25 +49,25 @@
               "q": "A computer without any programs is like...?",
               "options": ["A running car", "An empty kitchen with no recipes", "A phone with no battery", "A broken screen"],
               "a": 1, "damage": 25, "topic": "Computer Basics",
-              "explanation": "Without programs, a computer can't do anything — just like a kitchen can't cook without a recipe!"
+              "explanation": "Exact Intel: A computer is just hardware (the kitchen). Without a program (the recipe), it has no instructions on what to create. It's just an empty space waiting for orders!"
             },
             {
               "q": "Which of these is a PROGRAM (not hardware)?",
               "options": ["The keyboard", "The CPU chip", "WhatsApp", "The screen"],
               "a": 2, "damage": 25, "topic": "Program vs Hardware",
-              "explanation": "WhatsApp is software (a program). The keyboard, chip, and screen are physical hardware."
+              "explanation": "Hardware check: If you can touch it (keyboard, screen, chip), it's hardware. WhatsApp is a set of invisible instructions inside the machine, which makes it a program/software."
             },
             {
               "q": "What is programming?",
               "options": ["Building a computer", "Writing step-by-step instructions for a computer", "Playing video games", "Watching YouTube"],
               "a": 1, "damage": 25, "topic": "Programming",
-              "explanation": "Programming = writing instructions that tell a computer what to do, step by step."
+              "explanation": "Logic sync: Programming isn't about the physical building of mice or screens; it's the art of writing the explicit, ordered instructions that tell that hardware how to behave."
             },
             {
               "q": "Who was the first computer programmer?",
               "options": ["Bill Gates", "Elon Musk", "Ada Lovelace", "Steve Jobs"],
               "a": 2, "damage": 25, "topic": "History",
-              "explanation": "Ada Lovelace wrote the first algorithm in 1843 — making her history's first programmer!"
+              "explanation": "Historical record: While Bill Gates and Steve Jobs built massive companies, Ada Lovelace wrote the world's first algorithm for a machine way back in 1843!"
             }
           ]
         },

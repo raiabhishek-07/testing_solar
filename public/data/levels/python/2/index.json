@@ -34,11 +34,11 @@
         "battle": {
           "enemy": { "name": "THE JUDGE", "maxHp": 100 },
           "mcq": [
-            { "q": "What does 10 > 5 evaluate to?", "options": ["10", "5", "True", "False"], "a": 2, "damage": 20, "topic": "Conditions", "explanation": "10 is greater than 5, so the expression is True." },
-            { "q": "What does 3 == '3' evaluate to in Python?", "options": ["True", "False", "3", "Error"], "a": 1, "damage": 20, "topic": "Type Comparison", "explanation": "3 (int) and '3' (str) are different types, so == returns False." },
-            { "q": "Which operator means 'not equal to'?", "options": ["=!", "<>", "!=", "=/="], "a": 2, "damage": 20, "topic": "Operators", "explanation": "!= is the 'not equal to' operator. It returns True if values are different." },
-            { "q": "What does 5 >= 5 return?", "options": ["True", "False", "5", "Error"], "a": 0, "damage": 20, "topic": "Operators", "explanation": "5 is equal to 5, and >= means 'greater than OR equal'. So it's True." },
-            { "q": "What is the difference between = and ==?", "options": ["No difference", "= assigns a value, == checks equality", "= checks equality, == assigns", "Both check equality"], "a": 1, "damage": 20, "topic": "Assignment vs Comparison", "explanation": "= is assignment (store a value). == is comparison (check if equal)." }
+            { "q": "What does 10 > 5 evaluate to?", "options": ["10", "5", "True", "False"], "a": 2, "damage": 20, "topic": "Conditions", "explanation": "💡 INTEL: Comparison operators (>, <, ==) are like 'questions'. Since 10 IS greater than 5, the answer to the question is 'True'." },
+            { "q": "What does 3 == '3' evaluate to in Python?", "options": ["True", "False", "3", "Error"], "a": 1, "damage": 20, "topic": "Type Comparison", "explanation": "⚠️ LOGIC TRAP: Python compares both value AND type. A '3' (text) is NOT the same as 3 (number), so the result is False." },
+            { "q": "Which operator means 'not equal to'?", "options": ["=!", "<>", "!=", "=/="], "a": 2, "damage": 20, "topic": "Operators", "explanation": "🔍 SYMBOL INTEL: The exclamation mark (!) represents 'not'. So '!=' literally read as 'not equal to'." },
+            { "q": "What does 5 >= 5 return?", "options": ["True", "False", "5", "Error"], "a": 0, "damage": 20, "topic": "Operators", "explanation": "⚖️ THRESHOLD logic: '>=' checks if the first number is 'greater THAN OR equal' to the second. Since 5 equals 5, the result is True." },
+            { "q": "What is the difference between = and ==?", "options": ["No difference", "= assigns a value, == checks equality", "= checks equality, == assigns", "Both check equality"], "a": 1, "damage": 20, "topic": "Assignment vs Comparison", "explanation": "🚫 CRITICAL BUG WARNING: '=' is a command (STORES data). '==' is a question (CHECKS data). Beginners often confuse these in 'if' statements!" }
           ]
         },
         "coding": [
@@ -100,11 +100,11 @@
         "battle": {
           "enemy": { "name": "FORK DEMON", "maxHp": 100 },
           "mcq": [
-            { "q": "What character MUST come at the end of an if line?", "options": ["Semicolon ;", "Period .", "Colon :", "Arrow ->"], "a": 2, "damage": 20, "topic": "if Syntax", "explanation": "Every if, elif, and else line must end with a colon (:)." },
-            { "q": "How does Python know which code belongs to an if block?", "options": ["Curly braces {}", "Parentheses ()", "Indentation (4 spaces)", "Semicolons"], "a": 2, "damage": 20, "topic": "Indentation", "explanation": "Python uses indentation (4 spaces or 1 tab) to define code blocks." },
-            { "q": "In if-else, how many blocks run?", "options": ["Both always", "Neither", "Exactly one", "It depends"], "a": 2, "damage": 20, "topic": "if-else", "explanation": "Exactly one block runs — either the if block (True) or the else block (False)." },
-            { "q": "What does elif stand for?", "options": ["Else lift", "Else if", "Element if", "Electric if"], "a": 1, "damage": 20, "topic": "elif", "explanation": "elif = else if. It provides additional conditions to check." },
-            { "q": "In if→elif→else, Python picks the ___ True match.", "options": ["Last", "Random", "First", "Biggest"], "a": 2, "damage": 20, "topic": "elif Order", "explanation": "Python checks from top to bottom and runs the FIRST True condition." }
+            { "q": "What character MUST come at the end of an if line?", "options": ["Semicolon ;", "Period .", "Colon :", "Arrow ->"], "a": 2, "damage": 20, "topic": "if Syntax", "explanation": "⚡ RULE: In Python, the colon (:) is a 'gatekeeper'. It tells Python that a indented code block is starting right now." },
+            { "q": "How does Python know which code belongs to an if block?", "options": ["Curly braces {}", "Parentheses ()", "Indentation (4 spaces)", "Semicolons"], "a": 2, "damage": 20, "topic": "Indentation", "explanation": "📐 STRUCTURAL INTEL: Unlike other languages that use {}, Python uses 'Indentation' (spaces). Failing to indent will cause an IndentationError!" },
+            { "q": "In if-else, how many blocks run?", "options": ["Both always", "Neither", "Exactly one", "It depends"], "a": 2, "damage": 20, "topic": "if-else", "explanation": "⚔️ THE DUEL: if and else are mutually exclusive. Exactly ONE path will always be taken — never both, never neither." },
+            { "q": "What does elif stand for?", "options": ["Else lift", "Else if", "Element if", "Electric if"], "a": 1, "damage": 20, "topic": "elif", "explanation": "🔗 CHAINING: 'elif' is a contraction of 'else if'. It allows you to test multiple specific conditions in sequence." },
+            { "q": "In if→elif→else, Python picks the ___ True match.", "options": ["Last", "Random", "First", "Biggest"], "a": 2, "damage": 20, "topic": "elif Order", "explanation": "🚦 TOP-DOWN logic: Python stops at the 'FIRST' True condition it hits. Even if multiple conditions are True, only the first one ever runs!" }
           ]
         },
         "coding": [
@@ -221,10 +221,10 @@
         "battle": {
           "enemy": { "name": "REAL WORLD BOSS", "maxHp": 100 },
           "mcq": [
-            { "q": "In nested if, the inner if runs when?", "options": ["Always", "Only when the outer if is True", "Only when the outer if is False", "Randomly"], "a": 1, "damage": 25, "topic": "Nested if", "explanation": "Inner if only executes when the outer condition is True." },
-            { "q": "How many extra spaces does a nested if need?", "options": ["0", "2", "4", "8"], "a": 2, "damage": 25, "topic": "Indentation", "explanation": "Each nesting level adds 4 more spaces of indentation." },
-            { "q": "What is the main use of if-else in real apps?", "options": ["Decoration", "Making decisions based on conditions", "Printing text", "Creating variables"], "a": 1, "damage": 25, "topic": "Real-World", "explanation": "if-else is the fundamental decision-making tool in all software." },
-            { "q": "Can you use 'and' inside an if condition?", "options": ["No, that's illegal", "Yes, to combine multiple conditions", "Only in Python 2", "Only with numbers"], "a": 1, "damage": 25, "topic": "Combined Conditions", "explanation": "You can use and, or, not inside any if/elif condition to combine checks." }
+            { "q": "In nested if, the inner if runs when?", "options": ["Always", "Only when the outer if is True", "Only when the outer if is False", "Randomly"], "a": 1, "damage": 25, "topic": "Nested if", "explanation": "🚪 THE DOOR WITHIN: The inner 'if' is protected by the outer one. It only even exists as an option if the outer door is True." },
+            { "q": "How many extra spaces does a nested if need?", "options": ["0", "2", "4", "8"], "a": 2, "damage": 25, "topic": "Indentation", "explanation": "📐 LAYERING: Every level of nesting adds 4 additional spaces. Nested code usually sits 8 spaces deep from the margin." },
+            { "q": "What is the main use of if-else in real apps?", "options": ["Decoration", "Making decisions based on conditions", "Printing text", "Creating variables"], "a": 1, "damage": 25, "topic": "Real-World", "explanation": "🌍 THE BRAIN: if-else is the 'Logic Engine' of all software. Without it, computers couldn't react to user inputs or specific scenarios." },
+            { "q": "Can you use 'and' inside an if condition?", "options": ["No, that's illegal", "Yes, to combine multiple conditions", "Only in Python 2", "Only with numbers"], "a": 1, "damage": 25, "topic": "Combined Conditions", "explanation": "🔗 COERCION: Logical operators (and, or) let you pack multiple 'questions' into a single if statement for complex logic." }
           ]
         },
         "coding": [

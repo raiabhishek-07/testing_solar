@@ -363,14 +363,29 @@ export default function BattleArena({ actionTrigger, arenaHeight = 320 }) {
           {/* Ground glow */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-2/3 h-3 rounded-full" style={{ background: 'radial-gradient(ellipse, #00ddbb12 0%, transparent 70%)' }}/>
 
-          {/* Pixel trees */}
-          {[10, 88].map((x, i) => (
-            <div key={i} className="absolute" style={{ bottom: 36, left: `${x}%`, imageRendering: 'pixelated' }}>
-              <div className="w-1.5 h-10 bg-amber-900/80 mx-auto"/>
-              <div className="relative -mt-7 -ml-3.5">
-                <div className="w-9 h-3 bg-green-900/90 rounded"/>
-                <div className="w-7 h-3 bg-green-800/90 mx-auto -mt-1.5 rounded"/>
-                <div className="w-4 h-3 bg-green-700/90 mx-auto -mt-1.5 rounded"/>
+          {/* Pixel trees & bushes */}
+          {[5, 12, 18, 82, 88, 95].map((x, i) => (
+            <div key={i} className="absolute z-10" 
+              style={{ 
+                bottom: '12%', 
+                left: `${x}%`, 
+                imageRendering: 'pixelated',
+                transform: `translateX(-50%) scale(${0.7 + (i % 3) * 0.3})`,
+                opacity: 0.9,
+                width: 50, height: 40 // Anchor point for layering
+              }}>
+              {/* Ground contact shadow */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/40 rounded-full blur-[1px]"/>
+              
+              {/* Trunk */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-16 bg-amber-950/90 shadow-sm"/>
+              
+              {/* Foliage - layered upwards */}
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full flex flex-col-reverse items-center">
+                <div className="w-14 h-5 bg-[#0a2e1d] rounded-full shadow-inner"/>
+                <div className="w-11 h-5 bg-[#0d3d27] -mt-2.5 rounded-full"/>
+                <div className="w-8 h-5 bg-[#125235] -mt-2.5 rounded-full"/>
+                <div className="w-4 h-4 bg-[#1a704a] -mt-2 rounded-full"/>
               </div>
             </div>
           ))}
