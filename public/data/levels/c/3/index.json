@@ -1,185 +1,179 @@
 {
-  "label": "LEVEL 3: LOOPS & ARRAYS (Repetition & Data)",
+  "label": "LEVEL 3: LOOPS (C Iteration)",
   "sublevels": [
     {
       "id": "3_1",
-      "title": "LOOPS",
-      "subtitle": "Repeating code automatically",
+      "title": "FOR LOOP",
+      "subtitle": "Counted iteration in C",
       "icon": "Repeat",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c1", "title": "What is a Loop?", "emoji": "🔁",
-            "analogy": "A loop is like a washing machine cycle — it repeats the same steps over and over until a condition says STOP.",
-            "content": "Loops let you repeat code without copying it. Instead of writing print('Hello') 100 times, a loop runs it 100 times automatically.",
-            "examples": [{ "title": "Why Loops?", "explanation": "One loop replaces 100 copy-pasted lines!", "code": "# Without loop: 5 lines\nprint('Hello')\nprint('Hello')\nprint('Hello')\n\n# With loop: 2 lines!\nfor i in range(3):\n    print('Hello')" }],
-            "funFact": "Every game you play uses loops. The 'game loop' runs 60 times per second to update the screen! 🎮"
+            "id": "c3c1", "title": "C for Loop", "emoji": "🔄",
+            "analogy": "C invented the modern for loop — three parts in one line: init, condition, update. Every language you'll ever use copied this design. It's 50 years old and still the most used loop structure.",
+            "content": "for (init; condition; update) { body }. All three parts are optional. Init runs once. Condition tested before each iteration — 0 is false, non-zero is true. Update runs after each iteration.",
+            "examples": [
+              { "title": "Classic C for Loop", "explanation": "i declared before loop in older C (C89).", "code": "#include <stdio.h>\nint main() {\n    // C99+ allows declaration in init:\n    for (int i = 1; i <= 5; i++) {\n        printf(\"%d\\n\", i);\n    }\n    // C89 style (declare before):\n    int j;\n    for (j = 0; j < 3; j++) {\n        printf(\"%d\\n\", j);\n    }\n    return 0;\n}" },
+              { "title": "Accumulator & Array Iteration", "explanation": "Classic patterns in C.", "code": "int sum = 0;\nfor (int i = 1; i <= 10; i++) {\n    sum += i;\n}\nprintf(\"%d\\n\", sum); // 55\n\nint arr[] = {10, 20, 30, 40};\nint len = 4;\nfor (int i = 0; i < len; i++) {\n    printf(\"%d\\n\", arr[i]);\n}" }
+            ],
+            "funFact": "C89 didn't allow variable declarations inside for(int i=...) — you had to declare i before the loop. C99 relaxed this. Always compile C with -std=c99 or later to use modern features! 📅"
           },
           {
-            "id": "l3c2", "title": "For Loops", "emoji": "🔄",
-            "analogy": "A for loop is like a teacher calling roll — it goes through a list one by one. 'For EACH student in the class, say their name.'",
-            "content": "for loops iterate over a sequence (range, list, string). range(5) gives 0,1,2,3,4. The variable (i) gets each value in turn.",
-            "examples": [{ "title": "For Loop with range()", "explanation": "range(5) = 0,1,2,3,4 — the loop runs 5 times.", "code": "for i in range(5):\n    print(i)\n# Output: 0 1 2 3 4 (each on new line)" }],
-            "funFact": "range(5) starts at 0, not 1! This is called 'zero-indexing' and is universal in programming. 0️⃣"
-          },
-          {
-            "id": "l3c3", "title": "While Loops", "emoji": "⏳",
-            "analogy": "A while loop is like waiting in line — you keep waiting WHILE there are people ahead of you. Once the line is empty, you stop.",
-            "content": "while loops repeat AS LONG AS a condition is True. The condition is checked BEFORE each iteration. If False from the start, the loop never runs.",
-            "examples": [{ "title": "While Loop", "explanation": "Keeps going until count reaches 3.", "code": "count = 0\nwhile count < 3:\n    print(count)\n    count = count + 1\n# Output: 0 1 2" }],
-            "funFact": "An infinite loop (while True) runs FOREVER. Servers use this: they wait for requests in an infinite loop! 🌐"
+            "id": "c3c2", "title": "Array Traversal in C", "emoji": "📋",
+            "analogy": "In C, arrays have no built-in length — you're the keeper of that information. Like a database with no record count field, you must always track the size manually.",
+            "content": "C arrays don't store their length. You must track it manually via a variable or sizeof(). sizeof(arr)/sizeof(arr[0]) gives element count for stack arrays. Pointer arithmetic is C's powerful but risky alternative.",
+            "examples": [
+              { "title": "Safe Array Traversal", "explanation": "Track length with sizeof or a variable.", "code": "int arr[] = {5, 10, 15, 20, 25};\nint len = sizeof(arr) / sizeof(arr[0]); // 5\n\nfor (int i = 0; i < len; i++) {\n    printf(\"arr[%d] = %d\\n\", i, arr[i]);\n}\n\n// Passing to function — must pass length too:\nvoid printArr(int arr[], int len) {\n    for (int i = 0; i < len; i++)\n        printf(\"%d \", arr[i]);\n}" }
+            ],
+            "funFact": "C's lack of array bounds checking is a massive source of security vulnerabilities — buffer overflows. The Heartbleed bug (2014) affected 500,000+ servers because of C array bounds violations! 🔐"
           }
         ],
         "battle": {
-          "enemy": { "name": "LOOP WARDEN", "maxHp": 100 },
+          "enemy": { "name": "THE C LOOP ENGINE", "maxHp": 100 },
           "mcq": [
-            { "q": "What does range(4) produce?", "options": ["1,2,3,4", "0,1,2,3", "0,1,2,3,4", "4,3,2,1"], "a": 1, "damage": 20, "topic": "range()", "explanation": "range(4) starts at 0 and goes to 3 (stops BEFORE 4): 0,1,2,3." },
-            { "q": "How many times does 'for i in range(3)' loop?", "options": ["2", "3", "4", "1"], "a": 1, "damage": 20, "topic": "For Loop", "explanation": "range(3) = 0,1,2 — that's 3 values, so 3 iterations." },
-            { "q": "When does a while loop stop?", "options": ["After 10 runs", "When the condition becomes False", "After 1 run", "It never stops"], "a": 1, "damage": 20, "topic": "While Loop", "explanation": "A while loop stops when its condition becomes False." },
-            { "q": "What happens if the while condition is NEVER False?", "options": ["Error", "The loop runs once", "Infinite loop — it runs forever", "Python auto-stops it"], "a": 2, "damage": 20, "topic": "Infinite Loop", "explanation": "If the condition never becomes False, the loop runs infinitely. Use Ctrl+C to stop!" },
-            { "q": "What keyword starts a counting loop in Python?", "options": ["loop", "repeat", "for", "each"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "Python uses 'for' to iterate over sequences." }
+            { "q": "for(int i=0;i<5;i++) — how many iterations?", "options": ["4","5","6","Depends"], "a": 1, "damage": 20, "topic": "Loop count", "explanation": "i = 0,1,2,3,4 → 5 iterations. Standard pattern: 0 to <N gives N iterations." },
+            { "q": "How do you get the number of elements in a C array 'int arr[5]'?", "options": ["arr.length","arr.size()","sizeof(arr)/sizeof(arr[0])","len(arr)"], "a": 2, "damage": 20, "topic": "Array length", "explanation": "sizeof: sizeof(arr) = total bytes. sizeof(arr[0]) = bytes per element. Division gives count. Only works on stack-allocated arrays (not pointers)!" },
+            { "q": "In C99, can you declare 'int i' inside a for init?", "options": ["No — C89 only","Yes — C99 allows for(int i=...)","Only in C11","Only in .cpp files"], "a": 1, "damage": 20, "topic": "C99 for decl", "explanation": "C99: for(int i=0; i<n; i++) is valid in C99 and later. In C89, you must declare int i; before the loop. Always use -std=c99 or c11!" },
+            { "q": "C for loop with all parts empty: for(;;) {} is:", "options": ["Compile error","An infinite loop","Runs once","Skipped"], "a": 1, "damage": 20, "topic": "Infinite for", "explanation": "Infinite Loop: for(;;) is C idiom for an intentional infinite loop — all three parts omitted. Equivalent to while(1). Use break to exit." },
+            { "q": "int s=0; for(int i=1;i<=4;i++) s+=i; s=?", "options": ["4","10","8","6"], "a": 1, "damage": 20, "topic": "Accumulator", "explanation": "0+1+2+3+4 = 10." }
           ]
         },
         "coding": [
-          { "title": "Count Output", "objective": "How many times does this loop print? for i in range(4): print(i)", "starterCode": "for i in range(4):\n    print(i)\n# Prints ___ times", "answer": "4", "hint": "range(4) = 0,1,2,3. That's 4 values." },
-          { "title": "While End", "objective": "What is the last number printed? x=0; while x<5: print(x); x+=1", "starterCode": "x = 0\nwhile x < 5:\n    print(x)\n    x += 1\n# Last output: ___", "answer": "4", "hint": "Loop runs for 0,1,2,3,4. When x becomes 5, x<5 is False → stops." },
-          { "title": "Range Start", "objective": "What is the FIRST number in range(5)?", "starterCode": "for i in range(5):\n    print(i)  # First: ___", "answer": "0", "hint": "range() always starts at 0 by default." }
+          { "title": "Loop count", "objective": "for(int i=0;i<6;i++) — how many iterations?", "starterCode": "// Iterates ___ times", "answer": "6", "hint": "0 to 5 inclusive = 6." },
+          { "title": "sizeof formula", "objective": "C formula to get array element count from a stack array?", "starterCode": "int arr[5];\nint len = sizeof(arr) / sizeof(arr[___]);", "answer": "0", "hint": "sizeof(arr[0]) gets size of first element — representative of all elements." },
+          { "title": "Array last index", "objective": "int a[]={1,2,3,4}. What is the last valid index?", "starterCode": "// arr has 4 elements. Indices: 0,1,2,___", "answer": "3", "hint": "4 elements → indices 0,1,2,3." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Infinite loop bug:\n\nx = 1\nwhile x < 10:\n    print(x)", "brokenCode": "x = 1\nwhile x < 10:\n    print(x)", "bugLine": 2, "options": ["Nothing wrong", "Missing x = x + 1 — x never changes, so loop is infinite", "print is wrong", "while should be for"], "answer": "Missing x = x + 1 — x never changes, so loop is infinite", "hint": "x stays at 1 forever because it never increases. Add x = x + 1 inside the loop." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nfor i in range(5)\n    print(i)", "brokenCode": "for i in range(5)\n    print(i)", "bugLine": 0, "options": ["Missing colon at end: for i in range(5):", "range is wrong", "print needs quotes", "Nothing wrong"], "answer": "Missing colon at end: for i in range(5):", "hint": "for loops need a colon at the end, just like if statements." }
+          { "type": "mcq", "description": "🚨 Buffer Overflow:\n\nint arr[3] = {1,2,3};\nfor (int i=0; i<=3; i++) printf(\"%d\\n\", arr[i]);", "brokenCode": "for(int i=0; i<=3; i++)", "bugLine": 0, "options": ["Nothing wrong","i<=3 accesses arr[3] — out of bounds, undefined behavior! Use i<3","Start at i=1","Use arr.length"], "answer": "i<=3 accesses arr[3] — out of bounds, undefined behavior! Use i<3", "hint": "arr[3] has indices 0,1,2. arr[3] is out of bounds — buffer overflow!" },
+          { "type": "mcq", "description": "🚨 Infinite Loop:\n\nfor (int i=10; i>0; i++) printf(\"%d\\n\", i);", "brokenCode": "for(int i=10; i>0; i++)", "bugLine": 0, "options": ["Nothing wrong","i++ makes i grow — i>0 always true. Change to i-- to count down","i should start at 0","Needs break"], "answer": "i++ makes i grow — i>0 always true. Change to i-- to count down", "hint": "Counting down requires i-- (decrement). i++ makes the condition stay true forever." }
         ],
         "prediction": [
-          { "code": "total = 0\nfor i in range(4):\n    total = total + i\nprint(total)", "options": ["4", "6", "10", "0"], "answer": "6", "explanation": "i goes 0,1,2,3. total = 0+0+1+2+3 = 6." },
-          { "code": "x = 10\nwhile x > 7:\n    x = x - 1\nprint(x)", "options": ["7", "8", "10", "0"], "answer": "7", "explanation": "10→9→8→7. When x=7, 7>7 is False → loop stops. x is 7." }
+          { "code": "int s=0;\nfor(int i=0;i<5;i+=2) s+=i;\nprintf(\"%d\\n\",s);", "options": ["6","10","4","12"], "answer": "6", "explanation": "i = 0,2,4. s = 0+2+4 = 6." },
+          { "code": "int a[]={3,6,9,12};\nint t=0;\nfor(int i=0;i<4;i++) if(a[i]>6) t++;\nprintf(\"%d\\n\",t);", "options": ["1","2","3","4"], "answer": "2", "explanation": "9>6 and 12>6. t = 2." }
         ]
       }
     },
     {
       "id": "3_2",
-      "title": "LOOP MASTERY",
-      "subtitle": "Nested loops & break/continue",
-      "icon": "Layers",
+      "title": "WHILE & DO-WHILE",
+      "subtitle": "Condition-based loops in C",
+      "icon": "RefreshCw",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c4", "title": "Nested Loops", "emoji": "🎡",
-            "analogy": "A nested loop is like a clock: the minute hand (inner loop) goes 60 times for EACH tick of the hour hand (outer loop).",
-            "content": "A loop inside another loop. The inner loop runs COMPLETELY for each iteration of the outer loop. 3 outer × 4 inner = 12 total runs.",
-            "examples": [{ "title": "Nested For Loop", "explanation": "Inner loop runs fully for each outer iteration.", "code": "for i in range(3):       # outer: 0,1,2\n    for j in range(2):   # inner: 0,1\n        print(i, j)\n# Output: 0 0, 0 1, 1 0, 1 1, 2 0, 2 1" }],
-            "funFact": "2D games use nested loops: outer loop for rows, inner loop for columns — drawing the screen pixel by pixel! 🕹️"
+            "id": "c3c3", "title": "while Loop in C", "emoji": "⏳",
+            "analogy": "C's while is the grandfather of all while loops. Check condition first, run body only if true. Identical syntax to Java — semicolons end statements, braces group blocks.",
+            "content": "while (condition) { body } — condition tested BEFORE each iteration. Any non-zero value is true. Must update loop variable inside or risk infinite loop. while(1) is a common C idiom for infinite loops with break.",
+            "examples": [
+              { "title": "C while Loop", "explanation": "Non-zero = true in C conditions.", "code": "#include <stdio.h>\nint main() {\n    int i = 1;\n    while (i <= 5) {\n        printf(\"%d\\n\", i);\n        i++;\n    }\n    \n    // while(1) — infinite loop with break:\n    int count = 0;\n    while (1) {\n        count++;\n        if (count >= 5) break;\n    }\n    printf(\"%d\\n\", count); // 5\n    return 0;\n}" }
+            ],
+            "funFact": "while(1) is the idiomatic C infinite loop — more common than for(;;). You'll see it in embedded systems code that runs forever (firmware, OS kernels), breaking only on specific events! 🔄"
           },
           {
-            "id": "l3c5", "title": "Break & Continue", "emoji": "⏭️",
-            "analogy": "break is the EMERGENCY EXIT — it kicks you out of the loop immediately. continue is SKIP — it skips the rest of this round and starts the next one.",
-            "content": "break: immediately exits the entire loop. continue: skips the remaining code in the current iteration and jumps to the next one.",
-            "examples": [{ "title": "Break vs Continue", "explanation": "break exits. continue skips.", "code": "# Break: stop at 3\nfor i in range(10):\n    if i == 3:\n        break\n    print(i)  # 0, 1, 2\n\n# Continue: skip 3\nfor i in range(5):\n    if i == 3:\n        continue\n    print(i)  # 0, 1, 2, 4" }],
-            "funFact": "Games use break to exit loops when a player dies. The loop checks 'is player alive?' each frame. 💀"
+            "id": "c3c4", "title": "do-while in C", "emoji": "✅",
+            "analogy": "do-while is C's 'at least once' guarantee. The body runs FIRST, then the condition is checked. The semicolon after the while clause is easy to forget!",
+            "content": "do { body } while (condition); — note the semicolon. Body runs at least once. Common in C for reading user input in terminal programs and state machines.",
+            "examples": [
+              { "title": "C do-while", "explanation": "Semicolon after while() is mandatory.", "code": "int i = 1;\ndo {\n    printf(\"%d\\n\", i);\n    i++;\n} while (i <= 5);  // ← semicolon!\n\n// Even if condition starts false, runs once:\nint x = 100;\ndo {\n    printf(\"runs once\\n\");  // prints!\n} while (x < 5);" }
+            ],
+            "funFact": "do-while is used extensively in C macro definitions. The pattern 'do { code } while(0)' is a famous C trick for multi-statement macros that safely work in all contexts! 🔧"
           }
         ],
         "battle": {
-          "enemy": { "name": "NESTED NIGHTMARE", "maxHp": 100 },
+          "enemy": { "name": "THE WHILE WARDEN", "maxHp": 100 },
           "mcq": [
-            { "q": "In a 3×4 nested loop, how many total iterations?", "options": ["3", "4", "7", "12"], "a": 3, "damage": 25, "topic": "Nested Loops", "explanation": "3 outer × 4 inner = 12 total iterations." },
-            { "q": "What does 'break' do?", "options": ["Pauses the loop", "Skips current iteration", "Exits the loop entirely", "Restarts the loop"], "a": 2, "damage": 25, "topic": "Break", "explanation": "break immediately exits the entire loop." },
-            { "q": "What does 'continue' do?", "options": ["Exits the loop", "Skips rest of current iteration, starts next", "Runs the code twice", "Pauses"], "a": 1, "damage": 25, "topic": "Continue", "explanation": "continue skips the remaining code in the current iteration and jumps to the next one." },
-            { "q": "Can break exit an outer loop from inside an inner loop?", "options": ["Yes, it exits all loops", "No, break only exits the innermost loop", "Only with a flag", "Error"], "a": 1, "damage": 25, "topic": "Break Scope", "explanation": "break only exits the loop it's directly inside — not outer loops." }
+            { "q": "while(1) in C is:", "options": ["Compile error","An intentional infinite loop (use break to exit)","Runs once","undefined"], "a": 1, "damage": 25, "topic": "while(1)", "explanation": "while(1): 1 is non-zero = always true. Classic C idiom for infinite loops — used in embedded systems, OS kernels, and server loops. Use break to exit." },
+            { "q": "C do-while requires what after the closing )?", "options": ["Nothing","Semicolon ;","}","break"], "a": 1, "damage": 25, "topic": "do-while ;", "explanation": "Semicolon: do { } while(condition); needs ; after ). Missing it is a common compile error." },
+            { "q": "int x=10; while(x<5){x++;} How many times runs?", "options": ["5","10","0 — never","Infinite"], "a": 2, "damage": 25, "topic": "Zero iterations", "explanation": "Never: x=10, x<5 is 0 (false) from the start. while checks FIRST." },
+            { "q": "do{ printf('A'); }while(0); How many times prints?", "options": ["0","1","Infinite","Error"], "a": 1, "damage": 25, "topic": "do-while false condition", "explanation": "Once: do-while always runs ONCE regardless of condition. Then checks while(0) — 0 is false, stops. Famous 'do-once' pattern!" }
           ]
         },
         "coding": [
-          { "title": "Total Runs", "objective": "for i in range(2): for j in range(3): print('*'). How many stars print?", "starterCode": "# 2 outer × 3 inner = ___", "answer": "6", "hint": "2 × 3 = 6 total iterations." },
-          { "title": "Break Output", "objective": "for i in range(10): if i==3: break; print(i). What's the last number printed?", "starterCode": "for i in range(10):\n    if i == 3: break\n    print(i)\n# Last output: ___", "answer": "2", "hint": "Prints 0, 1, 2. When i=3, break exits before print." }
+          { "title": "while true idiom", "objective": "C idiom for intentional infinite loop?", "starterCode": "while(___){\n    // runs forever\n    if(done) break;\n}", "answer": "1", "hint": "1 is always non-zero = always true in C." },
+          { "title": "do-while runs count", "objective": "do{printf('X');}while(0); How many times prints?", "starterCode": "do {\n    printf(\"X\");\n} while(0);\n// Prints ___ times", "answer": "1", "hint": "do-while always runs at least once. Then checks while(0) — false, stops." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug: This should print 0,1,2,4 (skip 3) but prints 0,1,2:\n\nfor i in range(5):\n    if i == 3:\n        break\n    print(i)", "brokenCode": "for i in range(5):\n    if i == 3:\n        break\n    print(i)", "bugLine": 2, "options": ["Use 'continue' instead of 'break' to skip 3 but keep going", "Nothing wrong", "Change range to 4", "Use while instead"], "answer": "Use 'continue' instead of 'break' to skip 3 but keep going", "hint": "break exits the entire loop. continue just skips the current iteration." }
+          { "type": "mcq", "description": "🚨 Missing semicolon:\n\ndo {\n    printf(\"hello\\n\");\n} while(count > 0)", "brokenCode": "} while(count > 0)", "bugLine": 0, "options": ["Nothing wrong","Missing semicolon — do-while must end with ; → } while(count>0);","while should be if","Need break inside"], "answer": "Missing semicolon — do-while must end with ; → } while(count>0);", "hint": "do { } while(condition); — the semicolon after ) is mandatory!" }
         ],
         "prediction": [
-          { "code": "for i in range(5):\n    if i == 2:\n        continue\n    print(i)", "options": ["0 1 2 3 4", "0 1 3 4", "0 1", "0 1 2"], "answer": "0 1 3 4", "explanation": "continue skips only i=2. All other values (0,1,3,4) are printed." },
-          { "code": "count = 0\nfor i in range(3):\n    for j in range(3):\n        count += 1\nprint(count)", "options": ["3", "6", "9", "0"], "answer": "9", "explanation": "3 outer × 3 inner = 9 total iterations. count increments 9 times." }
+          { "code": "int n=0;\ndo{\n    n+=3;\n}while(n<10);\nprintf(\"%d\\n\",n);", "options": ["9","10","12","3"], "answer": "12", "explanation": "n=0→3→6→9→12. At 12: 12<10 false → stop. n=12." }
         ]
       }
     },
     {
       "id": "3_3",
-      "title": "ARRAYS (LISTS)",
-      "subtitle": "Storing collections of data",
-      "icon": "List",
+      "title": "BREAK, CONTINUE & GOTO",
+      "subtitle": "Loop control in C",
+      "icon": "Zap",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c6", "title": "What is a List?", "emoji": "📋",
-            "analogy": "A list is like a row of lockers. Each locker has a number (index, starting from 0) and stores one item. You can add, remove, or peek into any locker.",
-            "content": "Lists (arrays) store multiple values in one variable. Created with square brackets []. Items are separated by commas. Indexed starting from 0.",
-            "examples": [{ "title": "Creating and Accessing", "explanation": "Index 0 = first item, 1 = second, etc.", "code": "heroes = ['Neo', 'Trinity', 'Morpheus']\nprint(heroes[0])   # Neo\nprint(heroes[1])   # Trinity\nprint(heroes[2])   # Morpheus" }],
-            "funFact": "Python lists can mix types: [1, 'hello', True, 3.14] is perfectly valid! Most languages don't allow this. 🤯"
-          },
-          {
-            "id": "l3c7", "title": "Updating & Looping Through Lists", "emoji": "🔃",
-            "analogy": "Updating a list is like editing a playlist — swap songs, add new ones, or remove old ones. Looping through it is like pressing 'Play All'.",
-            "content": "Update items by index: list[0] = 'new'. Use .append() to add, .remove() to delete. Loop through with 'for item in list:'.",
-            "examples": [{ "title": "Update & Loop", "explanation": "Change, add, and iterate.", "code": "scores = [10, 20, 30]\nscores[1] = 25          # Update index 1\nscores.append(40)       # Add to end\n\nfor s in scores:\n    print(s)\n# Output: 10, 25, 30, 40" }],
-            "funFact": "len(list) gives the length. The last index is always len(list) - 1, because indexing starts at 0! 📏"
+            "id": "c3c5", "title": "break, continue & goto in C", "emoji": "⛔",
+            "analogy": "break is an ejector seat — instant exit. continue is 'skip this round.' C also has goto — a teleporter. goto gets a bad reputation but is occasionally used in C for cleanup on error paths in kernel code.",
+            "content": "break: exits innermost loop or switch. continue: skips to next iteration. C also has goto which jumps to a label — controversial but used in C kernel code for centralized error cleanup.",
+            "examples": [
+              { "title": "break and continue in C", "explanation": "Same semantics as Java.", "code": "// break:\nfor(int i=0;i<10;i++){\n    if(i==5) break;\n    printf(\"%d \",i);\n}\n// 0 1 2 3 4\n\n// continue:\nfor(int i=0;i<8;i++){\n    if(i%2!=0) continue;\n    printf(\"%d \",i);\n}\n// 0 2 4 6" },
+              { "title": "goto (C only) — error cleanup", "explanation": "goto used legitimately for cleanup in C.", "code": "// Legitimate goto use in C:\nint* p = malloc(100);\nif (!p) goto cleanup;\n\nint* q = malloc(200);\nif (!q) goto cleanup;\n\n// ... do work ...\n\ncleanup:\n    free(p);\n    free(q);\n    return -1;" }
+            ],
+            "funFact": "Linus Torvalds (Linux creator) explicitly allows goto in the Linux kernel source code — arguing it produces cleaner error-handling code than deeply nested if/else chains. goto is NOT evil in C! 🐧"
           }
         ],
         "battle": {
-          "enemy": { "name": "ARRAY OVERLORD", "maxHp": 100 },
+          "enemy": { "name": "THE LOOP BREAKER", "maxHp": 100 },
           "mcq": [
-            { "q": "What index is the FIRST element in a list?", "options": ["1", "0", "-1", "First"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Lists use zero-based indexing. First element = index 0." },
-            { "q": "How do you create a list in Python?", "options": ["list()", "{}", "()", "[]"], "a": 3, "damage": 20, "topic": "Syntax", "explanation": "Lists use square brackets: [item1, item2, item3]." },
-            { "q": "What does .append(x) do?", "options": ["Removes x", "Adds x at the beginning", "Adds x at the end", "Replaces everything with x"], "a": 2, "damage": 20, "topic": "append", "explanation": ".append(x) adds x to the END of the list." },
-            { "q": "colors = ['red', 'blue', 'green']. What is colors[2]?", "options": ["red", "blue", "green", "Error"], "a": 2, "damage": 20, "topic": "Indexing", "explanation": "Index 0='red', 1='blue', 2='green'." },
-            { "q": "What happens if you access list[10] on a 3-item list?", "options": ["Returns None", "Returns 0", "IndexError", "Returns the last item"], "a": 2, "damage": 20, "topic": "Bounds", "explanation": "Accessing an index that doesn't exist raises an IndexError." }
+            { "q": "What does break do in a C loop?", "options": ["Skips iteration","Exits innermost loop or switch","Restarts loop","Goes to next function"], "a": 1, "damage": 25, "topic": "break", "explanation": "break: Exits the innermost loop or switch statement immediately. Execution resumes after the closing }." },
+            { "q": "continue in a C for loop causes:", "options": ["Loop exit","Skip remainder of body, run update, re-check condition","Restart from i=0","Jump to next function"], "a": 1, "damage": 25, "topic": "continue", "explanation": "continue: Skips rest of current iteration. In for: runs update (i++) then checks condition. Loop continues with next iteration." },
+            { "q": "C has a jump statement that Java does NOT have. What is it?", "options": ["break","continue","goto","return"], "a": 2, "damage": 25, "topic": "goto", "explanation": "goto: C has goto which jumps to a labeled line. Java removed goto (it's a reserved word but unused). goto is controversial but found in Linux kernel for error cleanup." },
+            { "q": "for(i=0;i<5;i++){if(i==3)continue;printf(\"%d\",i);} Output?", "options": ["0 1 2 3 4","0 1 2 4","3 4","0 1 2"], "a": 1, "damage": 25, "topic": "continue C", "explanation": "continue: When i=3, skip printf. Output: 0 1 2 4." }
           ]
         },
         "coding": [
-          { "title": "Index Check", "objective": "nums = [5, 10, 15, 20]. What is nums[3]?", "starterCode": "nums = [5, 10, 15, 20]\nprint(nums[3])\n# Output: ___", "answer": "20", "hint": "Index 0=5, 1=10, 2=15, 3=20." },
-          { "title": "Length", "objective": "heroes = ['Neo', 'Trinity']. What does len(heroes) return?", "starterCode": "heroes = ['Neo', 'Trinity']\nprint(len(heroes))\n# Output: ___", "answer": "2", "hint": "There are 2 items in the list." },
-          { "title": "After Append", "objective": "x = [1,2]. x.append(3). What is x now? Type the list.", "starterCode": "x = [1, 2]\nx.append(3)\nprint(x)\n# Output: ___", "answer": "[1, 2, 3]", "hint": ".append(3) adds 3 to the end." }
+          { "title": "break exit value", "objective": "for(i=0;i<10;i++){if(i==6)break;printf(\"%d\",i);} Last printed?", "starterCode": "// Prints 0,1,2,3,4,5 then breaks. Last: ___", "answer": "5", "hint": "At i=6 → break. Last print was i=5." },
+          { "title": "continue effect", "objective": "for(i=1;i<=5;i++){if(i==4)continue;printf(\"%d\",i);} What's MISSING?", "starterCode": "// 1,2,3,_,5 printed. Missing: ___", "answer": "4", "hint": "When i=4, continue skips printf." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nnums = [10, 20, 30]\nprint(nums[3])", "brokenCode": "nums = [10, 20, 30]\nprint(nums[3])", "bugLine": 1, "options": ["Nothing wrong", "IndexError! Last valid index is 2 (not 3)", "nums should use ()", "print is wrong"], "answer": "IndexError! Last valid index is 2 (not 3)", "hint": "3 items → indices 0, 1, 2. Index 3 is out of bounds." },
-          { "type": "mcq", "description": "🚨 Bug:\n\ncolors = ['red' 'blue' 'green']", "brokenCode": "colors = ['red' 'blue' 'green']", "bugLine": 0, "options": ["Missing commas between items", "Use () instead of []", "Quotes are wrong", "Nothing wrong"], "answer": "Missing commas between items", "hint": "List items must be separated by commas: ['red', 'blue', 'green']." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nfor(int i=0;i<5;i++){\n    printf(\"%d\\n\",i);\n    break;\n}", "brokenCode": "break;", "bugLine": 0, "options": ["Nothing wrong","break after first printf — only prints 0 and exits. break should be inside an if condition","i should start at 1","printf wrong format"], "answer": "break after first printf — only prints 0 and exits. break should be inside an if condition", "hint": "Unconditional break always exits after first iteration. Use if(i==X) break." }
         ],
         "prediction": [
-          { "code": "x = [1, 2, 3]\nx[0] = 99\nprint(x)", "options": ["[99, 2, 3]", "[1, 2, 3]", "[1, 2, 99]", "Error"], "answer": "[99, 2, 3]", "explanation": "x[0] = 99 replaces the first element. The list becomes [99, 2, 3]." },
-          { "code": "nums = [10, 20, 30]\ntotal = 0\nfor n in nums:\n    total += n\nprint(total)", "options": ["10", "30", "60", "0"], "answer": "60", "explanation": "The loop adds each item: 0+10+20+30 = 60." }
+          { "code": "int s=0;\nfor(int i=1;i<=10;i++){\n    if(i%3==0) continue;\n    s+=i;\n}\nprintf(\"%d\\n\",s);", "options": ["37","55","40","33"], "answer": "37", "explanation": "Skip multiples of 3 (3,6,9). Add 1+2+4+5+7+8+10 = 37." }
         ]
       }
     },
     {
       "id": "3_boss",
-      "title": "THE INFINITE ENGINE",
-      "subtitle": "BOSS FIGHT — All Level 3",
+      "title": "THE C RUNTIME",
+      "subtitle": "BOSS FIGHT — All Level 3 C",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss3_intro", "title": "⚠️ BOSS — THE INFINITE ENGINE", "emoji": "👾",
-            "analogy": "The Infinite Engine loops forever, spawning arrays of minions. Only your knowledge of loops, break, continue, and lists can shut it down!",
-            "content": "This boss combines for loops, while loops, nested loops, break/continue, and list operations. Don't let it trap you in an infinite loop!",
-            "examples": [{ "title": "Your arsenal", "explanation": "Everything from Level 3.", "code": "✅ for / while loops\n✅ range() & loop counting\n✅ break & continue\n✅ Lists: create, index, update, append\n✅ Looping through lists" }],
-            "funFact": "The world's longest-running program is a web server — it's been in a 'while True' loop since the 1990s! 🌐"
+            "id": "boss_c3", "title": "⚠️ BOSS — THE C RUNTIME", "emoji": "👾",
+            "analogy": "The C Runtime manages every loop in your program — stack frames, loop counters, bounds checks (that you must do yourself!). Defeat it by proving your loops are tight, correct, and never overflow.",
+            "content": "Tests ALL Level 3 C: for with C99 init, sizeof for array length, while/do-while, while(1) idiom, break/continue/goto, nested loops, buffer overflows from bad loop bounds.",
+            "examples": [{ "title": "Full C Loop Arsenal", "explanation": "", "code": "✅ for(int i=0;i<n;i++) — C99 style\n✅ sizeof(arr)/sizeof(arr[0]) — array length\n✅ while(condition) — check first\n✅ while(1) + break — infinite loop idiom\n✅ do{ }while(cond); — semicolon!\n✅ break/continue/goto\n✅ i<len NOT i<=len — avoid overflow" }],
+            "funFact": "The C runtime has no safety net. Every undefined behavior (wrong loop bounds, reading past array end) can corrupt memory silently, crash later, or create security holes. The compiler won't always catch it! 🔴"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE INFINITE ENGINE", "maxHp": 150 },
+          "enemy": { "name": "THE C RUNTIME", "maxHp": 150 },
           "mcq": [
-            { "q": "What is the output?\nfor i in range(3):\n    if i == 1: continue\n    print(i)", "options": ["0 1 2", "0 2", "1 2", "0"], "a": 1, "damage": 30, "topic": "Continue", "explanation": "continue skips i=1. Prints 0, then skips 1, then prints 2." },
-            { "q": "x = [1,2,3]; x.append(4); print(len(x))", "options": ["3", "4", "5", "Error"], "a": 1, "damage": 30, "topic": "List Length", "explanation": "[1,2,3] has 3 items. append(4) adds one → 4 items." },
-            { "q": "What does range(2,5) produce?", "options": ["2,3,4", "2,3,4,5", "0,1,2,3,4", "2,5"], "a": 0, "damage": 30, "topic": "Range Args", "explanation": "range(2,5) starts at 2, stops before 5: 2,3,4." },
-            { "q": "Can you modify an item in a list by its index?", "options": ["No, lists are read-only", "Yes: list[index] = new_value", "Only the last item", "Only strings"], "a": 1, "damage": 30, "topic": "List Update", "explanation": "Lists are mutable. list[index] = value overwrites that position." },
-            { "q": "Nested loop: 4 outer × 5 inner. Total iterations?", "options": ["9", "20", "45", "54"], "a": 1, "damage": 30, "topic": "Nested Count", "explanation": "4 × 5 = 20 total iterations." }
+            { "q": "What does for(;;) do in C?", "options": ["Compile error","Runs once","Infinite loop","Nothing"], "a": 2, "damage": 30, "topic": "for(;;)", "explanation": "Infinite Loop: for(;;) has no condition — always true. Equivalent to while(1). Classic C idiom for server loops and firmware." },
+            { "q": "int a[4]={1,2,3,4}; sizeof(a)/sizeof(a[0]) = ?", "options": ["4","8","16","1"], "a": 0, "damage": 30, "topic": "sizeof elements", "explanation": "sizeof(a)=16 bytes (4 ints × 4 bytes each). sizeof(a[0])=4. 16/4=4 elements." },
+            { "q": "do{printf('A');}while(0); output?", "options": ["Nothing","A once","A forever","Error"], "a": 1, "damage": 30, "topic": "do-while false", "explanation": "Once: do-while always runs once. Then checks while(0) — false. Prints A once." },
+            { "q": "for(i=0;i<5;i++){if(i%2==0)continue;printf('%d',i);} output?", "options": ["0 2 4","1 3","0 1 2 3 4","Error"], "a": 1, "damage": 30, "topic": "continue even C", "explanation": "Even i skipped by continue. Prints only odd: 1, 3." },
+            { "q": "Which statement is ONLY in C and REMOVED from Java?", "options": ["break","continue","goto","return"], "a": 2, "damage": 30, "topic": "goto C only", "explanation": "goto: C has goto; Java reserved the keyword but never implemented it. C uses goto for legitimate error-cleanup patterns in kernel/embedded code." }
           ]
         },
         "coding": [
-          { "title": "Boss: Sum Loop", "objective": "total=0; for i in range(1,4): total+=i. What is total?", "starterCode": "total = 0\nfor i in range(1,4):\n    total += i\nprint(total)\n# Output: ___", "answer": "6", "hint": "range(1,4) = 1,2,3. Sum = 1+2+3 = 6." }
+          { "title": "Boss: Array safe bound", "objective": "int arr[5]. Correct loop condition to avoid overflow?", "starterCode": "int arr[5];\nfor(int i=0; i ___ 5; i++) printf(\"%d\\n\",arr[i]);", "answer": "<", "hint": "i < 5 gives indices 0-4. i <= 5 accesses arr[5] — out of bounds!" },
+          { "title": "Boss: sizeof count", "objective": "int a[]={10,20,30,40,50}; sizeof(a)/sizeof(a[0]) = ?", "starterCode": "int a[]={10,20,30,40,50};\nprintf(\"%lu\\n\", sizeof(a)/sizeof(a[0]));\n// Output: ___", "answer": "5", "hint": "5 elements × 4 bytes each = 20. 20/4 = 5." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nnums = [5, 10, 15]\nfor i in range(4):\n    print(nums[i])", "brokenCode": "nums = [5, 10, 15]\nfor i in range(4):\n    print(nums[i])", "bugLine": 1, "options": ["range should be range(3) or range(len(nums)) to avoid IndexError", "print is wrong", "nums is wrong", "Nothing wrong"], "answer": "range should be range(3) or range(len(nums)) to avoid IndexError", "hint": "3 items but range(4) tries index 3 which doesn't exist." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nint arr[] = {1,2,3};\nfor (int i=0; i<=3; i++) printf(\"%d\\n\", arr[i]);", "brokenCode": "for(int i=0; i<=3; i++)", "bugLine": 0, "options": ["Nothing wrong","i<=3 reads arr[3] which is out of bounds — undefined behavior. Use i<3","arr needs 4 elements","printf format wrong"], "answer": "i<=3 reads arr[3] which is out of bounds — undefined behavior. Use i<3", "hint": "3 elements → indices 0,1,2. i<=3 tries arr[3] → buffer overflow!" }
         ],
         "prediction": [
-          { "code": "result = []\nfor i in range(3):\n    result.append(i * 2)\nprint(result)", "options": ["[0, 1, 2]", "[0, 2, 4]", "[2, 4, 6]", "[1, 2, 3]"], "answer": "[0, 2, 4]", "explanation": "i=0→0, i=1→2, i=2→4. result = [0, 2, 4]." }
+          { "code": "int i=1, mul=1;\nwhile(i<=5){\n    mul*=i;\n    i++;\n}\nprintf(\"%d\\n\",mul);", "options": ["5","15","120","24"], "answer": "120", "explanation": "5! = 1×2×3×4×5 = 120." }
         ]
       }
     }

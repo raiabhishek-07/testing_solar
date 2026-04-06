@@ -1,46 +1,509 @@
 {
-  "label": "PYTHON_ARCADE",
-  "foundation": [
+  "label": "LEVEL 7: OOP & MODULES (The Blueprint Chamber)",
+  "sublevels": [
     {
-       "id": 701, "title": "CLASS", "subtitle": "Object Blueprints", "icon": "Layers",
-       "content": "A Class is a recipe or blueprint for an 'Object'. It group together data (Variables) and actions (Methods) into a single entity.",
-       "scenario": "A Blueprints for a Car. It defines 'Color' (Data) and 'Drive' (Action). You don't drive the blueprint, you build an actual car from it.",
-       "examples": [
-         { "title": "The Blueprint", "explanation": "Creating a new class structure using the 'class' keyword.", "code": "class Car:\n    def drive(self): pass" },
-         { "title": "Self Param", "explanation": "Using 'self' to refer back to the specific instance being used.", "code": "def jump(self): self.hp = 0" },
-         { "title": "Grouping", "explanation": "Keeping all related data and logic in a single logical namespace.", "code": "p1 = Car()" }
-       ],
-       "keyPoint": "class Name: always capitalize classes."
+      "id": "7_1",
+      "title": "CLASSES & OBJECTS",
+      "subtitle": "Blueprints and instances",
+      "icon": "Layers",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l7c1",
+            "title": "What is OOP?",
+            "emoji": "🏗️",
+            "analogy": "Object-Oriented Programming is like an architect designing buildings. The CLASS is the blueprint — it defines what a building looks like and what it can do. Each actual BUILDING constructed from that blueprint is an OBJECT (instance). All buildings from the same blueprint share the same structure, but each has its own address and unique features.",
+            "content": "OOP groups data (attributes) and behaviors (methods) into a single unit called a CLASS. You create INSTANCES (objects) from classes. This models real-world things naturally — a Dog class, a Car class, a Player class.",
+            "examples": [
+              { "title": "Defining a Class", "explanation": "class keyword, CamelCase name, body indented.", "code": "class Dog:\n    # Class body goes here\n    pass  # placeholder\n\n# Creating instances (objects):\nmy_dog = Dog()     # first dog object\nyour_dog = Dog()   # second dog object\n\nprint(type(my_dog))   # <class '__main__.Dog'>\nprint(my_dog is your_dog)  # False — different objects!" },
+              { "title": "Attributes & the Dot Operator", "explanation": "Access everything on an object with . (dot).", "code": "class Car:\n    pass\n\nmy_car = Car()\nmy_car.color = 'red'    # add attribute\nmy_car.speed = 120\n\nprint(my_car.color)     # red\nprint(my_car.speed)     # 120" }
+            ],
+            "funFact": "Python is EVERYTHING objects! Integers, strings, lists — they're all objects from built-in classes. int, str, list are classes. That's why 'hello'.upper() works — upper() is a method of the str class! 🤯"
+          },
+          {
+            "id": "l7c2",
+            "title": "__init__ — The Constructor",
+            "emoji": "⚡",
+            "analogy": "__init__ is the birth certificate of every object. The moment an object is created (born), __init__ runs automatically and sets its starting values — name, health, score, position — whatever it needs to begin life.",
+            "content": "__init__ is a special method (dunder = double underscore) called automatically when you create an object. It initializes the object's attributes. 'self' refers to the specific object being created.",
+            "examples": [
+              { "title": "__init__ in Action", "explanation": "Called automatically on Dog('Rex', 3).", "code": "class Dog:\n    def __init__(self, name, age):\n        self.name = name  # instance attribute\n        self.age = age\n\n    def bark(self):\n        print(f'{self.name} says: Woof!')\n\nrex = Dog('Rex', 3)\nbella = Dog('Bella', 5)\n\nprint(rex.name)   # Rex\nprint(bella.age)  # 5\nrex.bark()        # Rex says: Woof!" },
+              { "title": "self is the object itself", "explanation": "self.name belongs to THAT specific instance.", "code": "class Player:\n    def __init__(self, name, hp=100):\n        self.name = name\n        self.hp = hp\n        self.level = 1  # default\n\np1 = Player('Neo')\np2 = Player('Trinity', hp=80)\n\np1.hp -= 30\nprint(p1.hp)   # 70\nprint(p2.hp)   # 80 (unaffected!)" }
+            ],
+            "funFact": "__init__ is Python's constructor, but Python also has __del__ (destructor), __str__ (string representation), __len__, __add__, and 80+ more 'dunder' methods. They make your classes feel like built-in types! 🎩"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE VOID CONSTRUCTOR", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What keyword defines a class in Python?",
+              "options": ["object", "def", "class", "type"],
+              "a": 2, "damage": 20, "topic": "class keyword",
+              "explanation": "Class Definition: 'class ClassName:' creates a new class. Python convention: class names use PascalCase (CapWords). The colon and indentation define the class body."
+            },
+            {
+              "q": "What is 'self' in a class method?",
+              "options": ["The class itself", "The current instance (object) the method is called on", "A global variable", "The parent class"],
+              "a": 1, "damage": 20, "topic": "self",
+              "explanation": "self Intel: 'self' is a reference to the specific INSTANCE the method is being called on. When you call rex.bark(), Python passes rex as self automatically. Every instance method needs self as first parameter."
+            },
+            {
+              "q": "When does __init__ run?",
+              "options": ["When you import the class", "Automatically when an object is created", "When you call it manually", "Only once per program"],
+              "a": 1, "damage": 20, "topic": "__init__",
+              "explanation": "Constructor: __init__ runs AUTOMATICALLY every time you create a new object with ClassName(). It initializes the object's starting state. You don't call __init__ directly."
+            },
+            {
+              "q": "dog1 = Dog('Rex'). dog2 = Dog('Bella'). Are dog1 and dog2 the same object?",
+              "options": ["Yes, same Dog class", "No — they are two separate instances", "Only if same name", "Depends on RAM"],
+              "a": 1, "damage": 20, "topic": "Instances",
+              "explanation": "Separate Instances: Each call to Dog() creates a DIFFERENT object in memory. They share the same class blueprint, but changes to dog1.hp don't affect dog2.hp — they're independent!"
+            },
+            {
+              "q": "What is the naming convention for class names in Python?",
+              "options": ["snake_case", "camelCase", "PascalCase", "UPPER_CASE"],
+              "a": 2, "damage": 20, "topic": "Naming",
+              "explanation": "Convention: Python class names use PascalCase (CapitalizedWords): Dog, PlayerScore, BankAccount. Variables and functions use snake_case. This mirrors Java's class naming."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Class Keyword",
+            "objective": "What keyword creates a class definition?",
+            "starterCode": "___ Robot:\n    def __init__(self, name):\n        self.name = name",
+            "answer": "class",
+            "hint": "5 letters — same as Java, C++, and most OOP languages."
+          },
+          {
+            "title": "Constructor Name",
+            "objective": "What is the special method that auto-runs on object creation?",
+            "starterCode": "class Dog:\n    def ___(self, name):\n        self.name = name",
+            "answer": "__init__",
+            "hint": "Double underscore + init + double underscore."
+          },
+          {
+            "title": "Self Reference",
+            "objective": "After 'p = Player('Neo')', what does p.name return?",
+            "starterCode": "class Player:\n    def __init__(self, name):\n        self.name = name\n\np = Player('Neo')\nprint(p.name)\n# Output: ___",
+            "answer": "Neo",
+            "hint": "__init__ stores 'Neo' in self.name. p.name reads it back."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nclass Dog:\n    def __init__(name, age):\n        self.name = name",
+            "brokenCode": "def __init__(name, age):",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Missing 'self' as first parameter: def __init__(self, name, age)",
+              "name should be 'dog_name'",
+              "__init__ should be __new__"
+            ],
+            "answer": "Missing 'self' as first parameter: def __init__(self, name, age)",
+            "hint": "Every instance method MUST have 'self' as the first parameter. It's how Python passes the object reference."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nclass Car:\n    def __init__(self, color):\n        color = color  # wrong!\n\nc = Car('red')\nprint(c.color)  # AttributeError",
+            "brokenCode": "color = color",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Must use self.color = color to store as instance attribute",
+              "color = color is a valid swap",
+              "Car class is wrong"
+            ],
+            "answer": "Must use self.color = color to store as instance attribute",
+            "hint": "'color = color' just reassigns the local parameter to itself. Use 'self.color = color' to attach it to the object."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "class Counter:\n    def __init__(self):\n        self.count = 0\n    def increment(self):\n        self.count += 1\n\nc = Counter()\nc.increment()\nc.increment()\nc.increment()\nprint(c.count)",
+            "options": ["0", "1", "3", "Error"],
+            "answer": "3",
+            "explanation": "Each increment() call adds 1 to self.count. Called 3 times: 0→1→2→3. Output: 3."
+          },
+          {
+            "code": "class Box:\n    def __init__(self, size):\n        self.size = size\n\na = Box(5)\nb = Box(5)\nprint(a == b)",
+            "options": ["True", "False", "5", "Error"],
+            "answer": "False",
+            "explanation": "a and b are two DIFFERENT objects in memory. == on objects compares identity by default (not values). They're at different memory addresses → False."
+          }
+        ]
+      }
     },
     {
-       "id": 705, "title": "CONSTRUCT", "subtitle": "Birth Methods", "icon": "Zap",
-       "content": "The __init__ method is the constructor. It's the first bit of code that runs exactly when an object is 'born' (created).",
-       "scenario": "A New Player character appearing in a game. The 'init' sets their base Level to 1 and their inventory to empty instantly.",
-       "examples": [
-         { "title": "Initialization", "explanation": "Setting the starting state for any object created from this blueprint.", "code": "def __init__(self, name):\n    self.name = name" },
-         { "title": "Default Value", "explanation": "Setting a value that every single object starts with automatically.", "code": "self.lvl = 1" },
-         { "title": "The Spawn", "explanation": "The moment you call the class name to bring a new instance to life.", "code": "p = Player('Neo')" }
-       ],
-       "keyPoint": "__init__ sets the birth state."
+      "id": "7_2",
+      "title": "METHODS & INHERITANCE",
+      "subtitle": "Object behavior & class hierarchy",
+      "icon": "Link",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l7c4",
+            "title": "Instance Methods & __str__",
+            "emoji": "🔧",
+            "analogy": "Instance methods are the VERBS of an object — what it can DO. A Dog can bark(). A Player can attack(). __str__ is the object's name tag — when Python needs to display the object as text, it calls __str__ automatically.",
+            "content": "Instance methods are functions defined inside a class that take self as the first parameter. __str__ is a special method returning a string representation — called automatically by print() and str().",
+            "examples": [
+              { "title": "Methods in Action", "explanation": "Methods access and modify the object's own data via self.", "code": "class BankAccount:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n    \n    def deposit(self, amount):\n        self.balance += amount\n        print(f'Deposited {amount}. Balance: {self.balance}')\n    \n    def withdraw(self, amount):\n        if amount > self.balance:\n            print('Insufficient funds!')\n        else:\n            self.balance -= amount\n    \n    def __str__(self):\n        return f'Account({self.owner}: ${self.balance})'\n\nacc = BankAccount('Neo', 100)\nacc.deposit(50)     # Deposited 50. Balance: 150\nprint(acc)          # Account(Neo: $150)  ← calls __str__" }
+            ],
+            "funFact": "__repr__ is another dunder method — it returns an 'official' string representation for debugging. When you type an object in the Python shell, __repr__ is called, not __str__! 🔍"
+          },
+          {
+            "id": "l7c5",
+            "title": "Inheritance — Child Classes",
+            "emoji": "🧬",
+            "analogy": "Inheritance is genetic — a child inherits traits from the parent. In OOP, a child class (subclass) automatically gets all the methods and attributes of the parent class. It can also OVERRIDE them with its own version, or ADD new ones.",
+            "content": "class Child(Parent) creates a subclass. The child inherits all parent methods automatically. super() calls the parent's version of a method. Override a method by defining it again in the child.",
+            "examples": [
+              { "title": "Inheritance in Action", "explanation": "Child gets everything from Parent. super() calls parent's __init__.", "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    \n    def speak(self):\n        print(f'{self.name} makes a sound')\n\nclass Dog(Animal):  # Dog inherits from Animal\n    def speak(self):  # OVERRIDE parent method\n        print(f'{self.name} says Woof!')\n\nclass Cat(Animal):\n    def speak(self):\n        print(f'{self.name} says Meow!')\n\nd = Dog('Rex')\nc = Cat('Luna')\nd.speak()   # Rex says Woof!\nc.speak()   # Luna says Meow!" },
+              { "title": "super() — Use Parent's Code", "explanation": "super().__init__() calls parent constructor.", "code": "class Vehicle:\n    def __init__(self, brand, speed):\n        self.brand = brand\n        self.speed = speed\n\nclass Car(Vehicle):\n    def __init__(self, brand, speed, doors):\n        super().__init__(brand, speed)  # parent init\n        self.doors = doors              # child extra\n\nc = Car('Toyota', 120, 4)\nprint(c.brand, c.speed, c.doors)  # Toyota 120 4" }
+            ],
+            "funFact": "Python supports MULTIPLE inheritance — a class can inherit from multiple parents! class Duck(Flying, Swimming). This is rare and can get complex (solved by Python's MRO — Method Resolution Order). 🦆"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE INHERITANCE HYDRA", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What is a 'method' in a class?",
+              "options": ["A variable", "A function defined inside a class", "A class attribute", "An import"],
+              "a": 1, "damage": 20, "topic": "Methods",
+              "explanation": "Method: A method is a function defined inside a class. It has access to the object's data via 'self'. Methods define the object's behaviors — what it can DO."
+            },
+            {
+              "q": "What does __str__ return?",
+              "options": ["The class name", "A string representation of the object, shown when you print() it", "The memory address", "The type"],
+              "a": 1, "damage": 20, "topic": "__str__",
+              "explanation": "__str__: This dunder (double underscore) method returns a string. Python calls it automatically when you use print(obj) or str(obj). Define it to give your objects human-readable descriptions."
+            },
+            {
+              "q": "How do you create a class Dog that inherits from Animal?",
+              "options": ["class Dog extends Animal:", "class Dog: Animal:", "class Dog(Animal):", "class Dog inherits Animal:"],
+              "a": 2, "damage": 20, "topic": "Inheritance syntax",
+              "explanation": "Inheritance Syntax: class ChildClass(ParentClass): is Python's inheritance syntax. The parent class name goes in parentheses. Different from Java (extends) and C++ (: public Parent)."
+            },
+            {
+              "q": "What does super().__init__() do in a child class?",
+              "options": ["Creates a new parent", "Calls the parent class's __init__ method", "Destroys the parent", "Creates a sibling class"],
+              "a": 1, "damage": 20, "topic": "super()",
+              "explanation": "super(): super().__init__() explicitly calls the parent class's constructor. This ensures the parent's attributes (self.name, etc.) are initialized before the child adds its own. Essential in inheritance chains."
+            },
+            {
+              "q": "If a child class defines the same method as its parent, what happens?",
+              "options": ["Error — duplicate method", "The child's version overrides (replaces) the parent's", "Both run simultaneously", "Parent's version is kept"],
+              "a": 1, "damage": 20, "topic": "Override",
+              "explanation": "Method Override: Defining a method with the same name in a child class REPLACES the parent's version for that child. This is called 'overriding'. Call super().method() if you want to also run the parent's code."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Inheritance Syntax",
+            "objective": "How do you make Dog inherit from Animal? Fill in the class line.",
+            "starterCode": "class Dog___(Animal):\n    pass",
+            "answer": "Dog",
+            "hint": "class ChildName(ParentName): — the parent goes in parentheses."
+          },
+          {
+            "title": "super() Call",
+            "objective": "How do you call the parent's __init__ from inside a child class?",
+            "starterCode": "class Tiger(Animal):\n    def __init__(self, name, stripe_count):\n        ___.__init__(self, name)\n        self.stripe_count = stripe_count",
+            "answer": "super()",
+            "hint": "super() gives access to the parent class."
+          },
+          {
+            "title": "__str__ Method",
+            "objective": "What method should you define for print(obj) to show a custom string?",
+            "starterCode": "class Robot:\n    def __init__(self, id):\n        self.id = id\n    def ___(self):\n        return f'Robot #{self.id}'",
+            "answer": "__str__",
+            "hint": "The double-underscore string method — called automatically by print()."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nclass Animal:\n    def __init__(self, name):\n        self.name = name\n\nclass Dog(Animal):\n    def __init__(self, name, breed):\n        self.breed = breed\n        # forgot super().__init__(name)!\n\nd = Dog('Rex', 'Labrador')\nprint(d.name)  # AttributeError!",
+            "brokenCode": "self.breed = breed",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Missing super().__init__(name) — parent's name attribute is never initialized",
+              "breed is invalid",
+              "Dog should not have __init__"
+            ],
+            "answer": "Missing super().__init__(name) — parent's name attribute is never initialized",
+            "hint": "Without super().__init__(name), the parent class never sets self.name. Always call super().__init__() in child constructors."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nclass Cat:\n    def __init__(self, name):\n        self.name = name\n    def speak(self):\n        return 'Meow'\n\nc = Cat('Luna')\nprint(c.speak)  # Missing ()",
+            "brokenCode": "print(c.speak)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Method not called — missing parentheses: c.speak() not c.speak",
+              "speak should be a property",
+              "print is wrong"
+            ],
+            "answer": "Method not called — missing parentheses: c.speak() not c.speak",
+            "hint": "c.speak is a reference to the method. c.speak() actually CALLS it. Without (), you print the method object, not its result."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "class Shape:\n    def area(self):\n        return 0\n\nclass Square(Shape):\n    def __init__(self, side):\n        self.side = side\n    def area(self):\n        return self.side ** 2\n\ns = Square(4)\nprint(s.area())",
+            "options": ["0", "4", "8", "16"],
+            "answer": "16",
+            "explanation": "Square overrides area() from Shape. Square.area() returns self.side ** 2 = 4² = 16."
+          },
+          {
+            "code": "class A:\n    def hello(self):\n        return 'A'\n\nclass B(A):\n    pass  # no override\n\nb = B()\nprint(b.hello())",
+            "options": ["Error — B has no hello", "A", "B", "None"],
+            "answer": "A",
+            "explanation": "B inherits from A and doesn't override hello(). Python finds hello() in the parent class A and calls it. Output: 'A'."
+          }
+        ]
+      }
     },
     {
-       "id": 710, "title": "INHERIT", "subtitle": "Parent/Child", "icon": "Link",
-       "content": "Inheritance allows one class to 'steal' the features of another class and then add its own unique powers on top.",
-       "scenario": "A Parent and Child. The Child (Subclass) has the same eye color (Features) as the Parent (Superclass) but can also play guitar (Special Power).",
-       "examples": [
-         { "title": "Basic Link", "explanation": "Creating a subclass that takes everything from a main base class.", "code": "class Bird(Animal): pass" },
-         { "title": "Overriding", "explanation": "Changing how a inherited method behaves in the specific child class.", "code": "def move(self): fly()" },
-         { "title": "Super Case", "explanation": "Calling the parent's code from inside the child to build on top.", "code": "super().__init__()" }
-       ],
-       "keyPoint": "Class Child(Parent): creates the link."
-    }
-  ],
-  "tests": [
+      "id": "7_3",
+      "title": "MODULES & IMPORTS",
+      "subtitle": "Python's library system",
+      "icon": "Package",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l7c6",
+            "title": "Python Modules — Built-in Libraries",
+            "emoji": "📦",
+            "analogy": "Python modules are like toolboxes. The Python toolshed has hundreds of pre-built toolboxes (math, random, os, datetime, json). Instead of building a hammer from scratch, you import the toolbox and use its hammer. 'import math' unlocks the entire math toolbox.",
+            "content": "A module is a file containing Python code. Python ships with 200+ standard library modules. Use 'import module_name' to load one. Access tools with module.function(). Import specific items with 'from module import item'.",
+            "examples": [
+              { "title": "Common Standard Modules", "explanation": "The Python standard library covers most needs.", "code": "import math\nprint(math.sqrt(16))    # 4.0\nprint(math.pi)          # 3.14159...\nprint(math.ceil(4.2))   # 5\n\nimport random\nprint(random.randint(1, 6))   # dice roll!\nprint(random.choice(['a','b','c']))\n\nimport datetime\nnow = datetime.datetime.now()\nprint(now.year, now.month, now.day)" },
+              { "title": "Import Styles", "explanation": "Three different ways to import.", "code": "# Style 1: import module (must use module.name)\nimport math\nmath.sqrt(25)\n\n# Style 2: from module import name (use directly)\nfrom math import sqrt, pi\nsqrt(25)  # no math. prefix\nprint(pi)\n\n# Style 3: import as alias (rename)\nimport datetime as dt\ndt.datetime.now()" }
+            ],
+            "funFact": "Python's standard library is so comprehensive that the Python community calls it 'batteries included'. You can do web requests (urllib), parse JSON, zip files, send emails, and encrypt data — all without installing anything extra! 🔋"
+          },
+          {
+            "id": "l7c7",
+            "title": "Creating Your Own Modules",
+            "emoji": "🔨",
+            "analogy": "Your own module is a custom toolbox YOU build. Save code in 'tools.py'. Then 'import tools' in another file to use it. You've just created a reusable library for your own projects!",
+            "content": "Any .py file is a module. Save functions/classes in mymodule.py and import them with 'import mymodule'. The __name__ == '__main__' guard prevents code from running on import.",
+            "examples": [
+              { "title": "Creating mymath.py", "explanation": "Any .py file can be a module.", "code": "# mymath.py\ndef add(a, b):\n    return a + b\n\ndef multiply(a, b):\n    return a * b\n\nPI = 3.14159\n\n# main.py (in same directory)\nimport mymath\nprint(mymath.add(5, 3))        # 8\nprint(mymath.multiply(4, 4))   # 16\nprint(mymath.PI)               # 3.14159" },
+              { "title": "__name__ == '__main__' Guard", "explanation": "Prevents test code from running when imported.", "code": "# mymodule.py\ndef greet(name):\n    return f'Hello, {name}!'\n\n# This block only runs when mymodule.py\n# is executed directly — NOT when imported:\nif __name__ == '__main__':\n    print(greet('World'))  # test code\n    print('Module test ran')" }
+            ],
+            "funFact": "pip (Python Package Installer) lets you install 500,000+ third-party modules from PyPI. 'pip install requests' installs a module for HTTP requests. 'pip install pandas' installs a data analysis powerhouse! 🌐"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE MODULE MAZE", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What keyword loads a Python module?",
+              "options": ["include", "require", "import", "load"],
+              "a": 2, "damage": 20, "topic": "import",
+              "explanation": "Import Keyword: 'import module_name' loads the module and makes all its contents available. You then access them with module_name.function() syntax."
+            },
+            {
+              "q": "What does 'from math import sqrt' let you do?",
+              "options": ["Import all of math", "Use sqrt() without the 'math.' prefix", "Rename sqrt to something else", "Override Python's sqrt"],
+              "a": 1, "damage": 20, "topic": "from import",
+              "explanation": "from import: 'from math import sqrt' imports ONLY sqrt into your current namespace. You can then call sqrt(16) directly instead of math.sqrt(16). Cleaner but risks name clashes."
+            },
+            {
+              "q": "What is 'import numpy as np' doing?",
+              "options": ["Importing two modules", "Importing numpy and aliasing it to 'np' for shorter code", "Renaming the file", "Importing a function"],
+              "a": 1, "damage": 20, "topic": "import alias",
+              "explanation": "Alias: 'as np' creates a short alias. Instead of numpy.array(), you write np.array(). This is convention for popular libraries: numpy→np, pandas→pd, matplotlib→plt."
+            },
+            {
+              "q": "What does if __name__ == '__main__': do?",
+              "options": ["Names the module", "Runs code ONLY when that file is executed directly, not when imported", "Imports a main module", "Defines the program entry"],
+              "a": 1, "damage": 20, "topic": "__name__",
+              "explanation": "__name__: When a file runs directly, __name__ is '__main__'. When imported, __name__ is the module's filename. This guard prevents test code from running accidentally on import."
+            },
+            {
+              "q": "import random. Which generates a random integer from 1 to 10?",
+              "options": ["random.int(1,10)", "random.randint(1,10)", "random.random(1,10)", "random.range(1,10)"],
+              "a": 1, "damage": 20, "topic": "random module",
+              "explanation": "random.randint(a,b): Returns a random integer N such that a <= N <= b. Note: BOTH endpoints are INCLUDED — unlike range() which excludes the end!"
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Import a Module",
+            "objective": "How do you import the math module?",
+            "starterCode": "___ math\nprint(math.sqrt(9))  # 3.0",
+            "answer": "import",
+            "hint": "6-letter keyword to load a module."
+          },
+          {
+            "title": "Square Root",
+            "objective": "Using 'import math', what does math.sqrt(25) return?",
+            "starterCode": "import math\nprint(math.sqrt(25))\n# Output: ___",
+            "answer": "5.0",
+            "hint": "√25 = 5. math.sqrt() always returns float."
+          },
+          {
+            "title": "Random Number",
+            "objective": "What function generates a random int between 1 and 6 (inclusive)?",
+            "starterCode": "import random\ndie = random.___(1, 6)\nprint(die)",
+            "answer": "randint",
+            "hint": "random integer — both endpoints included."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nimport math\nprint(sqrt(16))  # NameError",
+            "brokenCode": "print(sqrt(16))",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "After 'import math', must use math.sqrt(16) — or change to 'from math import sqrt'",
+              "sqrt should be SQRT",
+              "import is wrong"
+            ],
+            "answer": "After 'import math', must use math.sqrt(16) — or change to 'from math import sqrt'",
+            "hint": "'import math' doesn't bring sqrt into your namespace. Use math.sqrt() or 'from math import sqrt'."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nfrom random import *\nrandint(1, 10)  # works but...\n# Now 'choice', 'random', 'shuffle' etc. all pollute namespace",
+            "brokenCode": "from random import *",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "'import *' imports EVERYTHING and can cause name clashes. Import specific names instead: from random import randint",
+              "randint is not in random",
+              "* is wrong syntax here"
+            ],
+            "answer": "'import *' imports EVERYTHING and can cause name clashes. Import specific names instead: from random import randint",
+            "hint": "'import *' is bad practice — it pollutes the namespace and makes code hard to read (you can't tell where names come from)."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "import math\nprint(math.ceil(3.1))\nprint(math.floor(3.9))",
+            "options": ["3 and 3", "4 and 3", "3 and 4", "4 and 4"],
+            "answer": "4 and 3",
+            "explanation": "math.ceil(3.1) rounds UP to 4. math.floor(3.9) rounds DOWN to 3."
+          },
+          {
+            "code": "from math import pi\nprint(round(pi, 2))",
+            "options": ["3.14159", "3.14", "3", "Error"],
+            "answer": "3.14",
+            "explanation": "round(value, ndigits) rounds to ndigits decimal places. pi ≈ 3.14159... rounded to 2 places = 3.14."
+          }
+        ]
+      }
+    },
     {
-      "id": 713, "title": "MCQ ADVENTURE", "subtitle": "Python OOP Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "What is __init__?", "options": ["Function","Method","Constructor","Class"], "a": 2, "hint": "Birth method." }
-      ]
+      "id": "7_boss",
+      "title": "THE ARCHITECT",
+      "subtitle": "BOSS FIGHT — All Level 7",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss7_intro",
+            "title": "⚠️ BOSS — THE ARCHITECT",
+            "emoji": "👾",
+            "analogy": "The Architect designed the Code Clash system itself using OOP, inheritance, and Python modules. To defeat it, prove you understand how to DESIGN real software — not just write one-off scripts!",
+            "content": "THE ARCHITECT is the final boss of the Python track. It tests classes, __init__, self, instance methods, __str__, inheritance, super(), method overriding, module imports, and the standard library. Win to earn the 'Python Master' badge!",
+            "examples": [
+              { "title": "Full Python mastery", "explanation": "Everything from Level 7!", "code": "✅ class, __init__, self, instances\n✅ Instance methods, __str__ dunder\n✅ Inheritance: class Child(Parent)\n✅ super().__init__() \n✅ Method overriding\n✅ import, from import, as alias\n✅ math, random, datetime modules\n✅ Custom modules & __name__" }
+            ],
+            "funFact": "The entire Python standard library is written IN Python (mostly). This means you can read the source code of any standard module: find it in your Python installation and open it in a text editor! 🔓"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE ARCHITECT", "maxHp": 150 },
+          "mcq": [
+            {
+              "q": "class Dog(Animal): What does Dog inherit?",
+              "options": ["Only __init__", "Only the name 'Animal'", "ALL methods and attributes from Animal", "Nothing — inherits is just syntax"],
+              "a": 2, "damage": 30, "topic": "Inheritance",
+              "explanation": "Full Inheritance: The child class gets ALL methods and attributes from the parent automatically. Dog doesn't re-define Animal's methods — it just uses them unless it overrides them."
+            },
+            {
+              "q": "What does print(obj) display when __str__ is defined?",
+              "options": ["Memory address", "The class name", "The string returned by __str__()", "Nothing"],
+              "a": 2, "damage": 30, "topic": "__str__",
+              "explanation": "__str__: print() automatically calls __str__(). So print(Player('Neo')) could show: 'Player: Neo (Lv.1)' instead of '<__main__.Player object at 0x...>'."
+            },
+            {
+              "q": "from math import sqrt. Now can you call sqrt(16) directly?",
+              "options": ["No — must use math.sqrt(16)", "Yes — 'from import' brings it into local scope", "Only in classes", "Only in __main__"],
+              "a": 1, "damage": 30, "topic": "from import",
+              "explanation": "from import: 'from math import sqrt' imports sqrt directly into your namespace. You call sqrt(16) without the 'math.' prefix. Useful for frequently used functions."
+            },
+            {
+              "q": "What is the output?\nclass A:\n    def greet(self): return 'Hi from A'\nclass B(A):\n    def greet(self): return 'Hi from B'\nb = B()\nprint(b.greet())",
+              "options": ["Hi from A", "Hi from B", "Hi from A↵Hi from B", "Error"],
+              "a": 1, "damage": 30, "topic": "Override",
+              "explanation": "Method Override: B defines its own greet() — this OVERRIDES A's version for B instances. b.greet() calls B's version → 'Hi from B'."
+            },
+            {
+              "q": "What does math.sqrt() always return?",
+              "options": ["int", "float", "str", "complex"],
+              "a": 1, "damage": 30, "topic": "math.sqrt return type",
+              "explanation": "Float Return: math.sqrt() always returns a float, even for perfect squares. math.sqrt(9) → 3.0 (not 3). Use int(math.sqrt(9)) or ** 0.5 if you need an integer."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Boss: Complete the Class",
+            "objective": "def __init__(self, name, hp): What stores the hp value as an instance attribute?",
+            "starterCode": "class Hero:\n    def __init__(self, name, hp):\n        self.name = name\n        ___.hp = hp",
+            "answer": "self",
+            "hint": "self refers to the current instance — use it to store instance data."
+          },
+          {
+            "title": "Boss: Module Use",
+            "objective": "Using import random, how do you pick a random item from a list?",
+            "starterCode": "import random\nweapons = ['sword', 'bow', 'staff']\npick = random.___(weapons)\nprint(pick)",
+            "answer": "choice",
+            "hint": "random.choice() picks one random element from a sequence."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 BOSS BUG:\n\nclass Warrior(Hero):\n    def __init__(self, name, hp, weapon):\n        self.weapon = weapon\n        # Missing super().__init__() !\n\nw = Warrior('Neo', 100, 'sword')\nprint(w.name)  # AttributeError: has no attribute 'name'",
+            "brokenCode": "self.weapon = weapon",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Missing super().__init__(name, hp) — parent's attributes (name, hp) are never set",
+              "weapon is an invalid attribute",
+              "Warrior should not override __init__"
+            ],
+            "answer": "Missing super().__init__(name, hp) — parent's attributes (name, hp) are never set",
+            "hint": "Always call super().__init__() at the start of a child's __init__ to initialize the parent's attributes."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "import math\n\nclass Circle:\n    def __init__(self, r):\n        self.r = r\n    def area(self):\n        return round(math.pi * self.r ** 2, 2)\n\nc = Circle(3)\nprint(c.area())",
+            "options": ["9", "18.85", "28.27", "Error"],
+            "answer": "28.27",
+            "explanation": "Area = π × r² = π × 9 ≈ 28.274... rounded to 2 decimal places = 28.27."
+          }
+        ]
+      }
     }
   ]
 }

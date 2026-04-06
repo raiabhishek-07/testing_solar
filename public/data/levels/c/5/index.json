@@ -1,169 +1,178 @@
 {
-  "label": "LEVEL 5: PROBLEM SOLVING (War Room)",
+  "label": "LEVEL 5: FUNCTIONS (C)",
   "sublevels": [
     {
       "id": "5_1",
-      "title": "RECURSION",
-      "subtitle": "Functions that call themselves",
-      "icon": "RefreshCcw",
+      "title": "FUNCTION ANATOMY",
+      "subtitle": "Return types, prototypes & void",
+      "icon": "Code",
       "pipeline": {
         "teaching": [
           {
-            "id": "l5c1", "title": "What is Recursion?", "emoji": "🪞",
-            "analogy": "Recursion is like standing between two mirrors — you see infinite reflections. A function calls ITSELF, creating smaller copies until reaching a stopping point.",
-            "content": "A recursive function calls itself with a smaller/simpler input. It MUST have a base case (stopping condition) or it will run forever and crash.",
-            "examples": [{ "title": "Countdown with Recursion", "explanation": "The function calls itself with n-1 until n=0.", "code": "def countdown(n):\n    if n == 0:          # Base case!\n        print('GO!')\n        return\n    print(n)\n    countdown(n - 1)    # Recursive call\n\ncountdown(3)\n# 3, 2, 1, GO!" }],
-            "funFact": "The term 'recursion' is itself recursive — Google 'recursion' and it says 'Did you mean: recursion?' 😂"
+            "id": "c5c1", "title": "C Function Structure", "emoji": "🔧",
+            "analogy": "C functions are the building blocks of every program. No classes, no objects — just pure functions that take inputs and produce outputs. The entire C standard library (printf, scanf, malloc) is just a collection of functions.",
+            "content": "C function: returnType functionName(params) { body }. void = no return. Must declare or define before use (prototype rule). C is purely procedural — no methods on objects. All data is passed explicitly.",
+            "examples": [
+              { "title": "C Function Basics", "explanation": "Define before use OR provide a prototype.", "code": "#include <stdio.h>\n\n// Function PROTOTYPE (declaration before main):\nint add(int a, int b);\nvoid greet(char *name);\n\nint main() {\n    printf(\"%d\\n\", add(5,3));  // 8\n    greet(\"Neo\");              // Hello, Neo!\n    return 0;\n}\n\n// Function DEFINITION (after main):\nint add(int a, int b) {\n    return a + b;\n}\n\nvoid greet(char *name) {\n    printf(\"Hello, %s!\\n\", name);\n}" },
+              { "title": "Function Prototypes", "explanation": "Tell compiler about a function before it's defined.", "code": "// Without prototype — define before use:\nvoid printMsg() {\n    printf(\"Hi!\\n\");\n}\nint main() {\n    printMsg(); // OK — defined above\n    return 0;\n}\n\n// WITH prototype — define anywhere:\nint square(int n);  // prototype\nint main() {\n    printf(\"%d\\n\", square(4)); // compiles!\n    return 0;\n}\nint square(int n) { return n*n; }" }
+            ],
+            "funFact": "C's header files (.h) are literally collections of function prototypes! When you write #include <stdio.h>, you're including prototypes for printf, scanf, etc. so the compiler knows their signatures before you call them. 📄"
           },
           {
-            "id": "l5c2", "title": "Base Case vs Recursive Case", "emoji": "🛑",
-            "analogy": "The base case is the parachute. Without it, the recursion falls forever. The recursive case is the jump — it gets you closer to the ground each time.",
-            "content": "Every recursive function needs: 1) Base case — when to STOP. 2) Recursive case — calling itself with a SIMPLER input. Without both, you get infinite recursion (stack overflow).",
-            "examples": [{ "title": "Factorial", "explanation": "5! = 5×4×3×2×1 = 120", "code": "def factorial(n):\n    if n <= 1:           # Base case\n        return 1\n    return n * factorial(n - 1)  # Recursive\n\nprint(factorial(5))  # 120" }],
-            "funFact": "Python limits recursion to ~1000 calls by default. You can change it with sys.setrecursionlimit(), but deep recursion is usually a sign of bad design! 🏗️"
+            "id": "c5c2", "title": "Pass by Value vs Pass by Pointer", "emoji": "👆",
+            "analogy": "C ONLY passes by value — it always copies. To 'pass by reference' in C, you pass a POINTER (the address). The function then follows the pointer to modify the original. Like mailing a photocopy vs mailing a map to the original.",
+            "content": "C passes by value always. To modify caller's variables: pass their ADDRESS (&) and receive a pointer (*). double swap(int *a, int *b) swaps via pointers. This is how scanf modifies your variable: scanf('%d', &x).",
+            "examples": [
+              { "title": "Pass by Value vs Pointer", "explanation": "Value: copy. Pointer: modify original.", "code": "#include <stdio.h>\n\n// Pass by VALUE — can't modify original:\nvoid doubleVal(int x) {\n    x *= 2;  // changes copy only\n}\n\n// Pass by POINTER — modifies original:\nvoid doublePtr(int *x) {\n    *x *= 2;  // dereference + modify\n}\n\nint main() {\n    int n = 5;\n    doubleVal(n);\n    printf(\"%d\\n\", n);  // 5 — unchanged!\n    \n    doublePtr(&n);\n    printf(\"%d\\n\", n);  // 10 — CHANGED!\n    return 0;\n}" },
+              { "title": "Classic: Swap with Pointers", "explanation": "The fundamental C pointer interview question.", "code": "void swap(int *a, int *b) {\n    int temp = *a;\n    *a = *b;\n    *b = temp;\n}\n\nint x = 5, y = 10;\nswap(&x, &y);\nprintf(\"%d %d\\n\", x, y); // 10 5\n// Without pointers, swap is IMPOSSIBLE in C!" }
+            ],
+            "funFact": "scanf's & requirement (scanf('%d', &n)) is C's pass-by-pointer in action! scanf needs to WRITE to your variable, so it needs its address. Forgetting & is one of the most common C beginner bugs! 🐛"
           }
         ],
         "battle": {
-          "enemy": { "name": "RECURSION SERPENT", "maxHp": 100 },
+          "enemy": { "name": "THE C FUNCTION MASTER", "maxHp": 100 },
           "mcq": [
-            { "q": "What is a base case?", "options": ["The first line of code", "The condition that STOPS recursion", "The function name", "A loop"], "a": 1, "damage": 25, "topic": "Base Case", "explanation": "The base case is the condition where the function stops calling itself." },
-            { "q": "What happens without a base case?", "options": ["Function returns 0", "Infinite recursion → stack overflow crash", "Function runs once", "Error at definition"], "a": 1, "damage": 25, "topic": "Stack Overflow", "explanation": "Without a base case, the function calls itself forever until Python's stack overflows." },
-            { "q": "factorial(3) = ?", "options": ["3", "6", "9", "1"], "a": 1, "damage": 25, "topic": "Factorial", "explanation": "3! = 3 × 2 × 1 = 6." },
-            { "q": "Can every recursive function be written as a loop?", "options": ["No", "Yes", "Only simple ones", "Only in Python"], "a": 1, "damage": 25, "topic": "Recursion vs Loop", "explanation": "Yes — every recursion can be rewritten with loops (and vice versa). They're equivalent in power." }
+            { "q": "What is a function prototype in C?", "options": ["The function body","A declaration telling the compiler the function's signature before its definition","A copy of the function","A special type"], "a": 1, "damage": 20, "topic": "Prototype", "explanation": "Prototype: A function prototype (int add(int,int);) tells the compiler the name, return type, and parameter types BEFORE the full definition. Required when definition comes after the call." },
+            { "q": "void function(int x){x=99;} after calling with int n=5, n=?", "options": ["99","5","0","Error"], "a": 1, "damage": 20, "topic": "Pass by value C", "explanation": "Unchanged: C passes by VALUE. x is a copy of n. Modifying x doesn't affect n. n stays 5." },
+            { "q": "To modify caller's int variable from a function, pass:", "options": ["int x","int &x","int *x and call with &n","The variable directly"], "a": 2, "damage": 20, "topic": "Pass by pointer", "explanation": "Pointer: void fn(int *x) receives a pointer. Call with fn(&n). Inside, *x modifies the caller's variable n." },
+            { "q": "Why does scanf require & before variable?", "options": ["Syntax rule only","scanf needs the address to WRITE to the variable — it modifies it via pointer","& converts to string","Format specifier requires it"], "a": 1, "damage": 20, "topic": "scanf &", "explanation": "scanf Pointer: scanf needs to modify your variable, so it needs its address. scanf('%d', &n) — &n passes the address of n. scanf then stores the input at that address." },
+            { "q": "C has which function-related feature that Java does NOT?", "options": ["Overloading","Function pointers","Recursion","Void return"], "a": 1, "damage": 20, "topic": "Function pointers", "explanation": "Function Pointers: C can store the address of a function in a pointer: int (*fp)(int,int) = add; fp(5,3); This enables callbacks, dynamic dispatch without OOP, and plugin systems." }
           ]
         },
         "coding": [
-          { "title": "Factorial", "objective": "What is factorial(4)?", "starterCode": "def factorial(n):\n    if n <= 1: return 1\n    return n * factorial(n-1)\n\nprint(factorial(4))\n# Output: ___", "answer": "24", "hint": "4! = 4×3×2×1 = 24." },
-          { "title": "Base Case", "objective": "In a countdown(n) function, what value of n should be the base case to stop?", "starterCode": "def countdown(n):\n    if n == ___: return\n    print(n)\n    countdown(n-1)", "answer": "0", "hint": "Stop when you reach 0 — nothing left to count." }
+          { "title": "Prototype syntax", "objective": "Write the PROTOTYPE (not definition) for: int multiply(int a, int b)", "starterCode": "// Prototype — just the declaration:\n___ multiply(int a, int b)___", "answer": "int", "hint": "Prototype: returnType name(params); — ends with semicolon." },
+          { "title": "Pass by pointer", "objective": "To pass int n by pointer: function(___n) — what fills blank?", "starterCode": "// Call function with n's address:\nvoid fn(int *x){ *x = 42; }\nint n = 5;\nfn(___n);\nprintf(\"%d\",n); // 42", "answer": "&", "hint": "& gets the address of n. fn(&n) passes the address." },
+          { "title": "Swap trace", "explanation": "void swap(int*a,int*b){int t=*a;*a=*b;*b=t;} x=3,y=7 after swap?", "starterCode": "int x=3,y=7;\nswap(&x,&y);\nprintf(\"%d %d\",x,y);\n// Output: ___", "answer": "7 3", "hint": "swap exchanges the values via pointers. x=7, y=3." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Infinite recursion bug:\n\ndef count(n):\n    print(n)\n    count(n + 1)", "brokenCode": "def count(n):\n    print(n)\n    count(n + 1)", "bugLine": 0, "options": ["Missing base case — no condition to stop, so it runs forever", "print is wrong", "Use n-1 instead", "Nothing wrong"], "answer": "Missing base case — no condition to stop, so it runs forever", "hint": "Every recursive function needs an if condition to STOP calling itself." }
+          { "type": "mcq", "description": "🚨 Bug — missing prototype:\n\nint main() {\n    int r = multiply(3, 4);  // Error!\n    return 0;\n}\nint multiply(int a, int b) { return a*b; }", "brokenCode": "int r = multiply(3, 4);", "bugLine": 0, "options": ["Nothing wrong","multiply defined AFTER main without prototype — compiler doesn't know its signature. Add prototype: int multiply(int,int); before main.","Return type wrong","main needs multiply parameter"], "answer": "multiply defined AFTER main without prototype — compiler doesn't know its signature. Add prototype: int multiply(int,int); before main.", "hint": "C compiler reads top-to-bottom. Define functions before use OR provide a prototype declaration." }
         ],
         "prediction": [
-          { "code": "def f(n):\n    if n == 0:\n        return 0\n    return n + f(n - 1)\n\nprint(f(3))", "options": ["3", "6", "0", "Error"], "answer": "6", "explanation": "f(3) = 3 + f(2) = 3 + 2 + f(1) = 3 + 2 + 1 + f(0) = 3+2+1+0 = 6." }
+          { "code": "void addTen(int *n) { *n += 10; }\nint x = 5;\naddTen(&x);\naddTen(&x);\nprintf(\"%d\\n\", x);", "options": ["5","15","25","10"], "answer": "25", "explanation": "addTen(&x) twice: x=5+10=15, then 15+10=25." }
         ]
       }
     },
     {
       "id": "5_2",
-      "title": "SEARCHING",
-      "subtitle": "Finding needles in haystacks",
-      "icon": "Search",
+      "title": "RECURSION & SCOPE",
+      "subtitle": "Self-calling functions and variable lifetime",
+      "icon": "RefreshCw",
       "pipeline": {
         "teaching": [
           {
-            "id": "l5c3", "title": "Linear Search", "emoji": "🔍",
-            "analogy": "Linear search is like looking for your friend in a crowd by checking every single person, one by one, from left to right.",
-            "content": "Linear search checks each element in order until it finds the target or reaches the end. It works on ANY list (sorted or not). Time: O(n) — worst case checks everything.",
-            "examples": [{ "title": "Linear Search", "explanation": "Check each item until found.", "code": "def linear_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i    # Found! Return index\n    return -1           # Not found\n\nnums = [5, 3, 8, 1, 9]\nprint(linear_search(nums, 8))  # 2" }],
-            "funFact": "If you have 1 million items, linear search might check ALL 1 million. Binary search would check only 20! 🚀"
+            "id": "c5c3", "title": "Recursion in C", "emoji": "🔁",
+            "analogy": "C's stack-based execution makes recursion very visual — every function call creates a new stack frame with its own local variables. Recursion stacks these frames, the base case unwinds them.",
+            "content": "Recursion in C: same rules as Java. Base case required. Each recursive call gets its OWN stack frame with its own local variables. Stack overflow if too deep. C is famous for recursive algorithms: quicksort, mergesort, tree traversal.",
+            "examples": [
+              { "title": "Factorial & Fibonacci in C", "explanation": "Classic recursive algorithms.", "code": "#include <stdio.h>\n\nint factorial(int n) {\n    if (n <= 1) return 1;       // base case\n    return n * factorial(n-1);  // recursive\n}\n\nint fib(int n) {\n    if (n <= 1) return n;\n    return fib(n-1) + fib(n-2);\n}\n\nint main() {\n    printf(\"%d\\n\", factorial(5)); // 120\n    printf(\"%d\\n\", fib(7));       // 13\n    return 0;\n}" },
+              { "title": "Stack Visualization", "explanation": "Each call creates its own frame.", "code": "// factorial(3) call stack:\n// [main] calls factorial(3)\n//   [factorial(3)] n=3, calls factorial(2)\n//     [factorial(2)] n=2, calls factorial(1)\n//       [factorial(1)] n=1, returns 1\n//     [factorial(2)] gets 1, returns 2*1=2\n//   [factorial(3)] gets 2, returns 3*2=6\n// [main] gets 6\n\n// Each frame has its OWN n!" }
+            ],
+            "funFact": "C's standard qsort() in <stdlib.h> uses a recursive quicksort internally. Quicksort was invented by Tony Hoare in 1959 — and the C standard library has used it ever since. Elegance that lasts 65 years! ⚡"
           },
           {
-            "id": "l5c4", "title": "Binary Search (Concept)", "emoji": "📖",
-            "analogy": "Binary search is like opening a dictionary to the middle. Is the word before or after? Cut the book in half each time. Way faster!",
-            "content": "Binary search only works on SORTED data. It checks the middle, then eliminates half the remaining items. Repeats until found. Time: O(log n) — extremely fast!",
-            "examples": [{ "title": "Binary Search Idea", "explanation": "Sorted list only! Halves the search space each step.", "code": "# Searching for 7 in [1, 3, 5, 7, 9]\n# Step 1: Middle = 5. 7 > 5 → go right\n# Step 2: Middle = 7. Found! ✅\n# Only 2 steps instead of 4!" }],
-            "funFact": "Binary search can find any item in a billion-element sorted list in just 30 steps! 🤯"
+            "id": "c5c4", "title": "Storage Classes & Scope", "emoji": "📏",
+            "analogy": "C variable scope is controlled by where you declare and three keywords: auto (default local), static (persistent between calls), extern (lives in another file). Static local variables remember their value between function calls — like a variable with amnesia that keeps ONE memory.",
+            "content": "Local variables (auto): live on stack, die when function returns. static local: lives for program lifetime, retains value between calls (only initialized once). global: file scope. extern: declared elsewhere. register: hint to use CPU register.",
+            "examples": [
+              { "title": "static Local Variable", "explanation": "static retains value between calls!", "code": "#include <stdio.h>\n\nvoid counter() {\n    static int count = 0; // initialized ONCE\n    count++;\n    printf(\"%d\\n\", count);\n}\n\nint main() {\n    counter(); // 1\n    counter(); // 2\n    counter(); // 3\n    return 0;\n}\n// Without static, count resets to 0 each call!" }
+            ],
+            "funFact": "static in C and static in Java are COMPLETELY DIFFERENT! C: static local persists between calls. Java: static belongs to the class. They share the word 'static' but mean different things! 🔄"
           }
         ],
         "battle": {
-          "enemy": { "name": "SEARCH SENTINEL", "maxHp": 100 },
+          "enemy": { "name": "THE STACK PHANTOM", "maxHp": 100 },
           "mcq": [
-            { "q": "Linear search checks items in what order?", "options": ["Random", "One by one from start to end", "Middle first", "Last to first"], "a": 1, "damage": 25, "topic": "Linear", "explanation": "Linear search goes left to right, checking every element sequentially." },
-            { "q": "What does linear search return if the item isn't found?", "options": ["0", "None", "-1 (by convention)", "Error"], "a": 2, "damage": 25, "topic": "Not Found", "explanation": "By convention, search functions return -1 to indicate 'not found'." },
-            { "q": "Binary search requires the list to be ___.", "options": ["Empty", "Reversed", "Sorted", "Random"], "a": 2, "damage": 25, "topic": "Binary Requirement", "explanation": "Binary search ONLY works on sorted data. It relies on order to eliminate half each step." },
-            { "q": "Which is faster on 1000 items?", "options": ["Linear (checks all 1000)", "Binary (checks about 10)", "They're equal", "Depends"], "a": 1, "damage": 25, "topic": "Speed", "explanation": "Binary: log₂(1000) ≈ 10 checks. Linear: up to 1000 checks. Binary wins hugely!" }
+            { "q": "factorial(4) in C with base n<=1 return 1:", "options": ["24","10","12","4"], "a": 0, "damage": 25, "topic": "Factorial C", "explanation": "4×3×2×1 = 24." },
+            { "q": "static local variable in C — when is it initialized?", "options": ["Every function call","Once, the first time the function runs","Never automatically","At program exit"], "a": 1, "damage": 25, "topic": "static local", "explanation": "Once: static int x=0 inside a function initializes x to 0 only once. Subsequent calls retain and modify x. It lives for the whole program lifetime." },
+            { "q": "Each recursive call in C creates:", "options": ["No overhead","A new stack frame with its own local variables","A new heap allocation","A new thread"], "a": 1, "damage": 25, "topic": "Stack frames", "explanation": "New Frame: Each call pushes a new stack frame containing its own local variables and return address. This is why deep recursion causes stack overflow." },
+            { "q": "Without a base case in a C recursive function:", "options": ["Returns 0","Stack overflow / segmentation fault","Loops infinitely on heap","Compiler error"], "a": 1, "damage": 25, "topic": "No base case C", "explanation": "Stack Overflow: Each call pushes a frame. Without base case, the stack fills up → segmentation fault (stack overflow). No compiler error — it's a runtime crash." }
           ]
         },
         "coding": [
-          { "title": "Linear Search", "objective": "linear_search([10,20,30,40], 30) returns what index?", "starterCode": "# [10, 20, 30, 40]\n# Target: 30\n# Index: ___", "answer": "2", "hint": "Index 0=10, 1=20, 2=30. Found at index 2." },
-          { "title": "Not Found", "objective": "linear_search([1,2,3], 5) returns what?", "starterCode": "# [1, 2, 3], target: 5\n# 5 is not in the list\n# Returns: ___", "answer": "-1", "hint": "5 is not in the list, so it returns -1." }
+          { "title": "Factorial base case", "objective": "int fact(int n){if(n<=___) return 1; return n*fact(n-1);}", "starterCode": "int fact(int n){\n    if(n<=___) return 1;\n    return n*fact(n-1);\n}", "answer": "1", "hint": "Base case: 1! = 1, 0! = 1. Stop at n<=1." },
+          { "title": "Static local", "objective": "static int c=0; c++; — 3 calls. Third call prints?", "starterCode": "void count(){\n    static int c=0;\n    c++;\n    printf(\"%d\\n\",c);\n}\n// Third call prints: ___", "answer": "3", "hint": "static retains value: call1→1, call2→2, call3→3." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return 0", "brokenCode": "def search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return 0", "bugLine": 4, "options": ["Return -1 for not found (0 is a valid index!)", "Use while instead", "arr is wrong", "Nothing wrong"], "answer": "Return -1 for not found (0 is a valid index!)", "hint": "Returning 0 is misleading because 0 is a valid index (first element)." }
+          { "type": "mcq", "description": "🚨 Bug — no base case:\n\nint count(int n) {\n    return 1 + count(n - 1);\n}", "brokenCode": "return 1 + count(n - 1);", "bugLine": 0, "options": ["Nothing wrong","Missing base case — infinite recursion → stack overflow / segfault. Add: if(n<=0) return 0;","n-1 should be n+1","Return type void"], "answer": "Missing base case — infinite recursion → stack overflow / segfault. Add: if(n<=0) return 0;", "hint": "Every recursive C function MUST have a base case!" }
         ],
         "prediction": [
-          { "code": "def find(arr, x):\n    for i in range(len(arr)):\n        if arr[i] == x:\n            return i\n    return -1\n\nprint(find([4,7,2,9], 2))", "options": ["0", "2", "3", "-1"], "answer": "2", "explanation": "Index 0=4, 1=7, 2=2. Found at index 2." }
+          { "code": "int sum(int n){\n    if(n==0) return 0;\n    return n + sum(n-1);\n}\nprintf(\"%d\\n\",sum(5));", "options": ["5","15","10","Error"], "answer": "15", "explanation": "5+4+3+2+1+0 = 15." }
         ]
       }
     },
     {
       "id": "5_3",
-      "title": "SORTING",
-      "subtitle": "Putting things in order",
-      "icon": "ArrowUpDown",
+      "title": "FUNCTION POINTERS",
+      "subtitle": "Storing and calling functions via pointers",
+      "icon": "Zap",
       "pipeline": {
         "teaching": [
           {
-            "id": "l5c5", "title": "Bubble Sort", "emoji": "🫧",
-            "analogy": "Bubble Sort is like bubbles rising in water. The biggest number 'bubbles up' to the end in each pass. Repeat until everything is sorted.",
-            "content": "Bubble Sort compares adjacent pairs and swaps them if they're in the wrong order. After one pass, the largest is at the end. Repeat for remaining items.",
-            "examples": [{ "title": "Bubble Sort Step", "explanation": "Compare neighbors, swap if wrong order.", "code": "# [5, 3, 8, 1]\n# Pass 1: compare 5,3→swap → [3,5,8,1]\n#          compare 5,8→ok   → [3,5,8,1]\n#          compare 8,1→swap → [3,5,1,8] ← 8 is in place!\n# Pass 2: [3,5,1,8] → [3,1,5,8]\n# Pass 3: [3,1,5,8] → [1,3,5,8] ✅" }],
-            "funFact": "Bubble Sort is very slow (O(n²)) but easy to understand. No one uses it in real software — it's purely educational! 🎓"
-          },
-          {
-            "id": "l5c6", "title": "Swapping — The Core Move", "emoji": "🔄",
-            "analogy": "Swapping is like trading cards with a friend. You each put your card face down, then pick up the other's card. In Python, it's even simpler!",
-            "content": "To swap two variables, Python can do it in one line: a, b = b, a. This is the fundamental operation in sorting algorithms.",
-            "examples": [{ "title": "Python Swap", "explanation": "One line swaps both values instantly!", "code": "a = 5\nb = 10\na, b = b, a   # Swap!\nprint(a, b)   # 10 5\n\n# In a list:\narr = [3, 1]\narr[0], arr[1] = arr[1], arr[0]\nprint(arr)  # [1, 3]" }],
-            "funFact": "In C/Java you need a temporary variable to swap. Python's tuple unpacking makes it a one-liner! 🐍"
+            "id": "c5c5", "title": "Function Pointers in C", "emoji": "👆",
+            "analogy": "A function pointer is an address in your program's code segment. Instead of calling a function by name, you call it through a pointer — enabling dynamic dispatch, callbacks, and plugin-like systems without OOP.",
+            "content": "Function pointer syntax: returnType (*ptrName)(paramTypes). Assign: fp = functionName. Call: fp(args) or (*fp)(args). Used for callbacks (qsort comparators), jump tables, and C's approach to polymorphism.",
+            "examples": [
+              { "title": "Function Pointers", "explanation": "Storing and calling functions dynamically.", "code": "#include <stdio.h>\n\nint add(int a, int b) { return a + b; }\nint mul(int a, int b) { return a * b; }\n\nint main() {\n    // Declare function pointer:\n    int (*operation)(int, int);\n    \n    operation = add;          // point to add\n    printf(\"%d\\n\", operation(3,4)); // 7\n    \n    operation = mul;          // point to mul\n    printf(\"%d\\n\", operation(3,4)); // 12\n    \n    return 0;\n}" },
+              { "title": "qsort Callback — Real Use", "explanation": "C standard library uses function pointers.", "code": "#include <stdlib.h>\n\nint compare(const void *a, const void *b) {\n    return (*(int*)a - *(int*)b);\n}\n\nint arr[] = {5,2,8,1,9,3};\nqsort(arr, 6, sizeof(int), compare);\n// arr now: 1 2 3 5 8 9" }
+            ],
+            "funFact": "C's qsort uses a function pointer for comparison, making it work with ANY data type. This is C's version of Java's Comparator interface — the same concept, implemented with raw pointers instead of OOP! 🔀"
           }
         ],
         "battle": {
-          "enemy": { "name": "CHAOS SHUFFLER", "maxHp": 100 },
+          "enemy": { "name": "THE FUNCTION POINTER", "maxHp": 100 },
           "mcq": [
-            { "q": "Bubble Sort compares ___ elements.", "options": ["Random", "First and last", "Adjacent (neighboring) pairs", "All at once"], "a": 2, "damage": 25, "topic": "Bubble Sort", "explanation": "Bubble Sort compares neighboring pairs and swaps if needed." },
-            { "q": "After 1 pass of Bubble Sort, which element is in its final position?", "options": ["The smallest", "The largest (at the end)", "The middle", "None"], "a": 1, "damage": 25, "topic": "Passes", "explanation": "Each pass 'bubbles' the largest remaining element to its correct position at the end." },
-            { "q": "How do you swap a and b in Python?", "options": ["a = b; b = a", "swap(a,b)", "a, b = b, a", "a == b"], "a": 2, "damage": 25, "topic": "Swap", "explanation": "a, b = b, a is Python's clean one-line swap using tuple unpacking." },
-            { "q": "Is Bubble Sort fast?", "options": ["Yes, fastest algorithm", "No, it's O(n²) — one of the slowest", "Medium speed", "Depends on data"], "a": 1, "damage": 25, "topic": "Performance", "explanation": "O(n²) means the time grows rapidly. For 1000 items, that's 1,000,000 comparisons!" }
+            { "q": "int (*fp)(int,int) = add; fp(2,3) — what does this call?", "options": ["int function pointer","The add function via pointer","Nothing — syntax error","A new function"], "a": 1, "damage": 33, "topic": "Function pointer call", "explanation": "Calls add: fp points to add. fp(2,3) is equivalent to add(2,3) = 5. Function pointers enable dynamic dispatch." },
+            { "q": "Which C standard library function uses a function pointer callback?", "options": ["printf","strlen","qsort","malloc"], "a": 2, "damage": 33, "topic": "qsort callback", "explanation": "qsort: Takes a comparison function pointer — qsort(arr, n, size, compare). This is C's way of writing generic algorithms that work on any type." },
+            { "q": "Function pointers in C enable what OOP concept approximately?", "options": ["Inheritance","Encapsulation","Polymorphism / dynamic dispatch","Constructors"], "a": 2, "damage": 34, "topic": "FP as polymorphism", "explanation": "Dynamic Dispatch: Function pointers let you call different functions through the same pointer — similar to virtual method dispatch in OOP. C structs with function pointers approximate OOP classes!" }
           ]
         },
         "coding": [
-          { "title": "Swap Output", "objective": "a=7, b=3. After a,b = b,a. What is a?", "starterCode": "a = 7\nb = 3\na, b = b, a\nprint(a)\n# Output: ___", "answer": "3", "hint": "After swap, a gets b's old value (3)." },
-          { "title": "After 1 Pass", "objective": "[4, 2, 7, 1]. After 1 full pass of Bubble Sort, what's the last element?", "starterCode": "# [4,2,7,1] → after 1 pass\n# Last element: ___", "answer": "7", "hint": "The largest (7) bubbles to the end after one pass." }
+          { "title": "Function pointer syntax", "objective": "Declare pointer to function int add(int,int). Fill the blank.", "starterCode": "int add(int a,int b){return a+b;}\nint (___fp)(int,int) = add;", "answer": "*", "hint": "int (*fp)(int,int) — the * goes inside the parentheses with the name." },
+          { "title": "Call via pointer", "objective": "int (*fp)(int,int)=add; fp(5,3) returns?", "starterCode": "int add(int a,int b){return a+b;}\nint (*fp)(int,int)=add;\nprintf(\"%d\\n\",fp(5,3));\n// Output: ___", "answer": "8", "hint": "fp points to add. fp(5,3) = add(5,3) = 8." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\na = 5\nb = 10\na = b\nb = a\nprint(a, b)", "brokenCode": "a = 5\nb = 10\na = b\nb = a\nprint(a, b)", "bugLine": 2, "options": ["Nothing wrong, prints 10 5", "After a=b, both are 10. Then b=a → both 10. Use a,b = b,a instead!", "Need a temp variable", "Print is wrong"], "answer": "After a=b, both are 10. Then b=a → both 10. Use a,b = b,a instead!", "hint": "When a=b runs, a becomes 10. Now b=a → b becomes 10 too. Both are 10!" }
+          { "type": "mcq", "description": "🚨 Bug:\n\nint (*fp)(int) = add; // add takes TWO ints\nfp(5);", "brokenCode": "int (*fp)(int) = add;", "bugLine": 0, "options": ["Nothing wrong","Type mismatch — fp is pointer to function taking ONE int, but add takes TWO. Declare: int (*fp)(int,int) = add;","fp should be **fp","add needs to be static"], "answer": "Type mismatch — fp is pointer to function taking ONE int, but add takes TWO. Declare: int (*fp)(int,int) = add;", "hint": "Function pointer type must EXACTLY match the function signature — return type AND all parameter types." }
         ],
         "prediction": [
-          { "code": "arr = [3, 1, 4, 1, 5]\narr[0], arr[1] = arr[1], arr[0]\nprint(arr)", "options": ["[3,1,4,1,5]", "[1,3,4,1,5]", "[5,1,4,1,3]", "Error"], "answer": "[1,3,4,1,5]", "explanation": "Swaps index 0 and 1: 3↔1. Result: [1,3,4,1,5]." }
+          { "code": "int square(int n){return n*n;}\nint cube(int n){return n*n*n;}\nint apply(int n, int(*fn)(int)){return fn(n);}\nprintf(\"%d %d\",apply(3,square),apply(3,cube));", "options": ["9 27","27 9","6 9","Error"], "answer": "9 27", "explanation": "apply(3,square)=square(3)=9. apply(3,cube)=cube(3)=27." }
         ]
       }
     },
     {
       "id": "5_boss",
-      "title": "THE STRATEGIST",
-      "subtitle": "BOSS FIGHT — All Level 5",
+      "title": "THE C RUNTIME ENGINE",
+      "subtitle": "BOSS FIGHT — All Level 5 C",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss5_intro", "title": "⚠️ BOSS — THE STRATEGIST", "emoji": "👾",
-            "analogy": "The Strategist is the ultimate tactician. It wields recursion, searches, and sorts as weapons. Only a true problem solver can defeat it!",
-            "content": "This is the final boss before the Ultimate Clash. It tests recursion, base cases, linear/binary search concepts, bubble sort, and swapping.",
-            "examples": [{ "title": "Your full arsenal", "explanation": "", "code": "✅ Recursion & base cases\n✅ Linear search & binary search\n✅ Bubble sort & swapping\n✅ Time complexity basics\n✅ Tracing recursive calls" }],
-            "funFact": "Google's PageRank algorithm (which sorts the entire internet's pages by relevance) was invented by two PhD students in a garage! 🏠"
+            "id": "boss_c5", "title": "⚠️ BOSS — THE C RUNTIME ENGINE", "emoji": "👾",
+            "analogy": "The C Runtime Engine manages every function call, every stack frame, every pointer dereference. It knows C has no objects — only functions, pointers, and raw memory. Defeat it by mastering C's function model completely.",
+            "content": "Tests ALL Level 5 C: prototypes, pass-by-value vs pass-by-pointer, scanf & requirement, function pointers, recursion + base case, stack frames, static local variables, scope.",
+            "examples": [{ "title": "Full C Function Arsenal", "explanation": "", "code": "✅ returnType name(params); — prototype\n✅ C passes by VALUE always\n✅ int *x + fn(&n) for 'by reference'\n✅ scanf('%d', &n) — pointer required\n✅ static local: persists between calls\n✅ Recursion: base case or segfault!\n✅ int (*fp)(int,int) — function pointer\n✅ qsort() uses callback function pointer" }],
+            "funFact": "The entire Unix/Linux kernel (millions of lines) is written in C using only functions, pointers, and structs. No classes, no exceptions, no garbage collector. C's simplicity IS its power for systems programming! 🐧"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE STRATEGIST", "maxHp": 150 },
+          "enemy": { "name": "THE C RUNTIME ENGINE", "maxHp": 150 },
           "mcq": [
-            { "q": "What are the 2 required parts of every recursive function?", "options": ["Loop and print", "Base case and recursive case", "Return and break", "If and else"], "a": 1, "damage": 30, "topic": "Recursion", "explanation": "Base case (when to stop) and recursive case (call itself with simpler input)." },
-            { "q": "Linear search on [4,8,2,6] for 2: how many comparisons?", "options": ["1", "2", "3", "4"], "a": 2, "damage": 30, "topic": "Linear Search", "explanation": "Check 4 (no), 8 (no), 2 (yes!). Three comparisons." },
-            { "q": "Binary search requires ___ data.", "options": ["Random", "Sorted", "Reversed", "Empty"], "a": 1, "damage": 30, "topic": "Binary Search", "explanation": "Binary search ONLY works on sorted data." },
-            { "q": "After Bubble Sort, where does the smallest element end up?", "options": ["At the end", "At the beginning", "In the middle", "Removed"], "a": 1, "damage": 30, "topic": "Sorting", "explanation": "After complete Bubble Sort, smallest is at index 0 (beginning)." },
-            { "q": "def f(n): return n*f(n-1) if n>1 else 1. What is f(4)?", "options": ["4", "10", "24", "Error"], "a": 2, "damage": 30, "topic": "Recursive Trace", "explanation": "f(4) = 4×f(3) = 4×3×f(2) = 4×3×2×f(1) = 4×3×2×1 = 24." }
+            { "q": "void fn(int x){x=99;} int n=5; fn(n); n=?", "options": ["99","5","0","Error"], "a": 1, "damage": 30, "topic": "Pass by value", "explanation": "5: Passed by value. fn gets a copy. n unchanged." },
+            { "q": "void fn(int *x){*x=99;} int n=5; fn(&n); n=?", "options": ["99","5","0","Error"], "a": 0, "damage": 30, "topic": "Pass by pointer", "explanation": "99: Passed by pointer. *x=99 dereferences and sets n to 99." },
+            { "q": "Static local int c=0; called 4 times with c++. 4th call prints?", "options": ["1","4","0","Error"], "a": 1, "damage": 30, "topic": "Static local count", "explanation": "4: static retains value. Calls: 1,2,3,4. Fourth call: c=4." },
+            { "q": "C's equivalent of Java's pass-by-reference is:", "options": ["No equivalent","Passing a pointer to the variable","Using static","Using global variables"], "a": 1, "damage": 30, "topic": "C reference equivalent", "explanation": "Pointer: C achieves 'pass by reference' by passing a pointer: fn(&n). The function dereferences (*n) to access/modify the original." },
+            { "q": "int (*fp)(int,int) — this declares:", "options": ["A 2D int array","A pointer to a function taking two ints and returning int","A function","An int double"], "a": 1, "damage": 30, "topic": "FP declaration", "explanation": "Function Pointer: int (*fp)(int,int) = pointer fp to a function that takes two ints and returns int. Assign with fp=functionName." }
           ]
         },
         "coding": [
-          { "title": "Boss: Recursive Sum", "objective": "def sum_to(n): if n==0: return 0; return n+sum_to(n-1). What is sum_to(5)?", "starterCode": "# sum_to(5) = 5+4+3+2+1+0\n# Output: ___", "answer": "15", "hint": "5+4+3+2+1+0 = 15." }
+          { "title": "Boss: Pointer swap", "objective": "void swap(int*a,int*b). Call to swap x=5,y=8?", "starterCode": "int x=5,y=8;\nswap(___x, ___y);\nprintf(\"%d %d\",x,y);// 8 5", "answer": "&", "hint": "Pass addresses: swap(&x, &y)" },
+          { "title": "Boss: Recursive factorial output", "objective": "int fact(n){if(n<=1)return 1;return n*fact(n-1);} fact(6)=?", "starterCode": "printf(\"%d\",fact(6));\n// Output: ___", "answer": "720", "hint": "6×5×4×3×2×1 = 720." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Boss Bug:\n\ndef search(arr, x):\n    for i in arr:\n        if i == x:\n            return i", "brokenCode": "def search(arr, x):\n    for i in arr:\n        if i == x:\n            return i", "bugLine": 3, "options": ["Should return the INDEX (use enumerate or range), not the value itself", "Use while instead", "arr is wrong", "Nothing wrong"], "answer": "Should return the INDEX (use enumerate or range), not the value itself", "hint": "Search functions typically return the INDEX where the item was found, not the item itself." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nint n;\nscanf(\"%d\", n);  // Missing &!", "brokenCode": "scanf(\"%d\", n);", "bugLine": 0, "options": ["Nothing wrong","Missing & — scanf needs the ADDRESS to write to. Use: scanf('%d', &n);","n should be int*","%d should be %i"], "answer": "Missing & — scanf needs the ADDRESS to write to. Use: scanf('%d', &n);", "hint": "scanf modifies n — needs its address. &n gives the address. Without &, n's VALUE is passed as an address → undefined behavior!" }
         ],
         "prediction": [
-          { "code": "def mystery(n):\n    if n <= 0:\n        return ''\n    return mystery(n-1) + '*'\n\nprint(mystery(4))", "options": ["****", "***", "*", "Error"], "answer": "****", "explanation": "m(4)=m(3)+'*'=m(2)+'**'=m(1)+'***'=m(0)+'****'=''+'****'='****'." }
+          { "code": "int power(int base, int exp){\n    if(exp==0) return 1;\n    return base * power(base, exp-1);\n}\nprintf(\"%d\\n\",power(2,8));", "options": ["16","64","128","256"], "answer": "256", "explanation": "2^8 = 256. Recursive: 2×2×2×2×2×2×2×2 = 256." }
         ]
       }
     }

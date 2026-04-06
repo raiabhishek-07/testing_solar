@@ -1,46 +1,171 @@
 {
-  "label": "C_ARCADE",
-  "foundation": [
+  "label": "LEVEL 6: FILE I/O & ERROR HANDLING (C)",
+  "sublevels": [
     {
-       "id": 601, "title": "STRUCT", "subtitle": "Custom Records", "icon": "Layers",
-       "content": "A Struct allows you to cluster different data types (int, char, float) into a single logical 'Record' or object.",
-       "scenario": "A Student ID Card. It holds a Photo (Binary), a Name (Text), and a Number (Integer) simultaneously.",
-       "examples": [
-         { "title": "Creation", "explanation": "Defining a blueprint for a new record type using 'struct'.", "code": "struct Player { int hp; char id; };" },
-         { "title": "Accessing", "explanation": "Using a dot ('.') to see exactly one thing from inside the record.", "code": "p.hp = 100;" },
-         { "title": "Naming", "explanation": "Using 'typedef' to give your record a short name without saying 'struct' every time.", "code": "typedef struct Player P;" }
-       ],
-       "keyPoint": "struct allows multi-type containers in C."
+      "id": "6_1",
+      "title": "FILE I/O",
+      "subtitle": "Reading and writing files with stdio.h",
+      "icon": "FileText",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c6c1", "title": "C File I/O", "emoji": "📁",
+            "analogy": "C file I/O is like using a cassette tape — you press play (fopen), interact with it sequentially (read/write), and press stop (fclose). Miss fclose and you risk losing data or leaving the tape jammed. No convenience — just raw control.",
+            "content": "FILE* pointer from <stdio.h>. fopen(name, mode) opens. fclose(fp) closes. Modes: 'r' read, 'w' write (truncates), 'a' append, 'rb'/'wb' binary. fprintf, fscanf, fgets, fputs for reading/writing. Always check fopen != NULL.",
+            "examples": [
+              { "title": "Writing to a File", "explanation": "fopen → write → fclose.", "code": "#include <stdio.h>\nint main() {\n    FILE *fp = fopen(\"scores.txt\", \"w\");\n    if (fp == NULL) {  // ALWAYS check!\n        printf(\"Error opening file\\n\");\n        return 1;\n    }\n    fprintf(fp, \"Player: Neo\\n\");\n    fprintf(fp, \"Score: %d\\n\", 9500);\n    fclose(fp);  // ALWAYS close!\n    return 0;\n}" },
+              { "title": "Reading from a File", "explanation": "fgets reads line by line.", "code": "#include <stdio.h>\n#define BUFSIZE 100\nint main() {\n    FILE *fp = fopen(\"scores.txt\", \"r\");\n    if (!fp) { perror(\"fopen\"); return 1; }\n    \n    char line[BUFSIZE];\n    while (fgets(line, BUFSIZE, fp) != NULL) {\n        printf(\"%s\", line); // line includes \\n\n    }\n    fclose(fp);\n    return 0;\n}" }
+            ],
+            "funFact": "stdin, stdout, stderr are FILE* pointers too! printf is fprintf(stdout,...), scanf is fscanf(stdin,...). C treats everything as a file stream — even keyboard input and screen output follow the same FILE* model! 🖥️"
+          },
+          {
+            "id": "c6c2", "title": "fgets, fscanf & Binary I/O", "emoji": "🔍",
+            "analogy": "fgets is safer than gets() — it limits how many characters it reads, preventing buffer overflow. It's the difference between a bouncer who checks IDs (fgets) and one who lets everyone in (gets — never use!).",
+            "content": "fgets(buffer, size, fp): reads until newline or size-1 chars. fscanf: formatted read (like scanf). fread/fwrite: binary I/O for raw data structures. fprintf with FILE* for formatted write. feof() checks end of file.",
+            "examples": [
+              { "title": "fscanf and fwrite", "explanation": "Formatted read and binary write.", "code": "// fscanf — reads formatted data:\nFILE *fp = fopen(\"data.txt\",\"r\");\nchar name[50]; int score;\nfscanf(fp, \"%s %d\", name, &score);\nprintf(\"%s: %d\\n\", name, score);\nfclose(fp);\n\n// Binary fwrite/fread — entire struct at once:\ntypedef struct {char name[20]; int score;} Record;\nRecord r = {\"Neo\", 9500};\nFILE *bf = fopen(\"data.bin\",\"wb\");\nfwrite(&r, sizeof(Record), 1, bf);\nfclose(bf);" }
+            ],
+            "funFact": "The infamous gets() function (never use it!) was so dangerous that C11 actually REMOVED it from the standard library. It's the only function ever removed from the C standard! fgets() is its safe replacement. ⚠️"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE FILE DAEMON", "maxHp": 100 },
+          "mcq": [
+            { "q": "fopen returns NULL when:", "options": ["File is empty","File can't be opened (doesn't exist for 'r', permission denied, etc.)","File is binary","Always returns NULL for text files"], "a": 1, "damage": 20, "topic": "fopen NULL check", "explanation": "Error: fopen returns NULL on failure. ALWAYS check: if(!fp){perror('error');return 1;}. Proceeding with NULL fp causes undefined behavior." },
+            { "q": "fopen mode 'w' does what if file already exists?", "options": ["Returns error","Appends to existing","Truncates (deletes contents) and starts fresh","Creates a backup"], "a": 2, "damage": 20, "topic": "Mode w truncates", "explanation": "Truncate: Mode 'w' opens for writing and TRUNCATES the file if it exists. Use 'a' for append. Use 'r+' for read+write without truncation." },
+            { "q": "What function reads a line safely with buffer limit?", "options": ["gets()","scanf()","fgets()","readline()"], "a": 2, "damage": 20, "topic": "fgets safer", "explanation": "fgets(): fgets(buf, size, fp) reads at most size-1 characters. gets() has NO size limit — it's been removed from C11 due to buffer overflow risk!" },
+            { "q": "Why must you call fclose() after writing?", "options": ["Saves memory","Flushes write buffer to disk and releases file handle","Required by OS","Makes file read-only"], "a": 1, "damage": 20, "topic": "fclose importance", "explanation": "Flush + Release: C buffers writes. fclose() flushes the buffer to disk (data actually saved) and releases the OS file handle. Without fclose, data may be lost!" },
+            { "q": "FILE *fp is type:", "options": ["char array","int","Pointer to a FILE structure (file descriptor abstraction)","void pointer"], "a": 2, "damage": 20, "topic": "FILE* type", "explanation": "FILE Struct: FILE is a structure defined in stdio.h holding file state. FILE* is a pointer to it. stdin, stdout, stderr are pre-defined FILE* pointers." }
+          ]
+        },
+        "coding": [
+          { "title": "fopen write mode", "objective": "Open 'log.txt' for writing (truncate if exists):", "starterCode": "FILE *fp = fopen(\"log.txt\", ___);", "answer": "\"w\"", "hint": "'w' mode opens for writing, creates or truncates." },
+          { "title": "NULL check", "objective": "After fopen, check if it failed:", "starterCode": "FILE *fp = fopen(\"data.txt\", \"r\");\nif (fp ___ NULL) { return 1; }", "answer": "==", "hint": "fopen returns NULL on failure. Check == NULL." },
+          { "title": "fgets buffer read", "objective": "Read line from fp into char line[100]:", "starterCode": "char line[100];\n___(line, 100, fp);", "answer": "fgets", "hint": "fgets(buffer, max_size, file_pointer)" }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nFILE *fp = fopen(\"data.txt\", \"r\");\nfprintf(fp, \"hello\\n\");  // writing to 'r' mode!", "brokenCode": "fprintf(fp, \"hello\\n\");", "bugLine": 0, "options": ["Nothing wrong","File opened in 'r' (read) mode. Writing to it is undefined behavior. Use 'w' or 'a' mode to write.","fprintf only works with stdout","Use fputs instead"], "answer": "File opened in 'r' (read) mode. Writing to it is undefined behavior. Use 'w' or 'a' mode to write.", "hint": "'r' = read only. 'w' = write. 'a' = append. Writing to a read-only file is undefined behavior." }
+        ],
+        "prediction": [
+          { "code": "FILE *fp=fopen(\"t.txt\",\"w\");\nfprintf(fp,\"Line 1\\n\");\nfprintf(fp,\"Line 2\\n\");\nfclose(fp);\n// File now contains:", "options": ["Line 1 only","Line 1 and Line 2","Empty — w truncates","Error"], "answer": "Line 1 and Line 2", "explanation": "'w' creates/truncates. Both fprintf calls write. fclose flushes. File has both lines." }
+        ]
+      }
     },
     {
-       "id": 604, "title": "FILES", "subtitle": "Disk I/O", "icon": "File",
-       "content": "C uses 'File Pointers' to read/write to your hard drive. You must manually open and close these connections.",
-       "scenario": "A Physical File Cabinet. You open it (fopen), put a new paper inside (fprintf), and then CLOSE the door (fclose).",
-       "examples": [
-         { "title": "Opening", "explanation": "Creating a link to a file on your disk using a special 'FILE' pointer.", "code": "FILE *f = fopen('d.txt', 'w');" },
-         { "title": "Writing", "explanation": "Pouring text into the file stream directly using the fprintf() function.", "code": "fprintf(f, \"Hi\");" },
-         { "title": "The Close", "explanation": "Releasing the file so other apps can see it.", "code": "fclose(f);" }
-       ],
-       "keyPoint": "Always check if f is NULL after opening."
+      "id": "6_2",
+      "title": "ERROR HANDLING IN C",
+      "subtitle": "errno, perror, return codes & assert",
+      "icon": "AlertTriangle",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c6c3", "title": "C Error Handling", "emoji": "⚠️",
+            "analogy": "C has no exceptions — errors are just return values and a global 'errno' flag. Like a surgeon who signals 'failed' by returning -1 and leaving a note (errno) next to the patient. You MUST check the return value — C won't force you.",
+            "content": "C error handling: return codes (0 = success, non-zero = error, -1 = Unix convention). errno (from <errno.h>): set by system calls on error. perror() prints human-readable error. strerror(errno) gets error string. assert() for debug checks.",
+            "examples": [
+              { "title": "Return Codes & errno", "explanation": "Check return values! C won't throw for you.", "code": "#include <stdio.h>\n#include <errno.h>\n#include <string.h>\n\nFILE *fp = fopen(\"missing.txt\", \"r\");\nif (fp == NULL) {\n    // errno set by fopen:\n    printf(\"Error: %s\\n\", strerror(errno));\n    // Or use perror:\n    perror(\"fopen\");  // prints: fopen: No such file\n}\n\n// Function returning error code:\nint divide(int a, int b, int *result) {\n    if (b == 0) return -1;  // error code\n    *result = a / b;\n    return 0;  // success\n}" },
+              { "title": "assert for Debug Checks", "explanation": "assert crashes with message if condition false.", "code": "#include <assert.h>\n\nvoid process(int *data, int len) {\n    assert(data != NULL); // crash if NULL in debug\n    assert(len > 0);      // crash if invalid length\n    // ...\n}\n\n// Disable asserts in release:\n// #define NDEBUG (before include assert.h)" }
+            ],
+            "funFact": "C's lack of exceptions is intentional — exceptions have hidden performance costs. C programmers check EVERY return value (or they should!). Linux system calls return -1 on error and set errno. No exceptions ever! ⚡"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE ERROR DAEMON", "maxHp": 100 },
+          "mcq": [
+            { "q": "C functions signal errors via:", "options": ["throw keyword","Return codes (often -1 or NULL) and errno global","try/catch blocks","Exception objects"], "a": 1, "damage": 25, "topic": "C error mechanism", "explanation": "Return Codes: C has no exceptions. Errors are communicated via return values (-1, NULL, non-zero). Check every function return! errno provides more detail." },
+            { "q": "perror('fopen') does what?", "options": ["Opens a file","Prints a human-readable error message combining your prefix and errno","Returns errno value","Sets the error code"], "a": 1, "damage": 25, "topic": "perror", "explanation": "perror: Prints your prefix + ': ' + system error string from errno. 'fopen: No such file or directory' — combines your context with the OS error message." },
+            { "q": "assert(x > 0) when x = -5 in debug build:", "options": ["Does nothing","Prints warning","Terminates program with assertion failure message and file/line info","Returns false"], "a": 2, "damage": 25, "topic": "assert crash", "explanation": "Abort: assert(condition) calls abort() if condition is false. Prints: 'Assertion failed: x>0, file main.c, line 5'. Used for catching impossible states in debug." },
+            { "q": "C convention: function returns 0 on:", "options": ["Error","Success, -1 on error","Error, positive on success","Doesn't matter"], "a": 1, "damage": 25, "topic": "Return code convention", "explanation": "0 = Success: C convention (from Unix): 0 = success, non-zero = error. main() returns 0 on success. system(), fclose(), fflush() all return 0 on success." }
+          ]
+        },
+        "coding": [
+          { "title": "Return code success", "objective": "C convention: return ___ on success from a function.", "starterCode": "int openDB(char *path) {\n    // ... on success:\n    return ___;\n}", "answer": "0", "hint": "Unix/C convention: 0 = success, non-zero = error." },
+          { "title": "perror usage", "objective": "After failed fopen, print error with context 'File error':", "starterCode": "if (!fp) {\n    ___(\"File error\");\n    return 1;\n}", "answer": "perror", "hint": "perror(prefix) prints prefix + system error message from errno." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug — ignoring return value:\n\nFILE *fp = fopen(\"data.txt\",\"r\");\nchar line[100];\nfgets(line, 100, fp);  // fp might be NULL!", "brokenCode": "fgets(line, 100, fp);", "bugLine": 0, "options": ["Nothing wrong","fopen could return NULL — passing NULL to fgets is undefined behavior. Always check: if(!fp){return 1;} before using fp.","fgets is wrong function","line too small"], "answer": "fopen could return NULL — passing NULL to fgets is undefined behavior. Always check: if(!fp){return 1;} before using fp.", "hint": "Never use fp without checking if fopen succeeded (returned non-NULL)." }
+        ],
+        "prediction": [
+          { "code": "int safeDivide(int a,int b,int*r){\n    if(b==0) return -1;\n    *r=a/b;\n    return 0;\n}\nint result;\nif(safeDivide(10,2,&result)==0)\n    printf(\"%d\\n\",result);\nelse\n    printf(\"Error\\n\");", "options": ["Error","5","10/2","Error 5"], "answer": "5", "explanation": "b=2 != 0. *r=10/2=5. Returns 0 (success). Prints 5." }
+        ]
+      }
     },
     {
-       "id": 608, "title": "HEADER", "subtitle": "Includes", "icon": "Cpu",
-       "content": "C uses Header files (.h) to share logic between different .c files in a large system.",
-       "scenario": "A Shared Recipe Book. Every chef (file) can include (include) the recipes (logic) in the .h file instantly.",
-       "examples": [
-         { "title": "Standard", "explanation": "Importing a box of pre-made tools from the official C compiler library.", "code": "#include <stdio.h>" },
-         { "title": "Local One", "explanation": "Including a file you wrote yourself in the same folder using quotes.", "code": "#include \"game.h\"" },
-         { "title": "The Guards", "explanation": "Adding special lines starting with # to prevent C from reading the same file twice.", "code": "#ifndef MY_H" }
-       ],
-       "keyPoint": "Headers connect different files together."
-    }
-  ],
-  "tests": [
+      "id": "6_3",
+      "title": "DYNAMIC MEMORY",
+      "subtitle": "malloc, calloc, realloc & free",
+      "icon": "Server",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c6c4", "title": "Dynamic Memory in C", "emoji": "🧠",
+            "analogy": "malloc is like renting storage units — you request the size you need, get a key (pointer), and MUST return it when done (free). Forget to return the key and the storage stays locked forever (memory leak). Return the wrong key and chaos ensues (double-free, use-after-free).",
+            "content": "malloc(size): allocates size bytes on heap, returns void*. calloc(n,size): allocates n*size bytes, zeroed. realloc(ptr,size): resize allocation. free(ptr): MUST be called or memory leaks. Check for NULL on allocation failure.",
+            "examples": [
+              { "title": "malloc and free", "explanation": "Request heap memory — must free!", "code": "#include <stdlib.h>\n#include <stdio.h>\n\nint main() {\n    // Allocate array of 5 ints on heap:\n    int *arr = malloc(5 * sizeof(int));\n    if (arr == NULL) { return 1; }  // check!\n    \n    for(int i=0;i<5;i++) arr[i] = i*10;\n    printf(\"%d\\n\", arr[2]);  // 20\n    \n    free(arr);   // MUST free!\n    arr = NULL;  // set to NULL after free\n    return 0;\n}" },
+              { "title": "calloc & realloc", "explanation": "calloc zeros memory. realloc resizes.", "code": "// calloc — n elements, each of size, zeroed:\nint *data = calloc(10, sizeof(int));\n// data[0..9] all = 0 ✅\n\n// realloc — resize existing allocation:\ndata = realloc(data, 20 * sizeof(int));\nif (!data) { /* handle error */ }\n\n// ALWAYS check NULL on all allocation calls!\nfree(data);" }
+            ],
+            "funFact": "Memory leaks in long-running programs (servers, kernels) accumulate until the OS kills the process or system crashes. NASA missions use strict 'no dynamic allocation' rules in flight software — all memory decided at compile time! 🚀"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE MEMORY LEAKER", "maxHp": 100 },
+          "mcq": [
+            { "q": "malloc(100) returns:", "options": ["100 ints","Pointer to 100 bytes of heap memory (uninitialized)","A calloc'd zeroed block","Stack memory"], "a": 1, "damage": 25, "topic": "malloc return", "explanation": "Heap Pointer: malloc returns a void* pointing to 100 bytes of HEAP memory. Content is UNINITIALIZED (garbage). Cast to needed type: int* arr = (int*)malloc(n*sizeof(int));" },
+            { "q": "What happens if you forget to call free()?", "options": ["Compile error","Memory leak — heap memory never returned to OS until program ends","OS handles it","Segfault immediately"], "a": 1, "damage": 25, "topic": "Memory leak", "explanation": "Memory Leak: The allocated block remains reserved for the process lifetime. In long-running programs, leaks grow until system runs out of memory." },
+            { "q": "calloc vs malloc — key difference?", "options": ["calloc is faster","calloc zeroes the memory; malloc leaves it uninitialized","malloc is for arrays","calloc doesn't need free"], "a": 1, "damage": 25, "topic": "calloc vs malloc", "explanation": "Zeroed: calloc initializes all bytes to 0. malloc leaves memory uninitialized (garbage values). calloc is safer but slightly slower due to zeroing." },
+            { "q": "After free(ptr), what should you do to prevent use-after-free?", "options": ["Nothing","Set ptr = NULL to prevent accidental reuse","Reallocate immediately","Call free again"], "a": 1, "damage": 25, "topic": "After free", "explanation": "Null After Free: Set ptr = NULL after free(ptr). Accidentally using a freed pointer is undefined behavior. A NULL ptr dereference crashes immediately — a much cleaner failure!" }
+          ]
+        },
+        "coding": [
+          { "title": "malloc for 10 ints", "objective": "Allocate array of 10 ints on heap:", "starterCode": "int *arr = ___(10 * sizeof(int));", "answer": "malloc", "hint": "malloc(bytes) allocates that many bytes on the heap." },
+          { "title": "Always free", "objective": "After using arr (malloced), what must you call?", "starterCode": "int *arr = malloc(10*sizeof(int));\n// ... use arr ...\n___(arr);", "answer": "free", "hint": "free() returns heap memory. Not calling it = memory leak." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug — double free:\n\nint *p = malloc(sizeof(int));\n*p = 42;\nfree(p);\nfree(p);  // DOUBLE FREE!", "brokenCode": "free(p);", "bugLine": 0, "options": ["Nothing wrong","Calling free twice on same pointer is undefined behavior — heap corruption. Set p=NULL after first free.","free needs size argument","malloc should be calloc"], "answer": "Calling free twice on same pointer is undefined behavior — heap corruption. Set p=NULL after first free.", "hint": "After free(p), set p=NULL. free(NULL) is safe and does nothing — prevents accidental double-free." }
+        ],
+        "prediction": [
+          { "code": "int *p = calloc(3, sizeof(int));\np[0]=1; p[1]=2;\nprintf(\"%d %d %d\\n\",p[0],p[1],p[2]);\nfree(p);", "options": ["1 2 0","1 2 garbage","0 0 0","Error"], "answer": "1 2 0", "explanation": "calloc zeroes all. p[0]=1, p[1]=2 set. p[2] stays 0 (calloc zeroed). Output: 1 2 0." }
+        ]
+      }
+    },
     {
-      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "C Record Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "Access struct member?", "options": [".","::","->","both . and ->"], "a": 3, "hint": ". is normal, -> is for pointers." }
-      ]
+      "id": "6_boss",
+      "title": "THE C SYSTEM",
+      "subtitle": "BOSS FIGHT — All Level 6 C",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss_c6", "title": "⚠️ BOSS — THE C SYSTEM", "emoji": "👾",
+            "analogy": "The C System manages files, errors, and memory simultaneously — the three pillars of C systems programming. Miss any one and you leak resources, corrupt memory, or lose data. Prove you can handle all three!",
+            "content": "Tests ALL Level 6 C: fopen modes/NULL check, fclose flush, fprintf/fgets, return codes (0=success), errno/perror, assert, malloc/free/NULL check, calloc zeros, realloc, double-free danger.",
+            "examples": [{ "title": "Full C Systems Arsenal", "explanation": "", "code": "✅ FILE *fp = fopen(name,mode) — check NULL!\n✅ 'r'=read, 'w'=write+truncate, 'a'=append\n✅ fclose() flushes buffer to disk\n✅ fprintf(fp,...) / fgets(buf,n,fp)\n✅ Return 0 = success, -1 = error\n✅ perror() prints errno message\n✅ assert(cond) crashes in debug if false\n✅ malloc(n*sizeof(T)) — check NULL!\n✅ calloc zeroes, malloc doesn't\n✅ free(ptr); ptr=NULL; — prevent double-free" }],
+            "funFact": "Valgrind is a tool that detects memory leaks and invalid memory accesses in C programs. Running valgrind on large codebases can reveal thousands of leaks in 'working' programs. Essential for C development! 🔍"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE C SYSTEM", "maxHp": 150 },
+          "mcq": [
+            { "q": "fopen('x.txt','w') on non-existent file:", "options": ["Returns NULL","Creates the file","Error — file must exist","Reads from stdin"], "a": 1, "damage": 30, "topic": "fopen creates", "explanation": "Creates: 'w' mode creates the file if it doesn't exist, truncates if it does. Only 'r' mode requires the file to exist." },
+            { "q": "fclose() is important because:", "options": ["Frees RAM","Flushes write buffers to disk and releases OS file descriptor","Closes the program","Deletes the file"], "a": 1, "damage": 30, "topic": "fclose flush", "explanation": "Critical: fclose flushes C's write buffer — bytes might be buffered in C's stdio, not yet written to disk. Without fclose, last writes may be LOST." },
+            { "q": "int *p=malloc(n*sizeof(int)); if(!p) — what happened?", "options": ["p is 0","Allocation FAILED — malloc returned NULL. Handle the error!","p has garbage","n was wrong"], "a": 1, "damage": 30, "topic": "malloc NULL", "explanation": "Allocation Failed: malloc returns NULL when system can't allocate memory. ALWAYS check and handle this case before using the pointer!" },
+            { "q": "After free(ptr), ptr still holds the old address. Using *ptr:", "options": ["Returns 0","Undefined behavior — use-after-free (security vulnerability!)","Prints the old value","Crashes always"], "a": 1, "damage": 30, "topic": "use-after-free", "explanation": "Undefined Behavior: The memory was returned to the heap — it may be reallocated. Dereferencing a freed pointer is undefined behavior and a common security vulnerability." },
+            { "q": "calloc(5, sizeof(double)) allocates how many bytes? (double=8)", "options": ["5","8","40","13"], "a": 2, "damage": 30, "topic": "calloc size", "explanation": "40 bytes: calloc(n, size) = n × size = 5 × 8 = 40 bytes, all zeroed." }
+          ]
+        },
+        "coding": [
+          { "title": "Boss: Complete file write", "objective": "Open 'out.txt' for writing, check failure, write 'Hello':", "starterCode": "FILE *fp = fopen(\"out.txt\",\"w\");\nif (fp == ___) return 1;\nfprintf(fp, \"Hello\");\nfclose(fp);", "answer": "NULL", "hint": "fopen returns NULL on failure." },
+          { "title": "Boss: malloc + free", "objective": "Allocate 20 ints. Last step after using arr?", "starterCode": "int *arr=malloc(20*sizeof(int));\n// ... use arr ...\n___(arr);", "answer": "free", "hint": "Always free heap-allocated memory when done." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nchar buf[5];\nFILE *fp = fopen(\"big.txt\",\"r\");\nfgets(buf, 1000, fp);  // buf is only 5 bytes!", "brokenCode": "fgets(buf, 1000, fp);", "bugLine": 0, "options": ["Nothing wrong","fgets limit (1000) exceeds buf size (5) — buffer overflow! Use: fgets(buf, sizeof(buf), fp)","fgets is the wrong function","fp not checked for NULL"], "answer": "fgets limit (1000) exceeds buf size (5) — buffer overflow! Use: fgets(buf, sizeof(buf), fp)", "hint": "fgets second arg must be <= buffer size. Always use sizeof(buf) to be safe." }
+        ],
+        "prediction": [
+          { "code": "int *n=calloc(1,sizeof(int));\n*n = 10;\n*n += 5;\nprintf(\"%d\\n\",*n);\nfree(n); n=NULL;", "options": ["10","15","0","Error"], "answer": "15", "explanation": "calloc: *n starts as 0. *n=10 sets to 10. *n+=5: 10+5=15. free and null-set are correct." }
+        ]
+      }
     }
   ]
 }

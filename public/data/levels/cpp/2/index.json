@@ -1,285 +1,419 @@
 {
-  "label": "LEVEL 2: DECISIONS (Logical Thinking)",
+  "label": "LEVEL 2: DECISIONS (C++ Control Flow)",
   "sublevels": [
     {
       "id": "2_1",
-      "title": "BOOLEANS & CONDITIONS",
-      "subtitle": "True or False — the foundation of logic",
+      "title": "CPP OPERATORS",
+      "subtitle": "Comparison, logical & arithmetic",
       "icon": "ToggleRight",
       "pipeline": {
         "teaching": [
           {
-            "id": "l2c1",
-            "title": "What is a Condition?",
-            "emoji": "❓",
-            "analogy": "A condition is a yes/no question. 'Is the door open?' — the answer is either True or False. Computers make EVERY decision this way.",
-            "content": "A condition is any expression that evaluates to True or False. Comparison operators (>, <, ==, !=) create conditions. Python uses these to decide what code to run.",
+            "id": "cpp2c1",
+            "title": "Comparison Operators in C++",
+            "emoji": "⚖️",
+            "analogy": "C++ inherits C's comparison system but adds a crucial upgrade: a proper bool type that prints 'true' and 'false'. The same six judges (==, !=, >, <, >=, <=) deliver verdicts, but now they speak in bool, not just 0 and 1.",
+            "content": "C++ comparison operators (==, !=, >, <, >=, <=) return bool: true or false — not 1 and 0 like in C. C++ has native bool, making code more readable and type-safe than C.",
             "examples": [
-              { "title": "Conditions in Action", "explanation": "Each line evaluates to True or False.", "code": "print(5 > 3)     # True\nprint(10 < 2)    # False\nprint(5 == 5)    # True\nprint(5 != 5)    # False" }
+              { "title": "C++ Comparisons Return bool", "explanation": "Native bool — more readable than C's 0/1.", "code": "#include <iostream>\nusing namespace std;\nint main() {\n    int a = 10, b = 5;\n    cout << (a == b) << endl;  // 0 (false)\n    cout << (a != b) << endl;  // 1 (true)\n    cout << boolalpha;\n    cout << (a > b) << endl;   // true\n    cout << (a < b) << endl;   // false\n    return 0;\n}" },
+              { "title": "String Comparison in C++", "explanation": "C++ string uses == correctly — unlike Java!", "code": "string s1 = \"hello\";\nstring s2 = \"hello\";\n\n// C++ string: == compares CONTENT correctly!\ncout << (s1 == s2) << endl;  // 1 (true) ✅\n\n// This is DIFFERENT from Java where\n// s1 == s2 compares memory addresses\n// In C++, std::string overloads ==!" }
             ],
-            "funFact": "The == operator checks equality. The = operator assigns values. Mixing them up is one of the most common bugs! 🐛"
+            "funFact": "C++ std::string overloads the == operator to compare content — unlike Java's String. This is C++ operator overloading at work. You can define what == does for your own classes too! 🔧"
           },
           {
-            "id": "l2c2",
-            "title": "Comparison Operators",
-            "emoji": "⚖️",
-            "analogy": "Comparison operators are like a judge weighing two things on a scale and announcing the verdict: True or False.",
-            "content": "Python has 6 comparison operators: > (greater), < (less), >= (greater or equal), <= (less or equal), == (equals), != (not equals). They always return True or False.",
+            "id": "cpp2c2",
+            "title": "Logical Operators in C++",
+            "emoji": "🔗",
+            "analogy": "C++ supports BOTH the C-style operators (&&, ||, !) AND the English keyword alternatives (and, or, not). The keyword versions were added for readability and to avoid confusion with bitwise operators. Most professionals still use &&, ||, !.",
+            "content": "C++ has && (and), || (or), ! (not) — same as C. C++ also adds keyword alternatives: 'and', 'or', 'not' which are standard C++ keywords (not common in practice). Short-circuit evaluation applies.",
             "examples": [
-              { "title": "All 6 Operators", "explanation": "Each returns a boolean.", "code": "print(10 > 5)    # True\nprint(3 < 1)     # False\nprint(5 >= 5)    # True\nprint(4 <= 3)    # False\nprint(7 == 7)    # True\nprint(8 != 8)    # False" }
+              { "title": "Logical Operators", "explanation": "C++ supports both styles — && preferred.", "code": "bool isAdult = true;\nbool hasID = false;\n\n// C-style (common):\ncout << (isAdult && hasID) << endl;  // 0 (false)\ncout << (isAdult || hasID) << endl;  // 1 (true)\ncout << (!isAdult) << endl;          // 0 (false)\n\n// C++ keyword style (valid but uncommon):\ncout << (isAdult and hasID) << endl;  // 0\ncout << (isAdult or hasID) << endl;   // 1\ncout << (not isAdult) << endl;        // 0" }
             ],
-            "funFact": "You can even compare strings! 'apple' < 'banana' is True because 'a' comes before 'b' alphabetically. 🍎"
+            "funFact": "C++ is the only mainstream language that has BOTH symbol (&&, ||) AND English keyword (and, or, not) logical operators. The keyword versions were standardized in C++98 to improve readability! 📚"
+          },
+          {
+            "id": "cpp2c3",
+            "title": "Arithmetic & auto In Expressions",
+            "emoji": "➕",
+            "analogy": "C++ arithmetic works like C's, but with a modern twist: auto can deduce the type of a result. Combined with C++'s stronger type safety, you get power WITH protection — less likely to accidentally mix types in silent ways.",
+            "content": "C++ arithmetic is identical to C's (+, -, *, /, %). Integer division still truncates. Compound operators work (+=, -=, etc.). C++ adds auto for result-type deduction and is stricter about implicit conversions.",
+            "examples": [
+              { "title": "Arithmetic with auto", "explanation": "auto deduces the right type from the expression.", "code": "auto x = 10;         // int\nauto y = 3;          // int\nauto result = x / y; // int! 10/3 = 3 (truncates)\nauto ratio = 10.0 / 3; // double! one double → both promoted\n\ncout << result << endl; // 3\ncout << ratio << endl;  // 3.33333" },
+              { "title": "C++ type mixing rules", "explanation": "Mixing int and double promotes to double.", "code": "int a = 7;\ndouble b = 2.0;\nauto c = a + b;       // c is double: 9.0\n\ncout << c << endl;    // 9\ncout << 7 / 2 << endl;    // 3  (int / int)\ncout << 7 / 2.0 << endl;  // 3.5 (int / double)" }
+            ],
+            "funFact": "C++11's auto makes type deduction a core feature. Combined with 'decltype', you can write code where the compiler figures out ALL types. This enables powerful generic programming! 🚀"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE JUDGE", "maxHp": 100 },
+          "enemy": { "name": "THE LOGIC GATE", "maxHp": 100 },
           "mcq": [
-            { "q": "What does 10 > 5 evaluate to?", "options": ["10", "5", "True", "False"], "a": 2, "damage": 20, "topic": "Conditions", "explanation": "10 is greater than 5, so the expression is True." },
-            { "q": "What does 3 == '3' evaluate to in Python?", "options": ["True", "False", "3", "Error"], "a": 1, "damage": 20, "topic": "Type Comparison", "explanation": "3 (int) and '3' (str) are different types, so == returns False." },
-            { "q": "Which operator means 'not equal to'?", "options": ["=!", "<>", "!=", "=/="], "a": 2, "damage": 20, "topic": "Operators", "explanation": "!= is the 'not equal to' operator. It returns True if values are different." },
-            { "q": "What does 5 >= 5 return?", "options": ["True", "False", "5", "Error"], "a": 0, "damage": 20, "topic": "Operators", "explanation": "5 is equal to 5, and >= means 'greater than OR equal'. So it's True." },
-            { "q": "What is the difference between = and ==?", "options": ["No difference", "= assigns a value, == checks equality", "= checks equality, == assigns", "Both check equality"], "a": 1, "damage": 20, "topic": "Assignment vs Comparison", "explanation": "= is assignment (store a value). == is comparison (check if equal)." }
+            {
+              "q": "In C++, string s1='hi', s2='hi'. Does (s1 == s2) return true?",
+              "options": ["No — compares addresses like Java", "Yes — C++ string overloads == for content comparison", "Only with .equals()", "Compile error"],
+              "a": 1, "damage": 20, "topic": "C++ string ==",
+              "explanation": "C++ String ==: Unlike Java where String == compares references, C++ std::string overloads the == operator to compare CONTENT. (s1 == s2) correctly returns true if both have the same characters."
+            },
+            {
+              "q": "What is the C++ keyword alternative to '&&'?",
+              "options": ["AND", "and", "both", "amp"],
+              "a": 1, "damage": 20, "topic": "Keyword operators",
+              "explanation": "C++ Keywords: C++ provides 'and', 'or', 'not' as alternatives to &&, ||, !. They're standard C++ but rarely used in practice. Most code uses && because it's familiar from C."
+            },
+            {
+              "q": "auto result = 7 / 2. What is result's type and value?",
+              "options": ["double, 3.5", "int, 3", "float, 3.5", "double, 3.0"],
+              "a": 1, "damage": 20, "topic": "auto integer division",
+              "explanation": "Auto + Int Division: 7 and 2 are both int literals → integer division → 3 (truncated). auto deduces result as int with value 3, not 3.5."
+            },
+            {
+              "q": "C++ bool prints as what by default (without boolalpha)?",
+              "options": ["true/false", "yes/no", "1/0", "T/F"],
+              "a": 2, "damage": 20, "topic": "bool output",
+              "explanation": "Bool Output: Without boolalpha, cout prints bool as 1 (true) or 0 (false). Add 'cout << boolalpha;' to make it print 'true'/'false' as words."
+            },
+            {
+              "q": "int a = 5; a *= 3; a -= 2; What is a?",
+              "options": ["13", "13", "15", "11"],
+              "a": 0, "damage": 20, "topic": "Compound ops",
+              "explanation": "Step by step: a = 5. a *= 3 → a = 15. a -= 2 → a = 13. Output: 13."
+            }
           ]
         },
         "coding": [
-          { "title": "True or False?", "objective": "What does 7 > 10 evaluate to? Type True or False.", "starterCode": "print(7 > 10)\n# Output: ___", "answer": "False", "hint": "7 is NOT greater than 10." },
-          { "title": "Equality Check", "objective": "What does 'hello' == 'hello' evaluate to?", "starterCode": "print('hello' == 'hello')\n# Output: ___", "answer": "True", "hint": "Both strings are exactly the same." },
-          { "title": "Not Equal", "objective": "What operator checks if two values are NOT the same? Type the operator.", "starterCode": "# x ___ y  → True if x is not equal to y", "answer": "!=", "hint": "It's an exclamation mark followed by equals." }
+          {
+            "title": "C++ String Comparison",
+            "objective": "In C++, how do you correctly compare two string variables? Use operator.",
+            "starterCode": "string a = \"hello\", b = \"hello\";\nif (a ___ b) cout << \"same\";",
+            "answer": "==",
+            "hint": "C++ string overloads == for content comparison — unlike Java!"
+          },
+          {
+            "title": "Auto Division",
+            "objective": "auto r = 9 / 4. What is r?",
+            "starterCode": "auto r = 9 / 4;\ncout << r << endl;\n// Output: ___",
+            "answer": "2",
+            "hint": "Both are int literals → integer division → 9÷4 = 2 remainder 1."
+          },
+          {
+            "title": "Bool with boolalpha",
+            "objective": "How do you make cout print 'true' instead of '1' for booleans?",
+            "starterCode": "cout << ___ << true << endl;",
+            "answer": "boolalpha",
+            "hint": "Stream manipulator that switches to alphabetical bool output."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif score = 100:\n    print('Perfect!')", "brokenCode": "if score = 100:\n    print('Perfect!')", "bugLine": 0, "options": ["Nothing wrong", "Use == for comparison, not = (assignment)", "Remove the colon", "Put score in quotes"], "answer": "Use == for comparison, not = (assignment)", "hint": "= assigns. == compares. In an if statement, you need ==." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nprint(5 = 5)", "brokenCode": "print(5 = 5)", "bugLine": 0, "options": ["Use == for comparison: print(5 == 5)", "Use >= instead", "Nothing wrong", "Remove the print"], "answer": "Use == for comparison: print(5 == 5)", "hint": "= is assignment. To check equality, use ==." }
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — C++ vs Java habit:\n\nstring name = \"Alex\";\nif (name.equals(\"Alex\")) {\n    cout << \"Found!\" << endl;\n}",
+            "brokenCode": "if (name.equals(\"Alex\"))",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              ".equals() is a Java method. In C++, use: if (name == \"Alex\") — C++ string == compares content",
+              "name needs to be char[]",
+              "cout should be printf"
+            ],
+            "answer": ".equals() is a Java method. In C++, use: if (name == \"Alex\") — C++ string == compares content",
+            "hint": "C++ std::string overloads == for content comparison. No .equals() method exists in C++."
+          }
         ],
         "prediction": [
-          { "code": "x = 10\ny = 20\nprint(x > y)\nprint(x < y)", "options": ["True True", "False True", "True False", "False False"], "answer": "False True", "explanation": "10 > 20 is False. 10 < 20 is True." },
-          { "code": "a = 5\nb = 5\nprint(a == b)\nprint(a != b)", "options": ["True True", "True False", "False True", "False False"], "answer": "True False", "explanation": "5 == 5 is True. 5 != 5 is False (they ARE equal)." }
+          {
+            "code": "bool a = true, b = false;\ncout << (a && b) << endl;\ncout << (a || b) << endl;\ncout << (!b) << endl;",
+            "options": ["0 1 1", "1 1 0", "0 0 1", "1 0 1"],
+            "answer": "0 1 1",
+            "explanation": "true && false = false = 0. true || false = true = 1. !false = true = 1. Output: 0↵1↵1."
+          }
         ]
       }
     },
     {
       "id": "2_2",
-      "title": "IF STATEMENTS",
-      "subtitle": "Making decisions in code",
+      "title": "IF / ELSE",
+      "subtitle": "Branching decisions in C++",
       "icon": "GitBranch",
       "pipeline": {
         "teaching": [
           {
-            "id": "l2c3",
-            "title": "The if Statement",
-            "emoji": "🚦",
-            "analogy": "An if statement is like a traffic light. If the light is green (True), you GO (run the code). If red (False), you STOP (skip it).",
-            "content": "The if statement checks a condition. If it's True, the indented code below runs. If False, Python skips it entirely. The colon (:) and indentation (4 spaces) are required!",
-            "examples": [
-              { "title": "Basic if", "explanation": "The indented line only runs if the condition is True.", "code": "age = 15\nif age >= 13:\n    print('Welcome, teen!')\n# Output: Welcome, teen!" }
-            ],
-            "funFact": "Python uses INDENTATION (spaces) to define code blocks. Most other languages use curly braces {}. Python's way is cleaner! ✨"
-          },
-          {
-            "id": "l2c4",
-            "title": "if-else — Two Paths",
+            "id": "cpp2c4",
+            "title": "if / else if / else in C++",
             "emoji": "🔀",
-            "analogy": "if-else is a fork in the road. If the condition is True, go LEFT. If False, go RIGHT. You ALWAYS take one path — never both, never neither.",
-            "content": "else provides an alternative path when the if condition is False. Exactly ONE of the two blocks will always execute — guaranteed.",
+            "analogy": "C++ if/else is identical in structure to C and Java — they all copied from the same source. But C++ brings its own upgrade: 'if constexpr' for compile-time decisions, and C++17's 'if with initializer' for clean scoping.",
+            "content": "C++ if/else syntax is identical to C and Java: condition in (), blocks in {}. C++ requires the condition to be convertible to bool (0/null = false, everything else = true — same as C). Modern C++17 adds 'if init-statements'.",
             "examples": [
-              { "title": "if-else Fork", "explanation": "One block ALWAYS runs. Never both, never neither.", "code": "score = 40\nif score >= 50:\n    print('PASS')\nelse:\n    print('FAIL')\n# Output: FAIL" }
+              { "title": "Standard C++ if/else", "explanation": "Same as C and Java structurally.", "code": "#include <iostream>\nusing namespace std;\nint main() {\n    int score = 82;\n    \n    if (score >= 90) {\n        cout << \"A\" << endl;\n    } else if (score >= 80) {\n        cout << \"B\" << endl;\n    } else if (score >= 70) {\n        cout << \"C\" << endl;\n    } else {\n        cout << \"F\" << endl;\n    }\n    return 0;\n}\n// Output: B" },
+              { "title": "C++17: if with initializer", "explanation": "Declare and test in one line — cleaner scope.", "code": "// Classic C++ (variable leaks into outer scope):\nint val = getValue();\nif (val > 0) { use(val); }\n// val still exists here\n\n// C++17: init inside if (cleaner):\nif (int val = getValue(); val > 0) {\n    use(val);\n}\n// val doesn't exist after the if block" }
             ],
-            "funFact": "You can chain conditions with elif (else if) for multiple paths: if → elif → elif → else! 🔗"
+            "funFact": "C++17's 'if init-statement' was inspired by Python's assignment expressions (walrus operator :=). Two very different languages, same idea: compute and test in one step! 🔄"
           },
           {
-            "id": "l2c5",
-            "title": "elif — Multiple Paths",
-            "emoji": "🗺️",
-            "analogy": "elif is like a restaurant menu with multiple options. Python checks each one from top to bottom and picks the FIRST True match.",
-            "content": "elif (else if) lets you check multiple conditions in order. Python tries each from top to bottom and runs the FIRST one that's True. If none are True, else runs.",
+            "id": "cpp2c5",
+            "title": "Range-Based for & if constexpr",
+            "emoji": "⚡",
+            "analogy": "if constexpr is a superpower unique to C++: it makes branching decisions AT COMPILE TIME, not at runtime. Imagine if your GPS could plan the route BEFORE you even started driving, eliminating impossible paths entirely.",
+            "content": "C++17 'if constexpr' evaluates the condition at compile time — the false branch is completely excluded from compiled code. This is used in template metaprogramming. Regular if evaluates at runtime.",
             "examples": [
-              { "title": "Grade Calculator", "explanation": "Python checks top-down, picks first True match.", "code": "marks = 75\nif marks >= 90:\n    print('A')\nelif marks >= 70:\n    print('B')\nelif marks >= 50:\n    print('C')\nelse:\n    print('F')\n# Output: B" }
+              { "title": "Range-based for (preview)", "explanation": "C++'s cleaner loop syntax — great with decisions.", "code": "// Range-based for loop (full detail in Level 3):\nvector<int> scores = {90, 72, 85, 60};\n\nfor (int s : scores) {  // for each score\n    if (s >= 80) {\n        cout << s << \" is great!\" << endl;\n    } else {\n        cout << s << \" needs work\" << endl;\n    }\n}" }
             ],
-            "funFact": "You can have as many elif blocks as you want, but only ONE if and ONE else per chain! 📏"
+            "funFact": "if constexpr is so powerful it can remove entire functions from the binary at compile time — programs get smaller AND faster. Used heavily in modern C++ template libraries like STL and Boost! 📦"
           }
         ],
         "battle": {
-          "enemy": { "name": "FORK DEMON", "maxHp": 100 },
+          "enemy": { "name": "THE BRANCH TITAN", "maxHp": 100 },
           "mcq": [
-            { "q": "What character MUST come at the end of an if line?", "options": ["Semicolon ;", "Period .", "Colon :", "Arrow ->"], "a": 2, "damage": 20, "topic": "if Syntax", "explanation": "Every if, elif, and else line must end with a colon (:)." },
-            { "q": "How does Python know which code belongs to an if block?", "options": ["Curly braces {}", "Parentheses ()", "Indentation (4 spaces)", "Semicolons"], "a": 2, "damage": 20, "topic": "Indentation", "explanation": "Python uses indentation (4 spaces or 1 tab) to define code blocks." },
-            { "q": "In if-else, how many blocks run?", "options": ["Both always", "Neither", "Exactly one", "It depends"], "a": 2, "damage": 20, "topic": "if-else", "explanation": "Exactly one block runs — either the if block (True) or the else block (False)." },
-            { "q": "What does elif stand for?", "options": ["Else lift", "Else if", "Element if", "Electric if"], "a": 1, "damage": 20, "topic": "elif", "explanation": "elif = else if. It provides additional conditions to check." },
-            { "q": "In if→elif→else, Python picks the ___ True match.", "options": ["Last", "Random", "First", "Biggest"], "a": 2, "damage": 20, "topic": "elif Order", "explanation": "Python checks from top to bottom and runs the FIRST True condition." }
+            {
+              "q": "C++ if/else syntax compared to C's if/else:",
+              "options": ["C++ uses different keywords", "C++ if/else syntax is identical to C's", "C++ doesn't have if/else", "C++ uses indentation like Python"],
+              "a": 1, "damage": 25, "topic": "C++ vs C if",
+              "explanation": "Identical Syntax: C++ if/else syntax is exactly the same as C's — condition in (), blocks in {}. Java also copied this from C. Only Python differs (no parens, colon required, indentation-based)."
+            },
+            {
+              "q": "In C++, can an int be used as an if condition?",
+              "options": ["No — must be bool", "Yes — 0 is false, non-zero is true (same as C)", "Only 0 or 1", "Only with a cast"],
+              "a": 1, "damage": 25, "topic": "Int as condition",
+              "explanation": "Inherited from C: C++ accepts any scalar as condition — 0/nullptr/false = false, everything else = true. This C heritage makes C++ more flexible than Java which requires strict bool."
+            },
+            {
+              "q": "What is the benefit of C++17 'if init-statement'?",
+              "options": ["Removes the need for else", "Restricts the initialized variable's scope to the if block", "Makes if faster", "Allows string conditions"],
+              "a": 1, "damage": 25, "topic": "if init scope",
+              "explanation": "Scoped Init: if (int x = compute(); x > 0) { } limits x to the if-block scope. Without this, you'd declare x before the if and it would linger in the outer scope unnecessarily."
+            }
           ]
         },
         "coding": [
-          { "title": "Write an if", "objective": "What keyword starts a decision in Python? Type the keyword.", "starterCode": "___ score >= 50:\n    print('PASS')", "answer": "if", "hint": "It's a 2-letter word that means 'in case of'." },
-          { "title": "What Prints?", "objective": "x = 3. if x > 5: print('big'). else: print('small'). What prints?", "starterCode": "x = 3\nif x > 5:\n    print('big')\nelse:\n    print('small')\n# Output: ___", "answer": "small", "hint": "3 > 5 is False, so else runs." },
-          { "title": "Grade Logic", "objective": "marks = 85. After if >=90: 'A', elif >=70: 'B', elif >=50: 'C', else: 'F'. What grade?", "starterCode": "marks = 85\n# Output: ___", "answer": "B", "hint": "85 >= 90? No. 85 >= 70? Yes! B is the first True match." }
+          {
+            "title": "Grade Branch",
+            "objective": "int grade = 75. if>=90→A, else if>=80→B, else if>=70→C else F. Output?",
+            "starterCode": "int grade = 75;\n// if>=90 A else if>=80 B else if>=70 C else F\n// Output: ___",
+            "answer": "C",
+            "hint": "75 is not >=90 or >=80, but IS >=70 → C."
+          },
+          {
+            "title": "C++ uses bool",
+            "objective": "bool isOpen = true; Does if (isOpen) run? yes or no",
+            "starterCode": "bool isOpen = true;\nif (isOpen) {\n    cout << \"runs\" << endl;\n}\n// Executes? ___",
+            "answer": "yes",
+            "hint": "isOpen is true → the if block runs."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif x > 5\n    print('big')", "brokenCode": "if x > 5\n    print('big')", "bugLine": 0, "options": ["Missing colon (:) at the end of the if line", "x needs quotes", "print should be Print", "Nothing wrong"], "answer": "Missing colon (:) at the end of the if line", "hint": "Every if statement must end with a colon: if x > 5:" },
-          { "type": "mcq", "description": "🚨 Bug:\n\nif age >= 18:\nprint('Adult')", "brokenCode": "if age >= 18:\nprint('Adult')", "bugLine": 1, "options": ["Missing indentation — print must be 4 spaces inside the if block", "Colon is wrong", "print needs uppercase P", "Nothing wrong"], "answer": "Missing indentation — print must be 4 spaces inside the if block", "hint": "Code inside an if block MUST be indented (4 spaces)." }
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\ncout << \"Score: \" << score << endl\nif (score >= 60) {\n    cout << \"Pass\" << endl;\n}",
+            "brokenCode": "cout << \"Score: \" << score << endl",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Missing semicolon at end of cout line — every C++ statement needs ;",
+              "if should come before cout",
+              "endl should be \\n"
+            ],
+            "answer": "Missing semicolon at end of cout line — every C++ statement needs ;",
+            "hint": "Every statement in C++ ends with ;. The cout line is missing its semicolon."
+          }
         ],
         "prediction": [
-          { "code": "x = 10\nif x > 100:\n    print('A')\nelif x > 5:\n    print('B')\nelse:\n    print('C')", "options": ["A", "B", "C", "Error"], "answer": "B", "explanation": "x=10. 10>100? No. 10>5? Yes! 'B' is printed. Even though else exists, Python already found a match." },
-          { "code": "score = 50\nif score >= 50:\n    print('Pass')\nif score >= 50:\n    print('Again')", "options": ["Pass", "Again", "Pass and Again", "Error"], "answer": "Pass and Again", "explanation": "These are TWO separate if statements (not if-elif). Both conditions are True, so BOTH print." }
+          {
+            "code": "int x = 15;\nif (x > 20) {\n    cout << \"big\" << endl;\n} else if (x > 10) {\n    cout << \"medium\" << endl;\n} else {\n    cout << \"small\" << endl;\n}",
+            "options": ["big", "medium", "small", "big medium"],
+            "answer": "medium",
+            "explanation": "x=15. 15>20 false. 15>10 true → 'medium'. Once matched, rest skipped."
+          }
         ]
       }
     },
     {
       "id": "2_3",
-      "title": "LOGICAL OPERATORS",
-      "subtitle": "AND, OR, NOT — combining conditions",
-      "icon": "Combine",
+      "title": "SWITCH & TERNARY",
+      "subtitle": "Multi-case & modern C++ decisions",
+      "icon": "List",
       "pipeline": {
         "teaching": [
           {
-            "id": "l2c6",
-            "title": "AND — Both Must Be True",
-            "emoji": "🤝",
-            "analogy": "AND is like a team challenge: BOTH conditions must be True to win. If even one is False, the whole thing is False.",
-            "content": "The 'and' operator combines two conditions. The result is True ONLY if BOTH sides are True. If either side is False, the whole expression is False.",
+            "id": "cpp2c6",
+            "title": "switch in C++",
+            "emoji": "🔀",
+            "analogy": "C++ switch inherits all of C's switch behavior — int/char only, fall-through, break required. But C++17 adds [[fallthrough]] to document intentional fall-through, making code self-explanatory instead of bug-prone.",
+            "content": "C++ switch works identically to C: int and char types, cases must be constants, break prevents fall-through, default is catch-all. C++17 adds [[fallthrough]] attribute for intentional fall-through and a cleaner switch-init syntax.",
             "examples": [
-              { "title": "AND Gate", "explanation": "Both sides must be True.", "code": "age = 15\nhas_ticket = True\nif age >= 13 and has_ticket:\n    print('Enter the movie!')\n# Both are True → prints!" }
+              { "title": "C++ switch", "explanation": "Same as C — int/char, break required.", "code": "int command = 2;\nswitch (command) {\n    case 1: cout << \"Start\" << endl; break;\n    case 2: cout << \"Stop\" << endl;  break;\n    case 3: cout << \"Reset\" << endl; break;\n    default: cout << \"Unknown\" << endl;\n}\n// Output: Stop" },
+              { "title": "C++17 [[fallthrough]] attribute", "explanation": "Document intentional fall-through — no warning.", "code": "int x = 1;\nswitch (x) {\n    case 1:\n        cout << \"One\" << endl;\n        [[fallthrough]]; // intentional! suppress warning\n    case 2:\n        cout << \"Two or fell from One\" << endl;\n        break;\n    case 3:\n        cout << \"Three\" << endl;\n}" }
             ],
-            "funFact": "In circuit logic, AND gates need BOTH inputs ON to produce output. Same idea! ⚡"
+            "funFact": "C++17 also introduced 'switch with initializer' just like C++17 if: switch (auto val = compute(); val % 2) { ... } — the val is scoped to the switch block! 🆕"
           },
           {
-            "id": "l2c7",
-            "title": "OR — At Least One True",
-            "emoji": "🔓",
-            "analogy": "OR is like having two keys to the same door. If EITHER key works, the door opens. Only fails if NEITHER works.",
-            "content": "The 'or' operator returns True if AT LEAST one condition is True. It only returns False when BOTH sides are False.",
+            "id": "cpp2c7",
+            "title": "Ternary & Structured Bindings",
+            "emoji": "🎯",
+            "analogy": "The ternary operator is C++'s Swiss Army knife for one-line decisions. In C++11 and later, you can even use ternary with auto to let the compiler figure out the return type — making it more flexible than in C.",
+            "content": "C++ ternary: condition ? expr1 : expr2. Works with all types. In C++, both branches must return compatible types (stricter than C). C++ also allows ternary as an lvalue in some contexts.",
             "examples": [
-              { "title": "OR Gate", "explanation": "Just need one True.", "code": "is_admin = False\nis_owner = True\nif is_admin or is_owner:\n    print('Access granted!')\n# One is True → prints!" }
+              { "title": "Ternary in C++", "explanation": "Type-safe ternary with auto.", "code": "int a = 7, b = 3;\nauto max = (a > b) ? a : b;  // auto deduces int\ncout << max << endl;           // 7\n\nbool flag = true;\nstring msg = flag ? \"on\" : \"off\";\ncout << msg << endl;  // on\n\n// Ternary in cout:\nint score = 80;\ncout << (score >= 60 ? \"Pass\" : \"Fail\") << endl;" }
             ],
-            "funFact": "Python uses short-circuit evaluation: if the first condition of 'or' is True, it doesn't even check the second! 🏎️"
-          },
-          {
-            "id": "l2c8",
-            "title": "NOT — Flip the Boolean",
-            "emoji": "🔄",
-            "analogy": "NOT is like a mirror: it flips the truth. True becomes False. False becomes True. It reverses any boolean.",
-            "content": "The 'not' operator flips a boolean value. not True → False. not False → True. Use it to check 'if something is NOT the case'.",
-            "examples": [
-              { "title": "NOT — The Flip", "explanation": "not reverses the boolean.", "code": "is_blocked = False\nif not is_blocked:\n    print('You may pass!')\n# not False = True → prints!" }
-            ],
-            "funFact": "Double negation: not not True = True. It cancels out, like multiplying by -1 twice! 🔁"
+            "funFact": "C++ ternary can return references (lvalues), meaning you can use it on the LEFT side of an assignment: (a > b ? a : b) = 0; — sets the larger of a or b to 0! This is impossible in Java or Python! 🤯"
           }
         ],
         "battle": {
-          "enemy": { "name": "LOGIC GOLEM", "maxHp": 100 },
+          "enemy": { "name": "THE SWITCH MASTER", "maxHp": 100 },
           "mcq": [
-            { "q": "True and False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "AND", "explanation": "AND requires BOTH to be True. Since one is False, result is False." },
-            { "q": "True or False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 0, "damage": 20, "topic": "OR", "explanation": "OR only needs ONE True. Since one is True, result is True." },
-            { "q": "not True evaluates to?", "options": ["True", "False", "not", "Error"], "a": 1, "damage": 20, "topic": "NOT", "explanation": "not flips the boolean: not True = False." },
-            { "q": "False and False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "AND", "explanation": "AND needs both True. Both are False → result is False." },
-            { "q": "False or False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "OR", "explanation": "OR needs at least one True. Both are False → result is False." }
+            {
+              "q": "C++ switch supports which types? (same as C)",
+              "options": ["All types including string", "Only int", "int and char (integer types)", "float and double"],
+              "a": 2, "damage": 25, "topic": "Switch types",
+              "explanation": "Integer Types Only: C++ switch (like C) only works with integer types: int, char, short, long, and enums. C++ string is not supported — use if/else chains for string switching."
+            },
+            {
+              "q": "What does C++17's [[fallthrough]] do?",
+              "options": ["Causes a compile error", "Documents that fall-through is intentional — suppresses compiler warning", "Breaks out of the switch", "Creates a new case"],
+              "a": 1, "damage": 25, "topic": "[[fallthrough]]",
+              "explanation": "[[fallthrough]]: This C++17 attribute tells the compiler 'I know this falls through — it's intentional'. Suppresses the -Wimplicit-fallthrough warning. Better than a comment because it's machine-readable."
+            },
+            {
+              "q": "auto result = (x > 0) ? 10 : 20.0. If x=5, what is result's type?",
+              "options": ["int", "double", "float", "Compile error"],
+              "a": 1, "damage": 25, "topic": "Ternary type",
+              "explanation": "Type Promotion: Ternary's two branches are 10 (int) and 20.0 (double). When mixed, both are promoted to the common type: double. result is double. This is stricter than C."
+            }
           ]
         },
         "coding": [
-          { "title": "AND Truth", "objective": "What does True and True evaluate to?", "starterCode": "print(True and True)\n# Output: ___", "answer": "True", "hint": "AND: Both True → True." },
-          { "title": "OR Truth", "objective": "What does False or True evaluate to?", "starterCode": "print(False or True)\n# Output: ___", "answer": "True", "hint": "OR: At least one True → True." },
-          { "title": "NOT Flip", "objective": "What does not False evaluate to?", "starterCode": "print(not False)\n# Output: ___", "answer": "True", "hint": "not flips False to True." }
-        ],
-        "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif age > 18 AND has_id:", "brokenCode": "if age > 18 AND has_id:\n    print('OK')", "bugLine": 0, "options": ["Python uses lowercase 'and', not 'AND'", "Missing parentheses", "Colon is wrong", "Nothing wrong"], "answer": "Python uses lowercase 'and', not 'AND'", "hint": "Python logical operators are all lowercase: and, or, not." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nif NOT is_blocked:", "brokenCode": "if NOT is_blocked:\n    print('Pass')", "bugLine": 0, "options": ["Nothing wrong", "'NOT' must be lowercase 'not'", "Missing parentheses", "is_blocked needs quotes"], "answer": "'NOT' must be lowercase 'not'", "hint": "Python keywords are all lowercase. not, not NOT." }
-        ],
-        "prediction": [
-          { "code": "x = 10\ny = 3\nprint(x > 5 and y < 5)", "options": ["True", "False", "Error", "None"], "answer": "True", "explanation": "10>5 is True. 3<5 is True. True and True = True." },
-          { "code": "a = True\nb = False\nprint(not a or b)", "options": ["True", "False", "Error", "None"], "answer": "False", "explanation": "not True = False. False or False = False." }
-        ]
-      }
-    },
-    {
-      "id": "2_4",
-      "title": "REAL-WORLD DECISIONS",
-      "subtitle": "Putting logic into practice",
-      "icon": "Brain",
-      "pipeline": {
-        "teaching": [
           {
-            "id": "l2c9",
-            "title": "Nested if Statements",
-            "emoji": "🪆",
-            "analogy": "Nested ifs are like Russian dolls — an if inside another if. First you check the outer condition, and only if that's True, you check the inner one.",
-            "content": "You can put an if statement INSIDE another if statement. The inner if only runs when the outer if is True. Each level needs more indentation (4 more spaces).",
-            "examples": [
-              { "title": "Nested Check", "explanation": "Inner check only happens if outer is True.", "code": "age = 20\nhas_ticket = True\nif age >= 18:\n    if has_ticket:\n        print('Enjoy the show!')\n    else:\n        print('Buy a ticket first!')\nelse:\n    print('Too young!')" }
-            ],
-            "funFact": "Most experienced programmers try to AVOID deep nesting. If you're 4+ levels deep, there's usually a cleaner way! 🧹"
+            "title": "C++ switch break",
+            "objective": "What prevents fall-through in a C++ switch case?",
+            "starterCode": "switch (x) {\n    case 1: cout << \"A\"; ___;\n    case 2: cout << \"B\";\n}",
+            "answer": "break",
+            "hint": "Same as C and Java — break stops execution at the end of a case."
           },
           {
-            "id": "l2c10",
-            "title": "Real-World Decision Patterns",
-            "emoji": "🌍",
-            "analogy": "Every app you use is full of if statements: 'If password correct, log in. If battery low, show warning. If message unread, show badge.'",
-            "content": "Decision logic is everywhere: login systems, game logic, notifications, calculators, traffic lights. Learning if/else/elif is learning to think like software.",
-            "examples": [
-              { "title": "Login Check", "explanation": "Real apps use exactly this pattern.", "code": "password = input('Password: ')\nif password == 'secret123':\n    print('Login successful!')\nelse:\n    print('Wrong password!')" }
-            ],
-            "funFact": "The average iPhone has over 100 MILLION lines of code, most of which are if-else decisions! 📱"
+            "title": "Ternary Min",
+            "objective": "int a=3, b=9. (a<b)?a:b gives the minimum. Output?",
+            "starterCode": "int a = 3, b = 9;\ncout << ((a < b) ? a : b) << endl;\n// Output: ___",
+            "answer": "3",
+            "hint": "3 < 9 is true → a (3) is returned."
           }
         ],
-        "battle": {
-          "enemy": { "name": "REAL WORLD BOSS", "maxHp": 100 },
-          "mcq": [
-            { "q": "In nested if, the inner if runs when?", "options": ["Always", "Only when the outer if is True", "Only when the outer if is False", "Randomly"], "a": 1, "damage": 25, "topic": "Nested if", "explanation": "Inner if only executes when the outer condition is True." },
-            { "q": "How many extra spaces does a nested if need?", "options": ["0", "2", "4", "8"], "a": 2, "damage": 25, "topic": "Indentation", "explanation": "Each nesting level adds 4 more spaces of indentation." },
-            { "q": "What is the main use of if-else in real apps?", "options": ["Decoration", "Making decisions based on conditions", "Printing text", "Creating variables"], "a": 1, "damage": 25, "topic": "Real-World", "explanation": "if-else is the fundamental decision-making tool in all software." },
-            { "q": "Can you use 'and' inside an if condition?", "options": ["No, that's illegal", "Yes, to combine multiple conditions", "Only in Python 2", "Only with numbers"], "a": 1, "damage": 25, "topic": "Combined Conditions", "explanation": "You can use and, or, not inside any if/elif condition to combine checks." }
-          ]
-        },
-        "coding": [
-          { "title": "Nested Logic", "objective": "In this code, what prints?\nage=20, has_ticket=False\nif age>=18: if has_ticket: 'Enjoy' else: 'Buy ticket' else: 'Too young'", "starterCode": "# age=20, has_ticket=False\n# Output: ___", "answer": "Buy ticket", "hint": "20>=18 is True (enter outer). has_ticket is False (else inner)." },
-          { "title": "Password Check", "objective": "User types 'abc'. Password is 'secret'. What prints?\nif password == 'secret': 'Login!' else: 'Wrong!'", "starterCode": "# password = 'abc'\n# Output: ___", "answer": "Wrong!", "hint": "'abc' == 'secret' is False, so else runs." }
-        ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif age >= 18:\nif has_ticket:\n    print('OK')", "brokenCode": "if age >= 18:\nif has_ticket:\n    print('OK')", "bugLine": 1, "options": ["The inner 'if has_ticket' needs to be indented 4 spaces inside the outer if", "Missing a colon", "print is wrong", "Nothing wrong"], "answer": "The inner 'if has_ticket' needs to be indented 4 spaces inside the outer if", "hint": "Nested if must be indented inside its parent if block." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nif score >= 50:\n    print('Pass')\n else:\n    print('Fail')", "brokenCode": "if score >= 50:\n    print('Pass')\n else:\n    print('Fail')", "bugLine": 2, "options": ["' else' has a leading space — else must align with if", "Missing colon", "print is wrong", "Nothing wrong"], "answer": "' else' has a leading space — else must align with if", "hint": "else must be at the SAME indentation level as its matching if." }
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nstring day = \"Monday\";\nswitch (day) {\n    case \"Monday\": cout << \"Start!\" << endl; break;\n}",
+            "brokenCode": "switch (day)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "C++ switch doesn't support std::string — use if/else: if (day == \"Monday\") cout << \"Start!\";",
+              "cout should be printf",
+              "string needs to be char[]"
+            ],
+            "answer": "C++ switch doesn't support std::string — use if/else: if (day == \"Monday\") cout << \"Start!\";",
+            "hint": "C++ switch only works with integer types. For string branching, use if/else with == (which works correctly for std::string)."
+          }
         ],
         "prediction": [
-          { "code": "x = 15\nif x > 10:\n    if x > 20:\n        print('A')\n    else:\n        print('B')\nelse:\n    print('C')", "options": ["A", "B", "C", "Error"], "answer": "B", "explanation": "15>10 is True (enter outer). 15>20 is False (inner else). Prints 'B'." },
-          { "code": "a = 5\nb = 10\nif a > 3 and b < 20:\n    print('YES')\nelse:\n    print('NO')", "options": ["YES", "NO", "Error", "Both"], "answer": "YES", "explanation": "5>3 is True AND 10<20 is True. True and True = True → 'YES'." }
+          {
+            "code": "int n = 3;\nswitch (n) {\n    case 1: cout << \"A\"; break;\n    case 2: cout << \"B\"; break;\n    case 3: cout << \"C\";\n    case 4: cout << \"D\"; break;\n    default: cout << \"E\";\n}",
+            "options": ["C only", "C and D", "C D and E", "Error"],
+            "answer": "C and D",
+            "explanation": "n=3 matches case 3: prints C. No break → falls through to case 4: prints D. break → stops. Output: CD."
+          }
         ]
       }
     },
     {
       "id": "2_boss",
-      "title": "THE DECISION ENGINE",
-      "subtitle": "BOSS FIGHT — All Level 2",
+      "title": "THE OPTIMIZER",
+      "subtitle": "BOSS FIGHT — All Level 2 C++",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss2_intro",
-            "title": "⚠️ BOSS — THE DECISION ENGINE",
+            "id": "boss_cpp2_intro",
+            "title": "⚠️ BOSS — THE OPTIMIZER",
             "emoji": "👾",
-            "analogy": "The Decision Engine controls all crossroads. It will test your mastery of conditions, if/elif/else, logical operators, and nested decisions!",
-            "content": "THE DECISION ENGINE has absorbed all of Level 2. Every path splits into True/False. Prove you can navigate the logic maze!",
+            "analogy": "The Optimizer is the C++ compiler's most powerful subsystem — it sees through every conditional, eliminates dead branches, and reduces your logic to its purest form. Only code that's logically correct AND efficient can defeat it!",
+            "content": "THE OPTIMIZER tests ALL Level 2 C++: C++ string == for content, bool type, && and || operators (and/or alternatives), if/else if/else, C++17 init-statements, switch with int/char, [[fallthrough]], ternary operator.",
             "examples": [
-              { "title": "What you've mastered", "explanation": "Everything from Level 2 is in play!", "code": "✅ Conditions & comparisons\n✅ if / elif / else\n✅ and, or, not\n✅ Nested if statements" }
+              { "title": "Full Level 2 C++ arsenal", "explanation": "", "code": "✅ C++ string == compares content (not Java!)\n✅ Native bool type, boolalpha for output\n✅ &&, ||, ! (and, or, not keywords)\n✅ if / else if / else — same as C\n✅ C++17 if init-statement\n✅ switch with int/char only\n✅ [[fallthrough]] for intentional fall-through\n✅ Ternary ? : with auto type deduction" }
             ],
-            "funFact": "The most complex software in the world (like self-driving cars) is just billions of if-else decisions running per second! 🚗"
+            "funFact": "The C++ optimizer (-O2 flag) can transform complex chains of if/else into CPU-level branch prediction hints, lookup tables, or conditional moves. Your readable if/else can compile to highly optimized machine code! ⚡"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE DECISION ENGINE", "maxHp": 150 },
+          "enemy": { "name": "THE OPTIMIZER", "maxHp": 150 },
           "mcq": [
-            { "q": "What is the output?\nx = 7\nif x > 10: print('A')\nelif x > 5: print('B')\nelif x > 3: print('C')\nelse: print('D')", "options": ["A", "B", "C", "D"], "a": 1, "damage": 30, "topic": "elif Chain", "explanation": "7>10? No. 7>5? Yes! 'B' prints. Python stops at the FIRST True match." },
-            { "q": "True and True or False?", "options": ["True", "False", "Error", "None"], "a": 0, "damage": 30, "topic": "Logic", "explanation": "(True and True) = True. True or False = True." },
-            { "q": "What runs if ALL conditions in an if/elif chain are False?", "options": ["The if block", "The first elif", "Nothing (program crashes)", "The else block"], "a": 3, "damage": 30, "topic": "else", "explanation": "else is the fallback — it runs when no if or elif condition is True." },
-            { "q": "not (5 > 3) evaluates to?", "options": ["True", "False", "5", "Error"], "a": 1, "damage": 30, "topic": "NOT", "explanation": "5>3 is True. not True = False." },
-            { "q": "How many levels of nesting is considered 'too deep' by most programmers?", "options": ["1", "2", "3-4+", "There's no limit"], "a": 2, "damage": 30, "topic": "Best Practice", "explanation": "More than 3-4 levels deep usually means the code should be refactored for clarity." }
+            {
+              "q": "C++ string s1='hi', s2='hi'. Does (s1 == s2) evaluate to true?",
+              "options": ["No — compares memory addresses", "Yes — C++ string == is overloaded for content comparison", "Only with .equals()", "Compile error"],
+              "a": 1, "damage": 30, "topic": "C++ string ==",
+              "explanation": "C++ Operator Overloading: std::string overloads == to compare content. (s1 == s2) correctly returns true when both strings have identical characters. This is different from Java where you need .equals()."
+            },
+            {
+              "q": "auto r = (true) ? 5 : 3.14. What type is r?",
+              "options": ["int", "double", "bool", "Compile error"],
+              "a": 1, "damage": 30, "topic": "Ternary type promotion",
+              "explanation": "Type Promotion: 5 is int, 3.14 is double. Ternary needs both branches to have compatible types — they're promoted to double (the wider type). r is double."
+            },
+            {
+              "q": "What output does 'cout << boolalpha << false;' produce?",
+              "options": ["0", "false", "False", "no"],
+              "a": 1, "damage": 30, "topic": "boolalpha",
+              "explanation": "boolalpha Manipulator: After 'cout << boolalpha', booleans print as 'true'/'false' (all lowercase). Without it, they print as 1/0. It affects all subsequent bool output on that stream."
+            },
+            {
+              "q": "When should you use [[fallthrough]] in a switch?",
+              "options": ["Never — always use break", "When fall-through is intentional — to document it and suppress the warning", "To force a compile error", "To go to default"],
+              "a": 1, "damage": 30, "topic": "[[fallthrough]] usage",
+              "explanation": "Intentional Fall-Through: Use [[fallthrough]] when you deliberately want execution to continue to the next case. It serves as documentation AND tells the compiler it's intentional — suppressing warnings."
+            },
+            {
+              "q": "C++ 'or' keyword vs '||' — which is correct?",
+              "options": ["Only || is valid C++", "Both are valid C++ — 'or' is a keyword alternative", "Only 'or' is valid", "They behave differently"],
+              "a": 1, "damage": 30, "topic": "Keyword operators",
+              "explanation": "Both Valid: The C++ standard includes 'and', 'or', 'not' as keyword alternatives to &&, ||, !. Both are equally valid. Most code uses || because it's more concise and familiar."
+            }
           ]
         },
         "coding": [
-          { "title": "Boss: Chain Logic", "objective": "score=85. if >=90:'A' elif >=80:'B' elif >=70:'C' else:'F'. What grade?", "starterCode": "score = 85\n# Output: ___", "answer": "B", "hint": "85>=90? No. 85>=80? Yes! → B." },
-          { "title": "Boss: Combined Check", "objective": "What does (False or True) and (not False) evaluate to?", "starterCode": "print((False or True) and (not False))\n# Output: ___", "answer": "True", "hint": "(False or True)=True. (not False)=True. True and True = True." }
+          {
+            "title": "Boss: String Comparison",
+            "objective": "C++ way to compare strings — what operator works correctly?",
+            "starterCode": "string s = \"cpp\";\nif (s ___ \"cpp\") cout << \"match\";",
+            "answer": "==",
+            "hint": "C++ std::string overloads == for content comparison!"
+          },
+          {
+            "title": "Boss: Ternary Absolute Value",
+            "objective": "int n = -8. (n < 0) ? -n : n gives the absolute value. Output?",
+            "starterCode": "int n = -8;\ncout << ((n < 0) ? -n : n) << endl;\n// Output: ___",
+            "answer": "8",
+            "hint": "n=-8, n<0 is true → -n = -(-8) = 8."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nx = 10\nif x > 5 or < 20:\n    print('Range OK')", "brokenCode": "x = 10\nif x > 5 or < 20:\n    print('Range OK')", "bugLine": 1, "options": ["Nothing wrong", "Must repeat x: if x > 5 or x < 20", "Remove the colon", "Use AND not OR"], "answer": "Must repeat x: if x > 5 or x < 20", "hint": "Each side of 'or' needs a full condition. Can't shorthand '< 20' alone." }
+          {
+            "type": "mcq",
+            "description": "🚨 BOSS BUG:\n\nint score = 95;\nswitch (score) {\n    case score >= 90: cout << \"A\" << endl; break;\n    case score >= 80: cout << \"B\" << endl; break;\n}",
+            "brokenCode": "case score >= 90:",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "switch case values must be compile-time integer CONSTANTS — expressions like score>=90 are not allowed. Use if/else for range checking.",
+              "cout should be printf",
+              "break is wrong here"
+            ],
+            "answer": "switch case values must be compile-time integer CONSTANTS — expressions like score>=90 are not allowed. Use if/else for range checking.",
+            "hint": "C++ switch cases must be constant integer expressions known at compile time. score>=90 is a runtime expression — use if/else chains for range-based decisions."
+          }
         ],
         "prediction": [
-          { "code": "x = 5\nif x > 3:\n    print('A')\nif x > 4:\n    print('B')\nif x > 5:\n    print('C')", "options": ["A", "A B", "A B C", "A C"], "answer": "A B", "explanation": "Three SEPARATE if statements. 5>3→A. 5>4→B. 5>5→False (not >). Output: A B." }
+          {
+            "code": "#include <iostream>\nusing namespace std;\nint main() {\n    int x = 6;\n    cout << boolalpha;\n    cout << (x % 2 == 0) << endl;\n    cout << (x > 10 || x < 5) << endl;\n    return 0;\n}",
+            "options": ["true false", "1 0", "false true", "true true"],
+            "answer": "true false",
+            "explanation": "6%2==0 is true. boolalpha makes it print 'true'. 6>10 is false, 6<5 is false → false||false = false → 'false'."
+          }
         ]
       }
     }

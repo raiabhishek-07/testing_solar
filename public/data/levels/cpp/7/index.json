@@ -1,46 +1,164 @@
 {
-  "label": "CPP_ARCADE",
-  "foundation": [
+  "label": "LEVEL 7: INHERITANCE, TEMPLATES & STL (C++)",
+  "sublevels": [
     {
-       "id": 701, "title": "CLASS", "subtitle": "Modern Records", "icon": "Layers",
-       "content": "A C++ Class can hold multiple variables and methods in one single object description.",
-       "scenario": "A Student ID Card. It holds a Photo (Binary), a Name (Text), and a Number (Integer). One card is one person (Object).",
-       "examples": [
-         { "title": "The Template", "explanation": "Defining a new class structure using the 'class' keyword.", "code": "class Player { int hp; void move(); };" },
-         { "title": "Visibility", "explanation": "Controlling which parts of the program can see your variables with 'public' or 'private'.", "code": "private: int secret;" },
-         { "title": "The Instance", "explanation": "Creating a new object directly on the stack easily.", "code": "Player p1;" }
-       ],
-       "keyPoint": "Classes keep data and actions together."
+      "id": "7_1",
+      "title": "INHERITANCE & VIRTUAL",
+      "subtitle": "C++ polymorphism with virtual methods",
+      "icon": "GitBranch",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "cpp7c1", "title": "C++ Inheritance & Virtual Methods", "emoji": "🧬",
+            "analogy": "C++ inheritance is EXPLICIT about polymorphism — you must declare methods 'virtual' to enable runtime dispatch. Without virtual, the compile-time type decides which method runs. This is a fundamental difference from Java where all methods are virtual by default.",
+            "content": "class Dog : public Animal — public inheritance. virtual method: runtime dispatch by actual type. override keyword: verifies overriding. Don't forget virtual destructor! Abstract: pure virtual: virtual void fn()=0;",
+            "examples": [
+              { "title": "Virtual Methods", "explanation": "virtual enables runtime polymorphism.", "code": "#include <iostream>\nusing namespace std;\n\nclass Animal {\npublic:\n    string name;\n    Animal(string n):name(n){}\n    \n    virtual void speak() const {   // virtual!\n        cout << name << \" makes noise\\n\";\n    }\n    virtual ~Animal() {}           // virtual destructor!\n};\n\nclass Dog:public Animal{\npublic:\n    Dog(string n):Animal(n){}\n    void speak() const override {\n        cout << name << \" barks!\\n\";\n    }\n};\n\nAnimal *a = new Dog(\"Rex\");\na->speak();  // Rex barks! (runtime dispatch)\ndelete a;" },
+              { "title": "Pure Virtual & Abstract Classes", "explanation": "=0 makes method pure virtual — class is abstract.", "code": "class Shape {\npublic:\n    virtual double area() const = 0; // pure virtual\n    void display() const {\n        cout << \"Area: \" << area() << endl;\n    }\n    virtual ~Shape(){}\n};\n\nclass Circle:public Shape{\n    double r;\npublic:\n    Circle(double r):r(r){}\n    double area() const override {return 3.14*r*r;}\n};\n\nShape *s = new Circle(5);\ns->display(); // Area: 78.5\ndelete s;" }
+            ],
+            "funFact": "In C++, forgetting 'virtual' on the destructor causes memory leaks when deleting via base pointer! 'delete Animal*' won't call Dog's destructor. Java has no this problem — all methods are virtual and GC handles memory. 🔴"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE VTABLE HYDRA", "maxHp": 100 },
+          "mcq": [
+            { "q": "C++ method dispatch without 'virtual' keyword:", "options": ["Always uses derived class","Uses compile-time (declared) type — NOT polymorphic","Runtime based on pointer type","Compile error"], "a": 1, "damage": 25, "topic": "No virtual = static dispatch", "explanation": "Static Dispatch: Without virtual, C++ uses the declared type at compile time. Animal *a=new Dog(); a->speak() calls Animal::speak NOT Dog::speak. Must add virtual!" },
+            { "q": "Why do C++ base classes need virtual destructors?", "options": ["Style only","delete Animal* won't call Dog destructor without virtual — memory leak!","virtual is faster","Required by C++17"], "a": 1, "damage": 25, "topic": "Virtual destructor", "explanation": "Memory Leak: delete base_ptr without virtual ~Base() only calls base destructor — skips derived. Resource leak! Always declare virtual ~Base() in polymorphic base classes." },
+            { "q": "virtual void area()=0 makes the class:", "options": ["Concrete","Abstract — cannot be instantiated, subclasses must implement","Faster","Static"], "a": 1, "damage": 25, "topic": "Pure virtual / abstract", "explanation": "Abstract: Pure virtual (=0) means subclasses MUST override. Class with any pure virtual is abstract — cannot be instantiated directly." },
+            { "q": "override keyword in C++ does what?", "options": ["Makes method faster","Verifies at compile time that method actually overrides a virtual parent method","Required for all subclasses","Same as Java @Override"], "a": 1, "damage": 25, "topic": "override keyword", "explanation": "Compile-time Safety: void speak() override — compiler errors if speak isn't a virtual method in the parent. Prevents silent shadowing from typos. Use always!" }
+          ]
+        },
+        "coding": [
+          { "title": "Virtual declaration", "objective": "Declare speak() as virtual in base class Animal:", "starterCode": "class Animal{\npublic:\n    ___ void speak() const { cout << \"noise\"; }\n    ___ ~Animal(){}\n};", "answer": "virtual", "hint": "virtual keyword before return type enables runtime dispatch." },
+          { "title": "override keyword", "objective": "Override speak() in subclass Dog:", "starterCode": "class Dog:public Animal{\npublic:\n    void speak() const ___ {\n        cout << \"Woof!\";\n    }\n};", "answer": "override", "hint": "override after param list verifies this overrides a virtual function." },
+          { "title": "Pure virtual", "objective": "Make area() pure virtual in Shape:", "starterCode": "class Shape{\npublic:\n    virtual double area() const ___;\n};", "answer": "= 0", "hint": "=0 makes it pure virtual — no body, must override in subclass." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug — no virtual:\n\nclass A{public: void go(){cout<<\"A\";}  };\nclass B:public A{public: void go(){cout<<\"B\";}};\nA *p=new B();\np->go(); // prints 'A' not 'B'!", "brokenCode": "void go(){cout<<\"A\";}", "bugLine": 0, "options": ["Nothing wrong","go() is not virtual — static dispatch uses declared type (A). Add virtual: virtual void go()","Need @Override on B","p should be B*"], "answer": "go() is not virtual — static dispatch uses declared type (A). Add virtual: virtual void go()", "hint": "Without virtual, pointer type (A) determines dispatch. Add virtual for runtime polymorphism." }
+        ],
+        "prediction": [
+          { "code": "class A{public:virtual string s()const{return \"A\";}virtual~A(){}};\nclass B:public A{public:string s()const override{return \"B\";}};\nA*p=new B();\ncout<<p->s();\ndelete p;", "options": ["A","B","AB","Error"], "answer": "B", "explanation": "virtual dispatch: actual type is B. B::s() returns 'B'." }
+        ]
+      }
     },
     {
-       "id": 705, "title": "METHOD", "subtitle": "Object Skills", "icon": "Braces",
-       "content": "Method are functions that belong inside a class. They define what an object can 'DO'.",
-       "scenario": "A Robot. The 'Walk' method is a skill the robot has (Action). You call the robot to use its skill (Call).",
-       "examples": [
-         { "title": "Definition", "explanation": "Writing the logic inside the class body.", "code": "void walk() { ... }" },
-         { "title": "The Scope", "explanation": "Using '::' to define a method outside the class blueprint.", "code": "void Player::run();" },
-         { "title": "The Call", "explanation": "Running the code inside the object capsule using its name and a dot ('.').", "code": "p1.walk();" }
-       ],
-       "keyPoint": "Methods have direct access to their own object's data."
+      "id": "7_2",
+      "title": "TEMPLATES",
+      "subtitle": "Generic programming with templates",
+      "icon": "Code",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "cpp7c2", "title": "C++ Templates", "emoji": "⚗️",
+            "analogy": "A template is a cookie cutter — define the shape once, stamp out cookies in any material (int, string, float). The compiler generates a specific version for each type you use. Zero runtime overhead — all done at compile time.",
+            "content": "template<typename T> — function or class template. Compiler instantiates for each type used. Function templates: auto-deduced. Class templates: explicit: Stack<int>. Compile-time polymorphism vs runtime (virtual).",
+            "examples": [
+              { "title": "Function & Class Templates", "explanation": "Generic code instantiated per type.", "code": "#include <iostream>\nusing namespace std;\n\n// Function template:\ntemplate<typename T>\nT maxOf(T a, T b) { return a > b ? a : b; }\n\ncout << maxOf(3,7) << endl;      // 7 (int)\ncout << maxOf(3.1,2.9) << endl; // 3.1 (double)\ncout << maxOf('z','a') << endl; // z (char)\n\n// Class template:\ntemplate<typename T>\nclass Box {\n    T value;\npublic:\n    Box(T v):value(v){}\n    T get() const { return value; }\n};\n\nBox<int> ib(42);\nBox<string> sb(\"hello\");\ncout << ib.get() << \" \" << sb.get();" }
+            ],
+            "funFact": "C++ templates are Turing-complete at compile time! You can compute Fibonacci at compile time using template metaprogramming. C++20 constexpr and concepts made this cleaner, but template metaprogramming existed since C++98! 🤯"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE TEMPLATE ENGINE", "maxHp": 100 },
+          "mcq": [
+            { "q": "template<typename T> T add(T a,T b). add(3,4) — T is deduced as:", "options": ["double","int","auto","template"], "a": 1, "damage": 25, "topic": "Template deduction", "explanation": "int: Arguments 3 and 4 are int literals. Compiler deduces T=int automatically." },
+            { "q": "C++ templates vs Java generics — key difference:", "options": ["No difference","Templates: compiler generates separate code per type (no erasure). Java: type erasure — one class at runtime","Templates are runtime","Java generics are faster"], "a": 1, "damage": 25, "topic": "Templates vs generics", "explanation": "Code Generation: C++ templates generate SEPARATE machine code per type — maxOf<int> and maxOf<double> are different functions. Java erases types at runtime — one bytecode." },
+            { "q": "Box<int> and Box<string> in C++ are:", "options": ["The same class","Two different classes generated by compiler","Compile error","Same at runtime"], "a": 1, "damage": 25, "topic": "Template instantiation", "explanation": "Different Classes: Compiler generates Box<int> and Box<string> as completely separate classes. Unlike Java where Box<Integer> and Box<String> are the same class at runtime." },
+            { "q": "template<typename T, typename U> void fn(T,U). Called with fn(1,'a'). T=?,U=?", "options": ["T=char,U=int","T=int,U=char","T=auto,U=auto","Compile error"], "a": 1, "damage": 25, "topic": "Multi-template deduction", "explanation": "T=int,U=char: Arguments 1 (int) and 'a' (char) deduced independently. Multiple type parameters work independently." }
+          ]
+        },
+        "coding": [
+          { "title": "Template syntax", "objective": "Write template declaration for function minOf<T>:", "starterCode": "___<typename T>\nT minOf(T a,T b){return a<b?a:b;}", "answer": "template", "hint": "template<typename T> before the function." },
+          { "title": "Template use", "objective": "Box<string> sb('hello'); sb.get() returns type?", "starterCode": "Box<string> sb(\"hello\");\n// sb.get() has return type: ___", "answer": "string", "hint": "Box<string>: T=string. get() returns T = string." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\ntemplate<typename T>\nvoid swap(T a, T b) {  // passes by value!\n    T tmp=a; a=b; b=tmp;\n}\nint x=1,y=2;\nswap(x,y);\ncout<<x<<y; // still 1 2!", "brokenCode": "void swap(T a, T b)", "bugLine": 0, "options": ["Nothing wrong","Passes by value — a,b are copies. Fix: void swap(T& a,T& b) to pass by reference","Template can't swap","Use pointers"], "answer": "Passes by value — a,b are copies. Fix: void swap(T& a,T& b) to pass by reference", "hint": "T a,T b = copies. T& a,T& b = references. Need & to modify originals." }
+        ],
+        "prediction": [
+          { "code": "template<typename T>\nT cube(T x){return x*x*x;}\ncout<<cube(3)<<\" \"<<cube(2.0);", "options": ["27 8.0","9 4","27 8","Error"], "answer": "27 8", "explanation": "cube(3)=3³=27(int). cube(2.0)=2.0³=8.0. Prints: 27 8." }
+        ]
+      }
     },
     {
-       "id": 710, "title": "VIRTUAL", "subtitle": "Polymorphism", "icon": "Link",
-       "content": "A Virtual function allows you to redefine a skill in a child class while still seeing the same skill through the parent.",
-       "scenario": "A Universal Speaker. You have a 'Speak' button. If you give the speaker a French Person, they speak French. If you give it a English Person, they speak English.",
-       "examples": [
-         { "title": "The Super", "explanation": "Marking a function as 'virtual' in the parent blueprint.", "code": "virtual void talk();" },
-         { "title": "The Override", "explanation": "Using 'override' in the child class to change how the skill behaves.", "code": "void talk() override;" },
-         { "title": "The Link", "explanation": "Using a parent's pointer to hold any of its children objects dynamically.", "code": "Person *p = new French();" }
-       ],
-       "keyPoint": "virtual keyword enables true dynamic behavior."
-    }
-  ],
-  "tests": [
+      "id": "7_3",
+      "title": "STL ALGORITHMS",
+      "subtitle": "sort, find, transform, accumulate & more",
+      "icon": "Zap",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "cpp7c3", "title": "STL Algorithms", "emoji": "⚡",
+            "analogy": "STL algorithms are a toolkit of 100+ operations that work on any container via iterators. Instead of writing your own sort, search, or transform, you call the battle-tested standard version. They're faster, safer, and more expressive than hand-written loops.",
+            "content": "All from <algorithm>. Work with iterators: begin()/end(). Key algorithms: sort, find, find_if, count_if, any_of, all_of, none_of, transform, accumulate (from <numeric>), for_each, max_element, min_element, reverse.",
+            "examples": [
+              { "title": "Core STL Algorithms", "explanation": "Replace manual loops with expressive algorithms.", "code": "#include <algorithm>\n#include <numeric>\n#include <vector>\nusing namespace std;\n\nvector<int> v={5,2,8,1,9,3,7};\n\n// Sort:\nsort(v.begin(),v.end()); // {1,2,3,5,7,8,9}\n\n// Find:\nauto it=find(v.begin(),v.end(),5);\nif(it!=v.end()) cout<<*it<<endl; // 5\n\n// Sum:\nint s=accumulate(v.begin(),v.end(),0);\ncout<<s<<endl; // 35\n\n// Count if > 5:\nint n=count_if(v.begin(),v.end(),[](int x){return x>5;});\ncout<<n<<endl; // 3 (7,8,9)" },
+              { "title": "transform, any_of, all_of", "explanation": "Powerful higher-order algorithms.", "code": "vector<int> v={1,2,3,4,5};\n\n// transform: square each element:\nvector<int> sq(v.size());\ntransform(v.begin(),v.end(),sq.begin(),\n          [](int x){return x*x;});\n// sq={1,4,9,16,25}\n\n// any_of: is any element > 4?\nbool a=any_of(v.begin(),v.end(),[](int x){return x>4;});\ncout<<boolalpha<<a<<endl; // true\n\n// all_of: are all > 0?\nbool b=all_of(v.begin(),v.end(),[](int x){return x>0;});\ncout<<b<<endl; // true" }
+            ],
+            "funFact": "std::sort is one of the most optimized pieces of code ever written. Most implementations use introsort — a hybrid of quicksort, heapsort, and insertion sort that's always O(n log n) worst-case while being fast average-case! 🚀"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE STL ARCHITECT", "maxHp": 100 },
+          "mcq": [
+            { "q": "sort(v.begin(),v.end()) sorts in:", "options": ["Descending order","Ascending order (default)","Random order","By insertion order"], "a": 1, "damage": 25, "topic": "sort default", "explanation": "Ascending: Default sort is ascending (operator<). For descending: sort(v.begin(),v.end(),greater<int>()) or lambda: sort(v.begin(),v.end(),[](int a,int b){return a>b;})." },
+            { "q": "find() returns v.end() when:", "options": ["Element is at end","Element NOT found in range","Range is empty","Element is first"], "a": 1, "damage": 25, "topic": "find not found", "explanation": "Not Found: find() returns the end iterator when element isn't found. Always check: if(it!=v.end()) before dereferencing!" },
+            { "q": "accumulate(v.begin(),v.end(),0) computes:", "options": ["Product","Sum starting from 0","Max element","Count"], "a": 1, "damage": 25, "topic": "accumulate", "explanation": "Sum: accumulate(begin,end,init) sums all elements starting from init. For product: accumulate(begin,end,1,multiplies<int>())." },
+            { "q": "transform(v.begin(),v.end(),out.begin(),fn) does:", "options": ["Filters elements","Applies fn to each element, stores results in out","Sorts by fn","Finds matching fn"], "a": 1, "damage": 25, "topic": "transform", "explanation": "Map Operation: transform applies fn to each element in [begin,end) and writes result to out. Like a functional 'map' operation." }
+          ]
+        },
+        "coding": [
+          { "title": "sort call", "objective": "Sort vector v in ascending order:", "starterCode": "vector<int> v={3,1,4,1,5};\n___(v.begin(),v.end());", "answer": "sort", "hint": "sort(begin,end) — from <algorithm>" },
+          { "title": "accumulate sum", "objective": "Sum all elements in v starting from 0:", "starterCode": "int s=___(v.begin(),v.end(),0);", "answer": "accumulate", "hint": "accumulate(begin,end,init) from <numeric>" },
+          { "title": "any_of with lambda", "objective": "Check if any element in v is negative:", "starterCode": "bool b=any_of(v.begin(),v.end(),\n    [](int x){return x___0;});", "answer": "<", "hint": "x < 0 checks if element is negative." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nvector<int> v={1,2,3};\nauto it=find(v.begin(),v.end(),99);\ncout<<*it; // crash!", "brokenCode": "cout<<*it;", "bugLine": 0, "options": ["Nothing wrong","find returns v.end() when not found — dereferencing end() is UB! Check: if(it!=v.end()) first.","Use find_if instead","99 needs to be string"], "answer": "find returns v.end() when not found — dereferencing end() is UB! Check: if(it!=v.end()) first.", "hint": "Always check if(it!=v.end()) before dereferencing find() result." }
+        ],
+        "prediction": [
+          { "code": "vector<int> v={2,5,1,8,3};\nsort(v.begin(),v.end());\ncout<<v.front()<<\" \"<<v.back();", "options": ["2 3","1 8","8 1","5 3"], "answer": "1 8", "explanation": "After sort: {1,2,3,5,8}. front()=1, back()=8." }
+        ]
+      }
+    },
     {
-      "id": 713, "title": "MCQ ADVENTURE", "subtitle": "C++ Logic Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "Default C++ class access?", "options": ["public","private","protected","global"], "a": 1, "hint": "Unlike struct, it's safe by default." }
-      ]
+      "id": "7_boss",
+      "title": "THE C++ GRANDMASTER",
+      "subtitle": "FINAL BOSS — All C++ Levels",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss_cpp7", "title": "⚠️ FINAL BOSS — THE C++ GRANDMASTER", "emoji": "👾",
+            "analogy": "The C++ Grandmaster commands the full language: virtual dispatch, RAII, templates, STL, lambdas, references, const correctness, and zero-overhead abstractions. Prove you've mastered the most powerful general-purpose language.",
+            "content": "Tests ALL C++ levels: virtual/override/pure virtual, virtual destructor, initializer list, const methods, RAII/unique_ptr, operator overloading, templates<typename T>, STL sort/find/accumulate, lambda captures, range-based for.",
+            "examples": [{ "title": "Complete C++ Arsenal", "explanation": "", "code": "✅ virtual method → runtime dispatch\n✅ override → compile-time verification\n✅ virtual~Base(){} → no leak on delete\n✅ =0 pure virtual → abstract class\n✅ template<typename T> — zero overhead\n✅ RAII: ctor acquires, dtor releases\n✅ unique_ptr — no manual delete\n✅ sort/find/accumulate + lambdas\n✅ const auto& — no copy in range-for\n✅ int& ref — modify without pointer" }],
+            "funFact": "C++ is the only major language that gives you full control over memory layout, zero-overhead abstractions, compile-time generics, RAII, and system-level access simultaneously. That's why it dominates game engines (Unreal), trading systems, browsers, and OS development! 🏆"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE C++ GRANDMASTER", "maxHp": 200 },
+          "mcq": [
+            { "q": "Animal*a=new Dog(); a->speak() — speak() is virtual. Which runs?", "options": ["Animal::speak","Dog::speak — runtime polymorphism","Compile error","Both"], "a": 1, "damage": 25, "topic": "Virtual dispatch final", "explanation": "Dog::speak: virtual enables runtime dispatch. Actual object (Dog) determines method." },
+            { "q": "Base class with virtual ~Base(){}. delete base_ptr calling derived destructor:", "options": ["Only Base dtor","Both Derived then Base dtor (correct order)","Neither","Only Derived dtor"], "a": 1, "damage": 25, "topic": "Virtual dtor chain", "explanation": "Both in order: virtual destructor ensures derived dtor runs first, then base. Without virtual: only base dtor runs — resource leak!" },
+            { "q": "template<typename T> T sq(T x){return x*x;} sq(4) returns:", "options": ["8","16","4","Error"], "a": 1, "damage": 25, "topic": "Template use final", "explanation": "16: T deduced as int. sq(4)=4*4=16." },
+            { "q": "sort(v.begin(),v.end(),[](int a,int b){return a>b;}) sorts:", "options": ["Ascending","Descending","By absolute value","Random"], "a": 1, "damage": 25, "topic": "Custom sort descending", "explanation": "Descending: Lambda returning a>b means 'a comes before b if a>b' — descending order." },
+            { "q": "unique_ptr<T> provides RAII meaning:", "options": ["Manual delete required","Auto-deletes managed object on scope exit","Shared ownership","GC collects it"], "a": 1, "damage": 25, "topic": "unique_ptr RAII final", "explanation": "Auto-delete: unique_ptr's destructor calls delete. Scope exit → destruction → no leak. No manual delete needed." },
+            { "q": "class A{virtual void f()=0;}. Can you do: A a;?", "options": ["Yes","No — pure virtual makes A abstract, cannot instantiate","Yes if A has constructor","Yes with 'new A()'"], "a": 1, "damage": 25, "topic": "Abstract class final", "explanation": "No: Abstract class (has pure virtual) cannot be instantiated. new A() is a compile error." },
+            { "q": "for(const auto& x:v) vs for(auto x:v) — performance difference?", "options": ["No difference","const auto& avoids copying each element — important for large objects like strings","auto is faster","const auto& is slower"], "a": 1, "damage": 25, "topic": "const auto& perf final", "explanation": "No Copy: auto x copies each element. const auto& binds a reference — zero copy. For large objects (string, vector), const auto& is significantly faster." },
+            { "q": "C++ 'override' keyword on a method that doesn't override anything:", "options": ["Ignored","Compile error — override verifies the function actually overrides a virtual","Runtime warning","Makes method virtual"], "a": 1, "damage": 25, "topic": "override compile check", "explanation": "Compile Error: override tells the compiler 'this MUST override a virtual parent method.' If it doesn't (typo, signature mismatch), compile error. Use always!" }
+          ]
+        },
+        "coding": [
+          { "title": "Final: Template maxOf", "objective": "template<typename T> T maxOf(T a,T b). maxOf(8,3)=?", "starterCode": "template<typename T>\nT maxOf(T a,T b){return a>b?a:b;}\ncout<<maxOf(8,3);\n// Output: ___", "answer": "8", "hint": "8>3 → returns 8." },
+          { "title": "Final: STL sum", "objective": "accumulate({1,2,3,4,5},0) = ?", "starterCode": "vector<int> v={1,2,3,4,5};\nint s=accumulate(v.begin(),v.end(),0);\ncout<<s;\n// Output: ___", "answer": "15", "hint": "1+2+3+4+5=15." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 FINAL BOSS BUG:\n\nclass Base{public:void show(){cout<<\"B\";}  };\nclass Derived:public Base{public:void show(){cout<<\"D\";}};\nBase*p=new Derived();\np->show(); // prints B not D!", "brokenCode": "void show(){cout<<\"B\";}", "bugLine": 0, "options": ["Nothing wrong","show() is not virtual — compile-time dispatch uses Base type. Add virtual: virtual void show(). Also add virtual ~Base(){}","Need override on Derived","p should be Derived*"], "answer": "show() is not virtual — compile-time dispatch uses Base type. Add virtual: virtual void show(). Also add virtual ~Base(){}", "hint": "C++ requires explicit 'virtual' for runtime polymorphism. Without it, pointer type (Base) determines dispatch." }
+        ],
+        "prediction": [
+          { "code": "vector<int> v={3,1,4,1,5,9,2,6};\nsort(v.begin(),v.end());\nint s=count_if(v.begin(),v.end(),[](int x){return x>4;});\ncout<<s;", "options": ["3","4","2","5"], "answer": "3", "explanation": "Sorted: {1,1,2,3,4,5,6,9}. Elements >4: 5,6,9 = 3 elements." }
+        ]
+      }
     }
   ]
 }

@@ -1,46 +1,518 @@
 {
-  "label": "PYTHON_ARCADE",
-  "foundation": [
+  "label": "LEVEL 6: ERROR HANDLING & FILES (The Safeguard)",
+  "sublevels": [
     {
-       "id": 601, "title": "FILE", "subtitle": "Open/Read/Write", "icon": "File",
-       "content": "Python can read and write to literal files (.txt, .json) on your hard drive. It uses 'open' to create a link to the disk.",
-       "scenario": "A Physical File Cabinet. You open it (open), put a new paper inside (write), and then CLOSE the door (close). If you don't close it, the cabinet's drawer gets stuck.",
-       "examples": [
-         { "title": "Writing", "explanation": "Creating a new file and putting text inside it instantly.", "code": "with open('f.txt', 'w') as f: f.write('Hi')" },
-         { "title": "Reading", "explanation": "Pulling text from a file into a variable.", "code": "with open('f.txt', 'r') as f: data = f.read()" },
-         { "title": "Context", "explanation": "Using 'with' to automatically close the file if a crash occurs.", "code": "with open('p.py') as f: pass" }
-       ],
-       "keyPoint": "w = write. r = read. a = append."
+      "id": "6_1",
+      "title": "ERRORS & EXCEPTIONS",
+      "subtitle": "What goes wrong and why",
+      "icon": "AlertTriangle",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l6c1",
+            "title": "Types of Errors in Python",
+            "emoji": "🚨",
+            "analogy": "Errors are like different types of alarms in a building. A SyntaxError is the fire alarm going off before you've even entered — the code can't run at all. A RuntimeError is a gas leak discovered WHILE the building is occupied — code started but crashed mid-way.",
+            "content": "Python has 3 main error categories: SyntaxError (code structure is wrong — won't even start), RuntimeError/Exception (code starts but crashes during execution), and LogicError (runs fine but gives wrong answers — the sneakiest!).",
+            "examples": [
+              { "title": "Common Python Errors", "explanation": "Each error has a specific cause and fix.", "code": "# SyntaxError — Python won't even start:\nif True    # missing colon!\n\n# NameError — using undefined variable:\nprint(undefined_var)\n\n# TypeError — wrong type operation:\nresult = '5' + 5  # can't add str + int\n\n# IndexError — list index out of range:\narr = [1, 2, 3]\nprint(arr[10])   # only indices 0-2 exist!\n\n# ZeroDivisionError:\nprint(10 / 0)" },
+              { "title": "Reading Error Messages", "explanation": "Error messages tell you exactly where and what went wrong.", "code": "# Python error message format:\n# Traceback (most recent call last):\n#   File 'main.py', line 5, in <module>\n#     print(x)\n# NameError: name 'x' is not defined\n\n# Read from BOTTOM UP:\n# 1. Error type: NameError\n# 2. Message: 'x' is not defined\n# 3. Line: line 5" }
+            ],
+            "funFact": "Python has 65+ built-in exception types! They form a hierarchy — all inherit from BaseException. The most common ones: TypeError, ValueError, KeyError, IndexError, AttributeError. 🎯"
+          },
+          {
+            "id": "l6c2",
+            "title": "ValueError & TypeError Deep Dive",
+            "emoji": "🔍",
+            "analogy": "TypeError is a bouncer who checks your ID — if you try to get into the 'integer math' club with a string, you're turned away. ValueError is a quality inspector — the TYPE is correct, but the VALUE is unacceptable (like int('hello') — it's a string, but not a valid number).",
+            "content": "TypeError happens when an operation is applied to the wrong type. ValueError happens when a function receives the right type but an inappropriate value. Both are extremely common when handling user input.",
+            "examples": [
+              { "title": "TypeError vs ValueError", "explanation": "Know the difference to fix bugs faster.", "code": "# TypeError: wrong type\nresult = '10' + 5      # str + int = TypeError\nlen(42)                # len() needs sequence, not int\n\n# ValueError: right type, wrong value\nint('hello')           # 'hello' is str (correct!) but not a number\nfloat('abc')           # same problem\nint('3.14')            # '3.14' is not a pure integer string\n\n# Fix: validate before converting:\nuser = input('Enter number: ')\nif user.isdigit():\n    print(int(user))" },
+              { "title": "KeyError & AttributeError", "explanation": "Two more common ones to recognize.", "code": "# KeyError: accessing a key that doesn't exist\ndata = {'name': 'Alex'}\nprint(data['age'])  # KeyError: 'age'\n\n# AttributeError: method doesn't exist on this type\nx = 42\nx.upper()  # AttributeError: int has no .upper()" }
+            ],
+            "funFact": "The most Googled Python error is 'IndexError: list index out of range'. Every programmer has hit it. The fix: check len(list) before accessing by index! 📊"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE ERROR BEAST", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "Which error occurs when you try to access an undefined variable?",
+              "options": ["TypeError", "SyntaxError", "NameError", "ValueError"],
+              "a": 2, "damage": 20, "topic": "NameError",
+              "explanation": "Error Intel: NameError means Python can't find a name (variable/function) in any scope. Usually caused by: typo in variable name, using before defining, or forgetting to import."
+            },
+            {
+              "q": "What error does int('hello') raise?",
+              "options": ["TypeError", "ValueError", "SyntaxError", "NameError"],
+              "a": 1, "damage": 20, "topic": "ValueError",
+              "explanation": "ValueError: The TYPE is correct (it's a string) but the VALUE is invalid — 'hello' can't be converted to an integer. int() requires a string that looks like a number: int('42') works."
+            },
+            {
+              "q": "Which error type means Python can't even START running your code?",
+              "options": ["RuntimeError", "ValueError", "SyntaxError", "LogicError"],
+              "a": 2, "damage": 20, "topic": "SyntaxError",
+              "explanation": "Compile Time: SyntaxError is caught BEFORE execution. Python reads your entire file and validates structure first. A missing colon, unmatched bracket, or bad indentation causes SyntaxError."
+            },
+            {
+              "q": "arr = [1, 2, 3]. What error does arr[5] raise?",
+              "options": ["ValueError", "KeyError", "IndexError", "TypeError"],
+              "a": 2, "damage": 20, "topic": "IndexError",
+              "explanation": "IndexError: The list has indices 0, 1, 2 only. Accessing index 5 is out of bounds. This is one of the most common errors in loops — always check len() or use range(len(arr))."
+            },
+            {
+              "q": "d = {'a': 1}. What error does d['b'] raise?",
+              "options": ["IndexError", "KeyError", "NameError", "AttributeError"],
+              "a": 1, "damage": 20, "topic": "KeyError",
+              "explanation": "KeyError: Dictionary key 'b' doesn't exist. Fix: use d.get('b') which returns None instead of crashing, or check 'b' in d first."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Name the Error",
+            "objective": "What error does '5' + 5 raise? Type the error class name.",
+            "starterCode": "'5' + 5\n# Raises: ___Error",
+            "answer": "Type",
+            "hint": "You're mixing incompatible types — string + integer."
+          },
+          {
+            "title": "Index Boundary",
+            "objective": "arr = [10, 20, 30]. What is the highest valid index?",
+            "starterCode": "arr = [10, 20, 30]\n# Highest valid index: ___",
+            "answer": "2",
+            "hint": "3 elements, zero-indexed: 0, 1, 2."
+          },
+          {
+            "title": "Safe Dict Access",
+            "objective": "d = {'x': 5}. What does d.get('y') return if 'y' doesn't exist?",
+            "starterCode": "d = {'x': 5}\nprint(d.get('y'))\n# Output: ___",
+            "answer": "None",
+            "hint": ".get() returns None instead of raising KeyError for missing keys."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nname = input('Name: ')\nprint('Hello ' + name + '!')\nage = int(name)\nprint('Age doubled:', age * 2)",
+            "brokenCode": "age = int(name)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "int(name) will raise ValueError if name is not a number — should use a separate input for age",
+              "name should be int",
+              "print is wrong"
+            ],
+            "answer": "int(name) will raise ValueError if name is not a number — should use a separate input for age",
+            "hint": "name holds a text name like 'Alex'. int('Alex') raises ValueError. Get age separately."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nscores = [95, 87, 72]\nfor i in range(4):\n    print(scores[i])",
+            "brokenCode": "for i in range(4):",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "range(4) goes 0,1,2,3 but list only has indices 0,1,2 — use range(len(scores)) or range(3)",
+              "scores needs 4 elements",
+              "print is wrong"
+            ],
+            "answer": "range(4) goes 0,1,2,3 but list only has indices 0,1,2 — use range(len(scores)) or range(3)",
+            "hint": "range(4) includes index 3, but scores only has 3 elements (indices 0-2). IndexError on last iteration."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — Logic Error (no crash but wrong result):\n\ndef is_adult(age):\n    if age > 18:\n        return True\n    return False\n\nprint(is_adult(18))",
+            "brokenCode": "if age > 18:",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong, 18 is not an adult",
+              "Should be age >= 18 — 18 year olds ARE adults (off-by-one logic error)",
+              "return True is wrong",
+              "def syntax is wrong"
+            ],
+            "answer": "Should be age >= 18 — 18 year olds ARE adults (off-by-one logic error)",
+            "hint": "Logic errors don't crash — they silently give wrong answers. Age 18 should return True for adult."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "data = {'a': 1, 'b': 2}\nprint(data.get('c', 'not found'))",
+            "options": ["None", "not found", "Error", "c"],
+            "answer": "not found",
+            "explanation": ".get(key, default) returns the default value if the key isn't found. 'c' not in dict → returns 'not found'."
+          },
+          {
+            "code": "try:\n    x = int('abc')\nexcept ValueError:\n    print('bad')",
+            "options": ["bad", "abc", "0", "Error"],
+            "answer": "bad",
+            "explanation": "int('abc') raises ValueError. The except block catches it and prints 'bad'. No crash!"
+          }
+        ]
+      }
     },
     {
-       "id": 605, "title": "MODULE", "subtitle": "Toolboxes", "icon": "Layers",
-       "content": "Modules are pre-built libraries of code. You 'import' them to get new superpowers without writing the logic yourself.",
-       "scenario": "A Home Repair Kit. You don't build a screwdriver from scratch. You import (import) the tool from the kit (the module) and use it.",
-       "examples": [
-         { "title": "Math Lib", "explanation": "Importing a box of pre-built math tools like Square Root.", "code": "import math\nmath.sqrt(16)" },
-         { "title": "Time Lib", "explanation": "Accessing the computer's system clock for timing tasks.", "code": "import time\ntime.sleep(1)" },
-         { "title": "Random Lib", "explanation": "Creating unpredictable numbers for game logic.", "code": "import random\nrandom.randint(1, 6)" }
-       ],
-       "keyPoint": "import <module_name> provides its tools to you."
+      "id": "6_2",
+      "title": "TRY / EXCEPT",
+      "subtitle": "Catching errors gracefully",
+      "icon": "Shield",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l6c3",
+            "title": "try / except — Error Handling",
+            "emoji": "🛡️",
+            "analogy": "try/except is like a safety net under a tightrope walker. You TRY to walk the rope (run the risky code). If you fall (error occurs), the EXCEPT net catches you. The show goes on — no catastrophic crash!",
+            "content": "Wrap risky code in a try block. If an error occurs, Python jumps to the matching except block instead of crashing. You can catch specific error types or use a general except.",
+            "examples": [
+              { "title": "Basic try/except", "explanation": "The except block runs only when an error occurs in try.", "code": "try:\n    number = int(input('Enter a number: '))\n    result = 100 / number\n    print(f'100 / {number} = {result}')\nexcept ValueError:\n    print('That was not a number!')\nexcept ZeroDivisionError:\n    print('Cannot divide by zero!')" },
+              { "title": "Catching Exception Details", "explanation": "'as e' gives you the error message.", "code": "try:\n    x = int('hello')\nexcept ValueError as e:\n    print(f'Error caught: {e}')\n# Output: Error caught: invalid literal for int() with base 10: 'hello'" }
+            ],
+            "funFact": "Using bare 'except:' (catching ALL errors) is bad practice — it hides real bugs! Always catch specific exception types so unexpected errors still surface. 🎯"
+          },
+          {
+            "id": "l6c4",
+            "title": "else, finally & raise",
+            "emoji": "⚙️",
+            "analogy": "'finally' is like the cleanup crew — they come in whether the show was a success or a disaster. 'else' is the backstage celebration that only happens if the show went perfectly. 'raise' is the director choosing to deliberately trigger the alarm.",
+            "content": "try/except can have else (runs if NO error occurred) and finally (ALWAYS runs — perfect for cleanup). raise lets you throw your own exceptions intentionally.",
+            "examples": [
+              { "title": "else & finally", "explanation": "else = success path. finally = always runs.", "code": "try:\n    result = int('42')\nexcept ValueError:\n    print('Bad input')\nelse:\n    print(f'Success! Got {result}')  # only if no error\nfinally:\n    print('Always runs!')            # cleanup code here\n\n# Output:\n# Success! Got 42\n# Always runs!" },
+              { "title": "raise your own exceptions", "explanation": "You can throw exceptions deliberately to enforce rules.", "code": "def set_age(age):\n    if age < 0:\n        raise ValueError('Age cannot be negative!')\n    return age\n\ntry:\n    set_age(-5)\nexcept ValueError as e:\n    print(e)  # Age cannot be negative!" }
+            ],
+            "funFact": "finally is used everywhere in real code — especially to close files, release database connections, or unlock resources. Even if an exception crashes the try block, finally runs! 🔒"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE EXCEPTION BOSS", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "What does the 'except' block do?",
+              "options": ["Runs before try", "Runs if an error occurs in the try block", "Always runs", "Raises an error"],
+              "a": 1, "damage": 20, "topic": "except",
+              "explanation": "Exception Handling: The except block is the safety net — it only executes when an error/exception occurs inside the try block. If try completes without error, except is skipped."
+            },
+            {
+              "q": "When does the 'finally' block run?",
+              "options": ["Only on success", "Only on error", "Always — whether error occurred or not", "Never automatically"],
+              "a": 2, "damage": 20, "topic": "finally",
+              "explanation": "Finally Always: The finally block executes REGARDLESS of whether try succeeded or failed. It's used for guaranteed cleanup: closing files, releasing connections, freeing resources."
+            },
+            {
+              "q": "What does 'except ValueError as e' give you?",
+              "options": ["The error type only", "The variable e holds the error message/details", "A new exception", "The line number"],
+              "a": 1, "damage": 20, "topic": "as e",
+              "explanation": "Error Details: 'as e' binds the exception object to variable e. You can then print(e) or str(e) to get the error description. Essential for debugging and user-friendly error messages."
+            },
+            {
+              "q": "Which block runs ONLY if the try block had NO errors?",
+              "options": ["except", "finally", "else", "pass"],
+              "a": 2, "damage": 20, "topic": "else",
+              "explanation": "Success Path: The else block after try/except runs ONLY when no exception occurred. It's the 'happy path' code that doesn't belong in try (to avoid accidentally catching its errors)."
+            },
+            {
+              "q": "What does 'raise ValueError('Bad!')' do?",
+              "options": ["Prints 'Bad!'", "Deliberately triggers a ValueError exception", "Catches an error", "Creates a variable"],
+              "a": 1, "damage": 20, "topic": "raise",
+              "explanation": "raise: You can manually trigger any exception with raise. This enforces rules in your code — if someone calls set_age(-5), you raise ValueError to signal invalid input."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Try Block",
+            "objective": "What keyword starts the block of risky code?",
+            "starterCode": "___:\n    x = int('hello')\nexcept ValueError:\n    print('Bad!')",
+            "answer": "try",
+            "hint": "The 3-letter keyword that marks risky code."
+          },
+          {
+            "title": "Catch Specific Error",
+            "objective": "Which error should you catch for int('hello') failing?",
+            "starterCode": "try:\n    int('hello')\nexcept ___:\n    print('oops')",
+            "answer": "ValueError",
+            "hint": "int() raises this when given a non-numeric string."
+          },
+          {
+            "title": "Finally Block",
+            "objective": "What keyword marks the block that ALWAYS runs?",
+            "starterCode": "try:\n    pass\nexcept:\n    pass\n___:\n    print('cleanup')",
+            "answer": "finally",
+            "hint": "It always runs — success or failure."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — too broad:\n\ntry:\n    x = int(input('Number: '))\nexcept:\n    pass",
+            "brokenCode": "except:",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Bare 'except:' catches ALL errors including unexpected ones, hiding real bugs. Use 'except ValueError:' specifically",
+              "pass should be print",
+              "try is wrong"
+            ],
+            "answer": "Bare 'except:' catches ALL errors including unexpected ones, hiding real bugs. Use 'except ValueError:' specifically",
+            "hint": "Always catch specific exception types. Bare except hides bugs silently!"
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — wrong order:\n\ntry:\n    x = 10 / 0\nfinally:\n    print('done')\nexcept ZeroDivisionError:\n    print('zero!')",
+            "brokenCode": "finally:",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "finally must come AFTER except blocks, not before them",
+              "ZeroDivisionError is wrong",
+              "try should be removed"
+            ],
+            "answer": "finally must come AFTER except blocks, not before them",
+            "hint": "Order: try → except → else → finally. finally always goes last."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "try:\n    x = 10 / 2\nexcept ZeroDivisionError:\n    print('zero')\nelse:\n    print('success')\nfinally:\n    print('done')",
+            "options": ["zero done", "success done", "success", "done"],
+            "answer": "success done",
+            "explanation": "10/2=5, no error. except skipped. else runs ('success'). finally ALWAYS runs ('done'). Output: success↵done."
+          },
+          {
+            "code": "def check(n):\n    if n < 0:\n        raise ValueError('negative!')\n    return n * 2\n\ntry:\n    print(check(-3))\nexcept ValueError as e:\n    print(f'Caught: {e}')",
+            "options": ["-6", "Caught: negative!", "negative!", "Error"],
+            "answer": "Caught: negative!",
+            "explanation": "check(-3) raises ValueError('negative!'). The except catches it and prints 'Caught: negative!'."
+          }
+        ]
+      }
     },
     {
-       "id": 610, "title": "OS_SYS", "subtitle": "Talking to Windows", "icon": "Cpu",
-       "content": "Special modules like 'os' and 'sys' allow your program to talk back to Windows, create folders, and see your system specs.",
-       "scenario": "A Control Panel for your PC. Use os to make a folder (mkdir) or list every file in the current directory.",
-       "examples": [
-         { "title": "List Dir", "explanation": "Listing every document currently in the folder.", "code": "import os\nos.listdir('.')" },
-         { "title": "Exit Sys", "explanation": "Instantly killing the program by talking directly to the system.", "code": "import sys\nsys.exit(0)" },
-         { "title": "Make Path", "explanation": "Safe way to build file paths across different versions of Windows.", "code": "os.path.join('data', 'f.txt')" }
-       ],
-       "keyPoint": "os handles files. sys handles the Python interpreter."
-    }
-  ],
-  "tests": [
+      "id": "6_3",
+      "title": "FILE I/O",
+      "subtitle": "Reading and writing files",
+      "icon": "File",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l6c5",
+            "title": "Opening & Reading Files",
+            "emoji": "📁",
+            "analogy": "Working with files in Python is like using a physical filing cabinet. You open the drawer (open()), read the document (read()), and close the drawer when done (close()). The 'with' statement is a smart handle — it closes the drawer automatically even if you trip and fall!",
+            "content": "open(filename, mode) creates a connection to a file. Mode 'r' = read (default), 'w' = write (creates/overwrites), 'a' = append. Always use 'with open()' so the file closes automatically.",
+            "examples": [
+              { "title": "Reading a File", "explanation": "with open() is the safest pattern.", "code": "# Read entire file as one string:\nwith open('data.txt', 'r') as f:\n    content = f.read()\n    print(content)\n\n# Read line by line:\nwith open('data.txt', 'r') as f:\n    for line in f:\n        print(line.strip())  # strip() removes \\n" },
+              { "title": "read() vs readlines()", "explanation": "Different ways to read file content.", "code": "with open('scores.txt', 'r') as f:\n    # read() = one big string\n    text = f.read()\n    \n    # readline() = next one line\n    line = f.readline()\n    \n    # readlines() = list of all lines\n    lines = f.readlines()" }
+            ],
+            "funFact": "The 'with' statement uses a Python concept called Context Managers. They guarantee cleanup (file closing) even if an exception crashes mid-read. Without 'with', a crash could lock the file! 🔒"
+          },
+          {
+            "id": "l6c6",
+            "title": "Writing & Appending Files",
+            "emoji": "✍️",
+            "analogy": "Mode 'w' is like replacing a whiteboard — you erase everything and start fresh. Mode 'a' is like adding a sticky note to the bottom — you keep everything already there and just add to the end.",
+            "content": "Mode 'w' creates the file if it doesn't exist and overwrites if it does. Mode 'a' adds to the end without deleting existing content. write() writes a string; writelines() writes a list of strings.",
+            "examples": [
+              { "title": "Writing to a File", "explanation": "'w' creates or REPLACES the file.", "code": "# Write mode — creates new or overwrites:\nwith open('log.txt', 'w') as f:\n    f.write('First line\\n')\n    f.write('Second line\\n')\n\n# Append mode — adds to end:\nwith open('log.txt', 'a') as f:\n    f.write('Third line\\n')" },
+              { "title": "Writing Lists", "explanation": "writelines() writes each item — add \\n manually.", "code": "scores = ['100\\n', '95\\n', '87\\n']\nwith open('scores.txt', 'w') as f:\n    f.writelines(scores)\n\n# Or use a loop:\nwith open('output.txt', 'w') as f:\n    for item in scores:\n        f.write(item)" }
+            ],
+            "funFact": "Python can also read/write JSON files using the json module: json.dump() writes, json.load() reads. This is how most web apps save configuration and data! 📊"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE FILE GUARDIAN", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "Which file mode creates a new file or overwrites an existing one?",
+              "options": ["r", "a", "w", "x"],
+              "a": 2, "damage": 20, "topic": "File modes",
+              "explanation": "Write Mode: 'w' opens file for writing — creates it if it doesn't exist, or completely overwrites it if it does. Dangerous with important files! Use 'a' to preserve existing content."
+            },
+            {
+              "q": "Why should you use 'with open()' instead of just open()?",
+              "options": ["It's faster", "It automatically closes the file even if an error occurs", "It's the only syntax that works", "It reads faster"],
+              "a": 1, "damage": 20, "topic": "with statement",
+              "explanation": "Context Manager: 'with open() as f' uses Python's context manager protocol. It GUARANTEES the file is closed when the with-block exits — even if an exception occurs inside. Eliminates resource leaks."
+            },
+            {
+              "q": "What does f.readlines() return?",
+              "options": ["One string with all content", "A list of strings, one per line", "Number of lines", "First line only"],
+              "a": 1, "damage": 20, "topic": "readlines",
+              "explanation": "readlines(): Returns a LIST of strings, one string per line. Each string includes the \\n newline character. Use .strip() on each line to remove it."
+            },
+            {
+              "q": "Which mode adds content to the END of an existing file?",
+              "options": ["w", "r", "x", "a"],
+              "a": 3, "damage": 20, "topic": "Append mode",
+              "explanation": "Append Mode: 'a' (append) opens the file and positions the cursor at the END. New content is added after existing content — nothing is deleted. Perfect for log files."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Read Mode",
+            "objective": "What mode string opens a file for reading?",
+            "starterCode": "with open('data.txt', '___') as f:\n    content = f.read()",
+            "answer": "r",
+            "hint": "r = read. Single character."
+          },
+          {
+            "title": "Write Mode",
+            "objective": "What mode string creates/overwrites a file for writing?",
+            "starterCode": "with open('output.txt', '___') as f:\n    f.write('Hello')",
+            "answer": "w",
+            "hint": "w = write. Warning: overwrites existing content!"
+          },
+          {
+            "title": "Append Mode",
+            "objective": "What mode adds to the end without deleting existing content?",
+            "starterCode": "with open('log.txt', '___') as f:\n    f.write('New entry\\n')",
+            "answer": "a",
+            "hint": "a = append. Adds to the end."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — file not closed:\n\nf = open('data.txt', 'r')\ncontent = f.read()\nprint(content)\n# f.close() — forgot to close!",
+            "brokenCode": "f = open('data.txt', 'r')",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Should use 'with open()' to guarantee automatic closing: with open('data.txt') as f:",
+              "open() is wrong function",
+              "read() should be readline()"
+            ],
+            "answer": "Should use 'with open()' to guarantee automatic closing: with open('data.txt') as f:",
+            "hint": "Always use 'with open()' — it closes the file automatically even if an error occurs."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — overwrites instead of appends:\n\nwith open('log.txt', 'w') as f:\n    f.write('New entry\\n')\n# All previous log entries are gone!",
+            "brokenCode": "with open('log.txt', 'w') as f:",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Mode 'w' overwrites the file. Use 'a' to append to existing log entries",
+              "'w' is wrong syntax",
+              "write() should be append()"
+            ],
+            "answer": "Mode 'w' overwrites the file. Use 'a' to append to existing log entries",
+            "hint": "'w' = write (overwrites everything). 'a' = append (adds to end, keeps existing)."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "with open('test.txt', 'w') as f:\n    f.write('Line 1\\n')\n    f.write('Line 2\\n')\n\nwith open('test.txt', 'r') as f:\n    lines = f.readlines()\n    print(len(lines))",
+            "options": ["1", "2", "3", "Error"],
+            "answer": "2",
+            "explanation": "We wrote 2 lines. readlines() returns a list of lines: ['Line 1\\n', 'Line 2\\n']. len() = 2."
+          },
+          {
+            "code": "with open('num.txt', 'w') as f:\n    f.write('42')\n\nwith open('num.txt', 'r') as f:\n    data = f.read()\n    print(type(data))",
+            "options": ["<class 'int'>", "<class 'str'>", "<class 'float'>", "Error"],
+            "answer": "<class 'str'>",
+            "explanation": "f.read() always returns a STRING — even if the file contains a number. You must convert: int(f.read()) to get an integer."
+          }
+        ]
+      }
+    },
     {
-      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "Python System Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "Which mode to write to a file?", "options": ["r","w","a","x"], "a": 1, "hint": "Short for write." }
-      ]
+      "id": "6_boss",
+      "title": "THE HANDLER",
+      "subtitle": "BOSS FIGHT — Error Handling & Files",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss6_intro",
+            "title": "⚠️ BOSS — THE HANDLER",
+            "emoji": "👾",
+            "analogy": "The Handler controls all the ways your program can break. It knows every error type, every exception trap, and every file operation pitfall. Prove your code is bulletproof!",
+            "content": "THE HANDLER tests everything from Level 6: error types (TypeError, ValueError, KeyError, IndexError), try/except/else/finally, raise, file modes (r/w/a), with open(), read/write operations.",
+            "examples": [
+              { "title": "What you've mastered", "explanation": "Level 6 complete toolkit!", "code": "✅ TypeError, ValueError, KeyError, IndexError\n✅ try / except / else / finally\n✅ raise — custom exceptions\n✅ 'as e' to capture error details\n✅ open() modes: r, w, a\n✅ with open() context manager\n✅ read(), readlines(), write()" }
+            ],
+            "funFact": "Production software at companies like Google and Amazon has error handling in EVERY external call — network requests, file operations, database queries. Unhandled exceptions in production can cost millions! 💰"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE HANDLER", "maxHp": 150 },
+          "mcq": [
+            {
+              "q": "What is the output?\ntry:\n    print(1/0)\nexcept ZeroDivisionError:\n    print('zero')\nfinally:\n    print('end')",
+              "options": ["zero", "end", "zero↵end", "Error"],
+              "a": 2, "damage": 30, "topic": "try/except/finally",
+              "explanation": "1/0 raises ZeroDivisionError → except prints 'zero'. finally ALWAYS runs → prints 'end'. Output: zero then end."
+            },
+            {
+              "q": "Which error does this raise: d = {}; d['key']?",
+              "options": ["IndexError", "ValueError", "KeyError", "NameError"],
+              "a": 2, "damage": 30, "topic": "KeyError",
+              "explanation": "KeyError: Accessing a dictionary key that doesn't exist raises KeyError. Fix with d.get('key') or check 'key' in d first."
+            },
+            {
+              "q": "You want to add to an existing log file without deleting it. Which mode?",
+              "options": ["w", "r", "a", "x"],
+              "a": 2, "damage": 30, "topic": "File mode",
+              "explanation": "Append Mode: 'a' opens the file and positions the cursor at the END. New writes are added AFTER existing content. 'w' would destroy the existing log!"
+            },
+            {
+              "q": "What does 'raise ValueError(\"bad input\")' do?",
+              "options": ["Prints 'bad input'", "Deliberately triggers a ValueError with message 'bad input'", "Catches an error", "Creates a variable"],
+              "a": 1, "damage": 30, "topic": "raise",
+              "explanation": "raise: Manually triggers an exception. Used to enforce business rules: if age < 0: raise ValueError('Age must be positive'). Can be caught with except ValueError."
+            },
+            {
+              "q": "f.read() on a file containing '123' returns what type?",
+              "options": ["int", "float", "str", "bytes"],
+              "a": 2, "damage": 30, "topic": "File read type",
+              "explanation": "Always String: f.read() ALWAYS returns a string — regardless of file content. Numbers in files are strings until you explicitly convert: int(f.read()) or float(f.read())."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Boss: Safe Number Input",
+            "objective": "Which error type should you catch when doing int(input())?",
+            "starterCode": "try:\n    n = int(input('Enter number: '))\nexcept ___:\n    print('Not a number!')",
+            "answer": "ValueError",
+            "hint": "int() raises this when the string can't be converted to integer."
+          },
+          {
+            "title": "Boss: File Read Mode",
+            "objective": "Complete: open the file for reading.",
+            "starterCode": "with open('data.txt', '___') as f:\n    text = f.read()",
+            "answer": "r",
+            "hint": "r = read mode."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 BOSS BUG:\n\ntry:\n    with open('data.txt', 'r') as f:\n        content = f.read()\nexcept:\n    pass\n\nprint(content)",
+            "brokenCode": "print(content)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "If the file doesn't exist, the except catches the error but content is never defined — print(content) raises NameError",
+              "with open is wrong",
+              "content should be global"
+            ],
+            "answer": "If the file doesn't exist, the except catches the error but content is never defined — print(content) raises NameError",
+            "hint": "Define content = '' before the try block so it always exists, even if the file read fails."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "try:\n    x = int('5')\nexcept ValueError:\n    print('bad')\nelse:\n    print('good')\nfinally:\n    print('always')",
+            "options": ["bad always", "good always", "good", "bad"],
+            "answer": "good always",
+            "explanation": "int('5') succeeds — no ValueError. except skipped. else runs ('good'). finally always runs ('always')."
+          }
+        ]
+      }
     }
   ]
 }

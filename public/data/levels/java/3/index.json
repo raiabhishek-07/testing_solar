@@ -1,185 +1,179 @@
 {
-  "label": "LEVEL 3: LOOPS & ARRAYS (Repetition & Data)",
+  "label": "LEVEL 3: LOOPS (Java Iteration Engine)",
   "sublevels": [
     {
       "id": "3_1",
-      "title": "LOOPS",
-      "subtitle": "Repeating code automatically",
+      "title": "FOR LOOP",
+      "subtitle": "Counted iteration in Java",
       "icon": "Repeat",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c1", "title": "What is a Loop?", "emoji": "🔁",
-            "analogy": "A loop is like a washing machine cycle — it repeats the same steps over and over until a condition says STOP.",
-            "content": "Loops let you repeat code without copying it. Instead of writing print('Hello') 100 times, a loop runs it 100 times automatically.",
-            "examples": [{ "title": "Why Loops?", "explanation": "One loop replaces 100 copy-pasted lines!", "code": "# Without loop: 5 lines\nprint('Hello')\nprint('Hello')\nprint('Hello')\n\n# With loop: 2 lines!\nfor i in range(3):\n    print('Hello')" }],
-            "funFact": "Every game you play uses loops. The 'game loop' runs 60 times per second to update the screen! 🎮"
+            "id": "j3c1", "title": "Java for Loop", "emoji": "🔄",
+            "analogy": "A for loop is a treadmill with a timer — you set speed (init), check time remaining (condition), and update after each step. All three parts are visible in one line.",
+            "content": "for (init; condition; update) { body }. Init runs once. Condition checked before each iteration. Update runs after each iteration. Loop variable declared in init is scoped to the loop.",
+            "examples": [
+              { "title": "Classic for Loop", "explanation": "Count up and down.", "code": "for (int i = 1; i <= 5; i++) {\n    System.out.println(i);\n}\n// 1 2 3 4 5\n\nfor (int i = 5; i >= 1; i--) {\n    System.out.print(i + \" \");\n}\n// 5 4 3 2 1" },
+              { "title": "Accumulator Pattern", "explanation": "Declare sum OUTSIDE the loop to persist.", "code": "int sum = 0;\nfor (int i = 1; i <= 10; i++) {\n    sum += i;\n}\nSystem.out.println(sum); // 55\n// Can't use i here — it's out of scope!" }
+            ],
+            "funFact": "Java's for loop was inherited directly from C (1972) — unchanged for 50+ years. for (init; condition; update) is the same in C, C++, Java, and JavaScript! 🏛️"
           },
           {
-            "id": "l3c2", "title": "For Loops", "emoji": "🔄",
-            "analogy": "A for loop is like a teacher calling roll — it goes through a list one by one. 'For EACH student in the class, say their name.'",
-            "content": "for loops iterate over a sequence (range, list, string). range(5) gives 0,1,2,3,4. The variable (i) gets each value in turn.",
-            "examples": [{ "title": "For Loop with range()", "explanation": "range(5) = 0,1,2,3,4 — the loop runs 5 times.", "code": "for i in range(5):\n    print(i)\n# Output: 0 1 2 3 4 (each on new line)" }],
-            "funFact": "range(5) starts at 0, not 1! This is called 'zero-indexing' and is universal in programming. 0️⃣"
-          },
-          {
-            "id": "l3c3", "title": "While Loops", "emoji": "⏳",
-            "analogy": "A while loop is like waiting in line — you keep waiting WHILE there are people ahead of you. Once the line is empty, you stop.",
-            "content": "while loops repeat AS LONG AS a condition is True. The condition is checked BEFORE each iteration. If False from the start, the loop never runs.",
-            "examples": [{ "title": "While Loop", "explanation": "Keeps going until count reaches 3.", "code": "count = 0\nwhile count < 3:\n    print(count)\n    count = count + 1\n# Output: 0 1 2" }],
-            "funFact": "An infinite loop (while True) runs FOREVER. Servers use this: they wait for requests in an infinite loop! 🌐"
+            "id": "j3c2", "title": "Enhanced for-each Loop", "emoji": "📋",
+            "analogy": "for-each is a waiter serving every table in order — no counting, no tracking indices. Just: give me each item one by one.",
+            "content": "for (Type item : collection) — iterates every element. Simpler than index loops. Works on arrays and any Iterable. Cannot use/modify the index during iteration.",
+            "examples": [
+              { "title": "for-each with Arrays", "explanation": "Clean syntax — no index needed.", "code": "int[] scores = {95, 87, 72, 60};\nfor (int score : scores) {\n    System.out.println(score);\n}\n\nString[] heroes = {\"Neo\", \"Trinity\"};\nfor (String h : heroes) {\n    System.out.println(\"Hero: \" + h);\n}" }
+            ],
+            "funFact": "Java added for-each in Java 5 (2004). It uses the Iterator pattern under the hood — no off-by-one errors possible since you never manage an index! ✅"
           }
         ],
         "battle": {
-          "enemy": { "name": "LOOP WARDEN", "maxHp": 100 },
+          "enemy": { "name": "THE LOOP ENGINE", "maxHp": 100 },
           "mcq": [
-            { "q": "What does range(4) produce?", "options": ["1,2,3,4", "0,1,2,3", "0,1,2,3,4", "4,3,2,1"], "a": 1, "damage": 20, "topic": "range()", "explanation": "range(4) starts at 0 and goes to 3 (stops BEFORE 4): 0,1,2,3." },
-            { "q": "How many times does 'for i in range(3)' loop?", "options": ["2", "3", "4", "1"], "a": 1, "damage": 20, "topic": "For Loop", "explanation": "range(3) = 0,1,2 — that's 3 values, so 3 iterations." },
-            { "q": "When does a while loop stop?", "options": ["After 10 runs", "When the condition becomes False", "After 1 run", "It never stops"], "a": 1, "damage": 20, "topic": "While Loop", "explanation": "A while loop stops when its condition becomes False." },
-            { "q": "What happens if the while condition is NEVER False?", "options": ["Error", "The loop runs once", "Infinite loop — it runs forever", "Python auto-stops it"], "a": 2, "damage": 20, "topic": "Infinite Loop", "explanation": "If the condition never becomes False, the loop runs infinitely. Use Ctrl+C to stop!" },
-            { "q": "What keyword starts a counting loop in Python?", "options": ["loop", "repeat", "for", "each"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "Python uses 'for' to iterate over sequences." }
+            { "q": "for(int i=0; i<5; i++) — how many iterations?", "options": ["4","5","6","1"], "a": 1, "damage": 20, "topic": "Loop count", "explanation": "Count: i = 0,1,2,3,4 → 5 iterations. Pattern: 0 to <N gives exactly N iterations." },
+            { "q": "Can you access 'i' after the for loop ends if declared in the init?", "options": ["Yes","No — i is scoped to the loop","Only if int","Yes with cast"], "a": 1, "damage": 20, "topic": "Loop scope", "explanation": "Scope: int i declared in for(int i=...) only lives inside the loop block. Accessing it after causes a compile error. Declare before the for if you need the final value." },
+            { "q": "for(int x : arr) — what does x represent?", "options": ["The index","The element value","arr.length","A copy of arr"], "a": 1, "damage": 20, "topic": "for-each element", "explanation": "For-Each: x is the VALUE of each element in turn — not the index. If you need the index, use a traditional for loop with arr[i]." },
+            { "q": "int sum=0; for(int i=1;i<=4;i++) sum+=i; What is sum?", "options": ["4","10","8","6"], "a": 1, "damage": 20, "topic": "Accumulator", "explanation": "Accumulator: 0+1+2+3+4 = 10." },
+            { "q": "What is wrong: for(int i=0; i<=arr.length; i++) with arr of 3 elements?", "options": ["Nothing","i<=arr.length causes ArrayIndexOutOfBoundsException at i=3","i should start at 1","arr.length should be arr.size()"], "a": 1, "damage": 20, "topic": "Off-by-one", "explanation": "Off-by-One: arr has indices 0,1,2. arr.length=3. arr[3] throws ArrayIndexOutOfBoundsException! Always use i < arr.length (strict <)." }
           ]
         },
         "coding": [
-          { "title": "Count Output", "objective": "How many times does this loop print? for i in range(4): print(i)", "starterCode": "for i in range(4):\n    print(i)\n# Prints ___ times", "answer": "4", "hint": "range(4) = 0,1,2,3. That's 4 values." },
-          { "title": "While End", "objective": "What is the last number printed? x=0; while x<5: print(x); x+=1", "starterCode": "x = 0\nwhile x < 5:\n    print(x)\n    x += 1\n# Last output: ___", "answer": "4", "hint": "Loop runs for 0,1,2,3,4. When x becomes 5, x<5 is False → stops." },
-          { "title": "Range Start", "objective": "What is the FIRST number in range(5)?", "starterCode": "for i in range(5):\n    print(i)  # First: ___", "answer": "0", "hint": "range() always starts at 0 by default." }
+          { "title": "Loop iterations", "objective": "for(int i=0;i<7;i++) — how many times?", "starterCode": "// for(int i=0; i<7; i++) runs ___ times", "answer": "7", "hint": "0 to 6 inclusive = 7 values." },
+          { "title": "Sum 1 to 10", "objective": "int sum=0; for(int i=1;i<=10;i++) sum+=i; Output?", "starterCode": "int sum = 0;\nfor (int i = 1; i <= 10; i++) sum += i;\nSystem.out.println(sum);\n// Output: ___", "answer": "55", "hint": "Gauss: 10×11/2 = 55." },
+          { "title": "for-each colon", "objective": "What separator goes between variable and array in for-each?", "starterCode": "for (int s ___ scores) { System.out.println(s); }", "answer": ":", "hint": "for (Type var : collection) — colon separates them." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Infinite loop bug:\n\nx = 1\nwhile x < 10:\n    print(x)", "brokenCode": "x = 1\nwhile x < 10:\n    print(x)", "bugLine": 2, "options": ["Nothing wrong", "Missing x = x + 1 — x never changes, so loop is infinite", "print is wrong", "while should be for"], "answer": "Missing x = x + 1 — x never changes, so loop is infinite", "hint": "x stays at 1 forever because it never increases. Add x = x + 1 inside the loop." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nfor i in range(5)\n    print(i)", "brokenCode": "for i in range(5)\n    print(i)", "bugLine": 0, "options": ["Missing colon at end: for i in range(5):", "range is wrong", "print needs quotes", "Nothing wrong"], "answer": "Missing colon at end: for i in range(5):", "hint": "for loops need a colon at the end, just like if statements." }
+          { "type": "mcq", "description": "🚨 Infinite Loop:\n\nfor (int i=0; i<5; i--) {\n    System.out.println(i);\n}", "brokenCode": "for (int i=0; i<5; i--)", "bugLine": 0, "options": ["Nothing wrong","i-- decrements — i goes negative, stays <5 forever. Change to i++","i should start at 5","Needs break inside"], "answer": "i-- decrements — i goes negative, stays <5 forever. Change to i++", "hint": "i-- makes i smaller. It will always be < 5 → infinite loop." },
+          { "type": "mcq", "description": "🚨 Off-by-one:\n\nint[] arr = {10,20,30};\nfor (int i=0; i<=arr.length; i++) System.out.println(arr[i]);", "brokenCode": "i<=arr.length", "bugLine": 0, "options": ["Nothing wrong","i<=arr.length accesses arr[3] which doesn't exist. Use i < arr.length","Start i at 1","Use arr.size()"], "answer": "i<=arr.length accesses arr[3] which doesn't exist. Use i < arr.length", "hint": "3 elements → indices 0,1,2. arr.length=3. arr[3] = ArrayIndexOutOfBoundsException!" }
         ],
         "prediction": [
-          { "code": "total = 0\nfor i in range(4):\n    total = total + i\nprint(total)", "options": ["4", "6", "10", "0"], "answer": "6", "explanation": "i goes 0,1,2,3. total = 0+0+1+2+3 = 6." },
-          { "code": "x = 10\nwhile x > 7:\n    x = x - 1\nprint(x)", "options": ["7", "8", "10", "0"], "answer": "7", "explanation": "10→9→8→7. When x=7, 7>7 is False → loop stops. x is 7." }
+          { "code": "int t=0;\nfor(int i=1;i<=5;i+=2) t+=i;\nSystem.out.println(t);", "options": ["9","15","6","25"], "answer": "9", "explanation": "i = 1,3,5 (step+2). t = 1+3+5 = 9." },
+          { "code": "int[] n={2,4,6,8};\nint c=0;\nfor(int x:n){if(x>5)c++;}\nSystem.out.println(c);", "options": ["1","2","3","4"], "answer": "2", "explanation": "6 and 8 are > 5. c = 2." }
         ]
       }
     },
     {
       "id": "3_2",
-      "title": "LOOP MASTERY",
-      "subtitle": "Nested loops & break/continue",
-      "icon": "Layers",
+      "title": "WHILE & DO-WHILE",
+      "subtitle": "Condition-based loops in Java",
+      "icon": "RefreshCw",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c4", "title": "Nested Loops", "emoji": "🎡",
-            "analogy": "A nested loop is like a clock: the minute hand (inner loop) goes 60 times for EACH tick of the hour hand (outer loop).",
-            "content": "A loop inside another loop. The inner loop runs COMPLETELY for each iteration of the outer loop. 3 outer × 4 inner = 12 total runs.",
-            "examples": [{ "title": "Nested For Loop", "explanation": "Inner loop runs fully for each outer iteration.", "code": "for i in range(3):       # outer: 0,1,2\n    for j in range(2):   # inner: 0,1\n        print(i, j)\n# Output: 0 0, 0 1, 1 0, 1 1, 2 0, 2 1" }],
-            "funFact": "2D games use nested loops: outer loop for rows, inner loop for columns — drawing the screen pixel by pixel! 🕹️"
+            "id": "j3c3", "title": "while Loop", "emoji": "⏳",
+            "analogy": "while is a guard checking tickets BEFORE entry. If nobody has a ticket from the start, nobody gets in. The check happens BEFORE every attempt.",
+            "content": "while (condition) { body } — checks condition BEFORE each iteration. If false from the start, body never runs. Always update the loop variable inside or risk infinite loop.",
+            "examples": [
+              { "title": "while Loop", "explanation": "Condition checked first each time.", "code": "int i = 1;\nwhile (i <= 5) {\n    System.out.println(i);\n    i++;  // MUST update!\n}\n// 1 2 3 4 5\n\n// Zero iterations:\nint x = 10;\nwhile (x < 5) {\n    System.out.println(\"never\");\n}\n// Nothing prints!" }
+            ],
+            "funFact": "while is the fundamental loop in computer science theory. for loops are syntactic sugar for while. Any for can be rewritten as a while! 🔬"
           },
           {
-            "id": "l3c5", "title": "Break & Continue", "emoji": "⏭️",
-            "analogy": "break is the EMERGENCY EXIT — it kicks you out of the loop immediately. continue is SKIP — it skips the rest of this round and starts the next one.",
-            "content": "break: immediately exits the entire loop. continue: skips the remaining code in the current iteration and jumps to the next one.",
-            "examples": [{ "title": "Break vs Continue", "explanation": "break exits. continue skips.", "code": "# Break: stop at 3\nfor i in range(10):\n    if i == 3:\n        break\n    print(i)  # 0, 1, 2\n\n# Continue: skip 3\nfor i in range(5):\n    if i == 3:\n        continue\n    print(i)  # 0, 1, 2, 4" }],
-            "funFact": "Games use break to exit loops when a player dies. The loop checks 'is player alive?' each frame. 💀"
+            "id": "j3c4", "title": "do-while Loop", "emoji": "✅",
+            "analogy": "do-while insists you taste the food before deciding to order more. You ALWAYS get the first serving, THEN decide if you want another round.",
+            "content": "do { body } while (condition); — body runs ONCE first, then checks condition. Note the semicolon after the closing parenthesis! Perfect for input validation.",
+            "examples": [
+              { "title": "do-while", "explanation": "Runs at least once — semicolon required.", "code": "int i = 1;\ndo {\n    System.out.println(i);\n    i++;\n} while (i <= 5);  // ← semicolon!\n// 1 2 3 4 5\n\n// Input validation pattern:\nint choice;\ndo {\n    System.out.print(\"Enter 1-3: \");\n    choice = sc.nextInt();\n} while (choice < 1 || choice > 3);" }
+            ],
+            "funFact": "do-while is the least-used Java loop but shines for input validation — the 'ask at least once, keep asking until valid' pattern is perfect for it! 🎮"
           }
         ],
         "battle": {
-          "enemy": { "name": "NESTED NIGHTMARE", "maxHp": 100 },
+          "enemy": { "name": "THE WHILE WARDEN", "maxHp": 100 },
           "mcq": [
-            { "q": "In a 3×4 nested loop, how many total iterations?", "options": ["3", "4", "7", "12"], "a": 3, "damage": 25, "topic": "Nested Loops", "explanation": "3 outer × 4 inner = 12 total iterations." },
-            { "q": "What does 'break' do?", "options": ["Pauses the loop", "Skips current iteration", "Exits the loop entirely", "Restarts the loop"], "a": 2, "damage": 25, "topic": "Break", "explanation": "break immediately exits the entire loop." },
-            { "q": "What does 'continue' do?", "options": ["Exits the loop", "Skips rest of current iteration, starts next", "Runs the code twice", "Pauses"], "a": 1, "damage": 25, "topic": "Continue", "explanation": "continue skips the remaining code in the current iteration and jumps to the next one." },
-            { "q": "Can break exit an outer loop from inside an inner loop?", "options": ["Yes, it exits all loops", "No, break only exits the innermost loop", "Only with a flag", "Error"], "a": 1, "damage": 25, "topic": "Break Scope", "explanation": "break only exits the loop it's directly inside — not outer loops." }
+            { "q": "What is the key difference between while and do-while?", "options": ["Syntax only","do-while always runs at least once; while may never run","while is faster","They're identical"], "a": 1, "damage": 25, "topic": "while vs do-while", "explanation": "Key Difference: while checks FIRST — if false, never runs. do-while runs FIRST then checks — guarantees at least one execution." },
+            { "q": "What is REQUIRED at the end of do { } while (cond)?", "options": ["Nothing","Semicolon ;","Curly brace }","break;"], "a": 1, "damage": 25, "topic": "do-while semicolon", "explanation": "Semicolon: do { } while (condition); needs a semicolon after the closing ). A very common Java syntax error to forget it!" },
+            { "q": "int x=10; while(x<5){x++;} How many times does body run?", "options": ["5","10","0","Infinite"], "a": 2, "damage": 25, "topic": "Zero iterations", "explanation": "Zero: x=10, x<5 is false immediately. while checks BEFORE running — body never executes." },
+            { "q": "Best loop for 'keep asking until valid input'?", "options": ["for","for-each","do-while","break loop"], "a": 2, "damage": 25, "topic": "do-while use case", "explanation": "Input Validation: do-while — always ask at least once, keep asking while invalid. Perfect match for the 'run once then check' pattern." }
           ]
         },
         "coding": [
-          { "title": "Total Runs", "objective": "for i in range(2): for j in range(3): print('*'). How many stars print?", "starterCode": "# 2 outer × 3 inner = ___", "answer": "6", "hint": "2 × 3 = 6 total iterations." },
-          { "title": "Break Output", "objective": "for i in range(10): if i==3: break; print(i). What's the last number printed?", "starterCode": "for i in range(10):\n    if i == 3: break\n    print(i)\n# Last output: ___", "answer": "2", "hint": "Prints 0, 1, 2. When i=3, break exits before print." }
+          { "title": "while last value", "objective": "int i=1; while(i<=3){print(i);i++;} Last printed?", "starterCode": "int i=1;\nwhile(i<=3){\n    System.out.println(i); i++;\n}\n// Last output: ___", "answer": "3", "hint": "i goes 1,2,3 then 4<=3 false. Last print: 3." },
+          { "title": "do-while punctuation", "objective": "What ends the do-while condition line?", "starterCode": "do {\n    System.out.println(\"once\");\n} while(false)___", "answer": ";", "hint": "do { } while(condition); — semicolon after ) is mandatory!" }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug: This should print 0,1,2,4 (skip 3) but prints 0,1,2:\n\nfor i in range(5):\n    if i == 3:\n        break\n    print(i)", "brokenCode": "for i in range(5):\n    if i == 3:\n        break\n    print(i)", "bugLine": 2, "options": ["Use 'continue' instead of 'break' to skip 3 but keep going", "Nothing wrong", "Change range to 4", "Use while instead"], "answer": "Use 'continue' instead of 'break' to skip 3 but keep going", "hint": "break exits the entire loop. continue just skips the current iteration." }
+          { "type": "mcq", "description": "🚨 Infinite Loop:\n\nint i=1;\nwhile(i<=5){\n    System.out.println(i);\n}", "brokenCode": "while(i<=5)", "bugLine": 0, "options": ["Nothing wrong","No i++ inside — i never changes, i<=5 always true. Add i++; in body.","i should be 0","println → print"], "answer": "No i++ inside — i never changes, i<=5 always true. Add i++; in body.", "hint": "Always update the loop variable inside while! Without i++, the condition never becomes false." }
         ],
         "prediction": [
-          { "code": "for i in range(5):\n    if i == 2:\n        continue\n    print(i)", "options": ["0 1 2 3 4", "0 1 3 4", "0 1", "0 1 2"], "answer": "0 1 3 4", "explanation": "continue skips only i=2. All other values (0,1,3,4) are printed." },
-          { "code": "count = 0\nfor i in range(3):\n    for j in range(3):\n        count += 1\nprint(count)", "options": ["3", "6", "9", "0"], "answer": "9", "explanation": "3 outer × 3 inner = 9 total iterations. count increments 9 times." }
+          { "code": "int x=1;\ndo{\n    System.out.print(x+\" \");\n    x*=2;\n}while(x<=10);", "options": ["1 2 4 8","2 4 8 16","1 2 4 8 16","1 2 4"], "answer": "1 2 4 8", "explanation": "x=1→print 1,x=2→print 2,x=4→print 4,x=8→print 8,x=16>10→stop. Output: 1 2 4 8." }
         ]
       }
     },
     {
       "id": "3_3",
-      "title": "ARRAYS (LISTS)",
-      "subtitle": "Storing collections of data",
-      "icon": "List",
+      "title": "BREAK & CONTINUE",
+      "subtitle": "Loop control statements in Java",
+      "icon": "Zap",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c6", "title": "What is a List?", "emoji": "📋",
-            "analogy": "A list is like a row of lockers. Each locker has a number (index, starting from 0) and stores one item. You can add, remove, or peek into any locker.",
-            "content": "Lists (arrays) store multiple values in one variable. Created with square brackets []. Items are separated by commas. Indexed starting from 0.",
-            "examples": [{ "title": "Creating and Accessing", "explanation": "Index 0 = first item, 1 = second, etc.", "code": "heroes = ['Neo', 'Trinity', 'Morpheus']\nprint(heroes[0])   # Neo\nprint(heroes[1])   # Trinity\nprint(heroes[2])   # Morpheus" }],
-            "funFact": "Python lists can mix types: [1, 'hello', True, 3.14] is perfectly valid! Most languages don't allow this. 🤯"
-          },
-          {
-            "id": "l3c7", "title": "Updating & Looping Through Lists", "emoji": "🔃",
-            "analogy": "Updating a list is like editing a playlist — swap songs, add new ones, or remove old ones. Looping through it is like pressing 'Play All'.",
-            "content": "Update items by index: list[0] = 'new'. Use .append() to add, .remove() to delete. Loop through with 'for item in list:'.",
-            "examples": [{ "title": "Update & Loop", "explanation": "Change, add, and iterate.", "code": "scores = [10, 20, 30]\nscores[1] = 25          # Update index 1\nscores.append(40)       # Add to end\n\nfor s in scores:\n    print(s)\n# Output: 10, 25, 30, 40" }],
-            "funFact": "len(list) gives the length. The last index is always len(list) - 1, because indexing starts at 0! 📏"
+            "id": "j3c5", "title": "break & continue", "emoji": "⛔",
+            "analogy": "break is an emergency exit — everyone leaves immediately. continue is 'next please!' — skip this person, serve the next one. break exits; continue skips one iteration.",
+            "content": "break: exits the current loop entirely. continue: skips rest of current iteration, moves to next (for: runs update; while: re-checks condition). Both only affect the INNERMOST loop.",
+            "examples": [
+              { "title": "break and continue", "explanation": "break exits, continue skips.", "code": "// break:\nfor(int i=0;i<10;i++){\n    if(i==5) break;\n    System.out.print(i+\" \");\n}\n// 0 1 2 3 4\n\n// continue — skip odds:\nfor(int i=0;i<8;i++){\n    if(i%2!=0) continue;\n    System.out.print(i+\" \");\n}\n// 0 2 4 6" },
+              { "title": "Nested Loops", "explanation": "break only exits the INNER loop.", "code": "for(int i=1;i<=3;i++){\n    for(int j=1;j<=3;j++){\n        System.out.print(i*j+\" \");\n    }\n    System.out.println();\n}\n// 1 2 3\n// 2 4 6\n// 3 6 9" }
+            ],
+            "funFact": "Java supports labeled break to exit OUTER loops: 'outer: for(...) { for(...) { break outer; } }' — unique to Java! C and C++ don't have labeled breaks. 🏷️"
           }
         ],
         "battle": {
-          "enemy": { "name": "ARRAY OVERLORD", "maxHp": 100 },
+          "enemy": { "name": "THE LOOP BREAKER", "maxHp": 100 },
           "mcq": [
-            { "q": "What index is the FIRST element in a list?", "options": ["1", "0", "-1", "First"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Lists use zero-based indexing. First element = index 0." },
-            { "q": "How do you create a list in Python?", "options": ["list()", "{}", "()", "[]"], "a": 3, "damage": 20, "topic": "Syntax", "explanation": "Lists use square brackets: [item1, item2, item3]." },
-            { "q": "What does .append(x) do?", "options": ["Removes x", "Adds x at the beginning", "Adds x at the end", "Replaces everything with x"], "a": 2, "damage": 20, "topic": "append", "explanation": ".append(x) adds x to the END of the list." },
-            { "q": "colors = ['red', 'blue', 'green']. What is colors[2]?", "options": ["red", "blue", "green", "Error"], "a": 2, "damage": 20, "topic": "Indexing", "explanation": "Index 0='red', 1='blue', 2='green'." },
-            { "q": "What happens if you access list[10] on a 3-item list?", "options": ["Returns None", "Returns 0", "IndexError", "Returns the last item"], "a": 2, "damage": 20, "topic": "Bounds", "explanation": "Accessing an index that doesn't exist raises an IndexError." }
+            { "q": "What does break do inside a loop?", "options": ["Skips current iteration","Exits the loop entirely","Restarts loop","Goes to catch"], "a": 1, "damage": 25, "topic": "break", "explanation": "break: Immediately exits the CURRENT loop. Execution continues with the first statement AFTER the loop's closing }." },
+            { "q": "What does continue do in a for loop?", "options": ["Exits loop","Skips current iteration, runs update, re-checks","Restarts from i=0","Goes to catch"], "a": 1, "damage": 25, "topic": "continue", "explanation": "continue: Skips rest of CURRENT iteration. In for: runs update (i++) then condition. Loop doesn't exit — just skips one turn." },
+            { "q": "In nested loops, which loop does break exit?", "options": ["All loops","Outermost","Innermost current loop","Nearest switch"], "a": 2, "damage": 25, "topic": "Nested break", "explanation": "Innermost Only: break exits the innermost loop it's in. Use Java labeled break to exit outer loops." },
+            { "q": "for(i=0;i<5;i++){if(i==3)continue;print(i);} Output?", "options": ["0 1 2 3 4","0 1 2 4","3 4","0 1 2"], "a": 1, "damage": 25, "topic": "continue output", "explanation": "continue: When i=3, skip print. Output: 0 1 2 (skip 3) 4 → '0 1 2 4'." }
           ]
         },
         "coding": [
-          { "title": "Index Check", "objective": "nums = [5, 10, 15, 20]. What is nums[3]?", "starterCode": "nums = [5, 10, 15, 20]\nprint(nums[3])\n# Output: ___", "answer": "20", "hint": "Index 0=5, 1=10, 2=15, 3=20." },
-          { "title": "Length", "objective": "heroes = ['Neo', 'Trinity']. What does len(heroes) return?", "starterCode": "heroes = ['Neo', 'Trinity']\nprint(len(heroes))\n# Output: ___", "answer": "2", "hint": "There are 2 items in the list." },
-          { "title": "After Append", "objective": "x = [1,2]. x.append(3). What is x now? Type the list.", "starterCode": "x = [1, 2]\nx.append(3)\nprint(x)\n# Output: ___", "answer": "[1, 2, 3]", "hint": ".append(3) adds 3 to the end." }
+          { "title": "break exit value", "objective": "for(i=0;i<10;i++){if(i==4)break;print(i);} Last printed?", "starterCode": "for(int i=0;i<10;i++){\n    if(i==4) break;\n    System.out.println(i);\n}\n// Last output: ___", "answer": "3", "hint": "Prints 0,1,2,3. At i=4 → break. Last print: 3." },
+          { "title": "continue skip", "objective": "for(i=1;i<=5;i++){if(i==3)continue;print(i);} What is NOT printed?", "starterCode": "// 1,2,_,4,5 are printed. What's missing?", "answer": "3", "hint": "When i=3, continue skips that print." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nnums = [10, 20, 30]\nprint(nums[3])", "brokenCode": "nums = [10, 20, 30]\nprint(nums[3])", "bugLine": 1, "options": ["Nothing wrong", "IndexError! Last valid index is 2 (not 3)", "nums should use ()", "print is wrong"], "answer": "IndexError! Last valid index is 2 (not 3)", "hint": "3 items → indices 0, 1, 2. Index 3 is out of bounds." },
-          { "type": "mcq", "description": "🚨 Bug:\n\ncolors = ['red' 'blue' 'green']", "brokenCode": "colors = ['red' 'blue' 'green']", "bugLine": 0, "options": ["Missing commas between items", "Use () instead of []", "Quotes are wrong", "Nothing wrong"], "answer": "Missing commas between items", "hint": "List items must be separated by commas: ['red', 'blue', 'green']." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nfor(int i=0;i<5;i++){\n    break;\n    System.out.println(i);\n}", "brokenCode": "break;", "bugLine": 0, "options": ["Nothing wrong","break before println — exits on first iteration, nothing prints. Put break inside a condition.","break needs label","i++ is wrong"], "answer": "break before println — exits on first iteration, nothing prints. Put break inside a condition.", "hint": "Unconditional break at top exits immediately. break should be inside an if condition." }
         ],
         "prediction": [
-          { "code": "x = [1, 2, 3]\nx[0] = 99\nprint(x)", "options": ["[99, 2, 3]", "[1, 2, 3]", "[1, 2, 99]", "Error"], "answer": "[99, 2, 3]", "explanation": "x[0] = 99 replaces the first element. The list becomes [99, 2, 3]." },
-          { "code": "nums = [10, 20, 30]\ntotal = 0\nfor n in nums:\n    total += n\nprint(total)", "options": ["10", "30", "60", "0"], "answer": "60", "explanation": "The loop adds each item: 0+10+20+30 = 60." }
+          { "code": "int s=0;\nfor(int i=1;i<=10;i++){\n    if(i%2==0) continue;\n    s+=i;\n}\nSystem.out.println(s);", "options": ["25","30","55","20"], "answer": "25", "explanation": "Skips even i. Adds odd 1,3,5,7,9 = 25." }
         ]
       }
     },
     {
       "id": "3_boss",
-      "title": "THE INFINITE ENGINE",
-      "subtitle": "BOSS FIGHT — All Level 3",
+      "title": "THE ITERATOR",
+      "subtitle": "BOSS FIGHT — All Level 3 Java",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss3_intro", "title": "⚠️ BOSS — THE INFINITE ENGINE", "emoji": "👾",
-            "analogy": "The Infinite Engine loops forever, spawning arrays of minions. Only your knowledge of loops, break, continue, and lists can shut it down!",
-            "content": "This boss combines for loops, while loops, nested loops, break/continue, and list operations. Don't let it trap you in an infinite loop!",
-            "examples": [{ "title": "Your arsenal", "explanation": "Everything from Level 3.", "code": "✅ for / while loops\n✅ range() & loop counting\n✅ break & continue\n✅ Lists: create, index, update, append\n✅ Looping through lists" }],
-            "funFact": "The world's longest-running program is a web server — it's been in a 'while True' loop since the 1990s! 🌐"
+            "id": "boss_j3", "title": "⚠️ BOSS — THE ITERATOR", "emoji": "👾",
+            "analogy": "The Iterator runs every loop in the JVM simultaneously. Prove you can trace any loop, predict any output, fix any infinite loop.",
+            "content": "Tests ALL Level 3 Java: for anatomy, loop scope, for-each, while vs do-while, break/continue, nested loops, off-by-one errors.",
+            "examples": [{ "title": "Full Loop Arsenal", "explanation": "", "code": "✅ for (init; condition; update)\n✅ for (Type x : arr) — for-each\n✅ while — check first\n✅ do { } while(); — run first, semicolon!\n✅ break — exit loop\n✅ continue — skip iteration\n✅ Nested loops — break exits innermost\n✅ i < arr.length (not <=)" }],
+            "funFact": "Java 8 streams are a functional alternative to loops: list.stream().filter(x->x>5).forEach(System.out::println). But loops are clearer for beginners and faster in most benchmarks! 🌊"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE INFINITE ENGINE", "maxHp": 150 },
+          "enemy": { "name": "THE ITERATOR", "maxHp": 150 },
           "mcq": [
-            { "q": "What is the output?\nfor i in range(3):\n    if i == 1: continue\n    print(i)", "options": ["0 1 2", "0 2", "1 2", "0"], "a": 1, "damage": 30, "topic": "Continue", "explanation": "continue skips i=1. Prints 0, then skips 1, then prints 2." },
-            { "q": "x = [1,2,3]; x.append(4); print(len(x))", "options": ["3", "4", "5", "Error"], "a": 1, "damage": 30, "topic": "List Length", "explanation": "[1,2,3] has 3 items. append(4) adds one → 4 items." },
-            { "q": "What does range(2,5) produce?", "options": ["2,3,4", "2,3,4,5", "0,1,2,3,4", "2,5"], "a": 0, "damage": 30, "topic": "Range Args", "explanation": "range(2,5) starts at 2, stops before 5: 2,3,4." },
-            { "q": "Can you modify an item in a list by its index?", "options": ["No, lists are read-only", "Yes: list[index] = new_value", "Only the last item", "Only strings"], "a": 1, "damage": 30, "topic": "List Update", "explanation": "Lists are mutable. list[index] = value overwrites that position." },
-            { "q": "Nested loop: 4 outer × 5 inner. Total iterations?", "options": ["9", "20", "45", "54"], "a": 1, "damage": 30, "topic": "Nested Count", "explanation": "4 × 5 = 20 total iterations." }
+            { "q": "for(int i=2;i<11;i+=3) — what are the values of i?", "options": ["2 5 8","2 4 6 8 10","2 3 5 8","2 5 8 11"], "a": 0, "damage": 30, "topic": "Step size", "explanation": "Step +3: i=2(run),5(run),8(run),11(fail). Values: 2,5,8." },
+            { "q": "int[] a={10,20,30}. for(int x:a) print(x+1). Output?", "options": ["10 20 30","11 21 31","1 2 3","Error"], "a": 1, "damage": 30, "topic": "for-each transform", "explanation": "x+1 for each element: 11, 21, 31." },
+            { "q": "Which loop guarantees at least one execution?", "options": ["for","while","for-each","do-while"], "a": 3, "damage": 30, "topic": "do-while guarantee", "explanation": "do-while: runs body FIRST, checks after. Even if condition is false initially, runs once." },
+            { "q": "Nested: for(i<3) for(j<4) print(). Total runs?", "options": ["7","12","10","9"], "a": 1, "damage": 30, "topic": "Nested loop total", "explanation": "3 outer × 4 inner = 12 total executions." },
+            { "q": "for(i=0;i<5;i++){if(i%2==0)continue;print(i);} Output?", "options": ["0 2 4","1 3","0 1 2 3 4","1 2 3"], "a": 1, "damage": 30, "topic": "continue with even", "explanation": "Skips even (0,2,4). Prints odd: 1, 3." }
           ]
         },
         "coding": [
-          { "title": "Boss: Sum Loop", "objective": "total=0; for i in range(1,4): total+=i. What is total?", "starterCode": "total = 0\nfor i in range(1,4):\n    total += i\nprint(total)\n# Output: ___", "answer": "6", "hint": "range(1,4) = 1,2,3. Sum = 1+2+3 = 6." }
+          { "title": "Boss: Last multiplication", "objective": "for(i=1;i<=5;i++) print(i*3). Last output?", "starterCode": "for(int i=1;i<=5;i++)\n    System.out.println(i*3);\n// Last output: ___", "answer": "15", "hint": "5×3 = 15." },
+          { "title": "Boss: While sum", "objective": "int s=0,i=1; while(i<=5){s+=i;i++;} s=?", "starterCode": "int s=0,i=1;\nwhile(i<=5){s+=i;i++;}\nSystem.out.println(s);\n// Output: ___", "answer": "15", "hint": "1+2+3+4+5=15." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nnums = [5, 10, 15]\nfor i in range(4):\n    print(nums[i])", "brokenCode": "nums = [5, 10, 15]\nfor i in range(4):\n    print(nums[i])", "bugLine": 1, "options": ["range should be range(3) or range(len(nums)) to avoid IndexError", "print is wrong", "nums is wrong", "Nothing wrong"], "answer": "range should be range(3) or range(len(nums)) to avoid IndexError", "hint": "3 items but range(4) tries index 3 which doesn't exist." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nint[] d={5,10,15,20};\nfor(int i=1;i<=d.length;i++)\n    System.out.println(d[i]);", "brokenCode": "for(int i=1;i<=d.length;i++)", "bugLine": 0, "options": ["Nothing wrong","Two bugs: i=1 skips d[0] AND i<=length causes ArrayIndexOutOfBoundsException. Fix: i=0, i<d.length","d.length → d.size()","println → print"], "answer": "Two bugs: i=1 skips d[0] AND i<=length causes ArrayIndexOutOfBoundsException. Fix: i=0, i<d.length", "hint": "Arrays are 0-indexed. i=0 and i < arr.length — always!" }
         ],
         "prediction": [
-          { "code": "result = []\nfor i in range(3):\n    result.append(i * 2)\nprint(result)", "options": ["[0, 1, 2]", "[0, 2, 4]", "[2, 4, 6]", "[1, 2, 3]"], "answer": "[0, 2, 4]", "explanation": "i=0→0, i=1→2, i=2→4. result = [0, 2, 4]." }
+          { "code": "int n=0;\nfor(int i=1;i<=4;i++)\n    for(int j=1;j<=i;j++)\n        n++;\nSystem.out.println(n);", "options": ["4","10","16","8"], "answer": "10", "explanation": "i=1:1, i=2:2, i=3:3, i=4:4. Total: 1+2+3+4=10." }
         ]
       }
     }

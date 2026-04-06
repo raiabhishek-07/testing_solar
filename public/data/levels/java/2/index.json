@@ -1,285 +1,622 @@
 {
-  "label": "LEVEL 2: DECISIONS (Logical Thinking)",
+  "label": "LEVEL 2: DECISIONS (Java Control Flow)",
   "sublevels": [
     {
       "id": "2_1",
-      "title": "BOOLEANS & CONDITIONS",
-      "subtitle": "True or False — the foundation of logic",
+      "title": "JAVA OPERATORS",
+      "subtitle": "Comparison, logical & arithmetic",
       "icon": "ToggleRight",
       "pipeline": {
         "teaching": [
           {
-            "id": "l2c1",
-            "title": "What is a Condition?",
-            "emoji": "❓",
-            "analogy": "A condition is a yes/no question. 'Is the door open?' — the answer is either True or False. Computers make EVERY decision this way.",
-            "content": "A condition is any expression that evaluates to True or False. Comparison operators (>, <, ==, !=) create conditions. Python uses these to decide what code to run.",
+            "id": "j2c1",
+            "title": "Comparison Operators in Java",
+            "emoji": "⚖️",
+            "analogy": "Comparison operators are judges in a courtroom — they look at two values and deliver a verdict: true or false. Every decision in Java starts with a comparison.",
+            "content": "Java uses the same 6 comparison operators as most languages: == (equals), != (not equals), > (greater), < (less), >= (greater or equal), <= (less or equal). They always return a boolean: true or false.",
             "examples": [
-              { "title": "Conditions in Action", "explanation": "Each line evaluates to True or False.", "code": "print(5 > 3)     # True\nprint(10 < 2)    # False\nprint(5 == 5)    # True\nprint(5 != 5)    # False" }
+              { "title": "All 6 Comparison Operators", "explanation": "Each produces a boolean result.", "code": "int a = 10, b = 5;\nSystem.out.println(a == b);  // false\nSystem.out.println(a != b);  // true\nSystem.out.println(a > b);   // true\nSystem.out.println(a < b);   // false\nSystem.out.println(a >= 10); // true\nSystem.out.println(b <= 4);  // false" },
+              { "title": "== vs .equals() for Strings", "explanation": "CRITICAL: Use .equals() to compare String content in Java!", "code": "// WRONG — compares memory addresses:\nString s1 = \"hello\";\nString s2 = \"hello\";\nSystem.out.println(s1 == s2);      // may print false!\n\n// CORRECT — compares content:\nSystem.out.println(s1.equals(s2)); // always true ✅\nSystem.out.println(s1.equalsIgnoreCase(\"HELLO\")); // true" }
             ],
-            "funFact": "The == operator checks equality. The = operator assigns values. Mixing them up is one of the most common bugs! 🐛"
+            "funFact": "Using == to compare Strings in Java is one of the most classic Java bugs! == checks if two String variables point to the SAME object in memory, not if they have the same text. ALWAYS use .equals()! 🐛"
           },
           {
-            "id": "l2c2",
-            "title": "Comparison Operators",
-            "emoji": "⚖️",
-            "analogy": "Comparison operators are like a judge weighing two things on a scale and announcing the verdict: True or False.",
-            "content": "Python has 6 comparison operators: > (greater), < (less), >= (greater or equal), <= (less or equal), == (equals), != (not equals). They always return True or False.",
+            "id": "j2c2",
+            "title": "Logical Operators — &&, ||, !",
+            "emoji": "🔗",
+            "analogy": "&& is like a guard requiring BOTH passes to enter. || is like a door that opens if EITHER card works. ! is the NOT gate — it flips true to false and vice versa.",
+            "content": "Java has three logical operators: && (AND — both must be true), || (OR — at least one must be true), ! (NOT — flips the boolean). Java uses && and ||, not Python's 'and'/'or'.",
             "examples": [
-              { "title": "All 6 Operators", "explanation": "Each returns a boolean.", "code": "print(10 > 5)    # True\nprint(3 < 1)     # False\nprint(5 >= 5)    # True\nprint(4 <= 3)    # False\nprint(7 == 7)    # True\nprint(8 != 8)    # False" }
+              { "title": "Logical Operators", "explanation": "Combine conditions to make complex decisions.", "code": "int age = 20;\nboolean hasID = true;\n\n// AND: both conditions must be true\nboolean canEnter = (age >= 18) && hasID;  // true\n\n// OR: either condition must be true\nboolean discount = (age < 12) || (age > 65); // false\n\n// NOT: flips the boolean\nboolean isMinor = !(age >= 18);  // false" },
+              { "title": "Short-Circuit Evaluation", "explanation": "Java stops evaluating as soon as the result is determined.", "code": "// With &&: if LEFT is false, RIGHT is SKIPPED\nint x = 0;\nif (x != 0 && (100 / x > 5)) { // safe!\n    System.out.println(\"ok\");\n}\n// x != 0 is false → right side never evaluated → no ÷0 crash!" }
             ],
-            "funFact": "You can even compare strings! 'apple' < 'banana' is True because 'a' comes before 'b' alphabetically. 🍎"
+            "funFact": "Java uses && and || (double symbol) for boolean logic. It also has & and | (single symbol) which are BITWISE operators. Don't mix them up — & evaluates both sides always, && short-circuits! ⚡"
+          },
+          {
+            "id": "j2c3",
+            "title": "Arithmetic & Compound Assignment",
+            "emoji": "➕",
+            "analogy": "Compound assignment operators are shortcuts: instead of 'score = score + 10', you write 'score += 10'. Java also has ++ and -- for incrementing/decrementing by 1 — common in loops.",
+            "content": "Java arithmetic: +, -, *, /, % (modulo). Compound assignment: +=, -=, *=, /=, %=. Increment/decrement: ++ (add 1), -- (subtract 1). Integer division truncates: 7/2 = 3, not 3.5.",
+            "examples": [
+              { "title": "Arithmetic & Compound Ops", "explanation": "Shortcuts for common operations.", "code": "int score = 100;\nscore += 50;   // score = 150\nscore -= 20;   // score = 130\nscore *= 2;    // score = 260\nscore /= 4;    // score = 65 (integer div)\nscore %= 10;   // score = 5  (remainder)\n\n// Increment and decrement:\nint i = 5;\ni++;  // i = 6\ni--;  // i = 5\nSystem.out.println(i); // 5" },
+              { "title": "Integer Division vs Float", "explanation": "Divide by double to get decimal result.", "code": "System.out.println(7 / 2);    // 3   (integer ÷)\nSystem.out.println(7.0 / 2);  // 3.5 (double ÷)\nSystem.out.println(7 % 2);    // 1   (remainder)" }
+            ],
+            "funFact": "The % operator (modulo) gives the REMAINDER. 7 % 3 = 1 because 7 = 2×3 + 1. Modulo is used everywhere: even/odd check (n%2==0), clock math, cycling through items! 🔢"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE JUDGE", "maxHp": 100 },
+          "enemy": { "name": "THE LOGIC GATE", "maxHp": 100 },
           "mcq": [
-            { "q": "What does 10 > 5 evaluate to?", "options": ["10", "5", "True", "False"], "a": 2, "damage": 20, "topic": "Conditions", "explanation": "10 is greater than 5, so the expression is True." },
-            { "q": "What does 3 == '3' evaluate to in Python?", "options": ["True", "False", "3", "Error"], "a": 1, "damage": 20, "topic": "Type Comparison", "explanation": "3 (int) and '3' (str) are different types, so == returns False." },
-            { "q": "Which operator means 'not equal to'?", "options": ["=!", "<>", "!=", "=/="], "a": 2, "damage": 20, "topic": "Operators", "explanation": "!= is the 'not equal to' operator. It returns True if values are different." },
-            { "q": "What does 5 >= 5 return?", "options": ["True", "False", "5", "Error"], "a": 0, "damage": 20, "topic": "Operators", "explanation": "5 is equal to 5, and >= means 'greater than OR equal'. So it's True." },
-            { "q": "What is the difference between = and ==?", "options": ["No difference", "= assigns a value, == checks equality", "= checks equality, == assigns", "Both check equality"], "a": 1, "damage": 20, "topic": "Assignment vs Comparison", "explanation": "= is assignment (store a value). == is comparison (check if equal)." }
+            {
+              "q": "How should you compare two String values in Java?",
+              "options": ["s1 == s2", "s1 = s2", "s1.equals(s2)", "s1.compare(s2)"],
+              "a": 2, "damage": 20, "topic": "String comparison",
+              "explanation": "String Equality: Use .equals() for String content comparison. == compares object references (memory addresses), not content. s1.equals(s2) is ALWAYS correct for comparing String text."
+            },
+            {
+              "q": "What is the Java logical AND operator?",
+              "options": ["and", "AND", "&", "&&"],
+              "a": 3, "damage": 20, "topic": "Logical AND",
+              "explanation": "Java AND: Java uses && (double ampersand) for logical AND. Python uses the word 'and'. && short-circuits — if the left side is false, the right side is never evaluated."
+            },
+            {
+              "q": "What does 10 % 3 evaluate to in Java?",
+              "options": ["3", "1", "0", "3.33"],
+              "a": 1, "damage": 20, "topic": "Modulo",
+              "explanation": "Modulo: % gives the remainder. 10 ÷ 3 = 3 remainder 1. So 10 % 3 = 1. Modulo is used to check even/odd (n % 2 == 0 means even)."
+            },
+            {
+              "q": "What does 7 / 2 evaluate to in Java (both ints)?",
+              "options": ["3.5", "3", "4", "3.0"],
+              "a": 1, "damage": 20, "topic": "Integer division",
+              "explanation": "Int Division: When both operands are int, Java performs integer division — the decimal is TRUNCATED. 7/2 = 3 (not 3.5). To get 3.5, use 7.0/2 or (double)7/2."
+            },
+            {
+              "q": "What does !(5 > 3) evaluate to?",
+              "options": ["true", "false", "5", "Error"],
+              "a": 1, "damage": 20, "topic": "NOT operator",
+              "explanation": "NOT Operator: 5 > 3 is true. !(true) = false. The ! operator flips/negates the boolean. !(false) = true."
+            }
           ]
         },
         "coding": [
-          { "title": "True or False?", "objective": "What does 7 > 10 evaluate to? Type True or False.", "starterCode": "print(7 > 10)\n# Output: ___", "answer": "False", "hint": "7 is NOT greater than 10." },
-          { "title": "Equality Check", "objective": "What does 'hello' == 'hello' evaluate to?", "starterCode": "print('hello' == 'hello')\n# Output: ___", "answer": "True", "hint": "Both strings are exactly the same." },
-          { "title": "Not Equal", "objective": "What operator checks if two values are NOT the same? Type the operator.", "starterCode": "# x ___ y  → True if x is not equal to y", "answer": "!=", "hint": "It's an exclamation mark followed by equals." }
+          {
+            "title": "String Comparison",
+            "objective": "What method compares String content in Java?",
+            "starterCode": "String x = \"hello\";\nboolean same = x.___(\"hello\");\nSystem.out.println(same); // true",
+            "answer": "equals",
+            "hint": "Not ==. It's a method that returns true if both strings have the same characters."
+          },
+          {
+            "title": "Modulo",
+            "objective": "What does 15 % 4 return?",
+            "starterCode": "System.out.println(15 % 4);\n// Output: ___",
+            "answer": "3",
+            "hint": "15 = 3×4 + 3. Remainder is 3."
+          },
+          {
+            "title": "Compound Assignment",
+            "objective": "After 'int x = 10; x += 5; x *= 2;' what is x?",
+            "starterCode": "int x = 10;\nx += 5;  // x = ?\nx *= 2;  // x = ?\nSystem.out.println(x);\n// Output: ___",
+            "answer": "30",
+            "hint": "10 + 5 = 15, then 15 × 2 = 30."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif score = 100:\n    print('Perfect!')", "brokenCode": "if score = 100:\n    print('Perfect!')", "bugLine": 0, "options": ["Nothing wrong", "Use == for comparison, not = (assignment)", "Remove the colon", "Put score in quotes"], "answer": "Use == for comparison, not = (assignment)", "hint": "= assigns. == compares. In an if statement, you need ==." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nprint(5 = 5)", "brokenCode": "print(5 = 5)", "bugLine": 0, "options": ["Use == for comparison: print(5 == 5)", "Use >= instead", "Nothing wrong", "Remove the print"], "answer": "Use == for comparison: print(5 == 5)", "hint": "= is assignment. To check equality, use ==." }
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nString name = \"Alex\";\nif (name == \"Alex\") {\n    System.out.println(\"Found!\");\n}",
+            "brokenCode": "if (name == \"Alex\")",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Should use .equals(): if (name.equals(\"Alex\")) — == compares references not content",
+              "String needs single quotes",
+              "if needs a semicolon"
+            ],
+            "answer": "Should use .equals(): if (name.equals(\"Alex\")) — == compares references not content",
+            "hint": "== on Strings compares memory addresses, not text content. Always use .equals() for String comparison."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nint a = 5, b = 3;\nif (a > 3 and b < 10) {\n    System.out.println(\"both true\");\n}",
+            "brokenCode": "if (a > 3 and b < 10)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Java uses && not 'and': if (a > 3 && b < 10)",
+              "Conditions need parentheses",
+              "int a, b can't be on same line"
+            ],
+            "answer": "Java uses && not 'and': if (a > 3 && b < 10)",
+            "hint": "'and' is Python syntax. Java's logical AND is && (double ampersand)."
+          }
         ],
         "prediction": [
-          { "code": "x = 10\ny = 20\nprint(x > y)\nprint(x < y)", "options": ["True True", "False True", "True False", "False False"], "answer": "False True", "explanation": "10 > 20 is False. 10 < 20 is True." },
-          { "code": "a = 5\nb = 5\nprint(a == b)\nprint(a != b)", "options": ["True True", "True False", "False True", "False False"], "answer": "True False", "explanation": "5 == 5 is True. 5 != 5 is False (they ARE equal)." }
+          {
+            "code": "int x = 8;\nSystem.out.println(x % 3);\nSystem.out.println(x / 3);",
+            "options": ["2 and 2", "2 and 3", "3 and 2", "Error"],
+            "answer": "2 and 2",
+            "explanation": "8 % 3 = remainder of 8÷3 = 2. 8 / 3 = 2 (integer division, truncated). Both print 2."
+          },
+          {
+            "code": "boolean a = true, b = false;\nSystem.out.println(a && b);\nSystem.out.println(a || b);\nSystem.out.println(!a);",
+            "options": ["true false false", "false true false", "true true false", "false false true"],
+            "answer": "false true false",
+            "explanation": "true && false = false. true || false = true. !true = false."
+          }
         ]
       }
     },
     {
       "id": "2_2",
-      "title": "IF STATEMENTS",
-      "subtitle": "Making decisions in code",
+      "title": "IF / ELSE",
+      "subtitle": "Branching decisions in Java",
       "icon": "GitBranch",
       "pipeline": {
         "teaching": [
           {
-            "id": "l2c3",
-            "title": "The if Statement",
-            "emoji": "🚦",
-            "analogy": "An if statement is like a traffic light. If the light is green (True), you GO (run the code). If red (False), you STOP (skip it).",
-            "content": "The if statement checks a condition. If it's True, the indented code below runs. If False, Python skips it entirely. The colon (:) and indentation (4 spaces) are required!",
-            "examples": [
-              { "title": "Basic if", "explanation": "The indented line only runs if the condition is True.", "code": "age = 15\nif age >= 13:\n    print('Welcome, teen!')\n# Output: Welcome, teen!" }
-            ],
-            "funFact": "Python uses INDENTATION (spaces) to define code blocks. Most other languages use curly braces {}. Python's way is cleaner! ✨"
-          },
-          {
-            "id": "l2c4",
-            "title": "if-else — Two Paths",
+            "id": "j2c4",
+            "title": "if / else if / else",
             "emoji": "🔀",
-            "analogy": "if-else is a fork in the road. If the condition is True, go LEFT. If False, go RIGHT. You ALWAYS take one path — never both, never neither.",
-            "content": "else provides an alternative path when the if condition is False. Exactly ONE of the two blocks will always execute — guaranteed.",
+            "analogy": "if/else is like a traffic roundabout with multiple exits. You check the first condition — does it apply? Take that exit. If not, check the next. The final 'else' is the default exit if nothing else matches.",
+            "content": "Java if/else uses curly braces {} for blocks. The condition goes in parentheses. else if allows multiple conditions. else is the fallback. Important: Java uses boolean conditions, not truthy/falsy like Python.",
             "examples": [
-              { "title": "if-else Fork", "explanation": "One block ALWAYS runs. Never both, never neither.", "code": "score = 40\nif score >= 50:\n    print('PASS')\nelse:\n    print('FAIL')\n# Output: FAIL" }
+              { "title": "Full if/else if/else", "explanation": "Check grade and print the correct letter.", "code": "int score = 75;\n\nif (score >= 90) {\n    System.out.println(\"A\");\n} else if (score >= 80) {\n    System.out.println(\"B\");\n} else if (score >= 70) {\n    System.out.println(\"C\");\n} else {\n    System.out.println(\"F\");\n}\n// Output: C" },
+              { "title": "Python vs Java if", "explanation": "Key structural differences.", "code": "# Python:\nif score >= 90:\n    print('A')\nelif score >= 80:\n    print('B')\nelse:\n    print('F')\n\n// Java:\nif (score >= 90) {\n    System.out.println(\"A\");\n} else if (score >= 80) {  // elif → else if\n    System.out.println(\"B\");\n} else {\n    System.out.println(\"F\");\n}" }
             ],
-            "funFact": "You can chain conditions with elif (else if) for multiple paths: if → elif → elif → else! 🔗"
+            "funFact": "Java requires parentheses around the condition: if (x > 5) not if x > 5. Python does the opposite — no parentheses needed, but a colon is mandatory. Both require the colon/braces to open the block! 🔑"
           },
           {
-            "id": "l2c5",
-            "title": "elif — Multiple Paths",
-            "emoji": "🗺️",
-            "analogy": "elif is like a restaurant menu with multiple options. Python checks each one from top to bottom and picks the FIRST True match.",
-            "content": "elif (else if) lets you check multiple conditions in order. Python tries each from top to bottom and runs the FIRST one that's True. If none are True, else runs.",
+            "id": "j2c5",
+            "title": "Nested if & Single-line if",
+            "emoji": "🪆",
+            "analogy": "Nested ifs are like Russian dolls — an if inside another if. Only if the outer condition passes do you even check the inner one. It's efficient: no point checking 'is the user an admin?' if they're not even logged in!",
+            "content": "You can put if statements inside other if blocks (nesting). For single-statement blocks, you can skip curly braces — but this is risky and not recommended. Always use {} for clarity.",
             "examples": [
-              { "title": "Grade Calculator", "explanation": "Python checks top-down, picks first True match.", "code": "marks = 75\nif marks >= 90:\n    print('A')\nelif marks >= 70:\n    print('B')\nelif marks >= 50:\n    print('C')\nelse:\n    print('F')\n# Output: B" }
+              { "title": "Nested if", "explanation": "Inner if only runs if outer if is true.", "code": "int age = 20;\nboolean hasTicket = true;\n\nif (age >= 18) {\n    if (hasTicket) {\n        System.out.println(\"Welcome!\");\n    } else {\n        System.out.println(\"Buy a ticket first\");\n    }\n} else {\n    System.out.println(\"Too young\");\n}" },
+              { "title": "Single-line if (no braces)", "explanation": "Works but {} is always safer.", "code": "int x = 5;\n// Works — single statement, no braces:\nif (x > 3) System.out.println(\"big\");\n\n// DANGER — misleading without braces:\nif (x > 3)\n    System.out.println(\"big\");\n    System.out.println(\"always runs!\"); // NOT in the if!" }
             ],
-            "funFact": "You can have as many elif blocks as you want, but only ONE if and ONE else per chain! 📏"
+            "funFact": "In 2014, Apple's SSL/TLS bug (known as 'goto fail') was caused by a missing curly brace in a C if statement — leaving billions of iOS devices vulnerable to man-in-the-middle attacks. ALWAYS use {}! 🔐"
           }
         ],
         "battle": {
-          "enemy": { "name": "FORK DEMON", "maxHp": 100 },
+          "enemy": { "name": "THE BRANCH TITAN", "maxHp": 100 },
           "mcq": [
-            { "q": "What character MUST come at the end of an if line?", "options": ["Semicolon ;", "Period .", "Colon :", "Arrow ->"], "a": 2, "damage": 20, "topic": "if Syntax", "explanation": "Every if, elif, and else line must end with a colon (:)." },
-            { "q": "How does Python know which code belongs to an if block?", "options": ["Curly braces {}", "Parentheses ()", "Indentation (4 spaces)", "Semicolons"], "a": 2, "damage": 20, "topic": "Indentation", "explanation": "Python uses indentation (4 spaces or 1 tab) to define code blocks." },
-            { "q": "In if-else, how many blocks run?", "options": ["Both always", "Neither", "Exactly one", "It depends"], "a": 2, "damage": 20, "topic": "if-else", "explanation": "Exactly one block runs — either the if block (True) or the else block (False)." },
-            { "q": "What does elif stand for?", "options": ["Else lift", "Else if", "Element if", "Electric if"], "a": 1, "damage": 20, "topic": "elif", "explanation": "elif = else if. It provides additional conditions to check." },
-            { "q": "In if→elif→else, Python picks the ___ True match.", "options": ["Last", "Random", "First", "Biggest"], "a": 2, "damage": 20, "topic": "elif Order", "explanation": "Python checks from top to bottom and runs the FIRST True condition." }
+            {
+              "q": "What is Java's equivalent of Python's 'elif'?",
+              "options": ["elseif", "elif", "else if", "or if"],
+              "a": 2, "damage": 20, "topic": "else if",
+              "explanation": "Java elif: Java uses 'else if' (two words with a space). Python uses 'elif'. Both mean the same thing — check this condition only if all previous conditions were false."
+            },
+            {
+              "q": "In Java, what wraps the if condition?",
+              "options": ["Square brackets []", "Curly braces {}", "Parentheses ()", "Nothing"],
+              "a": 2, "damage": 20, "topic": "Syntax",
+              "explanation": "If Syntax: Java if condition must be in parentheses: if (condition). The code block goes in curly braces {}. Python uses no parentheses but requires a colon."
+            },
+            {
+              "q": "What does the 'else' block do?",
+              "options": ["Runs when all conditions are true", "Runs when NO previous condition was true", "Always runs", "Skips everything"],
+              "a": 1, "damage": 20, "topic": "else",
+              "explanation": "Else: The else block is the fallback — it runs only when NO previous if or else if condition was true. It's optional; if omitted, nothing runs when all conditions fail."
+            },
+            {
+              "q": "int x = 5; if (x > 3) System.out.println(\"A\"); System.out.println(\"B\"); What prints?",
+              "options": ["A only", "B only", "A and B", "Nothing"],
+              "a": 2, "damage": 20, "topic": "No braces trap",
+              "explanation": "Brace Trap: Without {}, only the NEXT single statement is inside the if. 'B' is always printed regardless of the condition — it's outside the if block. 5 > 3, so A prints. B always prints."
+            },
+            {
+              "q": "What value does an if condition evaluate to?",
+              "options": ["int", "String", "boolean — true or false", "Any type"],
+              "a": 2, "damage": 20, "topic": "Boolean condition",
+              "explanation": "Boolean Only: Unlike Python where any truthy value works, Java if conditions must evaluate to boolean (true/false). if (5) would be a compile error in Java — not like C where 0 is false!"
+            }
           ]
         },
         "coding": [
-          { "title": "Write an if", "objective": "What keyword starts a decision in Python? Type the keyword.", "starterCode": "___ score >= 50:\n    print('PASS')", "answer": "if", "hint": "It's a 2-letter word that means 'in case of'." },
-          { "title": "What Prints?", "objective": "x = 3. if x > 5: print('big'). else: print('small'). What prints?", "starterCode": "x = 3\nif x > 5:\n    print('big')\nelse:\n    print('small')\n# Output: ___", "answer": "small", "hint": "3 > 5 is False, so else runs." },
-          { "title": "Grade Logic", "objective": "marks = 85. After if >=90: 'A', elif >=70: 'B', elif >=50: 'C', else: 'F'. What grade?", "starterCode": "marks = 85\n# Output: ___", "answer": "B", "hint": "85 >= 90? No. 85 >= 70? Yes! B is the first True match." }
+          {
+            "title": "Java else if",
+            "objective": "What two keywords form Java's 'elif' equivalent?",
+            "starterCode": "if (x > 90) {\n    System.out.println(\"A\");\n} ___ ___ (x > 80) {\n    System.out.println(\"B\");\n}",
+            "answer": "else if",
+            "hint": "Two words — Java's version of Python's 'elif'."
+          },
+          {
+            "title": "Condition in Parens",
+            "objective": "Complete the if statement to check if score > 50.",
+            "starterCode": "if ___ {\n    System.out.println(\"Pass\");\n}",
+            "answer": "(score > 50)",
+            "hint": "Condition goes in parentheses in Java."
+          },
+          {
+            "title": "Grade Check",
+            "objective": "int grade = 85. What does this print? if (grade>=90) 'A'; else if (grade>=80) 'B'; else 'C'",
+            "starterCode": "int grade = 85;\n// if>=90→A, else if>=80→B, else→C\n// Output: ___",
+            "answer": "B",
+            "hint": "85 is not >= 90, but IS >= 80. Second condition matches → B."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif x > 5\n    print('big')", "brokenCode": "if x > 5\n    print('big')", "bugLine": 0, "options": ["Missing colon (:) at the end of the if line", "x needs quotes", "print should be Print", "Nothing wrong"], "answer": "Missing colon (:) at the end of the if line", "hint": "Every if statement must end with a colon: if x > 5:" },
-          { "type": "mcq", "description": "🚨 Bug:\n\nif age >= 18:\nprint('Adult')", "brokenCode": "if age >= 18:\nprint('Adult')", "bugLine": 1, "options": ["Missing indentation — print must be 4 spaces inside the if block", "Colon is wrong", "print needs uppercase P", "Nothing wrong"], "answer": "Missing indentation — print must be 4 spaces inside the if block", "hint": "Code inside an if block MUST be indented (4 spaces)." }
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nint score = 75;\nif score > 50 {\n    System.out.println(\"Pass\");\n}",
+            "brokenCode": "if score > 50 {",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Missing parentheses around condition: if (score > 50) {",
+              "score > 50 should use ==",
+              "Curly brace not needed"
+            ],
+            "answer": "Missing parentheses around condition: if (score > 50) {",
+            "hint": "Java requires parentheses around the if condition: if (condition) { ... }"
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nboolean isRaining = true;\nif (isRaining = true) {\n    System.out.println(\"Take umbrella\");\n}",
+            "brokenCode": "if (isRaining = true)",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "= assigns (changes isRaining). Should be == or just: if (isRaining)",
+              "isRaining can't be in if",
+              "true needs quotes"
+            ],
+            "answer": "= assigns (changes isRaining). Should be == or just: if (isRaining)",
+            "hint": "= is assignment, == is comparison. But simplest fix: if (isRaining) — the boolean is already true/false."
+          }
         ],
         "prediction": [
-          { "code": "x = 10\nif x > 100:\n    print('A')\nelif x > 5:\n    print('B')\nelse:\n    print('C')", "options": ["A", "B", "C", "Error"], "answer": "B", "explanation": "x=10. 10>100? No. 10>5? Yes! 'B' is printed. Even though else exists, Python already found a match." },
-          { "code": "score = 50\nif score >= 50:\n    print('Pass')\nif score >= 50:\n    print('Again')", "options": ["Pass", "Again", "Pass and Again", "Error"], "answer": "Pass and Again", "explanation": "These are TWO separate if statements (not if-elif). Both conditions are True, so BOTH print." }
+          {
+            "code": "int x = 15;\nif (x > 20) {\n    System.out.println(\"big\");\n} else if (x > 10) {\n    System.out.println(\"medium\");\n} else {\n    System.out.println(\"small\");\n}",
+            "options": ["big", "medium", "small", "big medium"],
+            "answer": "medium",
+            "explanation": "x=15. 15>20 is false. 15>10 is true → prints 'medium'. Once a condition matches, rest are skipped."
+          },
+          {
+            "code": "int a = 5, b = 10;\nif (a > 3 && b > 8) {\n    System.out.println(\"both\");\n} else {\n    System.out.println(\"not both\");\n}",
+            "options": ["both", "not both", "true", "Error"],
+            "answer": "both",
+            "explanation": "a > 3 = true. b > 8 = true. true && true = true → if block runs → 'both' printed."
+          }
         ]
       }
     },
     {
       "id": "2_3",
-      "title": "LOGICAL OPERATORS",
-      "subtitle": "AND, OR, NOT — combining conditions",
-      "icon": "Combine",
+      "title": "SWITCH & TERNARY",
+      "subtitle": "Multi-case branching & one-liners",
+      "icon": "List",
       "pipeline": {
         "teaching": [
           {
-            "id": "l2c6",
-            "title": "AND — Both Must Be True",
-            "emoji": "🤝",
-            "analogy": "AND is like a team challenge: BOTH conditions must be True to win. If even one is False, the whole thing is False.",
-            "content": "The 'and' operator combines two conditions. The result is True ONLY if BOTH sides are True. If either side is False, the whole expression is False.",
+            "id": "j2c6",
+            "title": "switch Statement",
+            "emoji": "🔀",
+            "analogy": "switch is like a physical switchboard with multiple channels. You dial to a specific channel (case) and it plays exactly that — unless you tell it to stop (break). Without break, it 'falls through' to the next channel automatically!",
+            "content": "switch evaluates an expression and jumps to the matching case. Without break, it falls through to the next case. default is the catch-all when no case matches. Java switch works with int, char, String, and enums.",
             "examples": [
-              { "title": "AND Gate", "explanation": "Both sides must be True.", "code": "age = 15\nhas_ticket = True\nif age >= 13 and has_ticket:\n    print('Enter the movie!')\n# Both are True → prints!" }
+              { "title": "Switch with break", "explanation": "break stops execution after each case.", "code": "int day = 3;\nswitch (day) {\n    case 1:\n        System.out.println(\"Monday\"); break;\n    case 2:\n        System.out.println(\"Tuesday\"); break;\n    case 3:\n        System.out.println(\"Wednesday\"); break;\n    default:\n        System.out.println(\"Other day\");\n}\n// Output: Wednesday" },
+              { "title": "Fall-Through & String switch", "explanation": "Without break, execution falls through to next case.", "code": "// Fall-through example:\nint x = 1;\nswitch (x) {\n    case 1: System.out.println(\"One\");\n    case 2: System.out.println(\"Two\"); break;\n    case 3: System.out.println(\"Three\");\n}\n// Output: One↵Two (falls through case 2!)\n\n// Java switch also works with Strings:\nString lang = \"Java\";\nswitch (lang) {\n    case \"Java\": System.out.println(\"JVM\"); break;\n    case \"Python\": System.out.println(\"CPython\"); break;\n}" }
             ],
-            "funFact": "In circuit logic, AND gates need BOTH inputs ON to produce output. Same idea! ⚡"
+            "funFact": "Java 14 introduced the modern 'switch expression' with -> arrows and no fall-through: case 1 -> \"Monday\"; No break needed! Major companies are migrating to this cleaner syntax. 🚀"
           },
           {
-            "id": "l2c7",
-            "title": "OR — At Least One True",
-            "emoji": "🔓",
-            "analogy": "OR is like having two keys to the same door. If EITHER key works, the door opens. Only fails if NEITHER works.",
-            "content": "The 'or' operator returns True if AT LEAST one condition is True. It only returns False when BOTH sides are False.",
+            "id": "j2c7",
+            "title": "Ternary Operator ? :",
+            "emoji": "🎯",
+            "analogy": "The ternary operator is a shorthand if/else that fits on one line. It's like asking a question and getting an answer in one breath: 'Is it raining? Yes: take umbrella. No: leave it.'",
+            "content": "Syntax: condition ? valueIfTrue : valueIfFalse. It's an EXPRESSION that returns a value — unlike if/else which is a statement. Use it for simple, readable one-liners.",
             "examples": [
-              { "title": "OR Gate", "explanation": "Just need one True.", "code": "is_admin = False\nis_owner = True\nif is_admin or is_owner:\n    print('Access granted!')\n# One is True → prints!" }
+              { "title": "Ternary in Action", "explanation": "Condition ? trueResult : falseResult", "code": "int age = 20;\nString status = (age >= 18) ? \"adult\" : \"minor\";\nSystem.out.println(status); // adult\n\n// Without ternary (4 lines → 1 line):\nint a = 5, b = 8;\nint max = (a > b) ? a : b;\nSystem.out.println(max); // 8\n\n// Ternary in println:\nint score = 75;\nSystem.out.println(score >= 60 ? \"Pass\" : \"Fail\"); // Pass" },
+              { "title": "When NOT to use ternary", "explanation": "Keep it simple — don't nest ternaries!", "code": "// READABLE: simple condition\nString msg = (x > 0) ? \"positive\" : \"non-positive\";\n\n// CONFUSING: nested ternary (avoid!)\nString g = (s>=90) ? \"A\" : (s>=80) ? \"B\" : \"C\"; // hard to read\n\n// BETTER: use if/else for complex logic" }
             ],
-            "funFact": "Python uses short-circuit evaluation: if the first condition of 'or' is True, it doesn't even check the second! 🏎️"
-          },
-          {
-            "id": "l2c8",
-            "title": "NOT — Flip the Boolean",
-            "emoji": "🔄",
-            "analogy": "NOT is like a mirror: it flips the truth. True becomes False. False becomes True. It reverses any boolean.",
-            "content": "The 'not' operator flips a boolean value. not True → False. not False → True. Use it to check 'if something is NOT the case'.",
-            "examples": [
-              { "title": "NOT — The Flip", "explanation": "not reverses the boolean.", "code": "is_blocked = False\nif not is_blocked:\n    print('You may pass!')\n# not False = True → prints!" }
-            ],
-            "funFact": "Double negation: not not True = True. It cancels out, like multiplying by -1 twice! 🔁"
+            "funFact": "The ternary operator gets its name from having THREE operands (condition, true-value, false-value). Most operators are binary (two operands like a + b). It's the only ternary operator in Java! 🔢"
           }
         ],
         "battle": {
-          "enemy": { "name": "LOGIC GOLEM", "maxHp": 100 },
+          "enemy": { "name": "THE SWITCH MASTER", "maxHp": 100 },
           "mcq": [
-            { "q": "True and False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "AND", "explanation": "AND requires BOTH to be True. Since one is False, result is False." },
-            { "q": "True or False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 0, "damage": 20, "topic": "OR", "explanation": "OR only needs ONE True. Since one is True, result is True." },
-            { "q": "not True evaluates to?", "options": ["True", "False", "not", "Error"], "a": 1, "damage": 20, "topic": "NOT", "explanation": "not flips the boolean: not True = False." },
-            { "q": "False and False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "AND", "explanation": "AND needs both True. Both are False → result is False." },
-            { "q": "False or False evaluates to?", "options": ["True", "False", "Error", "None"], "a": 1, "damage": 20, "topic": "OR", "explanation": "OR needs at least one True. Both are False → result is False." }
+            {
+              "q": "What happens without 'break' in a switch case?",
+              "options": ["It ends normally", "It falls through to the next case", "Compile error", "Jumps to default"],
+              "a": 1, "damage": 20, "topic": "Fall-through",
+              "explanation": "Fall-Through: Without break, Java 'falls through' — it keeps executing every case below the matched one. This is a common bug source but sometimes intentional to group cases."
+            },
+            {
+              "q": "What is the switch case used when NO case matches?",
+              "options": ["else", "otherwise", "default", "catch"],
+              "a": 2, "damage": 20, "topic": "default",
+              "explanation": "Default Case: 'default' in switch is like 'else' in if/else — it runs when no case matches. It's optional but recommended to handle unexpected values."
+            },
+            {
+              "q": "What does (x > 5) ? 'yes' : 'no' evaluate to when x = 3?",
+              "options": ["yes", "no", "true", "Error"],
+              "a": 1, "damage": 20, "topic": "Ternary",
+              "explanation": "Ternary: x=3. 3 > 5 is false → the FALSE side is returned: 'no'. Ternary: condition ? trueValue : falseValue."
+            },
+            {
+              "q": "Can Java switch work with String values?",
+              "options": ["No, only int", "No, only char", "Yes, since Java 7", "Only with == comparison"],
+              "a": 2, "damage": 20, "topic": "Switch with String",
+              "explanation": "String switch: Since Java 7, switch supports String values. It uses .equals() internally for comparison — so it correctly matches String content, not references."
+            },
+            {
+              "q": "int m = (8 > 5) ? 8 : 5; What is m?",
+              "options": ["5", "8", "true", "Error"],
+              "a": 1, "damage": 20, "topic": "Ternary value",
+              "explanation": "Ternary: 8 > 5 is true → the TRUE value is returned: 8. m = 8."
+            }
           ]
         },
         "coding": [
-          { "title": "AND Truth", "objective": "What does True and True evaluate to?", "starterCode": "print(True and True)\n# Output: ___", "answer": "True", "hint": "AND: Both True → True." },
-          { "title": "OR Truth", "objective": "What does False or True evaluate to?", "starterCode": "print(False or True)\n# Output: ___", "answer": "True", "hint": "OR: At least one True → True." },
-          { "title": "NOT Flip", "objective": "What does not False evaluate to?", "starterCode": "print(not False)\n# Output: ___", "answer": "True", "hint": "not flips False to True." }
+          {
+            "title": "Switch keyword",
+            "objective": "What keyword starts a Java multi-case branch statement?",
+            "starterCode": "___ (day) {\n    case 1: System.out.println(\"Mon\"); break;\n    default: System.out.println(\"Other\");\n}",
+            "answer": "switch",
+            "hint": "6 letters — the keyword for multi-case branching."
+          },
+          {
+            "title": "Ternary Expression",
+            "objective": "int score = 80. What does (score >= 60) ? 'Pass' : 'Fail' return?",
+            "starterCode": "int score = 80;\nString result = (score >= 60) ? \"Pass\" : \"Fail\";\nSystem.out.println(result);\n// Output: ___",
+            "answer": "Pass",
+            "hint": "80 >= 60 is true → true side returned."
+          },
+          {
+            "title": "Max of Two",
+            "objective": "Use ternary to find max. int a=4, b=9. (a>b)?a:b = ?",
+            "starterCode": "int a = 4, b = 9;\nint max = (a > b) ? a : b;\nSystem.out.println(max);\n// Output: ___",
+            "answer": "9",
+            "hint": "4 > 9 is false → b (9) is returned."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif age > 18 AND has_id:", "brokenCode": "if age > 18 AND has_id:\n    print('OK')", "bugLine": 0, "options": ["Python uses lowercase 'and', not 'AND'", "Missing parentheses", "Colon is wrong", "Nothing wrong"], "answer": "Python uses lowercase 'and', not 'AND'", "hint": "Python logical operators are all lowercase: and, or, not." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nif NOT is_blocked:", "brokenCode": "if NOT is_blocked:\n    print('Pass')", "bugLine": 0, "options": ["Nothing wrong", "'NOT' must be lowercase 'not'", "Missing parentheses", "is_blocked needs quotes"], "answer": "'NOT' must be lowercase 'not'", "hint": "Python keywords are all lowercase. not, not NOT." }
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — missing break:\n\nint x = 1;\nswitch (x) {\n    case 1: System.out.println(\"One\");\n    case 2: System.out.println(\"Two\");\n    case 3: System.out.println(\"Three\");\n}",
+            "brokenCode": "case 1: System.out.println(\"One\");",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Missing break after each case — all three will print due to fall-through",
+              "switch needs parentheses fixed",
+              "case 1 should be case '1'"
+            ],
+            "answer": "Missing break after each case — all three will print due to fall-through",
+            "hint": "Without break, switch falls through and executes ALL cases from the match down. Add break; after each case body."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug — invalid ternary:\n\nint x = 5;\n(x > 3) ? System.out.println(\"big\") : System.out.println(\"small\");",
+            "brokenCode": "(x > 3) ? System.out.println(\"big\") : System.out.println(\"small\");",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Ternary returns a VALUE — wrap in System.out.println(): System.out.println(x > 3 ? \"big\" : \"small\");",
+              "x > 3 needs parentheses",
+              "?: should be ?:"
+            ],
+            "answer": "Ternary returns a VALUE — wrap in System.out.println(): System.out.println(x > 3 ? \"big\" : \"small\");",
+            "hint": "Ternary is an expression (produces a value), not a statement. void methods like println() can't be used as ternary values."
+          }
         ],
         "prediction": [
-          { "code": "x = 10\ny = 3\nprint(x > 5 and y < 5)", "options": ["True", "False", "Error", "None"], "answer": "True", "explanation": "10>5 is True. 3<5 is True. True and True = True." },
-          { "code": "a = True\nb = False\nprint(not a or b)", "options": ["True", "False", "Error", "None"], "answer": "False", "explanation": "not True = False. False or False = False." }
+          {
+            "code": "int x = 2;\nswitch (x) {\n    case 1: System.out.println(\"A\"); break;\n    case 2: System.out.println(\"B\");\n    case 3: System.out.println(\"C\"); break;\n    default: System.out.println(\"D\");\n}",
+            "options": ["B only", "B and C", "B C and D", "Error"],
+            "answer": "B and C",
+            "explanation": "x=2 matches case 2: prints 'B'. No break → falls through to case 3: prints 'C'. Case 3 has break → stops. Output: B↵C."
+          },
+          {
+            "code": "int a = 10;\nString result = (a % 2 == 0) ? \"even\" : \"odd\";\nSystem.out.println(result);",
+            "options": ["even", "odd", "true", "Error"],
+            "answer": "even",
+            "explanation": "10 % 2 = 0. 0 == 0 is true → ternary returns 'even'. Output: even."
+          }
         ]
       }
     },
     {
       "id": "2_4",
-      "title": "REAL-WORLD DECISIONS",
-      "subtitle": "Putting logic into practice",
-      "icon": "Brain",
+      "title": "SCOPE & BLOCKS",
+      "subtitle": "Variable scope in Java",
+      "icon": "Layers",
       "pipeline": {
         "teaching": [
           {
-            "id": "l2c9",
-            "title": "Nested if Statements",
-            "emoji": "🪆",
-            "analogy": "Nested ifs are like Russian dolls — an if inside another if. First you check the outer condition, and only if that's True, you check the inner one.",
-            "content": "You can put an if statement INSIDE another if statement. The inner if only runs when the outer if is True. Each level needs more indentation (4 more spaces).",
+            "id": "j2c8",
+            "title": "Block Scope in Java",
+            "emoji": "📦",
+            "analogy": "In Java, variables live only inside the curly braces {} where they're declared. It's like renting a hotel room — you can use the room's contents while you're checked in, but when you leave {} they're gone. You can't take them into the hallway.",
+            "content": "Java scope is determined by curly braces {}. Variables declared inside an if, loop, or method block only exist within that block. Unlike Python, even if blocks create their own scope for local variables.",
             "examples": [
-              { "title": "Nested Check", "explanation": "Inner check only happens if outer is True.", "code": "age = 20\nhas_ticket = True\nif age >= 18:\n    if has_ticket:\n        print('Enjoy the show!')\n    else:\n        print('Buy a ticket first!')\nelse:\n    print('Too young!')" }
+              { "title": "Block Scope", "explanation": "Variable declared in {} only lives there.", "code": "int x = 10;  // lives in method scope\n\nif (x > 5) {\n    int bonus = 50;  // only lives inside this if block\n    System.out.println(x + bonus);  // 60 ✅\n}\n\n// System.out.println(bonus);  // ❌ COMPILE ERROR!\n// bonus doesn't exist outside the if block" },
+              { "title": "Python vs Java Scope", "explanation": "Python if blocks DON'T create new scope. Java ones DO.", "code": "# Python — if block doesn't create scope:\nif True:\n    msg = 'hello'\nprint(msg)  # works! 'hello' still accessible ✅\n\n// Java — if block CREATES scope:\nif (true) {\n    String msg = \"hello\";\n}\n// System.out.println(msg);  // ERROR! msg is gone ❌" }
             ],
-            "funFact": "Most experienced programmers try to AVOID deep nesting. If you're 4+ levels deep, there's usually a cleaner way! 🧹"
+            "funFact": "Java's strict block scoping is intentional — it prevents 'variable leakage' bugs. Python's more relaxed scoping is convenient but can cause confusion with variables accidentally persisting after loops! 🎯"
           },
           {
-            "id": "l2c10",
-            "title": "Real-World Decision Patterns",
-            "emoji": "🌍",
-            "analogy": "Every app you use is full of if statements: 'If password correct, log in. If battery low, show warning. If message unread, show badge.'",
-            "content": "Decision logic is everywhere: login systems, game logic, notifications, calculators, traffic lights. Learning if/else/elif is learning to think like software.",
+            "id": "j2c9",
+            "title": "Variable Shadowing & Best Practices",
+            "emoji": "🌑",
+            "analogy": "Shadowing is like a child having the same name as their parent in the same family. It causes confusion! In Java, an inner scope variable can shadow an outer scope variable with the same name — the inner one takes over within its block.",
+            "content": "Shadowing occurs when an inner block declares a variable with the same name as an outer block. Java allows it in some contexts but it's confusing. Best practice: use unique, descriptive names. Don't shadow variables intentionally.",
             "examples": [
-              { "title": "Login Check", "explanation": "Real apps use exactly this pattern.", "code": "password = input('Password: ')\nif password == 'secret123':\n    print('Login successful!')\nelse:\n    print('Wrong password!')" }
+              { "title": "Shadowing Example", "explanation": "Inner 'score' shadows outer 'score' within the if block.", "code": "int score = 100;\n\nif (score > 50) {\n    // This int score shadows the outer one:\n    // (Note: Java doesn't allow this in some versions)\n    // Better practice — use a different name:\n    int bonusScore = score + 50;\n    System.out.println(bonusScore);  // 150\n}\n\nSystem.out.println(score);  // 100 (outer unchanged)" }
             ],
-            "funFact": "The average iPhone has over 100 MILLION lines of code, most of which are if-else decisions! 📱"
+            "funFact": "Java 16+ introduced 'pattern matching for instanceof' which uses block-scoped variables automatically: if (obj instanceof String s) { s.length(); } — no casting needed! 🆕"
           }
         ],
         "battle": {
-          "enemy": { "name": "REAL WORLD BOSS", "maxHp": 100 },
+          "enemy": { "name": "THE SCOPE PHANTOM", "maxHp": 100 },
           "mcq": [
-            { "q": "In nested if, the inner if runs when?", "options": ["Always", "Only when the outer if is True", "Only when the outer if is False", "Randomly"], "a": 1, "damage": 25, "topic": "Nested if", "explanation": "Inner if only executes when the outer condition is True." },
-            { "q": "How many extra spaces does a nested if need?", "options": ["0", "2", "4", "8"], "a": 2, "damage": 25, "topic": "Indentation", "explanation": "Each nesting level adds 4 more spaces of indentation." },
-            { "q": "What is the main use of if-else in real apps?", "options": ["Decoration", "Making decisions based on conditions", "Printing text", "Creating variables"], "a": 1, "damage": 25, "topic": "Real-World", "explanation": "if-else is the fundamental decision-making tool in all software." },
-            { "q": "Can you use 'and' inside an if condition?", "options": ["No, that's illegal", "Yes, to combine multiple conditions", "Only in Python 2", "Only with numbers"], "a": 1, "damage": 25, "topic": "Combined Conditions", "explanation": "You can use and, or, not inside any if/elif condition to combine checks." }
+            {
+              "q": "A variable declared inside an if block {} in Java — can you use it outside?",
+              "options": ["Yes, Java allows it", "No — Java {} creates block scope, variable is destroyed after the block", "Only if it's int", "Only with 'static' keyword"],
+              "a": 1, "damage": 25, "topic": "Block scope",
+              "explanation": "Java Block Scope: Every {} creates a new scope. Variables declared inside a block only live within that block. This is different from Python where if blocks don't create new scope."
+            },
+            {
+              "q": "In what key way does Java scope differ from Python scope?",
+              "options": ["No difference", "Java {} blocks create scope for variables; Python if blocks do NOT", "Python has no scope", "Java only allows global variables"],
+              "a": 1, "damage": 25, "topic": "Python vs Java scope",
+              "explanation": "Key Difference: Python if/for blocks don't create variable scope — variables declared inside remain accessible outside. Java {} blocks DO create scope — variables are block-local."
+            },
+            {
+              "q": "Where should you declare a variable you need throughout a whole method?",
+              "options": ["Inside each if block", "At the top of the method (method scope)", "Inside a for loop", "At the class level"],
+              "a": 1, "damage": 25, "topic": "Declare location",
+              "explanation": "Method Scope: Declare variables at the METHOD level (outside any inner block) if you need them throughout. Declare them as close to first use as possible for clarity."
+            },
+            {
+              "q": "int x = 5; if (true) { int x = 10; } — what is the issue?",
+              "options": ["Nothing wrong", "Can't assign 10 to int", "Variable shadowing — same name in inner scope is not allowed in all cases", "true needs to be boolean"],
+              "a": 2, "damage": 25, "topic": "Shadowing",
+              "explanation": "Shadowing: Declaring a variable with the same name in an inner block shadows the outer one. Java may or may not allow this depending on context — but it's always confusing. Use unique names!"
+            }
           ]
         },
         "coding": [
-          { "title": "Nested Logic", "objective": "In this code, what prints?\nage=20, has_ticket=False\nif age>=18: if has_ticket: 'Enjoy' else: 'Buy ticket' else: 'Too young'", "starterCode": "# age=20, has_ticket=False\n# Output: ___", "answer": "Buy ticket", "hint": "20>=18 is True (enter outer). has_ticket is False (else inner)." },
-          { "title": "Password Check", "objective": "User types 'abc'. Password is 'secret'. What prints?\nif password == 'secret': 'Login!' else: 'Wrong!'", "starterCode": "# password = 'abc'\n# Output: ___", "answer": "Wrong!", "hint": "'abc' == 'secret' is False, so else runs." }
+          {
+            "title": "Scope Check",
+            "objective": "Is a variable declared inside {} accessible outside? Type yes or no.",
+            "starterCode": "if (true) {\n    int temp = 42;\n}\n// Can print temp here? ___",
+            "answer": "no",
+            "hint": "Java {} blocks create block scope — temp only lives inside the if block."
+          },
+          {
+            "title": "Where to Declare",
+            "objective": "To use a variable both inside and outside an if block, declare it ___.",
+            "starterCode": "// Declare HERE so it works everywhere:\n___ int result = 0;\nif (score > 50) {\n    result = score * 2;\n}\nSystem.out.println(result);",
+            "answer": "int",
+            "hint": "Declare it outside/before the if block with its type keyword."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nif age >= 18:\nif has_ticket:\n    print('OK')", "brokenCode": "if age >= 18:\nif has_ticket:\n    print('OK')", "bugLine": 1, "options": ["The inner 'if has_ticket' needs to be indented 4 spaces inside the outer if", "Missing a colon", "print is wrong", "Nothing wrong"], "answer": "The inner 'if has_ticket' needs to be indented 4 spaces inside the outer if", "hint": "Nested if must be indented inside its parent if block." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nif score >= 50:\n    print('Pass')\n else:\n    print('Fail')", "brokenCode": "if score >= 50:\n    print('Pass')\n else:\n    print('Fail')", "bugLine": 2, "options": ["' else' has a leading space — else must align with if", "Missing colon", "print is wrong", "Nothing wrong"], "answer": "' else' has a leading space — else must align with if", "hint": "else must be at the SAME indentation level as its matching if." }
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\nint score = 85;\nif (score > 80) {\n    String grade = \"B\";\n}\nSystem.out.println(grade);",
+            "brokenCode": "System.out.println(grade);",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "grade is declared inside the if block — it doesn't exist outside. Declare: String grade = \"\"; before the if.",
+              "grade should be int",
+              "if block is wrong"
+            ],
+            "answer": "grade is declared inside the if block — it doesn't exist outside. Declare: String grade = \"\"; before the if.",
+            "hint": "Variables declared inside {} blocks don't exist outside them. Move the String grade declaration before the if block."
+          }
         ],
         "prediction": [
-          { "code": "x = 15\nif x > 10:\n    if x > 20:\n        print('A')\n    else:\n        print('B')\nelse:\n    print('C')", "options": ["A", "B", "C", "Error"], "answer": "B", "explanation": "15>10 is True (enter outer). 15>20 is False (inner else). Prints 'B'." },
-          { "code": "a = 5\nb = 10\nif a > 3 and b < 20:\n    print('YES')\nelse:\n    print('NO')", "options": ["YES", "NO", "Error", "Both"], "answer": "YES", "explanation": "5>3 is True AND 10<20 is True. True and True = True → 'YES'." }
+          {
+            "code": "int x = 100;\nif (x > 50) {\n    int bonus = 25;\n    x = x + bonus;\n}\nSystem.out.println(x);",
+            "options": ["100", "125", "Error — bonus out of scope", "Error — x out of scope"],
+            "answer": "125",
+            "explanation": "x is declared at method scope — accessible everywhere. bonus is used and added to x inside the block. After the block, x = 125. bonus is gone but x persists."
+          }
         ]
       }
     },
     {
       "id": "2_boss",
       "title": "THE DECISION ENGINE",
-      "subtitle": "BOSS FIGHT — All Level 2",
+      "subtitle": "BOSS FIGHT — All Level 2 Java",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss2_intro",
+            "id": "boss_j2_intro",
             "title": "⚠️ BOSS — THE DECISION ENGINE",
             "emoji": "👾",
-            "analogy": "The Decision Engine controls all crossroads. It will test your mastery of conditions, if/elif/else, logical operators, and nested decisions!",
-            "content": "THE DECISION ENGINE has absorbed all of Level 2. Every path splits into True/False. Prove you can navigate the logic maze!",
+            "analogy": "The Decision Engine is a massively parallel processor that makes millions of decisions per second. It knows every operator, every branching path, every scope rule. To defeat it, your logic must be flawless!",
+            "content": "THE DECISION ENGINE tests ALL Level 2 Java: comparison operators (== vs .equals()), logical operators (&&, ||, !), if/else if/else, switch/case/break/default, ternary operator, and Java block scope.",
             "examples": [
-              { "title": "What you've mastered", "explanation": "Everything from Level 2 is in play!", "code": "✅ Conditions & comparisons\n✅ if / elif / else\n✅ and, or, not\n✅ Nested if statements" }
+              { "title": "Full Level 2 arsenal", "explanation": "Everything you've mastered!", "code": "✅ == vs .equals() for Strings\n✅ &&, ||, ! operators\n✅ Integer division & modulo (%)\n✅ if / else if / else with ()\n✅ switch / case / break / default\n✅ Fall-through behavior\n✅ Ternary operator ? :\n✅ Java block scope with {}" }
             ],
-            "funFact": "The most complex software in the world (like self-driving cars) is just billions of if-else decisions running per second! 🚗"
+            "funFact": "The Java compiler generates bytecode that can have thousands of branch instructions (if/switch) per method. The JVM's JIT compiler optimizes the most-used branches — making Java as fast as C++ in many benchmarks! ⚡"
           }
         ],
         "battle": {
           "enemy": { "name": "THE DECISION ENGINE", "maxHp": 150 },
           "mcq": [
-            { "q": "What is the output?\nx = 7\nif x > 10: print('A')\nelif x > 5: print('B')\nelif x > 3: print('C')\nelse: print('D')", "options": ["A", "B", "C", "D"], "a": 1, "damage": 30, "topic": "elif Chain", "explanation": "7>10? No. 7>5? Yes! 'B' prints. Python stops at the FIRST True match." },
-            { "q": "True and True or False?", "options": ["True", "False", "Error", "None"], "a": 0, "damage": 30, "topic": "Logic", "explanation": "(True and True) = True. True or False = True." },
-            { "q": "What runs if ALL conditions in an if/elif chain are False?", "options": ["The if block", "The first elif", "Nothing (program crashes)", "The else block"], "a": 3, "damage": 30, "topic": "else", "explanation": "else is the fallback — it runs when no if or elif condition is True." },
-            { "q": "not (5 > 3) evaluates to?", "options": ["True", "False", "5", "Error"], "a": 1, "damage": 30, "topic": "NOT", "explanation": "5>3 is True. not True = False." },
-            { "q": "How many levels of nesting is considered 'too deep' by most programmers?", "options": ["1", "2", "3-4+", "There's no limit"], "a": 2, "damage": 30, "topic": "Best Practice", "explanation": "More than 3-4 levels deep usually means the code should be refactored for clarity." }
+            {
+              "q": "String s = \"hi\". Which correctly checks if s equals \"hi\"?",
+              "options": ["s == \"hi\"", "s.equals(\"hi\")", "s = \"hi\"", "s.compare(\"hi\")"],
+              "a": 1, "damage": 30, "topic": "String equals",
+              "explanation": ".equals(): Use String.equals() for content comparison. == compares object references — may return false even for equal strings depending on how they were created."
+            },
+            {
+              "q": "int x = 10, y = 0. Safely check if x/y > 5 without crashing:\nif (y != 0 && x/y > 5) — is this safe?",
+              "options": ["No — both sides evaluate", "Yes — && short-circuits, skips x/y when y==0", "Needs try/catch", "No — use || instead"],
+              "a": 1, "damage": 30, "topic": "Short-circuit &&",
+              "explanation": "Short-Circuit: && evaluates left first. If y != 0 is false (y IS 0), the right side x/y is NEVER evaluated — preventing the divide-by-zero crash. This is intentional safety."
+            },
+            {
+              "q": "switch (day) { case 1: print('A'); case 2: print('B'); break; } day=1. What prints?",
+              "options": ["A only", "B only", "A and B", "Nothing"],
+              "a": 2, "damage": 30, "topic": "Fall-through",
+              "explanation": "Fall-Through: day=1 matches case 1: prints 'A'. No break → falls through to case 2: prints 'B'. break stops there. Output: A then B."
+            },
+            {
+              "q": "int result = (5 > 3) ? 100 : 0; What is result?",
+              "options": ["0", "100", "true", "Error"],
+              "a": 1, "damage": 30, "topic": "Ternary",
+              "explanation": "Ternary: 5 > 3 is true → the TRUE value (100) is returned. result = 100."
+            },
+            {
+              "q": "Which is a compile error in Java?\nA: if (x > 0) { int n = 5; } println(n);\nB: if (x > 0) { int n = 5; println(n); }",
+              "options": ["A", "B", "Both", "Neither"],
+              "a": 0, "damage": 30, "topic": "Block scope",
+              "explanation": "Scope Error: A causes a compile error — 'n' is declared inside the if block and doesn't exist outside it. B is valid — 'n' is used inside the same block it was declared."
+            }
           ]
         },
         "coding": [
-          { "title": "Boss: Chain Logic", "objective": "score=85. if >=90:'A' elif >=80:'B' elif >=70:'C' else:'F'. What grade?", "starterCode": "score = 85\n# Output: ___", "answer": "B", "hint": "85>=90? No. 85>=80? Yes! → B." },
-          { "title": "Boss: Combined Check", "objective": "What does (False or True) and (not False) evaluate to?", "starterCode": "print((False or True) and (not False))\n# Output: ___", "answer": "True", "hint": "(False or True)=True. (not False)=True. True and True = True." }
+          {
+            "title": "Boss: Ternary Even/Odd",
+            "objective": "Use ternary to check if n=7 is even or odd. n%2==0 → 'even' else 'odd'",
+            "starterCode": "int n = 7;\nString result = (n % 2 == 0) ? \"even\" : \"___\";\nSystem.out.println(result);",
+            "answer": "odd",
+            "hint": "7 % 2 = 1, not 0, so it's odd."
+          },
+          {
+            "title": "Boss: Fix the String comparison",
+            "objective": "How should you compare String name to 'Neo'?",
+            "starterCode": "String name = \"Neo\";\nif (name.___(\"Neo\")) {\n    System.out.println(\"Found\");\n}",
+            "answer": "equals",
+            "hint": "Never use == for Strings — use this method."
+          }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nx = 10\nif x > 5 or < 20:\n    print('Range OK')", "brokenCode": "x = 10\nif x > 5 or < 20:\n    print('Range OK')", "bugLine": 1, "options": ["Nothing wrong", "Must repeat x: if x > 5 or x < 20", "Remove the colon", "Use AND not OR"], "answer": "Must repeat x: if x > 5 or x < 20", "hint": "Each side of 'or' needs a full condition. Can't shorthand '< 20' alone." }
+          {
+            "type": "mcq",
+            "description": "🚨 BOSS BUG:\n\nint hp = 100;\nif (hp > 50) {\n    String status = \"healthy\";\n} else {\n    String status = \"critical\";\n}\nSystem.out.println(status);",
+            "brokenCode": "System.out.println(status);",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "status is declared inside {} blocks — it's out of scope outside them. Declare: String status; before the if.",
+              "status needs to be int",
+              "if and else can't both declare status"
+            ],
+            "answer": "status is declared inside {} blocks — it's out of scope outside them. Declare: String status; before the if.",
+            "hint": "Declare String status = \"\"; BEFORE the if block, then assign inside. The variable must exist in the outer scope to be used after the block."
+          }
         ],
         "prediction": [
-          { "code": "x = 5\nif x > 3:\n    print('A')\nif x > 4:\n    print('B')\nif x > 5:\n    print('C')", "options": ["A", "A B", "A B C", "A C"], "answer": "A B", "explanation": "Three SEPARATE if statements. 5>3→A. 5>4→B. 5>5→False (not >). Output: A B." }
+          {
+            "code": "int x = 10;\nString grade = (x >= 9) ? \"A\" : (x >= 7) ? \"B\" : \"C\";\nSystem.out.println(grade);",
+            "options": ["A", "B", "C", "Error"],
+            "answer": "A",
+            "explanation": "x=10. 10>=9 is true → ternary returns 'A'. The nested ternary is never evaluated."
+          }
         ]
       }
     }

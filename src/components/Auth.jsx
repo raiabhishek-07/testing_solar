@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react';
+import { sfxClick, sfxHover, sfxSuccess, sfxError, sfxPageTransition } from '@/lib/sounds';
 
 export default function Auth({ onAuthSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,11 +27,15 @@ export default function Auth({ onAuthSuccess }) {
       const data = await res.json();
 
       if (res.ok) {
+        sfxSuccess();
+        sfxPageTransition();
         onAuthSuccess(data.user);
       } else {
+        sfxError();
         setError(data.message || 'Something went wrong');
       }
     } catch (err) {
+      sfxError();
       setError('Connection failed');
     } finally {
       setLoading(false);
@@ -108,6 +113,8 @@ export default function Auth({ onAuthSuccess }) {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onMouseEnter={() => sfxHover()}
+            onClick={() => sfxClick()}
             disabled={loading}
             className="w-full bg-gradient-to-r from-brand-purple to-brand-neon py-5 rounded-2xl text-white font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(168,85,247,0.3)]"
           >
@@ -122,7 +129,8 @@ export default function Auth({ onAuthSuccess }) {
 
         <div className="text-center pt-4">
           <button 
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => { sfxClick(); setIsLogin(!isLogin); }}
+            onMouseEnter={() => sfxHover()}
             className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-brand-neon transition-colors"
           >
             {isLogin ? "DON'T HAVE AN ACCOUNT? SIGN UP" : "ALREADY RECRUITED? LOGIN"}

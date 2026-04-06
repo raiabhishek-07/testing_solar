@@ -1,185 +1,180 @@
 {
-  "label": "LEVEL 3: LOOPS & ARRAYS (Repetition & Data)",
+  "label": "LEVEL 3: LOOPS (C++ Iteration)",
   "sublevels": [
     {
       "id": "3_1",
-      "title": "LOOPS",
-      "subtitle": "Repeating code automatically",
+      "title": "FOR & RANGE-BASED FOR",
+      "subtitle": "C++ iteration — classic and modern",
       "icon": "Repeat",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c1", "title": "What is a Loop?", "emoji": "🔁",
-            "analogy": "A loop is like a washing machine cycle — it repeats the same steps over and over until a condition says STOP.",
-            "content": "Loops let you repeat code without copying it. Instead of writing print('Hello') 100 times, a loop runs it 100 times automatically.",
-            "examples": [{ "title": "Why Loops?", "explanation": "One loop replaces 100 copy-pasted lines!", "code": "# Without loop: 5 lines\nprint('Hello')\nprint('Hello')\nprint('Hello')\n\n# With loop: 2 lines!\nfor i in range(3):\n    print('Hello')" }],
-            "funFact": "Every game you play uses loops. The 'game loop' runs 60 times per second to update the screen! 🎮"
+            "id": "cpp3c1", "title": "Classic for Loop in C++", "emoji": "🔄",
+            "analogy": "C++ inherits C's for loop perfectly — same three-part structure, same semicolons. But C++ adds extra safety with its type system and eliminates the sizeof hack needed in C for array lengths.",
+            "content": "for (init; condition; update) { body } — identical to C and Java. C++ adds: ranged-based for (for-each), auto in the init, and better type safety. All three parts optional; for(;;) is infinite loop.",
+            "examples": [
+              { "title": "Classic C++ for Loop", "explanation": "Identical syntax to C and Java.", "code": "#include <iostream>\nusing namespace std;\nint main() {\n    for (int i = 1; i <= 5; i++) {\n        cout << i << endl;\n    }\n    \n    // Sum with accumulator:\n    int sum = 0;\n    for (int i = 1; i <= 10; i++) {\n        sum += i;\n    }\n    cout << sum << endl; // 55\n    return 0;\n}" },
+              { "title": "auto in for loop (C++11)", "explanation": "auto deduces the correct type.", "code": "// auto deduces int here:\nfor (auto i = 0; i < 5; i++) {\n    cout << i << endl;\n}\n\n// More useful with complex types:\nvector<int> v = {1,2,3,4,5};\nfor (auto i = 0; i < v.size(); i++) {\n    cout << v[i] << endl;\n}" }
+            ],
+            "funFact": "C++11 introduced auto to the for loop — and it was so popular it kickstarted auto everywhere in modern C++. Now auto is used for variables, return types, lambdas, and more! 🚀"
           },
           {
-            "id": "l3c2", "title": "For Loops", "emoji": "🔄",
-            "analogy": "A for loop is like a teacher calling roll — it goes through a list one by one. 'For EACH student in the class, say their name.'",
-            "content": "for loops iterate over a sequence (range, list, string). range(5) gives 0,1,2,3,4. The variable (i) gets each value in turn.",
-            "examples": [{ "title": "For Loop with range()", "explanation": "range(5) = 0,1,2,3,4 — the loop runs 5 times.", "code": "for i in range(5):\n    print(i)\n# Output: 0 1 2 3 4 (each on new line)" }],
-            "funFact": "range(5) starts at 0, not 1! This is called 'zero-indexing' and is universal in programming. 0️⃣"
-          },
-          {
-            "id": "l3c3", "title": "While Loops", "emoji": "⏳",
-            "analogy": "A while loop is like waiting in line — you keep waiting WHILE there are people ahead of you. Once the line is empty, you stop.",
-            "content": "while loops repeat AS LONG AS a condition is True. The condition is checked BEFORE each iteration. If False from the start, the loop never runs.",
-            "examples": [{ "title": "While Loop", "explanation": "Keeps going until count reaches 3.", "code": "count = 0\nwhile count < 3:\n    print(count)\n    count = count + 1\n# Output: 0 1 2" }],
-            "funFact": "An infinite loop (while True) runs FOREVER. Servers use this: they wait for requests in an infinite loop! 🌐"
+            "id": "cpp3c2", "title": "Range-Based for Loop (C++11)", "emoji": "🌟",
+            "analogy": "C++'s range-based for is the most elegant loop in the language — no index, no bounds, automatic type. Like telling a sommelier 'serve everyone at the table' instead of 'serve person 0, then 1, then 2...'",
+            "content": "for (auto element : container) — iterates every element. Works on arrays, vectors, strings, maps, sets, and any range. Use 'const auto&' for efficiency with large objects. Use 'auto&' to modify elements.",
+            "examples": [
+              { "title": "Range-based for with auto", "explanation": "The cleanest way to iterate in C++.", "code": "#include <vector>\n#include <string>\nusing namespace std;\n\n// With raw array:\nint arr[] = {10, 20, 30, 40};\nfor (auto x : arr) {\n    cout << x << endl;\n}\n\n// With vector:\nvector<int> v = {1,2,3,4,5};\nfor (const auto& n : v) {  // const ref — no copy!\n    cout << n << endl;\n}\n\n// String chars:\nstring s = \"hello\";\nfor (char c : s) {\n    cout << c << \" \";\n}\n// h e l l o" },
+              { "title": "Modifying with auto&", "explanation": "Use & to modify elements in-place.", "code": "vector<int> nums = {1, 2, 3, 4, 5};\n\n// auto& allows modification:\nfor (auto& n : nums) {\n    n *= 2;  // doubles each element\n}\n\nfor (const auto& n : nums) {\n    cout << n << \" \";  // 2 4 6 8 10\n}" }
+            ],
+            "funFact": "const auto& in for loops is a C++ performance best practice — it avoids copying large objects on each iteration. Without &, the loop copies every element. For strings and vectors, this matters a lot! ⚡"
           }
         ],
         "battle": {
-          "enemy": { "name": "LOOP WARDEN", "maxHp": 100 },
+          "enemy": { "name": "THE CPP LOOP ENGINE", "maxHp": 100 },
           "mcq": [
-            { "q": "What does range(4) produce?", "options": ["1,2,3,4", "0,1,2,3", "0,1,2,3,4", "4,3,2,1"], "a": 1, "damage": 20, "topic": "range()", "explanation": "range(4) starts at 0 and goes to 3 (stops BEFORE 4): 0,1,2,3." },
-            { "q": "How many times does 'for i in range(3)' loop?", "options": ["2", "3", "4", "1"], "a": 1, "damage": 20, "topic": "For Loop", "explanation": "range(3) = 0,1,2 — that's 3 values, so 3 iterations." },
-            { "q": "When does a while loop stop?", "options": ["After 10 runs", "When the condition becomes False", "After 1 run", "It never stops"], "a": 1, "damage": 20, "topic": "While Loop", "explanation": "A while loop stops when its condition becomes False." },
-            { "q": "What happens if the while condition is NEVER False?", "options": ["Error", "The loop runs once", "Infinite loop — it runs forever", "Python auto-stops it"], "a": 2, "damage": 20, "topic": "Infinite Loop", "explanation": "If the condition never becomes False, the loop runs infinitely. Use Ctrl+C to stop!" },
-            { "q": "What keyword starts a counting loop in Python?", "options": ["loop", "repeat", "for", "each"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "Python uses 'for' to iterate over sequences." }
+            { "q": "for(auto x : arr) — what is x on each iteration?", "options": ["Index","Copy of current element value","Reference to element","arr.length"], "a": 1, "damage": 20, "topic": "range-based for", "explanation": "Copy by Value: for(auto x : arr) gives x a COPY of each element. To avoid copying (for efficiency) or to modify, use auto& instead." },
+            { "q": "To MODIFY elements during range-based for, use:", "options": ["auto x","const auto& x","auto& x","int& x only"], "a": 2, "damage": 20, "topic": "auto& modify", "explanation": "Reference: auto& x binds a reference to each element — allowing in-place modification. Without &, you modify a copy that's thrown away. const auto& prevents modification but avoids copies." },
+            { "q": "for (const auto& s : strings) — why const auto&?", "options": ["It's the only valid syntax","Avoids copying large strings on each iteration while preventing modification","Makes loop faster by using GPU","Required for string type"], "a": 1, "damage": 20, "topic": "const auto& efficiency", "explanation": "Efficiency: const auto& binds a const reference — no copy made. For large objects like strings or vectors, this is significantly faster than auto (which copies)." },
+            { "q": "C++ range-based for requires which C++ standard minimum?", "options": ["C++98","C++03","C++11","C++17"], "a": 2, "damage": 20, "topic": "C++11 feature", "explanation": "C++11: Range-based for was introduced in C++11 (2011). Compile with -std=c++11 or later. Most modern compilers default to C++14 or C++17." },
+            { "q": "int arr[]={1,2,3}; for(auto x:arr) sum+=x; What is sum?", "options": ["1","3","6","Error"], "a": 2, "damage": 20, "topic": "range-based sum", "explanation": "Range-based: x takes values 1, 2, 3. sum = 1+2+3 = 6." }
           ]
         },
         "coding": [
-          { "title": "Count Output", "objective": "How many times does this loop print? for i in range(4): print(i)", "starterCode": "for i in range(4):\n    print(i)\n# Prints ___ times", "answer": "4", "hint": "range(4) = 0,1,2,3. That's 4 values." },
-          { "title": "While End", "objective": "What is the last number printed? x=0; while x<5: print(x); x+=1", "starterCode": "x = 0\nwhile x < 5:\n    print(x)\n    x += 1\n# Last output: ___", "answer": "4", "hint": "Loop runs for 0,1,2,3,4. When x becomes 5, x<5 is False → stops." },
-          { "title": "Range Start", "objective": "What is the FIRST number in range(5)?", "starterCode": "for i in range(5):\n    print(i)  # First: ___", "answer": "0", "hint": "range() always starts at 0 by default." }
+          { "title": "Range-based syntax", "objective": "Complete: for (___ x : nums) { cout << x; }", "starterCode": "vector<int> nums = {1,2,3};\nfor (___ x : nums) { cout << x; }", "answer": "auto", "hint": "Use auto to let C++ deduce the element type automatically." },
+          { "title": "Modify with ref", "objective": "To double each element in-place: for(auto___ n : nums) n*=2;", "starterCode": "for(auto___ n : nums) n *= 2;\n// What fills the blank to enable modification?", "answer": "&", "hint": "auto& creates a reference — modifications affect the original element." },
+          { "title": "Const ref benefit", "objective": "for(const auto& s : strings) avoids what per iteration?", "starterCode": "// const auto& avoids making a ___ of each string element", "answer": "copy", "hint": "Without &, each element is copied into x. With &, it binds a reference — no copy." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Infinite loop bug:\n\nx = 1\nwhile x < 10:\n    print(x)", "brokenCode": "x = 1\nwhile x < 10:\n    print(x)", "bugLine": 2, "options": ["Nothing wrong", "Missing x = x + 1 — x never changes, so loop is infinite", "print is wrong", "while should be for"], "answer": "Missing x = x + 1 — x never changes, so loop is infinite", "hint": "x stays at 1 forever because it never increases. Add x = x + 1 inside the loop." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nfor i in range(5)\n    print(i)", "brokenCode": "for i in range(5)\n    print(i)", "bugLine": 0, "options": ["Missing colon at end: for i in range(5):", "range is wrong", "print needs quotes", "Nothing wrong"], "answer": "Missing colon at end: for i in range(5):", "hint": "for loops need a colon at the end, just like if statements." }
+          { "type": "mcq", "description": "🚨 Bug — modifying copy:\n\nvector<int> v = {1,2,3};\nfor (auto n : v) {\n    n *= 2;  // trying to double in-place\n}\n// v is still {1,2,3}!", "brokenCode": "for (auto n : v)", "bugLine": 0, "options": ["Nothing wrong","auto n copies each element — modifying n doesn't affect v. Use: for(auto& n : v)","Use int instead of auto","v needs to be array"], "answer": "auto n copies each element — modifying n doesn't affect v. Use: for(auto& n : v)", "hint": "auto n = copy. auto& n = reference. You need & to modify the original." },
+          { "type": "mcq", "description": "🚨 Bug — infinite loop:\n\nfor (auto i = 0; i < 5; i--) {\n    cout << i << endl;\n}", "brokenCode": "for (auto i = 0; i < 5; i--)", "bugLine": 0, "options": ["Nothing wrong","i-- decrements — i goes negative, stays < 5 forever. Change to i++","auto should be int","Need break inside"], "answer": "i-- decrements — i goes negative, stays < 5 forever. Change to i++", "hint": "i-- makes i smaller each time. It will always satisfy i < 5 → infinite loop." }
         ],
         "prediction": [
-          { "code": "total = 0\nfor i in range(4):\n    total = total + i\nprint(total)", "options": ["4", "6", "10", "0"], "answer": "6", "explanation": "i goes 0,1,2,3. total = 0+0+1+2+3 = 6." },
-          { "code": "x = 10\nwhile x > 7:\n    x = x - 1\nprint(x)", "options": ["7", "8", "10", "0"], "answer": "7", "explanation": "10→9→8→7. When x=7, 7>7 is False → loop stops. x is 7." }
+          { "code": "int arr[] = {2,4,6,8,10};\nint s = 0;\nfor (auto x : arr) if(x > 5) s += x;\ncout << s << endl;", "options": ["18","24","30","10"], "answer": "24", "explanation": "Values > 5: 6,8,10. s = 6+8+10 = 24." },
+          { "code": "string word = \"code\";\nint count = 0;\nfor (char c : word) if(c=='o'||c=='e') count++;\ncout << count;", "options": ["1","2","3","4"], "answer": "2", "explanation": "word = 'c','o','d','e'. 'o' matches, 'e' matches. count = 2." }
         ]
       }
     },
     {
       "id": "3_2",
-      "title": "LOOP MASTERY",
-      "subtitle": "Nested loops & break/continue",
-      "icon": "Layers",
+      "title": "WHILE & DO-WHILE",
+      "subtitle": "Condition-based loops in C++",
+      "icon": "RefreshCw",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c4", "title": "Nested Loops", "emoji": "🎡",
-            "analogy": "A nested loop is like a clock: the minute hand (inner loop) goes 60 times for EACH tick of the hour hand (outer loop).",
-            "content": "A loop inside another loop. The inner loop runs COMPLETELY for each iteration of the outer loop. 3 outer × 4 inner = 12 total runs.",
-            "examples": [{ "title": "Nested For Loop", "explanation": "Inner loop runs fully for each outer iteration.", "code": "for i in range(3):       # outer: 0,1,2\n    for j in range(2):   # inner: 0,1\n        print(i, j)\n# Output: 0 0, 0 1, 1 0, 1 1, 2 0, 2 1" }],
-            "funFact": "2D games use nested loops: outer loop for rows, inner loop for columns — drawing the screen pixel by pixel! 🕹️"
+            "id": "cpp3c3", "title": "while Loop in C++", "emoji": "⏳",
+            "analogy": "C++ while is identical to C's while — same syntax, same semantics. But C++ benefits: the condition can use bool naturally, and you can use C++ objects (like checking if a file is open) as conditions via operator overloading.",
+            "content": "while (condition) { body } — condition tested before each iteration. C++ makes bool a first-class type, so while (myFile.is_open()) works elegantly. while(true) is preferred over while(1) in C++.",
+            "examples": [
+              { "title": "C++ while Loop", "explanation": "while(true) is idiomatic C++ (vs C's while(1)).", "code": "int i = 1;\nwhile (i <= 5) {\n    cout << i << endl;\n    i++;\n}\n\n// while(true) — idiomatic C++ infinite loop:\nwhile (true) {\n    string input;\n    cin >> input;\n    if (input == \"quit\") break;\n    cout << \"You said: \" << input << endl;\n}" }
+            ],
+            "funFact": "while(true) is preferred over while(1) in C++ because C++ has a proper bool type and true/false constants. It's more readable and expresses intent clearly. Clang-tidy and GCC warn about while(1) in C++ mode! 🎯"
           },
           {
-            "id": "l3c5", "title": "Break & Continue", "emoji": "⏭️",
-            "analogy": "break is the EMERGENCY EXIT — it kicks you out of the loop immediately. continue is SKIP — it skips the rest of this round and starts the next one.",
-            "content": "break: immediately exits the entire loop. continue: skips the remaining code in the current iteration and jumps to the next one.",
-            "examples": [{ "title": "Break vs Continue", "explanation": "break exits. continue skips.", "code": "# Break: stop at 3\nfor i in range(10):\n    if i == 3:\n        break\n    print(i)  # 0, 1, 2\n\n# Continue: skip 3\nfor i in range(5):\n    if i == 3:\n        continue\n    print(i)  # 0, 1, 2, 4" }],
-            "funFact": "Games use break to exit loops when a player dies. The loop checks 'is player alive?' each frame. 💀"
+            "id": "cpp3c4", "title": "do-while in C++", "emoji": "✅",
+            "analogy": "C++ do-while is inherited from C — run once, then check. C++ enhancement: the condition can use C++ objects and bool naturally.",
+            "content": "do { body } while (condition); — body always runs at least once. Semicolon required. Use for menus, input validation. C++ can use object conditions: do { } while (!file.eof());",
+            "examples": [
+              { "title": "C++ do-while", "explanation": "Same as C — semicolon mandatory.", "code": "int i = 1;\ndo {\n    cout << i << endl;\n    i++;\n} while (i <= 5);  // ← semicolon!\n\n// Input validation with do-while:\nint choice;\ndo {\n    cout << \"Enter 1-5: \";\n    cin >> choice;\n} while (choice < 1 || choice > 5);" }
+            ],
+            "funFact": "C++ iterators from the STL can be used in while loops elegantly: while (it != container.end()) { process(*it); ++it; } This is how C++ standard algorithms work internally! 🔄"
           }
         ],
         "battle": {
-          "enemy": { "name": "NESTED NIGHTMARE", "maxHp": 100 },
+          "enemy": { "name": "THE WHILE WARDEN", "maxHp": 100 },
           "mcq": [
-            { "q": "In a 3×4 nested loop, how many total iterations?", "options": ["3", "4", "7", "12"], "a": 3, "damage": 25, "topic": "Nested Loops", "explanation": "3 outer × 4 inner = 12 total iterations." },
-            { "q": "What does 'break' do?", "options": ["Pauses the loop", "Skips current iteration", "Exits the loop entirely", "Restarts the loop"], "a": 2, "damage": 25, "topic": "Break", "explanation": "break immediately exits the entire loop." },
-            { "q": "What does 'continue' do?", "options": ["Exits the loop", "Skips rest of current iteration, starts next", "Runs the code twice", "Pauses"], "a": 1, "damage": 25, "topic": "Continue", "explanation": "continue skips the remaining code in the current iteration and jumps to the next one." },
-            { "q": "Can break exit an outer loop from inside an inner loop?", "options": ["Yes, it exits all loops", "No, break only exits the innermost loop", "Only with a flag", "Error"], "a": 1, "damage": 25, "topic": "Break Scope", "explanation": "break only exits the loop it's directly inside — not outer loops." }
+            { "q": "In C++, which is idiomatic for an infinite loop?", "options": ["while(1)","for(;;)","while(true)","loop()"], "a": 2, "damage": 25, "topic": "C++ infinite loop", "explanation": "while(true): C++ has native bool — true is preferred over 1. while(true) expresses intent and is the idiomatic C++ infinite loop." },
+            { "q": "do{ cout<<'x'; }while(false); How many times?", "options": ["0","1","Infinite","Error"], "a": 1, "damage": 25, "topic": "do-while false C++", "explanation": "Once: do-while always executes body first. Then checks while(false) — false, stops. Prints 'x' once." },
+            { "q": "while vs do-while: key difference?", "options": ["Syntax only","while may run 0 times; do-while runs at least once","do-while is faster","while is C++, do-while is C"], "a": 1, "damage": 25, "topic": "Loop comparison", "explanation": "Key: while checks FIRST (may run 0 times). do-while checks AFTER (runs at least once). Choose based on whether one initial run is guaranteed." },
+            { "q": "C++ prefers 'while(true)' over 'while(1)' because:", "options": ["They're different","C++ has native bool — true is clearer than 1","while(1) is slower","while(1) is a compile error"], "a": 1, "damage": 25, "topic": "true vs 1", "explanation": "Clarity: C++ has bool type with true/false literals. Using true expresses intent better than 1. Linters prefer while(true) in C++ code." }
           ]
         },
         "coding": [
-          { "title": "Total Runs", "objective": "for i in range(2): for j in range(3): print('*'). How many stars print?", "starterCode": "# 2 outer × 3 inner = ___", "answer": "6", "hint": "2 × 3 = 6 total iterations." },
-          { "title": "Break Output", "objective": "for i in range(10): if i==3: break; print(i). What's the last number printed?", "starterCode": "for i in range(10):\n    if i == 3: break\n    print(i)\n# Last output: ___", "answer": "2", "hint": "Prints 0, 1, 2. When i=3, break exits before print." }
+          { "title": "C++ infinite loop", "objective": "Fill blank for idiomatic C++ infinite loop.", "starterCode": "while(___) {\n    // runs forever\n    if(done) break;\n}", "answer": "true", "hint": "C++ prefers the bool literal 'true' over the integer 1." },
+          { "title": "do-while runs once", "objective": "do{cout<<'Z';}while(false); Prints how many times?", "starterCode": "do { cout << 'Z'; } while(false);\n// Prints ___ times", "answer": "1", "hint": "Body always runs once before condition is checked." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug: This should print 0,1,2,4 (skip 3) but prints 0,1,2:\n\nfor i in range(5):\n    if i == 3:\n        break\n    print(i)", "brokenCode": "for i in range(5):\n    if i == 3:\n        break\n    print(i)", "bugLine": 2, "options": ["Use 'continue' instead of 'break' to skip 3 but keep going", "Nothing wrong", "Change range to 4", "Use while instead"], "answer": "Use 'continue' instead of 'break' to skip 3 but keep going", "hint": "break exits the entire loop. continue just skips the current iteration." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nint x = 5;\nwhile (x > 0) {\n    cout << x << endl;\n}", "brokenCode": "while (x > 0)", "bugLine": 0, "options": ["Nothing wrong","Missing x-- inside loop — x never decreases, condition stays true forever!","x should start at 0","cout should be printf"], "answer": "Missing x-- inside loop — x never decreases, condition stays true forever!", "hint": "Always update the loop variable inside while. Add x--; to the loop body." }
         ],
         "prediction": [
-          { "code": "for i in range(5):\n    if i == 2:\n        continue\n    print(i)", "options": ["0 1 2 3 4", "0 1 3 4", "0 1", "0 1 2"], "answer": "0 1 3 4", "explanation": "continue skips only i=2. All other values (0,1,3,4) are printed." },
-          { "code": "count = 0\nfor i in range(3):\n    for j in range(3):\n        count += 1\nprint(count)", "options": ["3", "6", "9", "0"], "answer": "9", "explanation": "3 outer × 3 inner = 9 total iterations. count increments 9 times." }
+          { "code": "int n = 1;\ndo {\n    cout << n << \" \";\n    n *= 3;\n} while (n < 30);", "options": ["1 3 9 27","1 3 9","3 9 27","1 3 9 27 81"], "answer": "1 3 9 27", "explanation": "n=1→print,n=3→print,n=9→print,n=27→print,n=81>30→stop. Output: 1 3 9 27." }
         ]
       }
     },
     {
       "id": "3_3",
-      "title": "ARRAYS (LISTS)",
-      "subtitle": "Storing collections of data",
-      "icon": "List",
+      "title": "BREAK, CONTINUE & NESTED",
+      "subtitle": "Loop control in C++",
+      "icon": "Zap",
       "pipeline": {
         "teaching": [
           {
-            "id": "l3c6", "title": "What is a List?", "emoji": "📋",
-            "analogy": "A list is like a row of lockers. Each locker has a number (index, starting from 0) and stores one item. You can add, remove, or peek into any locker.",
-            "content": "Lists (arrays) store multiple values in one variable. Created with square brackets []. Items are separated by commas. Indexed starting from 0.",
-            "examples": [{ "title": "Creating and Accessing", "explanation": "Index 0 = first item, 1 = second, etc.", "code": "heroes = ['Neo', 'Trinity', 'Morpheus']\nprint(heroes[0])   # Neo\nprint(heroes[1])   # Trinity\nprint(heroes[2])   # Morpheus" }],
-            "funFact": "Python lists can mix types: [1, 'hello', True, 3.14] is perfectly valid! Most languages don't allow this. 🤯"
-          },
-          {
-            "id": "l3c7", "title": "Updating & Looping Through Lists", "emoji": "🔃",
-            "analogy": "Updating a list is like editing a playlist — swap songs, add new ones, or remove old ones. Looping through it is like pressing 'Play All'.",
-            "content": "Update items by index: list[0] = 'new'. Use .append() to add, .remove() to delete. Loop through with 'for item in list:'.",
-            "examples": [{ "title": "Update & Loop", "explanation": "Change, add, and iterate.", "code": "scores = [10, 20, 30]\nscores[1] = 25          # Update index 1\nscores.append(40)       # Add to end\n\nfor s in scores:\n    print(s)\n# Output: 10, 25, 30, 40" }],
-            "funFact": "len(list) gives the length. The last index is always len(list) - 1, because indexing starts at 0! 📏"
+            "id": "cpp3c5", "title": "break, continue & Nested Loops", "emoji": "⛔",
+            "analogy": "break and continue work identically in C, C++, and Java. But C++ adds a modern touch: with algorithms and lambdas, you often don't need break/continue at all — filter and find do it for you.",
+            "content": "break exits the innermost loop. continue skips to next iteration. C++ does NOT have goto like C (well it does but it's heavily discouraged even more so). Modern C++ uses STL algorithms: std::find, std::any_of, std::all_of.",
+            "examples": [
+              { "title": "break and continue in C++", "explanation": "Same as C and Java.", "code": "// break:\nfor (int i = 0; i < 10; i++) {\n    if (i == 5) break;\n    cout << i << \" \";\n}\n// 0 1 2 3 4\n\n// continue — skip evens:\nfor (int i = 0; i < 8; i++) {\n    if (i % 2 == 0) continue;\n    cout << i << \" \";\n}\n// 1 3 5 7" },
+              { "title": "Modern C++ alternative", "explanation": "Algorithms often replace break/continue.", "code": "#include <algorithm>\nvector<int> v = {3,7,1,9,4};\n\n// Find first > 5 (replaces loop + break):\nauto it = find_if(v.begin(),v.end(),[](int x){return x>5;});\nif (it != v.end()) cout << *it << endl; // 7\n\n// Check any > 8:\nbool any = any_of(v.begin(),v.end(),[](int x){return x>8;});\ncout << boolalpha << any << endl; // true (9>8)" }
+            ],
+            "funFact": "Modern C++ (C++11 and later) philosophy: prefer algorithms over raw loops. std::find, std::sort, std::transform, std::accumulate eliminate most manual loop code. The C++ Core Guidelines explicitly recommend this! 📚"
           }
         ],
         "battle": {
-          "enemy": { "name": "ARRAY OVERLORD", "maxHp": 100 },
+          "enemy": { "name": "THE CPP LOOP BREAKER", "maxHp": 100 },
           "mcq": [
-            { "q": "What index is the FIRST element in a list?", "options": ["1", "0", "-1", "First"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Lists use zero-based indexing. First element = index 0." },
-            { "q": "How do you create a list in Python?", "options": ["list()", "{}", "()", "[]"], "a": 3, "damage": 20, "topic": "Syntax", "explanation": "Lists use square brackets: [item1, item2, item3]." },
-            { "q": "What does .append(x) do?", "options": ["Removes x", "Adds x at the beginning", "Adds x at the end", "Replaces everything with x"], "a": 2, "damage": 20, "topic": "append", "explanation": ".append(x) adds x to the END of the list." },
-            { "q": "colors = ['red', 'blue', 'green']. What is colors[2]?", "options": ["red", "blue", "green", "Error"], "a": 2, "damage": 20, "topic": "Indexing", "explanation": "Index 0='red', 1='blue', 2='green'." },
-            { "q": "What happens if you access list[10] on a 3-item list?", "options": ["Returns None", "Returns 0", "IndexError", "Returns the last item"], "a": 2, "damage": 20, "topic": "Bounds", "explanation": "Accessing an index that doesn't exist raises an IndexError." }
+            { "q": "break in a C++ range-based for loop:", "options": ["Not allowed","Works identically to classic for — exits the loop","Requires a label","Compile error"], "a": 1, "damage": 25, "topic": "break in range-based for", "explanation": "break works in ALL C++ loops — classic for, range-based for, while, do-while. It exits the current loop immediately." },
+            { "q": "continue in range-based for does what?", "options": ["Exits the loop","Skips rest of this iteration, moves to next element","Restarts from first element","Compile error"], "a": 1, "damage": 25, "topic": "continue range-based", "explanation": "continue: Skips rest of current iteration's body. Next iteration begins with the next element in the range." },
+            { "q": "C++ does have goto but:", "options": ["It's commonly used","It's heavily discouraged — use exceptions/algorithms instead","It was removed in C++17","It only works with while"], "a": 1, "damage": 25, "topic": "goto C++ discouraged", "explanation": "goto in C++: Present but heavily frowned upon. C++ has exceptions for error handling and algorithms for early exits — making goto unnecessary in well-written C++ code." },
+            { "q": "for(const auto& x:{1,3,5,7,9}){if(x==5)break;cout<<x;}Output?", "options": ["1 3","1 3 5","1 3 5 7 9","Error"], "a": 0, "damage": 25, "topic": "break range-based", "explanation": "Iterates init-list. Prints 1, 3. When x=5 → break exits. Output: 1 3." }
           ]
         },
         "coding": [
-          { "title": "Index Check", "objective": "nums = [5, 10, 15, 20]. What is nums[3]?", "starterCode": "nums = [5, 10, 15, 20]\nprint(nums[3])\n# Output: ___", "answer": "20", "hint": "Index 0=5, 1=10, 2=15, 3=20." },
-          { "title": "Length", "objective": "heroes = ['Neo', 'Trinity']. What does len(heroes) return?", "starterCode": "heroes = ['Neo', 'Trinity']\nprint(len(heroes))\n# Output: ___", "answer": "2", "hint": "There are 2 items in the list." },
-          { "title": "After Append", "objective": "x = [1,2]. x.append(3). What is x now? Type the list.", "starterCode": "x = [1, 2]\nx.append(3)\nprint(x)\n# Output: ___", "answer": "[1, 2, 3]", "hint": ".append(3) adds 3 to the end." }
+          { "title": "break exit value", "objective": "for(auto x:{1,2,3,4,5}){if(x==3)break;cout<<x;} Last printed?", "starterCode": "// Prints 1,2 then breaks at x=3. Last: ___", "answer": "2", "hint": "Prints 1, 2. At x=3 → break. Last print: 2." },
+          { "title": "continue skip", "objective": "for(auto x:{1,2,3,4,5}){if(x==2)continue;cout<<x;} What's missing?", "starterCode": "// 1,_,3,4,5 printed. Missing: ___", "answer": "2", "hint": "When x=2, continue skips cout." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nnums = [10, 20, 30]\nprint(nums[3])", "brokenCode": "nums = [10, 20, 30]\nprint(nums[3])", "bugLine": 1, "options": ["Nothing wrong", "IndexError! Last valid index is 2 (not 3)", "nums should use ()", "print is wrong"], "answer": "IndexError! Last valid index is 2 (not 3)", "hint": "3 items → indices 0, 1, 2. Index 3 is out of bounds." },
-          { "type": "mcq", "description": "🚨 Bug:\n\ncolors = ['red' 'blue' 'green']", "brokenCode": "colors = ['red' 'blue' 'green']", "bugLine": 0, "options": ["Missing commas between items", "Use () instead of []", "Quotes are wrong", "Nothing wrong"], "answer": "Missing commas between items", "hint": "List items must be separated by commas: ['red', 'blue', 'green']." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nvector<int> v = {1,2,3};\nfor (auto x : v) {\n    x *= 2;\n}\nfor (auto n : v) cout << n << \" \";\n// Expected: 2 4 6, Gets: 1 2 3", "brokenCode": "for (auto x : v)", "bugLine": 0, "options": ["Nothing wrong","auto x copies — modifying x doesn't affect v. Use: for(auto& x : v)","for-each can't modify elements","v needs to be const"], "answer": "auto x copies — modifying x doesn't affect v. Use: for(auto& x : v)", "hint": "auto x = copy of element. auto& x = reference to element. Need & to modify v." }
         ],
         "prediction": [
-          { "code": "x = [1, 2, 3]\nx[0] = 99\nprint(x)", "options": ["[99, 2, 3]", "[1, 2, 3]", "[1, 2, 99]", "Error"], "answer": "[99, 2, 3]", "explanation": "x[0] = 99 replaces the first element. The list becomes [99, 2, 3]." },
-          { "code": "nums = [10, 20, 30]\ntotal = 0\nfor n in nums:\n    total += n\nprint(total)", "options": ["10", "30", "60", "0"], "answer": "60", "explanation": "The loop adds each item: 0+10+20+30 = 60." }
+          { "code": "int sum = 0;\nfor (auto x : {1,2,3,4,5,6,7,8,9,10}) {\n    if (x % 2 != 0) continue;\n    sum += x;\n}\ncout << sum;", "options": ["25","30","55","20"], "answer": "30", "explanation": "Skips odd numbers. Adds even: 2+4+6+8+10 = 30." }
         ]
       }
     },
     {
       "id": "3_boss",
-      "title": "THE INFINITE ENGINE",
-      "subtitle": "BOSS FIGHT — All Level 3",
+      "title": "THE OPTIMIZER",
+      "subtitle": "BOSS FIGHT — All Level 3 C++",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss3_intro", "title": "⚠️ BOSS — THE INFINITE ENGINE", "emoji": "👾",
-            "analogy": "The Infinite Engine loops forever, spawning arrays of minions. Only your knowledge of loops, break, continue, and lists can shut it down!",
-            "content": "This boss combines for loops, while loops, nested loops, break/continue, and list operations. Don't let it trap you in an infinite loop!",
-            "examples": [{ "title": "Your arsenal", "explanation": "Everything from Level 3.", "code": "✅ for / while loops\n✅ range() & loop counting\n✅ break & continue\n✅ Lists: create, index, update, append\n✅ Looping through lists" }],
-            "funFact": "The world's longest-running program is a web server — it's been in a 'while True' loop since the 1990s! 🌐"
+            "id": "boss_cpp3", "title": "⚠️ BOSS — THE OPTIMIZER", "emoji": "👾",
+            "analogy": "The C++ Optimizer unrolls your loops at compile time, vectorizes iterations, and eliminates redundant copies. Defeat it by writing loops that are correct, efficient, and modern.",
+            "content": "Tests ALL Level 3 C++: classic for, range-based for with auto/auto&/const auto&, while(true), do-while semicolon, break/continue in all loop types, nested loop total counts, const auto& efficiency.",
+            "examples": [{ "title": "Full C++ Loop Arsenal", "explanation": "", "code": "✅ for (int i=0; i<n; i++)\n✅ for (auto x : container) — by value\n✅ for (auto& x : container) — modify\n✅ for (const auto& x : container) — efficient read\n✅ while(true) + break\n✅ do { } while(cond); — semicolon!\n✅ break/continue in any loop\n✅ C++11 required for range-based for" }],
+            "funFact": "GCC and Clang can auto-vectorize range-based for loops — converting your loop into SIMD instructions that process 4-8 elements simultaneously. Your clean range-based for might compile to faster code than a manual index loop! ⚡"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE INFINITE ENGINE", "maxHp": 150 },
+          "enemy": { "name": "THE OPTIMIZER", "maxHp": 150 },
           "mcq": [
-            { "q": "What is the output?\nfor i in range(3):\n    if i == 1: continue\n    print(i)", "options": ["0 1 2", "0 2", "1 2", "0"], "a": 1, "damage": 30, "topic": "Continue", "explanation": "continue skips i=1. Prints 0, then skips 1, then prints 2." },
-            { "q": "x = [1,2,3]; x.append(4); print(len(x))", "options": ["3", "4", "5", "Error"], "a": 1, "damage": 30, "topic": "List Length", "explanation": "[1,2,3] has 3 items. append(4) adds one → 4 items." },
-            { "q": "What does range(2,5) produce?", "options": ["2,3,4", "2,3,4,5", "0,1,2,3,4", "2,5"], "a": 0, "damage": 30, "topic": "Range Args", "explanation": "range(2,5) starts at 2, stops before 5: 2,3,4." },
-            { "q": "Can you modify an item in a list by its index?", "options": ["No, lists are read-only", "Yes: list[index] = new_value", "Only the last item", "Only strings"], "a": 1, "damage": 30, "topic": "List Update", "explanation": "Lists are mutable. list[index] = value overwrites that position." },
-            { "q": "Nested loop: 4 outer × 5 inner. Total iterations?", "options": ["9", "20", "45", "54"], "a": 1, "damage": 30, "topic": "Nested Count", "explanation": "4 × 5 = 20 total iterations." }
+            { "q": "for(const auto& x : v) vs for(auto x : v) — key difference?", "options": ["No difference","const auto& reads by reference (no copy, can't modify); auto makes a copy","auto& modifies; const auto& doesn't compile","const is slower"], "a": 1, "damage": 30, "topic": "auto vs const auto&", "explanation": "Performance: auto x copies each element — O(element size) per iteration. const auto& x binds a reference — O(1), no copy. For strings and vectors, const auto& is significantly faster." },
+            { "q": "for(auto& n:{1,2,3}) n*=2; — does this modify the initializer list?", "options": ["Yes","No — initializer lists are const, compile error with auto&","Yes but only first element","auto& becomes const auto& automatically"], "a": 1, "damage": 30, "topic": "Initializer list const", "explanation": "Initializer List: {1,2,3} creates a const initializer_list. You cannot bind non-const auto& to const elements — compile error. Use a vector if you need to modify." },
+            { "q": "Nested: outer 4 iters × inner 3 iters. Total body runs?", "options": ["7","12","16","4"], "a": 1, "damage": 30, "topic": "Nested total", "explanation": "Multiplication: 4 × 3 = 12 total inner body executions." },
+            { "q": "while(true) in C++ compared to while(1):", "options": ["while(true) is slower","They're functionally identical but while(true) is preferred in C++ for clarity","while(1) is C++, while(true) is C","while(1) won't compile in C++"], "a": 1, "damage": 30, "topic": "true vs 1", "explanation": "Equivalent: Both are infinite loops. while(true) is preferred in C++ because true is the bool literal — clearer intent than the integer 1." },
+            { "q": "for(auto x:{2,4,6,8}){if(x==6) continue;cout<<x;} Output?", "options": ["2 4","2 4 8","2 4 6 8","6 8"], "a": 1, "damage": 30, "topic": "continue range-based", "explanation": "Skips x=6. Prints: 2, 4, 8." }
           ]
         },
         "coding": [
-          { "title": "Boss: Sum Loop", "objective": "total=0; for i in range(1,4): total+=i. What is total?", "starterCode": "total = 0\nfor i in range(1,4):\n    total += i\nprint(total)\n# Output: ___", "answer": "6", "hint": "range(1,4) = 1,2,3. Sum = 1+2+3 = 6." }
+          { "title": "Boss: Efficient read loop", "objective": "for(___ s : strings) — what prefix reads by reference without copy?", "starterCode": "vector<string> names = {\"Alice\",\"Bob\"};\nfor(___ name : names) {\n    cout << name << endl;\n}\n// Fill blank for efficient read-only:", "answer": "const auto&", "hint": "const = can't modify, auto& = reference (no copy). Together: const auto&." },
+          { "title": "Boss: Range sum", "objective": "for(auto x:{1,2,3,4,5}) sum+=x; Final sum?", "starterCode": "int sum=0;\nfor(auto x : {1,2,3,4,5}) sum+=x;\ncout << sum;\n// Output: ___", "answer": "15", "hint": "1+2+3+4+5 = 15." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nnums = [5, 10, 15]\nfor i in range(4):\n    print(nums[i])", "brokenCode": "nums = [5, 10, 15]\nfor i in range(4):\n    print(nums[i])", "bugLine": 1, "options": ["range should be range(3) or range(len(nums)) to avoid IndexError", "print is wrong", "nums is wrong", "Nothing wrong"], "answer": "range should be range(3) or range(len(nums)) to avoid IndexError", "hint": "3 items but range(4) tries index 3 which doesn't exist." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nvector<string> words = {\"hello\",\"world\"};\nfor (auto s : words) {\n    cout << s.length() << endl;\n}\n// Works but inefficient for long strings!", "brokenCode": "for (auto s : words)", "bugLine": 0, "options": ["Nothing wrong, this is correct","auto s copies each string — use: for(const auto& s : words) to avoid copying","s.length() needs cast","vector must be const"], "answer": "auto s copies each string — use: for(const auto& s : words) to avoid copying", "hint": "String copy is expensive. const auto& binds a reference — no copy, same result, much faster for large strings." }
         ],
         "prediction": [
-          { "code": "result = []\nfor i in range(3):\n    result.append(i * 2)\nprint(result)", "options": ["[0, 1, 2]", "[0, 2, 4]", "[2, 4, 6]", "[1, 2, 3]"], "answer": "[0, 2, 4]", "explanation": "i=0→0, i=1→2, i=2→4. result = [0, 2, 4]." }
+          { "code": "vector<int> v = {5,3,8,1,9,2};\nint hi = v[0];\nfor(const auto& x : v)\n    if(x > hi) hi = x;\ncout << hi;", "options": ["5","9","8","Error"], "answer": "9", "explanation": "Find max: starts at 5, 8>5→8, 9>8→9. Final hi=9." }
         ]
       }
     }

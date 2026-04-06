@@ -1,46 +1,169 @@
 {
-  "label": "JAVA_ARCADE",
-  "foundation": [
+  "label": "LEVEL 6: OOP — CLASSES & ENCAPSULATION (Java)",
+  "sublevels": [
     {
-       "id": 601, "title": "ERROR", "subtitle": "Exceptions", "icon": "AlertCircle",
-       "content": "Exceptions are 'Special Events' that happen when a Java program crashes. You use 'Try/Catch' to catch the error before the program dies.",
-       "scenario": "A Fire Alarm. If (the fire) occurs, the alarm (Exception) sounds. You catch (catch) the alarm and exit the building safely instead of burning.",
-       "examples": [
-         { "title": "Try Block", "explanation": "Defining a code area where a crash might occur safely.", "code": "try { x = 1/0; }" },
-         { "title": "Catch Block", "explanation": "The room you go to if a crash actually happens in the try.", "code": "catch (Exception e) { ... }" },
-         { "title": "Finally", "explanation": "A block that ALWAYS runs, whether you crashed or didn't.", "code": "finally { close(); }" }
-       ],
-       "keyPoint": "try, catch, finally. The safety loop."
+      "id": "6_1",
+      "title": "CLASSES & CONSTRUCTORS",
+      "subtitle": "Blueprints, objects & initialization",
+      "icon": "Box",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "j6c1", "title": "Java Classes & Objects", "emoji": "🏗️",
+            "analogy": "A class is an architect's blueprint. The object is the actual building. Every building made from the same blueprint shares structure, but each has its own address, its own tenants, its own story. The constructor is the moment of construction.",
+            "content": "class defines the blueprint: fields (state) + methods (behavior). new creates objects. Constructor: same name as class, no return type, runs automatically on new. this refers to the current object. Fields can have defaults.",
+            "examples": [
+              { "title": "Class with Constructor", "explanation": "Fields + constructor + methods.", "code": "public class Player {\n    String name;    // field\n    int hp;         // field\n    int level;      // field\n    \n    // Constructor:\n    public Player(String name, int hp) {\n        this.name = name;  // this = current object\n        this.hp = hp;\n        this.level = 1;    // default\n    }\n    \n    public void attack() {\n        System.out.println(name + \" attacks!\");\n    }\n    \n    public String toString() {\n        return name + \" [HP:\" + hp + \" LV:\" + level + \"]\";\n    }\n}\n\nPlayer p = new Player(\"Neo\", 100);\np.attack();          // Neo attacks!\nSystem.out.println(p); // Neo [HP:100 LV:1]" },
+              { "title": "Multiple Constructors (Overloading)", "explanation": "Different constructors for different scenarios.", "code": "public class Item {\n    String name;\n    int value;\n    boolean rare;\n    \n    public Item(String name, int value) {\n        this.name = name;\n        this.value = value;\n        this.rare = false;\n    }\n    \n    public Item(String name, int value, boolean rare) {\n        this(name, value); // call other constructor!\n        this.rare = rare;\n    }\n}\nItem sword = new Item(\"Sword\", 100);\nItem legendary = new Item(\"Excalibur\", 9999, true);" }
+            ],
+            "funFact": "Java's 'new' keyword allocates on the HEAP and returns a reference. The JVM's Garbage Collector automatically frees memory when no references remain — unlike C/C++ where YOU must free manually. 🗑️"
+          },
+          {
+            "id": "j6c2", "title": "this Keyword", "emoji": "👆",
+            "analogy": "this is the object's way of pointing to itself — like saying 'I' in conversation. Necessary when a parameter name shadows a field name. Also used to call another constructor from a constructor.",
+            "content": "this refers to the current object instance. Used to: 1) disambiguate field from parameter (this.name = name), 2) call another constructor from a constructor (this(args)), 3) pass current object as argument.",
+            "examples": [
+              { "title": "this Disambiguates", "explanation": "this.field vs local parameter.", "code": "public class Circle {\n    double radius;  // field\n    \n    public Circle(double radius) {  // param same name\n        this.radius = radius; // this.radius = field\n        //     radius = radius; // WRONG — param = param\n    }\n    \n    public double area() {\n        return Math.PI * this.radius * this.radius;\n        // 'this.radius' same as 'radius' here (no ambiguity)\n    }\n}" }
+            ],
+            "funFact": "this() to call another constructor is called 'constructor chaining'. It MUST be the very first statement in the calling constructor. This avoids code duplication when constructors share initialization logic! 🔗"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE OBJECT GOLEM", "maxHp": 100 },
+          "mcq": [
+            { "q": "What is a constructor in Java?", "options": ["A static method","A special method same name as class, no return type, runs on object creation","A void method","A method that returns the class"], "a": 1, "damage": 20, "topic": "Constructor", "explanation": "Constructor: Same name as class, no return type (not even void). Runs automatically when 'new ClassName()' is called. Initializes the object's state." },
+            { "q": "What does 'this' refer to inside an instance method?", "options": ["The class itself","The current object (the specific instance the method is called on)","The parent class","A static reference"], "a": 1, "damage": 20, "topic": "this", "explanation": "this: The current INSTANCE. When neo.attack() is called, inside attack(), this == neo. Used to access fields when parameter names conflict." },
+            { "q": "Player p = new Player('Neo', 100). What does 'new' do?", "options": ["Calls main()","Allocates memory on heap, calls constructor, returns reference","Creates a static method","Imports the class"], "a": 1, "damage": 20, "topic": "new keyword", "explanation": "new: Allocates heap memory for the object, calls the constructor to initialize it, and returns a reference to the new object." },
+            { "q": "Can a class have multiple constructors?", "options": ["No — only one constructor","Yes — constructor overloading with different param lists","Only if private","Only with different return types"], "a": 1, "damage": 20, "topic": "Constructor overloading", "explanation": "Yes — Constructor Overloading: Same rules as method overloading. Different parameter lists → different constructors. Common: Item() and Item(String name) and Item(String name, int value)." },
+            { "q": "What is the purpose of this.name = name in a constructor?", "options": ["Creates a new field","Assigns constructor parameter 'name' to the field 'this.name' (disambiguates)","Copies the object","Calls parent constructor"], "a": 1, "damage": 20, "topic": "this disambiguation", "explanation": "Disambiguation: When field and parameter share the same name, this.name refers to the FIELD, plain 'name' is the parameter. Without this, name=name just assigns param to itself!" }
+          ]
+        },
+        "coding": [
+          { "title": "Constructor syntax", "objective": "Class Dog has field name. Constructor to set it:", "starterCode": "class Dog {\n    String name;\n    public ___(String name) {\n        this.name = name;\n    }\n}", "answer": "Dog", "hint": "Constructor has same name as the class — Dog." },
+          { "title": "this disambiguation", "objective": "Field 'score'. Param 'score'. How to set field in constructor?", "starterCode": "public Player(int score) {\n    ___.score = score;\n}", "answer": "this", "hint": "this.score = the field. Plain score = the parameter." },
+          { "title": "Create object", "objective": "Dog class with constructor Dog(String name). Create Dog named 'Rex'.", "starterCode": "Dog rex = ___ Dog(\"Rex\");\nSystem.out.println(rex.name);", "answer": "new", "hint": "new keyword creates a new object on the heap." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\npublic class Car {\n    void Car(String model) {  // void is wrong!\n        this.model = model;\n    }\n}", "brokenCode": "void Car(String model)", "bugLine": 0, "options": ["Nothing wrong","Constructors have NO return type — not even void. Remove 'void': public Car(String model)","Should be public Car()","model needs to be field first"], "answer": "Constructors have NO return type — not even void. Remove 'void': public Car(String model)", "hint": "Adding void makes it a regular method named 'Car', not a constructor. Constructors have no return type." }
+        ],
+        "prediction": [
+          { "code": "class Box {\n    int w,h;\n    Box(int w,int h){this.w=w;this.h=h;}\n    int area(){return w*h;}\n}\nBox b=new Box(4,6);\nSystem.out.println(b.area());", "options": ["10","24","46","Error"], "answer": "24", "explanation": "Box(4,6): w=4, h=6. area()=4×6=24." }
+        ]
+      }
     },
     {
-       "id": 604, "title": "FILEIO", "subtitle": "Reading Disk", "icon": "File",
-       "content": "Java uses 'Streams' to read from files on your disk. You must always close these streams to avoid leaking memory.",
-       "scenario": "A Paper Document in a file cabinet. You open the cabinet (FileReader), read the page (read), and close it (close) so others can use it.",
-       "examples": [
-         { "title": "FileReader", "explanation": "Creating a link to a file on your hard drive easily.", "code": "FileReader fr = new FileReader('f.txt');" },
-         { "title": "Buffered Read", "explanation": "Reading the file one whole line at a time to be faster.", "code": "BufferedReader br = new BufferedReader(fr);" },
-         { "title": "Close File", "explanation": "Manually closing the stream to free up system resources.", "code": "br.close();" }
-       ],
-       "keyPoint": "Always wrap File I/O in a try-catch-finally."
+      "id": "6_2",
+      "title": "ENCAPSULATION",
+      "subtitle": "Access modifiers, getters & setters",
+      "icon": "Lock",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "j6c3", "title": "Access Modifiers & Encapsulation", "emoji": "🔒",
+            "analogy": "Encapsulation is the principle of 'need to know'. A bank account hides its internal balance variable (private) and only lets you interact through deposit() and withdraw() methods. No direct access to the safe — only through the authorized channels.",
+            "content": "Access modifiers: private (class only), package-private (default, same package), protected (class + subclasses), public (anywhere). Encapsulation: make fields private, expose controlled access via public getters/setters.",
+            "examples": [
+              { "title": "Encapsulated Class", "explanation": "Private fields + public getters/setters.", "code": "public class BankAccount {\n    private String owner;  // private — hidden!\n    private double balance;\n    \n    public BankAccount(String owner, double initial) {\n        this.owner = owner;\n        this.balance = initial;\n    }\n    \n    // Getter — controlled read:\n    public double getBalance() { return balance; }\n    public String getOwner() { return owner; }\n    \n    // Setter with validation:\n    public void deposit(double amount) {\n        if (amount > 0) balance += amount;\n    }\n    public boolean withdraw(double amount) {\n        if (amount > 0 && amount <= balance) {\n            balance -= amount; return true;\n        }\n        return false;\n    }\n}" }
+            ],
+            "funFact": "Java IDEs (IntelliJ, Eclipse) can auto-generate getters/setters with one keyboard shortcut. But in modern Java (Java 14+ records), getters are generated automatically: record Point(int x, int y) {} — gives you x() and y() for free! 🎁"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE ENCAPSULATOR", "maxHp": 100 },
+          "mcq": [
+            { "q": "private field — who can access it?", "options": ["Anyone","Only the class it's declared in","Class + subclasses","Same package"], "a": 1, "damage": 25, "topic": "private", "explanation": "private: Most restrictive. Only code within THE SAME CLASS can access private members. Not even subclasses or same-package classes." },
+            { "q": "Why make fields private and use getters/setters?", "options": ["Java requires it","Controlled access — getters/setters can validate, log, or compute values before expose/change","Faster performance","Required for inheritance"], "a": 1, "damage": 25, "topic": "Encapsulation benefit", "explanation": "Controlled Access: With private + setter, you can validate (if amount>0), log changes, compute derived values. Direct public field access has no validation layer." },
+            { "q": "public vs private access modifier:", "options": ["No difference","public: accessible from anywhere; private: only within the same class","public is faster","private means static"], "a": 1, "damage": 25, "topic": "public vs private", "explanation": "Scope: public = accessible from ANY class anywhere. private = only within the declaring class. protected = class + subclasses + same package." },
+            { "q": "Naming convention for a getter for field 'score'?", "options": ["getScore()","score()","returnScore()","fetchScore()"], "a": 0, "damage": 25, "topic": "Getter naming", "explanation": "getX() convention: Java follows JavaBeans convention — getFieldName() for getters, setFieldName(value) for setters, isFieldName() for boolean getters. IDEs and frameworks depend on this!" }
+          ]
+        },
+        "coding": [
+          { "title": "Private field", "objective": "Make speed field accessible only within Car class:", "starterCode": "class Car {\n    ___ int speed;\n}", "answer": "private", "hint": "private limits access to the declaring class only." },
+          { "title": "Getter name", "objective": "Getter for private int health field?", "starterCode": "public int ___() {\n    return health;\n}", "answer": "getHealth", "hint": "Convention: get + FieldName (capitalized) = getHealth()" },
+          { "title": "Setter with validation", "objective": "Setter that only sets age if > 0:", "starterCode": "public void setAge(int age) {\n    if (age ___ 0) this.age = age;\n}", "answer": ">", "hint": "Only set if age is positive (greater than 0)." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nclass Player {\n    private int hp;\n}\n// Elsewhere:\nPlayer p = new Player();\np.hp = 100;  // Error!", "brokenCode": "p.hp = 100;", "bugLine": 0, "options": ["Nothing wrong","hp is private — can't access directly outside Player. Use a setter: p.setHp(100);","new Player() doesn't work","hp should be String"], "answer": "hp is private — can't access directly outside Player. Use a setter: p.setHp(100);", "hint": "private fields are invisible outside the class. Expose via public setter method." }
+        ],
+        "prediction": [
+          { "code": "class Temp {\n    private int val = 0;\n    public void set(int v){if(v>0)val=v;}\n    public int get(){return val;}\n}\nTemp t=new Temp();\nt.set(-5);\nt.set(42);\nSystem.out.println(t.get());", "options": ["0","-5","42","Error"], "answer": "42", "explanation": "set(-5): -5>0 false → ignored. set(42): 42>0 true → val=42. get()=42." }
+        ]
+      }
     },
     {
-       "id": 608, "title": "PACKAGE", "subtitle": "Toolboxes", "icon": "Layers",
-       "content": "Packages are folders of related Java classes. You 'import' a package to get tools like the Scanner or the ArrayList.",
-       "scenario": "A Toolbox. Each drawer (Package) has tools (Classes) for a different job. You open the 'Tools' drawer (import java.util.*) to get the Scanner.",
-       "examples": [
-         { "title": "Standard Lib", "explanation": "Importing a box of pre-made tools from the official Java library.", "code": "import java.util.*;" },
-         { "title": "Custom Pack", "explanation": "Creating your own package folder at the top of a file.", "code": "package game.logic;" },
-         { "title": "Specific One", "explanation": "Importing just one specific tool instead of the whole drawer.", "code": "import java.util.Scanner;" }
-       ],
-       "keyPoint": "The first line in a Java file is usually the package name."
-    }
-  ],
-  "tests": [
+      "id": "6_3",
+      "title": "STATIC MEMBERS & FINAL",
+      "subtitle": "Class-level state and constants",
+      "icon": "Globe",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "j6c4", "title": "static Fields, Methods & final", "emoji": "🌐",
+            "analogy": "A static field is shared by ALL objects of a class — like a scoreboard on the wall that every player can see and update. Instance fields belong to each player's personal sheet. static = shared; instance = personal.",
+            "content": "static field: shared across all instances (class-level). static method: belongs to class, no 'this', can't access instance members. final field: constant, must be set in constructor or at declaration. static final = constant (convention: UPPER_CASE).",
+            "examples": [
+              { "title": "static and final", "explanation": "Class-level state and constants.", "code": "public class Player {\n    // static: shared by ALL players:\n    private static int totalPlayers = 0;\n    public static final int MAX_HP = 100; // constant\n    \n    // instance: per-player\n    private String name;\n    private int hp;\n    \n    public Player(String name) {\n        this.name = name;\n        this.hp = MAX_HP;\n        totalPlayers++;  // update shared counter\n    }\n    \n    public static int getTotal() {\n        return totalPlayers;  // no 'this' here\n    }\n}\n\nnew Player(\"Neo\");\nnew Player(\"Trinity\");\nSystem.out.println(Player.getTotal()); // 2\nSystem.out.println(Player.MAX_HP);     // 100" }
+            ],
+            "funFact": "Java's Math class is all static: Math.sqrt(), Math.abs(), Math.PI. You never create a Math object — you call Math.method() directly. The Math class even has a private constructor to prevent instantiation! 📐"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE STATIC TITAN", "maxHp": 100 },
+          "mcq": [
+            { "q": "static field vs instance field — difference?", "options": ["No difference","static: one copy shared by all objects; instance: each object has its own copy","static is faster","instance is static by default"], "a": 1, "damage": 33, "topic": "static vs instance field", "explanation": "Shared vs Personal: static field has ONE copy for the class — all instances read/write the same variable. Instance field: each object has its own copy." },
+            { "q": "Can a static method access 'this'?", "options": ["Yes","No — static methods have no 'this' (they belong to the class, not an instance)","Only if final","Yes via super"], "a": 1, "damage": 33, "topic": "static no this", "explanation": "No this: static methods aren't associated with any instance. 'this' has no meaning — there's no current object. They can only access other static members." },
+            { "q": "public static final int MAX = 100 — what is this?", "options": ["A mutable class variable","A constant (compile-time constant, cannot be changed)","A static method","An instance field"], "a": 1, "damage": 34, "topic": "static final constant", "explanation": "Constant: static final = a class-level constant. By convention, constants are UPPER_CASE. The value cannot be changed after initialization." }
+          ]
+        },
+        "coding": [
+          { "title": "Static field", "objective": "static int that counts all Player instances:", "starterCode": "class Player {\n    ___ ___ int count = 0;\n    Player(){count++;}\n}", "answer": "static", "hint": "static field is shared across all instances — one 'count' for all Player objects." },
+          { "title": "Constant declaration", "objective": "Declare a public constant MAX_SPEED = 120:", "starterCode": "public ___ final int MAX_SPEED = 120;", "answer": "static", "hint": "public static final = class-level constant." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nclass Engine {\n    int rpm;\n    static void show() {\n        System.out.println(rpm); // Error!\n    }\n}", "brokenCode": "System.out.println(rpm);", "bugLine": 0, "options": ["Nothing wrong","static method can't access instance field 'rpm' — no 'this'. Make rpm static or pass it as parameter.","rpm should be String","show() needs return type"], "answer": "static method can't access instance field 'rpm' — no 'this'. Make rpm static or pass it as parameter.", "hint": "static methods don't have 'this'. They can't access instance (non-static) fields." }
+        ],
+        "prediction": [
+          { "code": "class A {\n    static int n=0;\n    A(){n++;}\n}\nnew A(); new A(); new A();\nSystem.out.println(A.n);", "options": ["0","1","3","Error"], "answer": "3", "explanation": "n is static — shared. Each new A() increments n. Three objects created: n=3." }
+        ]
+      }
+    },
     {
-      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "Java Safety Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "Which block always runs?", "options": ["try","catch","finally","exit"], "a": 2, "hint": "The ultimate finisher." }
-      ]
+      "id": "6_boss",
+      "title": "THE OOP ARCHITECT",
+      "subtitle": "BOSS FIGHT — All Level 6 Java",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss_j6", "title": "⚠️ BOSS — THE OOP ARCHITECT", "emoji": "👾",
+            "analogy": "The OOP Architect designed all of Java's class system. It knows every field, every constructor, every access modifier rule. Prove your object-oriented foundations are unshakeable!",
+            "content": "Tests ALL Level 6 Java: constructors (no return type), this disambiguation, constructor chaining, private/public/protected, getters/setters, encapsulation, static fields (shared), final constants, static methods (no this).",
+            "examples": [{ "title": "Full OOP Arsenal", "explanation": "", "code": "✅ Constructor: same name, NO return type\n✅ this.field = param  (disambiguation)\n✅ this(args) = constructor chaining\n✅ private field + public getter/setter\n✅ Validation logic in setters\n✅ static field: ONE copy for ALL objects\n✅ static method: NO this keyword\n✅ static final: UPPER_CASE constant\n✅ new = heap allocation + constructor" }],
+            "funFact": "Java's record keyword (Java 16+) auto-generates constructor, getters, equals(), hashCode(), and toString() from field declarations. record Point(int x, int y) {} creates a fully immutable class in one line! 🪄"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE OOP ARCHITECT", "maxHp": 150 },
+          "mcq": [
+            { "q": "Constructor return type in Java?", "options": ["void","int","The class type","No return type at all"], "a": 3, "damage": 30, "topic": "Constructor no return", "explanation": "No Return Type: Constructors have NO return type specified — not even void. Adding any return type makes it a regular method, not a constructor." },
+            { "q": "class Item{private int val; int get(){return val;}} From outside: Item i=new Item(); i.val?", "options": ["Works — returns 0","Compile error — val is private","Returns null","Depends on package"], "a": 1, "damage": 30, "topic": "private access", "explanation": "Compile Error: private makes val inaccessible outside the class. Must use i.get() to access the value." },
+            { "q": "static int count=0 in Player. 3 Player objects created. count=?", "options": ["0","1","3","Undefined"], "a": 2, "damage": 30, "topic": "static shared field", "explanation": "Shared: count is ONE variable for ALL Player instances. Each constructor call (new Player()) typically increments it. After 3 objects: count=3." },
+            { "q": "In a static method, this.field causes:", "options": ["Works correctly","Compile error — static methods have no 'this'","Returns null","Goes to superclass"], "a": 1, "damage": 30, "topic": "static no this", "explanation": "Compile Error: static methods aren't associated with any object. 'this' doesn't exist. Cannot access instance fields/methods." },
+            { "q": "Best practice: BankAccount balance field should be:", "options": ["public","private with public getters/deposit/withdraw methods","static","final"], "a": 1, "damage": 30, "topic": "Encapsulation practice", "explanation": "private + methods: Encapsulation principle. Private balance prevents direct modification. Public methods (deposit/withdraw) enforce validation rules." }
+          ]
+        },
+        "coding": [
+          { "title": "Boss: Complete class", "objective": "class Coin{private int value; getter returns value as int?}", "starterCode": "class Coin {\n    private int value;\n    public ___ getValue(){return value;}\n}", "answer": "int", "hint": "Returns the int field 'value' → return type is int." },
+          { "title": "Boss: Static count", "objective": "static int instances=0; Each new obj increments. After 4 new calls: value?", "starterCode": "// 4 new MyClass() calls, each does instances++\n// instances = ___", "answer": "4", "hint": "static field shared. 4 increments → 4." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nclass Person {\n    private String name;\n    void Person(String name) {\n        this.name = name;\n    }\n}", "brokenCode": "void Person(String name)", "bugLine": 0, "options": ["Nothing wrong","'void' makes it a regular method, not a constructor. Remove 'void': public Person(String name)","Should be static","name needs different name"], "answer": "'void' makes it a regular method, not a constructor. Remove 'void': public Person(String name)", "hint": "Constructors have NO return type. 'void Person()' is just a method named Person, not a constructor!" }
+        ],
+        "prediction": [
+          { "code": "class Counter{\n    private int n=0;\n    public void inc(){n++;}\n    public int get(){return n;}\n}\nCounter a=new Counter(),b=new Counter();\na.inc();a.inc();b.inc();\nSystem.out.println(a.get()+\" \"+b.get());", "options": ["3 3","2 1","2 2","3 1"], "answer": "2 1", "explanation": "n is instance field — each object has its own. a.inc() twice: a.n=2. b.inc() once: b.n=1." }
+        ]
+      }
     }
   ]
 }

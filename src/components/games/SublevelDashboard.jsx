@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, CheckCircle2, Lock, Skull } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
+import { sfxClick, sfxHover, sfxLocked, sfxHit, sfxGemCollect } from '@/lib/sounds';
 
 const PHASES = [
   { label: '📖 Learn', key: 'teaching' },
@@ -60,7 +61,14 @@ export default function SublevelDashboard({ label, sublevels, completedIds, onSe
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.08, type: 'spring', stiffness: 200 }}
               whileHover={!isLocked ? { scale: 1.04, y: -4 } : {}}
-              onClick={() => !isLocked && onSelectSublevel(sub.pipeline)}
+              onClick={() => {
+                if (isLocked) { sfxLocked(); return; }
+                if (isBoss) sfxHit();
+                else if (isCompleted) sfxGemCollect();
+                else sfxClick();
+                onSelectSublevel(sub.pipeline);
+              }}
+              onMouseEnter={() => !isLocked && sfxHover()}
               className={`relative rounded-[32px] border-2 cursor-pointer transition-all flex flex-col gap-5 p-7 overflow-hidden
                 ${isLocked
                   ? 'opacity-30 border-white/5 pointer-events-none grayscale bg-black/50'
@@ -128,7 +136,8 @@ export default function SublevelDashboard({ label, sublevels, completedIds, onSe
 
       {/* Back */}
       <div className="mt-16">
-        <button onClick={onBack}
+        <button onClick={() => { sfxClick(); onBack(); }}
+          onMouseEnter={() => sfxHover()}
           className="px-10 py-4 rounded-[20px] bg-white/5 border border-white/10 hover:bg-white/10 text-white/40 hover:text-white font-black text-xs uppercase tracking-[0.3em] transition-all flex items-center gap-3">
           <LucideIcons.ArrowLeft className="w-4 h-4" />
           RETURN TO MISSION HUB

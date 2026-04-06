@@ -1,46 +1,133 @@
 {
-  "label": "C_ARCADE",
-  "foundation": [
+  "label": "LEVEL 7: ADVANCED POINTERS & DATA STRUCTURES (C)",
+  "sublevels": [
     {
-       "id": 701, "title": "POINTER", "subtitle": "Memory Addresses", "icon": "Cpu",
-       "content": "A C pointer stores the literal memory address (like 0x7ffd) of a variable. It's the key to high-level control in games and OS kernels.",
-       "scenario": "A Physical Address on an Envelope. The letter (the data) is inside. The address on top (the pointer) tells you exactly which house to go to.",
-       "examples": [
-         { "title": "Creation", "explanation": "Asking for 4 bytes of RAM using the '*' symbol.", "code": "int *ptr;" },
-         { "title": "Extraction", "explanation": "Retrieving the literal memory address using the '&' (Address of) symbol.", "code": "ptr = &x;" },
-         { "title": "The Null", "explanation": "Assigning 'NULL' to a pointer to show it's currently pointing at nothing.", "code": "ptr = NULL;" }
-       ],
-       "keyPoint": "* = Value at. & = Address of. NULL = Empty."
+      "id": "7_1",
+      "title": "POINTER ARITHMETIC",
+      "subtitle": "Arrays, pointer math & double pointers",
+      "icon": "GitBranch",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c7c1", "title": "C Pointer Arithmetic", "emoji": "🔢",
+            "analogy": "Pointer arithmetic is navigating an apartment building — adding 1 moves to the NEXT APARTMENT, not the next byte. C adjusts by sizeof(type) automatically.",
+            "content": "p+1 moves one element forward (sizeof(type) bytes). p++ increments. p-q gives element count between pointers. arr[i] == *(arr+i) — defined equivalence. double pointer int **pp stores address of int*.",
+            "examples": [
+              { "title": "Pointer Arithmetic", "explanation": "Type-aware stepping.", "code": "int arr[]={10,20,30,40,50};\nint *p=arr;\nprintf(\"%d\\n\",*(p+2)); // 30\nprintf(\"%d\\n\",p[3]);   // 40 (same as *(p+3))\np++;\nprintf(\"%d\\n\",*p);     // 20" },
+              { "title": "Double Pointer", "explanation": "int **pp — pointer to pointer.", "code": "int x=42;\nint *p=&x;\nint **pp=&p;\nprintf(\"%d\\n\",**pp); // 42\n**pp=99;\nprintf(\"%d\\n\",x);    // 99" }
+            ],
+            "funFact": "arr[i] is DEFINED as *(arr+i) in C. So i[arr] is valid C! 5[arr] == arr[5] because arr+5 == 5+arr mathematically. 🤯"
+          },
+          {
+            "id": "c7c2", "title": "Linked Lists in C", "emoji": "🔗",
+            "analogy": "A linked list is a treasure hunt — each item has data and a clue (pointer) to the next. Unlike an array, nodes can be anywhere in memory.",
+            "content": "Self-referential struct: has a pointer to the same type. Enables linked lists, trees. Traverse by following ->next until NULL. malloc for each node, free all on cleanup.",
+            "examples": [
+              { "title": "Singly Linked List", "explanation": "Classic C data structure.", "code": "typedef struct Node{int data;struct Node*next;}Node;\n\nNode* mk(int v){Node*n=malloc(sizeof(Node));n->data=v;n->next=NULL;return n;}\n\nvoid print(Node*h){\n    while(h){printf(\"%d->\",h->data);h=h->next;}\n    printf(\"NULL\\n\");\n}\n\nint main(){\n    Node *h=mk(1);\n    h->next=mk(2);\n    h->next->next=mk(3);\n    print(h); // 1->2->3->NULL\n}" }
+            ],
+            "funFact": "Linked lists were invented in 1955 for one of the first AI programs. C pointers make them natural to implement. 🧠"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE POINTER TITAN", "maxHp": 100 },
+          "mcq": [
+            { "q": "int arr[]={1,2,3,4}; int *p=arr; *(p+2)=?", "options": ["1","2","3","4"], "a": 2, "damage": 25, "topic": "Pointer arithmetic", "explanation": "*(p+2) = arr[2] = 3." },
+            { "q": "p+1 for int* moves by how many bytes (int=4)?", "options": ["1","4","8","sizeof(int*)"], "a": 1, "damage": 25, "topic": "Step size", "explanation": "4 bytes (sizeof(int)). Pointer arithmetic is type-aware — steps by element size." },
+            { "q": "int **pp. To get the int value, dereference how many times?", "options": ["1","2","3","0"], "a": 1, "damage": 25, "topic": "Double deref", "explanation": "**pp — first * gives int*, second * gives int. Two dereferences." },
+            { "q": "Last node in a linked list next pointer should be:", "options": ["First node","Itself","NULL","Garbage"], "a": 2, "damage": 25, "topic": "Linked list NULL", "explanation": "NULL signals end of list. Without it, traversal reads beyond the list into random memory." }
+          ]
+        },
+        "coding": [
+          { "title": "Pointer step", "objective": "int a[]={5,10,15}; int *p=a; *(p+1)=?", "starterCode": "int a[]={5,10,15};\nint *p=a;\nprintf(\"%d\\n\",*(p+1));\n// Output: ___", "answer": "10", "hint": "p+1 = a[1] = 10." },
+          { "title": "Double deref", "objective": "int x=7;int*p=&x;int**pp=&p. **pp=?", "starterCode": "int x=7;\nint *p=&x,**pp=&p;\nprintf(\"%d\\n\",**pp);\n// Output: ___", "answer": "7", "hint": "**pp follows two pointers to reach x=7." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Memory leak:\n\nvoid free_list(Node*head){\n    while(head!=NULL){\n        head=head->next; // free forgotten!\n    }\n}", "brokenCode": "head=head->next;", "bugLine": 0, "options": ["Nothing wrong","Node never freed — memory leak! Save next, then free: Node*t=head->next;free(head);head=t;","Use delete","head should be **head"], "answer": "Node never freed — memory leak! Save next, then free: Node*t=head->next;free(head);head=t;", "hint": "Save next BEFORE freeing, then free the current node." }
+        ],
+        "prediction": [
+          { "code": "int a[]={2,4,6,8,10};\nint*p=a+2;\nprintf(\"%d %d\\n\",*p,*(p+1));", "options": ["2 4","4 6","6 8","8 10"], "answer": "6 8", "explanation": "a+2=&a[2]. *p=6,*(p+1)=8." }
+        ]
+      }
     },
     {
-       "id": 705, "title": "MALLOC", "subtitle": "Heap Control", "icon": "Layers",
-       "content": "In C, you can ask for RAM yourself from the 'Heap' using malloc(). This memory stays yours until you give it back manually.",
-       "scenario": "A Hotel Room. You call (malloc) and ask for a room. You can keep the room as long as you want until you Check Out (free).",
-       "examples": [
-         { "title": "The Request", "explanation": "Asking or raw memory by its total byte count directly from the OS.", "code": "int *p = malloc(4);" },
-         { "title": "Check In", "explanation": "Ensuring the system actually HAD memory for you to take or it crashes null.", "code": "if (p == NULL) { exit(); }" },
-         { "title": "The Result", "explanation": "Accessing the new memory address as if it were a normal local variable.", "code": "*p = 100;" }
-       ],
-       "keyPoint": "malloc(bytes) returns address of newly allocated RAM."
+      "id": "7_2",
+      "title": "PREPROCESSOR & MACROS",
+      "subtitle": "#define, conditionals & include guards",
+      "icon": "Hash",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c7c3", "title": "C Preprocessor", "emoji": "⚙️",
+            "analogy": "The preprocessor is a find-and-replace tool running BEFORE the compiler. It has no knowledge of types, scopes, or C syntax — just text substitution.",
+            "content": "#define: text substitution constants and macros. #include: paste file. #ifdef/#ifndef/#endif: compile conditionally. Include guards prevent double-inclusion. Always parenthesize macro params!",
+            "examples": [
+              { "title": "Macros & Conditionals", "explanation": "Preprocessor transforms text before compilation.", "code": "#define PI 3.14159\n#define MAX(a,b) ((a)>(b)?(a):(b))\n#define DEBUG\n\nprintf(\"%.2f\\n\",PI*2); // 6.28\nprintf(\"%d\\n\",MAX(5,9)); // 9\n\n#ifdef DEBUG\n  printf(\"[DEBUG]\\n\"); // only if DEBUG defined\n#endif" },
+              { "title": "Include Guards", "explanation": "Prevent double-declaration errors.", "code": "// utils.h:\n#ifndef UTILS_H\n#define UTILS_H\ntypedef struct{int x,y;}Point;\n#endif\n\n// Modern equivalent:\n#pragma once" }
+            ],
+            "funFact": "#define SQUARE(x) x*x. SQUARE(1+2) = 1+2*1+2 = 5, not 9! Always wrap params: ((x)*(x)). Classic C trap! 🐛"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE PREPROCESSOR", "maxHp": 100 },
+          "mcq": [
+            { "q": "#define MAX 100. Compiler sees int x=MAX as:", "options": ["int x=MAX","int x=100 — text substituted","Error","int x=sizeof(MAX)"], "a": 1, "damage": 25, "topic": "Text substitution", "explanation": "Compiler only sees int x=100. MAX is replaced before compilation." },
+            { "q": "Include guard #ifndef HEADER_H prevents:", "options": ["Runtime errors","Header double-inclusion causing redefinition errors","Linker errors","Syntax errors"], "a": 1, "damage": 25, "topic": "Include guard", "explanation": "Double Inclusion: Without guards, including same header twice → redefinition errors. Guards skip re-inclusion if already #defined." },
+            { "q": "#define SQ(x) x*x. SQ(1+2)=?", "options": ["9","5","Error","3"], "a": 1, "damage": 25, "topic": "Macro pitfall", "explanation": "5: Expands to 1+2*1+2=5. Missing parentheses! Fix: #define SQ(x) ((x)*(x))." },
+            { "q": "#ifdef DEBUG code #endif runs when:", "options": ["Always","Only if DEBUG was previously #defined","Never","Release builds only"], "a": 1, "damage": 25, "topic": "ifdef", "explanation": "Conditional Compile: Code inside #ifdef DEBUG only compiled if DEBUG is defined via #define or -DDEBUG compiler flag." }
+          ]
+        },
+        "coding": [
+          { "title": "Define constant", "objective": "Define GRAVITY as 9.8:", "starterCode": "___ GRAVITY 9.8", "answer": "#define", "hint": "#define NAME value" },
+          { "title": "Include guard first line", "objective": "First line of include guard for 'utils.h':", "starterCode": "___ UTILS_H\n#define UTILS_H\n// ...\n#endif", "answer": "#ifndef", "hint": "#ifndef = 'if not defined'" }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Macro bug:\n\n#define DOUBLE(x) x+x\nprintf(\"%d\\n\",2*DOUBLE(3));", "brokenCode": "#define DOUBLE(x) x+x", "bugLine": 0, "options": ["Prints 12","Expands to 2*3+3=9! Fix: #define DOUBLE(x) ((x)+(x))","Prints 6","Compile error"], "answer": "Expands to 2*3+3=9! Fix: #define DOUBLE(x) ((x)+(x))", "hint": "2*DOUBLE(3) → 2*3+3=9. Always wrap macro body and params in parens." }
+        ],
+        "prediction": [
+          { "code": "#define SQ(x) ((x)*(x))\n#define ADD(a,b) ((a)+(b))\nprintf(\"%d\\n\",ADD(SQ(3),SQ(4)));", "options": ["25","49","7","Error"], "answer": "25", "explanation": "SQ(3)=9, SQ(4)=16. ADD(9,16)=25." }
+        ]
+      }
     },
     {
-       "id": 710, "title": "FREE_MEM", "subtitle": "Safety Returns", "icon": "Zap",
-       "content": "C has no Garbage Collector. If you don't 'free()' the memory you took, your computer slowly runs out of RAM (Leak).",
-       "scenario": "A Library Book. If you take out 1,000 books (malloc) and never return them (free), the library will run dry and close (Crash).",
-       "examples": [
-         { "title": "The Return", "explanation": "Releasing the address back to the pool so other apps can use it.", "code": "free(p);" },
-         { "title": "Double Free", "explanation": "Crashing the computer by trying to free() the same address two times.", "code": "free(p); # Bad" },
-         { "title": "Clean Up", "explanation": "Setting a pointer to NULL after freeing it for ultimate safety.", "code": "p = NULL;" }
-       ],
-       "keyPoint": "Every malloc() must have exactly ONE free()."
-    }
-  ],
-  "tests": [
-    {
-      "id": 713, "title": "MCQ ADVENTURE", "subtitle": "C Pointers Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "What does *p do?", "options": ["Address of val","Value at address","Power of p","Multiply p"], "a": 1, "hint": "Opens the door of the address." }
-      ]
+      "id": "7_boss",
+      "title": "THE C MASTER",
+      "subtitle": "FINAL BOSS — All C Levels",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss_c7", "title": "⚠️ FINAL BOSS — THE C MASTER", "emoji": "👾",
+            "analogy": "50 years of systems programming knowledge. printf, malloc, pointers, structs, file I/O, preprocessor — the complete C arsenal. This is your graduation.",
+            "content": "Tests ALL C levels: printf format specifiers, arrays, pointers/arithmetic, strings, structs, malloc/free, fopen/fclose, return codes, function pointers, linked list traversal, preprocessor macros.",
+            "examples": [{ "title": "Complete C Arsenal", "explanation": "", "code": "✅ arr[i] == *(arr+i)\n✅ sizeof(arr)/sizeof(arr[0]) — length\n✅ int *p=&x; *p=val\n✅ int **pp — double pointer\n✅ char str[] + strlen/strcmp\n✅ struct + . (direct) -> (pointer)\n✅ malloc/calloc/free + NULL check\n✅ fopen/fclose/fgets/fprintf\n✅ return 0=success; perror(errno)\n✅ int(*fp)(int) — function pointer\n✅ #define — text substitution" }],
+            "funFact": "C runs on Mars rovers, your router, the Linux kernel, and every OS on Earth. Mastering C means you understand how computers ACTUALLY work at the hardware level. 🚀"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE C MASTER", "maxHp": 200 },
+          "mcq": [
+            { "q": "int arr[]={5,15,25,35}; int*p=arr+2; *p=?", "options": ["5","15","25","35"], "a": 2, "damage": 25, "topic": "Pointer arithmetic final", "explanation": "arr+2=&arr[2]. *p=arr[2]=25." },
+            { "q": "malloc returns NULL when:", "options": ["size=0","Allocation fails","Always on first call","ptr already allocated"], "a": 1, "damage": 25, "topic": "malloc NULL final", "explanation": "Failure: malloc returns NULL when system can't allocate heap memory. ALWAYS check!" },
+            { "q": "strcmp('abc','abd') returns:", "options": ["0","Positive","Negative","Error"], "a": 2, "damage": 25, "topic": "strcmp", "explanation": "Negative: 'abc' < 'abd' (c<d). Returns negative value." },
+            { "q": "fclose() is critical because:", "options": ["Frees RAM","Flushes write buffer to disk","Closes program","Deletes file"], "a": 1, "damage": 25, "topic": "fclose final", "explanation": "Flush: Without fclose, buffered writes may be LOST. Always fclose after writing!" },
+            { "q": "After free(ptr), using *ptr is:", "options": ["Safe","Undefined behavior / use-after-free","Returns null","Always crashes"], "a": 1, "damage": 25, "topic": "use-after-free", "explanation": "Undefined Behavior: Freed memory may be reallocated. Reading it is a critical security vulnerability. Set ptr=NULL after free!" },
+            { "q": "#define SQ(x) x*x. SQ(2+3)=?", "options": ["25","11","13","Error"], "a": 1, "damage": 25, "topic": "Macro expansion final", "explanation": "11: Expands to 2+3*2+3=2+6+3=11. Missing parens! Safe: #define SQ(x) ((x)*(x))" },
+            { "q": "Linked list traversal: Node*c=head; while(c->next!=NULL)c=c->next; c is:", "options": ["Head","NULL","Last node","Second node"], "a": 2, "damage": 25, "topic": "List traversal", "explanation": "Last Node: Loop stops when c->next==NULL. c = the tail node." },
+            { "q": "void fn(int*x){*x=99;} int n=5; fn(&n); n=?", "options": ["5","99","0","Error"], "a": 1, "damage": 25, "topic": "Pass by pointer final", "explanation": "99: Passed by pointer. *x=99 modifies the original n." }
+          ]
+        },
+        "coding": [
+          { "title": "Final: pointer array", "objective": "int a[]={10,20,30}; int *p=a; p[2]=?", "starterCode": "int a[]={10,20,30};\nint *p=a;\nprintf(\"%d\\n\",p[2]);\n// Output: ___", "answer": "30", "hint": "p[2] = *(p+2) = a[2] = 30." },
+          { "title": "Final: safe malloc", "objective": "What to check after int*d=malloc(n*sizeof(int));?", "starterCode": "int*d=malloc(10*sizeof(int));\nif(d==___){return 1;}\n// use d\nfree(d);", "answer": "NULL", "hint": "malloc returns NULL on failure." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 FINAL BUG — use-after-free in list cleanup:\n\nNode*c=head;\nwhile(c!=NULL){\n    free(c);\n    c=c->next; // reading freed memory!\n}", "brokenCode": "c=c->next;", "bugLine": 0, "options": ["Nothing wrong","free(c) then c->next reads freed memory. Fix: Node*t=c->next;free(c);c=t;","Use delete","Set head=NULL first"], "answer": "free(c) then c->next reads freed memory. Fix: Node*t=c->next;free(c);c=t;", "hint": "Save next BEFORE freeing. After free(c), c->next is undefined behavior." }
+        ],
+        "prediction": [
+          { "code": "int a[]={5,15,25,35,45};\nint*p=a,sum=0;\nfor(int i=0;i<5;i++)sum+=*(p+i);\nprintf(\"%d\\n\",sum);", "options": ["100","125","115","75"], "answer": "125", "explanation": "5+15+25+35+45=125." }
+        ]
+      }
     }
   ]
 }

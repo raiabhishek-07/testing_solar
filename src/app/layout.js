@@ -17,6 +17,7 @@ export const metadata = {
 };
 
 import { AudioProvider } from "@/components/AudioProvider";
+import GlobalMuteButton from "@/components/GlobalMuteButton";
 
 export default function RootLayout({ children }) {
   return (
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
       <body className={`${outfit.variable} ${firaCode.variable} antialiased`}>
         <AudioProvider>
           {children}
+          <GlobalMuteButton />
         </AudioProvider>
       </body>
     </html>

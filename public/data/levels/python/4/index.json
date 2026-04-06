@@ -110,6 +110,153 @@
       }
     },
     {
+      "id": "4_3",
+      "title": "SCOPE & DEFAULT ARGS",
+      "subtitle": "Where variables live & flexible functions",
+      "icon": "Layers",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "l4c7",
+            "title": "Variable Scope — Local vs Global",
+            "emoji": "🗺️",
+            "analogy": "Scope is like rooms in a house. A variable created in the kitchen (inside a function) stays IN the kitchen. You can't use it in the living room (outside the function). But a variable in the hallway (global) can be seen from any room.",
+            "content": "Local variables exist only inside the function where they're created. Global variables are defined outside all functions and can be read anywhere. Modifying a global inside a function requires the 'global' keyword.",
+            "examples": [
+              { "title": "Local vs Global", "explanation": "Local variables can't be accessed outside their function.", "code": "x = 10  # global\n\ndef my_func():\n    y = 5   # local — only exists inside here\n    print(x) # can READ global ✅\n    print(y) # local works ✅\n\nmy_func()\nprint(x)  # ✅ global\nprint(y)  # ❌ NameError! y doesn't exist here" },
+              { "title": "Modifying Global", "explanation": "Use 'global' keyword to modify a global variable inside a function.", "code": "score = 0  # global\n\ndef add_point():\n    global score\n    score = score + 1  # modifies the global\n\nadd_point()\nadd_point()\nprint(score)  # 2" }
+            ],
+            "funFact": "Overusing 'global' is considered bad practice — it makes code hard to debug. Prefer passing values as arguments and returning results instead! 🏆"
+          },
+          {
+            "id": "l4c8",
+            "title": "Default Parameters",
+            "emoji": "🎛️",
+            "analogy": "Default parameters are like a coffee machine's default settings. If you don't specify anything, it makes medium strength coffee. You can override it anytime you want something different.",
+            "content": "Default parameter values are set in the function definition with =. If the caller doesn't provide an argument for that parameter, the default is used. Default params must come AFTER required params.",
+            "examples": [
+              { "title": "Default in Action", "explanation": "Calling with and without the optional argument.", "code": "def greet(name, greeting='Hello'):\n    print(f'{greeting}, {name}!')\n\ngreet('Alex')           # Hello, Alex!\ngreet('Neo', 'Hi')      # Hi, Neo!\ngreet('Sam', 'Welcome') # Welcome, Sam!" },
+              { "title": "Multiple Defaults", "explanation": "All defaults must come after required parameters.", "code": "def power(base, exponent=2):\n    return base ** exponent\n\nprint(power(5))    # 25 (5²)\nprint(power(3, 3)) # 27 (3³)" }
+            ],
+            "funFact": "Python's print() uses default params: print(value, sep=' ', end='\\n'). That's why print('a', end='') doesn't add a newline — you're overriding the default! 🤯"
+          },
+          {
+            "id": "l4c9",
+            "title": "*args — Variable Arguments",
+            "emoji": "📦",
+            "analogy": "*args is like a bag that holds any number of items. You don't know in advance how many things someone will hand you — so instead of specific slots, you carry a bag that expands as needed.",
+            "content": "*args lets a function accept any number of positional arguments. Inside the function, args is a tuple of all the values passed. The * is the magic — args is just a naming convention.",
+            "examples": [
+              { "title": "*args in Action", "explanation": "Call with any number of arguments.", "code": "def add_all(*args):\n    total = 0\n    for n in args:\n        total += n\n    return total\n\nprint(add_all(1, 2))        # 3\nprint(add_all(1, 2, 3, 4))  # 10\nprint(add_all(5))            # 5" }
+            ],
+            "funFact": "Python's built-in print() uses *args internally — that's how print('a', 'b', 'c') works with any number of values! 🐍"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE SCOPE WARDEN", "maxHp": 100 },
+          "mcq": [
+            {
+              "q": "A variable created inside a function is called ___.",
+              "options": ["global", "local", "private", "static"],
+              "a": 1, "damage": 20, "topic": "Scope",
+              "explanation": "Scope Intel: Variables created inside a function are 'local' — they only exist while that function runs and are destroyed after. They can't be accessed from outside the function."
+            },
+            {
+              "q": "What keyword is needed to MODIFY a global variable inside a function?",
+              "options": ["local", "extern", "global", "public"],
+              "a": 2, "damage": 20, "topic": "global keyword",
+              "explanation": "Global Keyword: Without 'global', assigning to a variable inside a function creates a new LOCAL variable. Use 'global varname' to tell Python you want to modify the actual global."
+            },
+            {
+              "q": "def greet(name, greeting='Hi'): ... What happens if you call greet('Alex')?",
+              "options": ["Error — greeting is required", "greeting defaults to 'Hi'", "greeting becomes None", "greeting becomes empty string"],
+              "a": 1, "damage": 20, "topic": "Default params",
+              "explanation": "Default Parameter: If a caller doesn't provide greeting, Python uses the default 'Hi'. You only need to pass it if you want something different. Defaults make functions flexible!"
+            },
+            {
+              "q": "In def f(a, b=10), which is the required parameter?",
+              "options": ["b", "a", "Both are optional", "Neither"],
+              "a": 1, "damage": 20, "topic": "Required vs Default",
+              "explanation": "Parameter Order: 'a' has no default so it's required. 'b' has a default of 10 so it's optional. Required params always come BEFORE default params."
+            },
+            {
+              "q": "What type is *args inside a function?",
+              "options": ["list", "dict", "tuple", "set"],
+              "a": 2, "damage": 20, "topic": "*args type",
+              "explanation": "*args Intel: Inside the function, *args is a TUPLE containing all the extra positional arguments passed. Tuples are immutable — you can iterate over args but can't modify it."
+            }
+          ]
+        },
+        "coding": [
+          {
+            "title": "Spot the Scope",
+            "objective": "Is a variable created inside a function accessible outside? Type: yes or no.",
+            "starterCode": "def f():\n    secret = 42\nf()\nprint(secret)  # works? ___",
+            "answer": "no",
+            "hint": "secret is a local variable — it only exists while f() is running."
+          },
+          {
+            "title": "Default Parameter",
+            "objective": "def power(base, exp=2): return base**exp. What does power(4) return?",
+            "starterCode": "def power(base, exp=2):\n    return base ** exp\n\nprint(power(4))\n# Output: ___",
+            "answer": "16",
+            "hint": "exp defaults to 2. 4² = 16."
+          },
+          {
+            "title": "*args Count",
+            "objective": "def count(*args): return len(args). What does count(1,2,3,4,5) return?",
+            "starterCode": "def count(*args):\n    return len(args)\n\nprint(count(1, 2, 3, 4, 5))\n# Output: ___",
+            "answer": "5",
+            "hint": "5 arguments were passed, so args is (1,2,3,4,5) — length 5."
+          }
+        ],
+        "debugging": [
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\ncount = 0\ndef increment():\n    count = count + 1\n\nincrement()\nprint(count)",
+            "brokenCode": "def increment():\n    count = count + 1",
+            "bugLine": 1,
+            "options": [
+              "Nothing wrong",
+              "Need 'global count' inside the function to modify the global variable",
+              "count should be a parameter",
+              "increment() can't use count"
+            ],
+            "answer": "Need 'global count' inside the function to modify the global variable",
+            "hint": "Without 'global count', Python treats count inside the function as a new local variable — causing an UnboundLocalError."
+          },
+          {
+            "type": "mcq",
+            "description": "🚨 Bug:\n\ndef greet(greeting='Hello', name):\n    print(f'{greeting} {name}')",
+            "brokenCode": "def greet(greeting='Hello', name):",
+            "bugLine": 0,
+            "options": [
+              "Nothing wrong",
+              "Default parameters must come AFTER required ones: def greet(name, greeting='Hello')",
+              "greeting value needs quotes removed",
+              "Use def keyword wrong"
+            ],
+            "answer": "Default parameters must come AFTER required ones: def greet(name, greeting='Hello')",
+            "hint": "In Python, required params (no defaults) must always come BEFORE optional params (with defaults)."
+          }
+        ],
+        "prediction": [
+          {
+            "code": "x = 'global'\ndef f():\n    x = 'local'\n    print(x)\n\nf()\nprint(x)",
+            "options": ["local global", "global local", "local local", "Error"],
+            "answer": "local global",
+            "explanation": "Inside f(), x = 'local' creates a NEW local x — doesn't change the global. f() prints 'local', then outside print(x) shows the unchanged global 'global'."
+          },
+          {
+            "code": "def show(*args):\n    print(len(args))\n\nshow(1, 2)\nshow(1, 2, 3, 4, 5)",
+            "options": ["2 and 5", "5 and 2", "2 and 2", "Error"],
+            "answer": "2 and 5",
+            "explanation": "First call passes 2 args → len=2. Second passes 5 args → len=5. *args captures all of them."
+          }
+        ]
+      }
+    },
+    {
       "id": "4_boss",
       "title": "THE ARCHIVIST",
       "subtitle": "BOSS FIGHT — Strings & Functions",

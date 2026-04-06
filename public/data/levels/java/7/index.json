@@ -1,46 +1,185 @@
 {
-  "label": "JAVA_ARCADE",
-  "foundation": [
+  "label": "LEVEL 7: INHERITANCE & POLYMORPHISM (Java)",
+  "sublevels": [
     {
-       "id": 701, "title": "CLASS", "subtitle": "Blueprints", "icon": "Layers",
-       "content": "A Java Class is a blueprint. In Java, objects are created on the 'Heap' using the 'new' keyword.",
-       "scenario": "A Blueprints for a Car. It defines 'Color' and 'Speed'. You can't drive the blueprint; you build a physical car (Object) from it.",
-       "examples": [
-         { "title": "The Template", "explanation": "Creating a new class structure using the 'class' keyword.", "code": "class Car { int hp; void drive(); }" },
-         { "title": "Encapsulate", "explanation": "Hiding certain data variables using private so they stay safe from outside code.", "code": "private int secret = 0;" },
-         { "title": "The Instance", "explanation": "Building an actual object 'in memory' by calling its constructor.", "code": "Car c = new Car();" }
-       ],
-       "keyPoint": "class Name { data; methods; }"
+      "id": "7_1",
+      "title": "INHERITANCE",
+      "subtitle": "extends, super & method overriding",
+      "icon": "GitBranch",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "j7c1", "title": "Java Inheritance", "emoji": "🧬",
+            "analogy": "Inheritance is a genetic blueprint — a Dog class inherits everything from Animal (eat, sleep, breathe) and adds its own traits (bark, fetch). The child gets all parent capability for free and can specialize or override.",
+            "content": "extends creates a subclass inheriting all non-private members. super calls parent constructor/methods. @Override annotation marks overridden methods. Java has single inheritance (one parent class) but multiple interface implementation.",
+            "examples": [
+              { "title": "extends & super", "explanation": "Subclass inherits, extends, and overrides.", "code": "public class Animal {\n    String name;\n    public Animal(String name) {\n        this.name = name;\n    }\n    public void speak() {\n        System.out.println(name + \" makes noise\");\n    }\n    public String toString() {\n        return \"Animal: \" + name;\n    }\n}\n\npublic class Dog extends Animal {\n    String breed;\n    \n    public Dog(String name, String breed) {\n        super(name);        // call parent constructor!\n        this.breed = breed;\n    }\n    \n    @Override\n    public void speak() {   // override parent method\n        System.out.println(name + \" barks!\");\n    }\n    \n    public void fetch() {   // new method\n        System.out.println(name + \" fetches!\");\n    }\n}\n\nDog d = new Dog(\"Rex\", \"Lab\");\nd.speak();   // Rex barks!  (overridden)\nd.fetch();   // Rex fetches!" }
+            ],
+            "funFact": "Java forces single inheritance of classes (one parent only) to avoid the 'diamond problem' — the ambiguity when two parent classes define the same method. C++ allows multiple inheritance. Java uses interfaces instead! 💎"
+          },
+          {
+            "id": "j7c2", "title": "super & @Override", "emoji": "⬆️",
+            "analogy": "super is the child's direct line to the parent. Use it to call an overridden parent method (to extend rather than replace it) or to call the parent's constructor. @Override is a compiler safety net — it errors if you mistype a method name.",
+            "content": "super.method() calls the parent's version of the method. super() calls parent constructor — MUST be first statement if used. @Override tells compiler 'this should override a parent method' — compile error if it doesn't.",
+            "examples": [
+              { "title": "super and @Override", "explanation": "super extends parent behavior; @Override prevents typos.", "code": "class Vehicle {\n    int speed;\n    Vehicle(int speed) { this.speed = speed; }\n    String info() { return \"Speed: \" + speed; }\n}\n\nclass Car extends Vehicle {\n    String brand;\n    Car(String brand, int speed) {\n        super(speed);       // parent constructor\n        this.brand = brand;\n    }\n    \n    @Override\n    String info() {\n        return brand + \" — \" + super.info();\n        // calls Vehicle.info() then extends it\n    }\n}\n\nCar c = new Car(\"BMW\", 200);\nSystem.out.println(c.info()); // BMW — Speed: 200" }
+            ],
+            "funFact": "@Override was added in Java 5. Without it, misspelling 'toString' as 'tostring' silently creates a new method instead of overriding — a bug that's very hard to find! Always use @Override! 🐛"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE INHERITANCE HYDRA", "maxHp": 100 },
+          "mcq": [
+            { "q": "Java keyword to create a subclass:", "options": ["implements","inherits","extends","super"], "a": 2, "damage": 20, "topic": "extends keyword", "explanation": "extends: class Dog extends Animal {} — Dog inherits all non-private members of Animal and can override methods and add new ones." },
+            { "q": "super() in a constructor must be:", "options": ["Last statement","First statement","After field init","Optional always"], "a": 1, "damage": 20, "topic": "super() first", "explanation": "First Statement: super() or this() must be the FIRST statement in a constructor. Java requires parent to be initialized before child. Compiler enforces this." },
+            { "q": "Purpose of @Override annotation:", "options": ["Makes method faster","Signals compiler to verify this method actually overrides a parent method — catches typos","Makes method public","Required for all subclass methods"], "a": 1, "damage": 20, "topic": "@Override", "explanation": "@Override Safety: Causes compile error if the method doesn't actually override anything. Without it, 'tostring()' silently creates a new method instead of overriding 'toString()'." },
+            { "q": "Java classes support how many parent classes?", "options": ["Unlimited","2","1 (single inheritance)","0"], "a": 2, "damage": 20, "topic": "Single inheritance", "explanation": "Single Inheritance: Java class can extend ONLY ONE class. Multiple inheritance of classes is forbidden to avoid diamond problem. Multiple INTERFACE implementation is allowed." },
+            { "q": "super.speak() in a subclass calls:", "options": ["The subclass speak()","The parent class's speak() method","A static method","The Object class speak()"], "a": 1, "damage": 20, "topic": "super.method()", "explanation": "Parent Method: super.method() explicitly calls the PARENT'S version. Useful to extend (not replace) parent behavior: return brand + ' — ' + super.info();" }
+          ]
+        },
+        "coding": [
+          { "title": "extends syntax", "objective": "Make Cat extend Animal:", "starterCode": "class Cat ___ Animal {\n    Cat(String name){super(name);}\n}", "answer": "extends", "hint": "Java inheritance keyword is 'extends'." },
+          { "title": "super constructor", "objective": "Dog(name, breed) must call Animal(name) first. How?", "starterCode": "Dog(String name,String breed){\n    ___(name);\n    this.breed=breed;\n}", "answer": "super", "hint": "super(name) calls the parent Animal constructor with name." },
+          { "title": "Override annotation", "objective": "Annotation to verify method overrides parent:", "starterCode": "___\n@Override\npublic void speak(){\n    System.out.println(\"Woof!\");\n}", "answer": "@Override", "hint": "@Override goes directly above the overriding method." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nclass Animal { void speak(){} }\nclass Cat extends Animal {\n    void Speak() { // capital S!\n        System.out.println(\"Meow\");\n    }\n}", "brokenCode": "void Speak()", "bugLine": 0, "options": ["Nothing wrong","Speak() != speak() — not overriding, creating a new method. Add @Override to catch this: @Override void Speak() would throw compile error.","Animal needs @Override too","speak should be static"], "answer": "Speak() != speak() — not overriding, creating a new method. Add @Override to catch this: @Override void Speak() would throw compile error.", "hint": "Java is case-sensitive. Speak ≠ speak. Use @Override to detect this at compile time." }
+        ],
+        "prediction": [
+          { "code": "class A { String msg(){return \"A\";} }\nclass B extends A {\n    @Override String msg(){return \"B+\"+super.msg();}\n}\nB b=new B();\nSystem.out.println(b.msg());", "options": ["A","B+A","B","A+B"], "answer": "B+A", "explanation": "b.msg() calls B's override: 'B+' + super.msg(). super.msg() = A's version = 'A'. Result: 'B+A'." }
+        ]
+      }
     },
     {
-       "id": 705, "title": "METHODS", "subtitle": "Class Skills", "icon": "Braces",
-       "content": "Methods define what an object can 'DO'. They must specify exactly what they return (like int) or 'void'.",
-       "scenario": "A Robot. The 'Walk' method is a skill the robot has (Action). You call the robot to use its skill (Call).",
-       "examples": [
-         { "title": "The Public", "explanation": "A skill that any part of the program can ask this object to use.", "code": "public void walk() { ... }" },
-         { "title": "The Private", "explanation": "A internal skill (like 'Heartbeat') that the object keeps to itself.", "code": "private void process() { ... }" },
-         { "title": "The Param", "explanation": "Passing information into a skill (like 'Walk 10 Steps').", "code": "void move(int steps) { ... }" }
-       ],
-       "keyPoint": "Methods = Actions. Visibility = Access control."
+      "id": "7_2",
+      "title": "POLYMORPHISM & ABSTRACT",
+      "subtitle": "Runtime dispatch, abstract classes & interfaces",
+      "icon": "Layers",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "j7c3", "title": "Polymorphism in Java", "emoji": "🎭",
+            "analogy": "Polymorphism is 'one interface, many forms.' An Animal reference can hold a Dog, Cat, or Bird — and calling speak() on each invokes the right sound. You write code for the general type and Java picks the right specific version at runtime.",
+            "content": "Upcasting: Animal a = new Dog() — Dog treated as Animal. Virtual dispatch: a.speak() calls Dog's speak at runtime (not Animal's). instanceof checks actual type. Casting: Dog d = (Dog) a — downcast. ClassCastException if wrong type.",
+            "examples": [
+              { "title": "Polymorphic Dispatch", "explanation": "Runtime picks the right method version.", "code": "Animal[] zoo = {\n    new Dog(\"Rex\"),\n    new Cat(\"Whiskers\"),\n    new Bird(\"Tweety\")\n};\n\n// Same code — different behavior per type!\nfor (Animal a : zoo) {\n    a.speak();   // Rex barks! / Whiskers meows! / Tweety chirps!\n}\n\n// instanceof check:\nif (zoo[0] instanceof Dog) {\n    Dog d = (Dog) zoo[0];  // safe downcast\n    d.fetch();             // Dog-specific method\n}" },
+              { "title": "Abstract Classes", "explanation": "abstract method = must override in subclass.", "code": "abstract class Shape {\n    abstract double area();  // no body — subclass MUST implement\n    \n    void display() {  // concrete method — shared\n        System.out.println(\"Area: \" + area());\n    }\n}\n\nclass Circle extends Shape {\n    double r;\n    Circle(double r){this.r=r;}\n    \n    @Override\n    double area(){return Math.PI*r*r;}\n}\n\nShape s = new Circle(5);\ns.display(); // Area: 78.5..." }
+            ],
+            "funFact": "Java's polymorphism uses a vtable (virtual method table) internally — just like C++. The JVM stores a pointer table of method addresses for each class. Calling a virtual method looks up the right address at runtime. Same CPU mechanism, different language! 🖥️"
+          },
+          {
+            "id": "j7c4", "title": "Interfaces", "emoji": "📋",
+            "analogy": "An interface is a contract — 'I promise to have these methods.' Any class can sign multiple contracts (implement multiple interfaces). No implementation in base (pre-Java 8), just method signatures.",
+            "content": "interface defines a contract: abstract methods + constants. Class implements (can implement multiple). All methods implicitly public abstract. Java 8+: default methods in interfaces. Java 9+: private methods. Interfaces enable multiple inheritance of behavior.",
+            "examples": [
+              { "title": "Interfaces", "explanation": "Implement multiple interfaces — multiple contracts.", "code": "interface Flyable {\n    void fly();           // implicitly public abstract\n    default void land(){  // Java 8 default method\n        System.out.println(\"Landing...\");\n    }\n}\n\ninterface Swimmable {\n    void swim();\n}\n\n// Duck implements BOTH interfaces:\nclass Duck extends Animal\n             implements Flyable, Swimmable {\n    public void fly(){System.out.println(\"Duck flies\");}\n    public void swim(){System.out.println(\"Duck swims\");}\n}\n\nFlyable f = new Duck();  // polymorphism with interface type!\nf.fly();\nf.land();" }
+            ],
+            "funFact": "Java 8 added default methods to interfaces to allow evolving APIs without breaking existing implementations. This was a massive change — interfaces used to be 100% abstract. The Comparator interface got new default methods like .reversed() and .thenComparing()! 🔄"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE POLYMORPHIC TITAN", "maxHp": 100 },
+          "mcq": [
+            { "q": "Animal a = new Dog(). a.speak() calls:", "options": ["Animal's speak()","Dog's speak() — runtime polymorphism dispatches to actual type","Compile error","null"], "a": 1, "damage": 20, "topic": "Dynamic dispatch", "explanation": "Runtime: Even though a is declared as Animal, the ACTUAL object is Dog. Java dispatches to Dog's speak() at runtime — virtual method dispatch." },
+            { "q": "abstract class: what makes a class abstract?", "options": ["Any keyword on a method","Having at least one abstract method (or explicit abstract keyword)","Having no constructor","Using 'interface' keyword"], "a": 1, "damage": 20, "topic": "Abstract class", "explanation": "Abstract: A class becomes abstract by declaring it abstract OR having an abstract method. Cannot be instantiated directly (new AbstractClass() = error). Subclasses must implement abstract methods." },
+            { "q": "interface vs abstract class: key difference?", "options": ["No difference","Interface: multiple implementation, all-abstract (pre-Java8), no state; abstract class: single inheritance, can have fields/concrete methods","Interface is faster","abstract class uses implements"], "a": 1, "damage": 20, "topic": "interface vs abstract", "explanation": "Design Difference: Interface = pure contract, multiple implementable. Abstract class = partial implementation, single inheritance, can have fields. Use interface for capabilities (Flyable), abstract for shared base (Animal)." },
+            { "q": "Can you instantiate an abstract class directly?", "options": ["Yes","No — abstract classes cannot be instantiated (new AbstractClass() = error)","Only if it has a constructor","Yes with 'new abstract'"], "a": 1, "damage": 20, "topic": "Abstract instantiation", "explanation": "Cannot: 'new AbstractClass()' is a compile error. Abstract classes are blueprints — you instantiate concrete subclasses that provide all abstract method implementations." },
+            { "q": "Implements keyword is used for:", "options": ["Extending a class","Implementing interfaces","Creating abstract methods","Calling super"], "a": 1, "damage": 20, "topic": "implements", "explanation": "Interfaces: class MyClass implements InterfaceA, InterfaceB. A class can implement MULTIPLE interfaces (use comma). Unlike extends — single class only." }
+          ]
+        },
+        "coding": [
+          { "title": "Abstract method", "objective": "Declare abstract method area() returning double in Shape:", "starterCode": "abstract class Shape {\n    ___ double area();\n}", "answer": "abstract", "hint": "abstract keyword, no body (no {}), ends with semicolon." },
+          { "title": "implements syntax", "objective": "Duck implementing Flyable and Swimmable:", "starterCode": "class Duck ___ Flyable, Swimmable {\n    public void fly(){}\n    public void swim(){}\n}", "answer": "implements", "hint": "implements for interfaces. Comma-separated for multiple." },
+          { "title": "instanceof check", "objective": "Check if Animal 'a' is actually a Dog:", "starterCode": "if (a ___ Dog) {\n    Dog d=(Dog)a;\n}", "answer": "instanceof", "hint": "instanceof checks the actual runtime type of the object." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nabstract class Vehicle {\n    abstract void drive();\n}\nclass Bike extends Vehicle {\n    // drive() not implemented!\n}\nBike b = new Bike();", "brokenCode": "class Bike extends Vehicle", "bugLine": 0, "options": ["Nothing wrong","Bike must implement abstract drive() or itself be declared abstract — compile error","Vehicle needs @Override","new Bike() should be new Vehicle()"], "answer": "Bike must implement abstract drive() or itself be declared abstract — compile error", "hint": "Concrete subclass of abstract class MUST implement all abstract methods, or itself be abstract." }
+        ],
+        "prediction": [
+          { "code": "abstract class S{abstract int v();void show(){System.out.println(v());}}\nclass X extends S{int v(){return 5;}}\nclass Y extends S{int v(){return 99;}}\nS[] arr={new X(),new Y()};\nfor(S s:arr)s.show();", "options": ["5 99","99 5","5 5","Error"], "answer": "5 99", "explanation": "X.v()=5, Y.v()=99. Polymorphism calls each type's override. Output: 5 then 99." }
+        ]
+      }
     },
     {
-       "id": 710, "title": "INHERIT", "subtitle": "Polymorphism", "icon": "Link",
-       "content": "Inheritance (extends) allows a 'Child' class to learn all the skills of its 'Parent' and add its own amazing powers.",
-       "scenario": "A General Phone vs a Smart Phone. Every smart phone is a phone (extends), but it adds apps and internet on top.",
-       "examples": [
-         { "title": "The Extends", "explanation": "Creating a new subclass that takes everything from its base parent class.", "code": "class SmartPhone extends Phone { ... }" },
-         { "title": "Override", "explanation": "Changing how an inherited method behaves in the child version.", "code": "@Override public void call();" },
-         { "title": "The Poly", "explanation": "Using a parent's name to hold any of its children objects flexibly.", "code": "Phone p = new SmartPhone();" }
-       ],
-       "keyPoint": "One class extends exactly ONE other class in Java."
-    }
-  ],
-  "tests": [
+      "id": "7_3",
+      "title": "GENERICS & EXCEPTIONS",
+      "subtitle": "Type-safe code and error handling",
+      "icon": "Shield",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "j7c5", "title": "Generics & Exception Handling", "emoji": "🛡️",
+            "analogy": "Generics are type-safe templates — Box<T> works for any type T, ensuring you don't put a String in a box you declared for Integer. Exceptions are Java's safety net — structured error recovery without return codes.",
+            "content": "Generics: <T> placeholder replaced at compile time. Eliminates casts and ClassCastExceptions. Exception handling: try-catch-finally. Checked exceptions (must handle), unchecked (RuntimeException). throws declaration. Custom exceptions extend Exception.",
+            "examples": [
+              { "title": "Generics", "explanation": "Type parameter <T> makes code reusable and type-safe.", "code": "// Generic class:\nclass Box<T> {\n    private T value;\n    Box(T v){ this.value = v; }\n    T get(){ return value; }\n}\n\nBox<Integer> iBox = new Box<>(42);\nBox<String> sBox = new Box<>(\"Hello\");\nSystem.out.println(iBox.get()); // 42\nSystem.out.println(sBox.get()); // Hello\n// Type safe — no casting needed!" },
+              { "title": "Exception Handling", "explanation": "try-catch-finally — structured error recovery.", "code": "try {\n    int[] arr = new int[3];\n    arr[5] = 10;  // ArrayIndexOutOfBoundsException\n} catch (ArrayIndexOutOfBoundsException e) {\n    System.out.println(\"OOB: \" + e.getMessage());\n} catch (Exception e) {\n    System.out.println(\"Generic: \" + e.getMessage());\n} finally {\n    System.out.println(\"Always runs!\");\n}" }
+            ],
+            "funFact": "Java generics use 'type erasure' — at runtime, all generic type info is removed. Box<Integer> and Box<String> are the same class at runtime. This maintains backward compatibility with pre-Java 5 code but limits runtime type inspection! 🔍"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE EXCEPTION HANDLER", "maxHp": 100 },
+          "mcq": [
+            { "q": "finally block in try-catch-finally runs:", "options": ["Only if no exception","Only if exception occurs","Always — whether exception occurred or not","Only if catch handles exception"], "a": 2, "damage": 25, "topic": "finally", "explanation": "Always: finally runs whether the try block completed normally, threw a caught exception, or threw an uncaught exception. Used for cleanup (close files, free resources)." },
+            { "q": "Box<T> — T is a:", "options": ["Variable","Type parameter — replaced by actual type at usage","Method","Constant"], "a": 1, "damage": 25, "topic": "Type parameter", "explanation": "Type Parameter: T is a placeholder for any type. Box<Integer> replaces T with Integer. Box<String> replaces T with String. Compile-time type safety!" },
+            { "q": "Catching Exception (base) before ArrayIndexOutOfBoundsException:", "options": ["Valid and correct","Compile error — more specific exceptions must come before more general ones","Catches both correctly","Arrays use different catch"], "a": 1, "damage": 25, "topic": "Catch order", "explanation": "Specific First: Catch blocks are checked in order. catch(Exception e) before catch(AIOOBE e) — AIOOBE is a subclass of Exception, so it would NEVER be reached. Specific first!" },
+            { "q": "Custom exception: class GameOver extends:", "options": ["Error","RuntimeException or Exception","Object","Throwable directly"], "a": 1, "damage": 25, "topic": "Custom exception", "explanation": "Extend Exception: Custom exceptions extend Exception (checked) or RuntimeException (unchecked). Checked: caller must handle. Unchecked: optional handling." }
+          ]
+        },
+        "coding": [
+          { "title": "Generic box", "objective": "Declare generic class Pair with type param T:", "starterCode": "class Pair<___> {\n    T first, second;\n}", "answer": "T", "hint": "Convention: single uppercase letter T, E, K, V for type parameters." },
+          { "title": "try-catch", "objective": "Catch NumberFormatException from Integer.parseInt('abc'):", "starterCode": "try {\n    int n = Integer.parseInt(\"abc\");\n} ___ (NumberFormatException e) {\n    System.out.println(\"Bad number!\");\n}", "answer": "catch", "hint": "catch (ExceptionType variable) { handle }" },
+          { "title": "finally usage", "objective": "Block that always runs after try/catch:", "starterCode": "try{ riskyOp(); }\ncatch(Exception e){ handle(e); }\n___ { cleanup(); }", "answer": "finally", "hint": "finally { } always executes — even if an exception occurs." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\ntry {\n    riskyOp();\n} catch (Exception e) {\n    // general\n} catch (IOException e) {\n    // specific\n}", "brokenCode": "catch (IOException e)", "bugLine": 0, "options": ["Nothing wrong","IOException is a subclass of Exception — the general catch comes FIRST and catches everything. IOException catch is unreachable. Reverse order!","IOException needs throws","Exception catch needs rethrow"], "answer": "IOException is a subclass of Exception — the general catch comes FIRST and catches everything. IOException catch is unreachable. Reverse order!", "hint": "Catch most-specific exceptions FIRST, most-general LAST." }
+        ],
+        "prediction": [
+          { "code": "try {\n    System.out.println(\"try\");\n    if(true) throw new Exception(\"E\");\n    System.out.println(\"after throw\");\n} catch(Exception e){\n    System.out.println(\"catch\");\n} finally {\n    System.out.println(\"finally\");\n}", "options": ["try catch finally","try finally","try after throw catch finally","try catch"], "answer": "try catch finally", "explanation": "1. Prints 'try'. 2. throw → skip 'after throw'. 3. catch: 'catch'. 4. finally always: 'finally'. Output: try catch finally." }
+        ]
+      }
+    },
     {
-      "id": 713, "title": "MCQ ADVENTURE", "subtitle": "Java OOP Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "Keyword for inheritance?", "options": ["extends","inherits","subclass","is-a"], "a": 0, "hint": "Java uses extends." }
-      ]
+      "id": "7_boss",
+      "title": "THE JAVA MASTER",
+      "subtitle": "FINAL BOSS — All Java Levels",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss_j7", "title": "⚠️ FINAL BOSS — THE JAVA MASTER", "emoji": "👾",
+            "analogy": "The Java Master knows every keyword, every runtime mechanism, every design pattern. It's the combined test of all 7 Java levels — from System.out.println to polymorphism to generics. This is your graduation exam!",
+            "content": "Tests ALL Java L7: extends/super/super(), @Override, polymorphic dispatch (runtime), abstract class/methods, interface/implements, instanceof, generics <T>, try-catch-finally order, custom exceptions.",
+            "examples": [{ "title": "Complete Java OOP Arsenal", "explanation": "", "code": "✅ extends: single class inheritance\n✅ super() first in constructor\n✅ @Override — compiler verification\n✅ Polymorphism: Animal a = new Dog()\n✅ abstract class/method — can't instantiate\n✅ interface — multiple implements OK\n✅ instanceof for runtime type check\n✅ Generics <T> — type-safe templates\n✅ try-catch (specific first!) finally\n✅ Custom exception extends Exception" }],
+            "funFact": "Java powers the majority of Android apps, millions of enterprise backends, and is the most taught language in university CS programs worldwide. Mastering Java OOP gives you a foundation that transfers directly to Kotlin, Scala, C#, and TypeScript! 🌍"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE JAVA MASTER", "maxHp": 200 },
+          "mcq": [
+            { "q": "Animal a=new Dog(); a.speak() calls which speak()?", "options": ["Animal's","Dog's — runtime polymorphism","Compile error","Both"], "a": 1, "damage": 25, "topic": "Runtime dispatch final", "explanation": "Dog's: The JVM uses the actual object type (Dog) for dispatch, not the declared reference type (Animal). This is the core of Java polymorphism." },
+            { "q": "abstract class Shape {abstract double area();} new Shape()?", "options": ["Creates empty Shape","Compile error — can't instantiate abstract class","Returns null Shape","Works if area() has default"], "a": 1, "damage": 25, "topic": "Abstract instantiation final", "explanation": "Compile Error: Abstract classes CANNOT be instantiated directly. Must subclass and implement all abstract methods." },
+            { "q": "Class can implement how many interfaces in Java?", "options": ["1","2","Unlimited (comma-separated)","Same as number of extends"], "a": 2, "damage": 25, "topic": "Multiple interfaces", "explanation": "Unlimited: class A implements B, C, D, E {} — no limit. This is Java's solution to the restriction of single class inheritance." },
+            { "q": "finally block runs when:", "options": ["No exception only","Exception only","Always — even if return is in try block","Only in checked exceptions"], "a": 2, "damage": 25, "topic": "finally always", "explanation": "Always: finally runs in ALL cases — normal completion, caught exception, uncaught exception, even if try/catch has a return statement (with one exception: System.exit())." },
+            { "q": "Box<String> vs Box<Integer> at Java runtime are:", "options": ["Different classes","The same class — type erasure removes generic info at runtime","Incompatible types","Subclasses of each other"], "a": 1, "damage": 25, "topic": "Type erasure", "explanation": "Type Erasure: Java generics exist at compile time only. At runtime, Box<String> and Box<Integer> are both just Box. This is 'type erasure' — backward compatible but limits runtime reflection." },
+            { "q": "Which annotation verifies method overriding at compile time?", "options": ["@Inherited","@Override","@Polymorphic","@Super"], "a": 1, "damage": 25, "topic": "@Override final", "explanation": "@Override: Tells compiler 'this must override a parent/interface method.' Compile error if it doesn't. ALWAYS use @Override — prevents silent method shadowing from typos." },
+            { "q": "Specific catch MUST come before general because:", "options": ["Style only","General catch catches all its subclasses — specific catch after would be unreachable (compile error)","Performance","Exception hierarchy is flat"], "a": 1, "damage": 25, "topic": "Catch order final", "explanation": "Unreachable: catch(Exception e) catches ALL exceptions (since all extend Exception). Any specific catch AFTER it is unreachable. Java actually gives a compile error for this!" },
+            { "q": "interface Runnable {void run();} implements requires:", "options": ["Optional to implement run()","Mandatory implementation of run() (unless implementing class is abstract)","Inherit run() from Object","static run() implementation"], "a": 1, "damage": 25, "topic": "Interface contract", "explanation": "Contract: Implementing an interface is a binding contract. Must implement ALL abstract methods or declare the class abstract. No partial implementations allowed!" }
+          ]
+        },
+        "coding": [
+          { "title": "Final: Full class", "objective": "abstract class Shape with abstract area(). Circle extends it. area() returns PI*r*r. r=5. area()?", "starterCode": "// Circle extends Shape, r=5\n// Math.PI*5*5 = ___\n// (round to whole number)", "answer": "78", "hint": "Math.PI≈3.14159. 3.14159×25≈78.54. Rounded: 78 (or 79)." },
+          { "title": "Final: Interface", "objective": "class Robot implements Moveable, Chargeable — how many interfaces?", "starterCode": "// class Robot implements Moveable, Chargeable\n// Number of interfaces implemented: ___", "answer": "2", "hint": "Moveable and Chargeable = 2 interfaces." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 FINAL BOSS BUG:\n\nclass A { abstract void go(); }\nclass B extends A { /* no go() */ }\nB b = new B();", "brokenCode": "class A { abstract void go(); }", "bugLine": 0, "options": ["Nothing wrong","Two errors: (1) A needs 'abstract' keyword. (2) B must implement go() or be abstract. Fix: abstract class A, and override go() in B.","B needs extends Object","new B() should be new A()"], "answer": "Two errors: (1) A needs 'abstract' keyword. (2) B must implement go() or be abstract. Fix: abstract class A, and override go() in B.", "hint": "A class with an abstract method must itself be declared abstract. Subclass must implement it." }
+        ],
+        "prediction": [
+          { "code": "interface Greet{String hi();}\nclass Eng implements Greet{public String hi(){return \"Hello\";} }\nclass Esp implements Greet{public String hi(){return \"Hola\";} }\nGreet[] g={new Eng(),new Esp()};\nfor(Greet x:g)System.out.println(x.hi());", "options": ["Hello Hello","Hello Hola","Hola Hello","Error"], "answer": "Hello Hola", "explanation": "Polymorphism via interface. g[0]=Eng: hi()='Hello'. g[1]=Esp: hi()='Hola'. Output: Hello then Hola." }
+        ]
+      }
     }
   ]
 }

@@ -1,148 +1,171 @@
 {
-  "label": "LEVEL 4: STRINGS & FUNCTIONS (Spell Library)",
+  "label": "LEVEL 4: ARRAYS & STRINGS (C Data Layer)",
   "sublevels": [
     {
       "id": "4_1",
-      "title": "STRINGS",
-      "subtitle": "Text manipulation & methods",
-      "icon": "Type",
+      "title": "C ARRAYS & POINTERS INTRO",
+      "subtitle": "Memory, arrays, and the address-of operator",
+      "icon": "Grid",
       "pipeline": {
         "teaching": [
           {
-            "id": "l4c1", "title": "Strings Deep Dive", "emoji": "🧵",
-            "analogy": "A string is like a necklace of beads — each bead is one character. You can count beads, pick specific ones by position, or rearrange them.",
-            "content": "Strings are sequences of characters. Each character has an index starting from 0. You can access individual characters, find the length, and slice parts out.",
-            "examples": [{ "title": "String Indexing", "explanation": "Each character has a position starting from 0.", "code": "word = 'Python'\nprint(word[0])    # P\nprint(word[3])    # h\nprint(len(word))  # 6" }],
-            "funFact": "Strings are IMMUTABLE in Python — you can't change a character in place. You must create a new string! 🔒"
+            "id": "c4c1", "title": "C Arrays & Memory", "emoji": "📦",
+            "analogy": "A C array is a raw block of memory — like a strip of paper with equally-spaced numbered boxes. No bounds checking, no automatic resizing, no safety net. Power and danger in equal measure.",
+            "content": "C arrays: fixed size, zero-indexed, no bounds checking. Declared as type name[size]. Stack-allocated arrays are automatically freed. Array name IS a pointer to the first element. sizeof(arr)/sizeof(arr[0]) gives element count.",
+            "examples": [
+              { "title": "C Arrays", "explanation": "Raw memory — no safety, maximum speed.", "code": "#include <stdio.h>\nint main() {\n    int arr[5] = {10, 20, 30, 40, 50};\n    printf(\"%d\\n\", arr[0]);  // 10\n    printf(\"%d\\n\", arr[4]);  // 50\n    \n    int len = sizeof(arr) / sizeof(arr[0]); // 5\n    for (int i = 0; i < len; i++) {\n        printf(\"%d \", arr[i]);\n    }\n    // 10 20 30 40 50\n    return 0;\n}" },
+              { "title": "Array Name = Pointer", "explanation": "Array name decays to pointer to first element.", "code": "int arr[] = {1, 2, 3, 4, 5};\n\n// Array name IS the address of first element:\nprintf(\"%p\\n\", arr);      // memory address\nprintf(\"%p\\n\", &arr[0]); // SAME address!\n\n// Pointer arithmetic:\nint *p = arr;\nprintf(\"%d\\n\", *(p+2)); // 3  (arr[2])\nprintf(\"%d\\n\", p[2]);   // 3  (same!)" }
+            ],
+            "funFact": "C's array-pointer duality is one of the most powerful (and dangerous) features. arr[i] is literally defined as *(arr + i). So 5[arr] is valid C and equals arr[5]! This is why C is called 'portable assembly.' 🔥"
           },
           {
-            "id": "l4c2", "title": "String Methods", "emoji": "🔧",
-            "analogy": "String methods are like built-in spell effects. .upper() shouts, .lower() whispers, .replace() swaps words, .split() breaks text into a list.",
-            "content": "Python strings have dozens of built-in methods: .upper(), .lower(), .strip(), .replace(old, new), .split(), .find(), .count(), .startswith(), .endswith().",
-            "examples": [{ "title": "Common Methods", "explanation": "Methods don't change the original — they return a NEW string.", "code": "name = 'Hello World'\nprint(name.upper())          # HELLO WORLD\nprint(name.lower())          # hello world\nprint(name.replace('H','J')) # Jello World\nprint(name.split(' '))       # ['Hello', 'World']" }],
-            "funFact": ".strip() removes whitespace from both ends. Super useful for cleaning user input! 🧹"
-          },
-          {
-            "id": "l4c3", "title": "String Slicing", "emoji": "✂️",
-            "analogy": "Slicing is like cutting a piece of ribbon. You pick the start position, the end position, and snip! The original stays untouched.",
-            "content": "Slicing syntax: string[start:end]. start is included, end is excluded. Omit start = from beginning. Omit end = to the end.",
-            "examples": [{ "title": "Slicing Examples", "explanation": "Start included, end excluded.", "code": "s = 'ABCDEF'\nprint(s[1:4])  # BCD\nprint(s[:3])   # ABC\nprint(s[3:])   # DEF\nprint(s[::-1]) # FEDCBA (reverse!)" }],
-            "funFact": "s[::-1] reverses any string! This is a classic Python interview question. 🔄"
+            "id": "c4c2", "title": "Pointers — The Basics", "emoji": "👆",
+            "analogy": "A pointer is a sticky note with an address written on it. The address tells you WHERE the actual data lives in memory. & gets the address. * follows the address to get the data (dereference).",
+            "content": "Pointer: variable storing a memory address. & (address-of) gets a variable's address. * (dereference) follows a pointer to its value. int *p = &x; declares a pointer. *p = 5; changes the value at that address.",
+            "examples": [
+              { "title": "Basic Pointers", "explanation": "& gets address. * follows to value.", "code": "int x = 42;\nint *p = &x;  // p holds address of x\n\nprintf(\"%d\\n\", x);   // 42 (value)\nprintf(\"%p\\n\", &x);  // 0x... (address of x)\nprintf(\"%p\\n\", p);   // same address as &x\nprintf(\"%d\\n\", *p);  // 42 (dereference: value AT address)\n\n*p = 100;  // change x through pointer\nprintf(\"%d\\n\", x);  // 100 (x is changed!)" }
+            ],
+            "funFact": "Pointers are the reason C is used in OS kernels, embedded systems, and device drivers. They give you DIRECT hardware access — you can map a pointer to any memory address, including hardware registers! 💻"
           }
         ],
         "battle": {
-          "enemy": { "name": "STRING SORCERER", "maxHp": 100 },
+          "enemy": { "name": "THE MEMORY GUARDIAN", "maxHp": 100 },
           "mcq": [
-            { "q": "What is 'Hello'[1]?", "options": ["H", "e", "l", "o"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Index 0='H', 1='e'. String indexing starts at 0." },
-            { "q": "What does .upper() do?", "options": ["Makes first letter capital", "Converts entire string to UPPERCASE", "Removes spaces", "Reverses string"], "a": 1, "damage": 20, "topic": "Methods", "explanation": ".upper() converts every character to uppercase." },
-            { "q": "What is 'Python'[1:4]?", "options": ["Pyt", "yth", "ytho", "ython"], "a": 1, "damage": 20, "topic": "Slicing", "explanation": "Index 1='y', 2='t', 3='h'. End (4) is excluded. Result: 'yth'." },
-            { "q": "Are strings mutable (changeable) in Python?", "options": ["Yes", "No — strings are immutable", "Only lowercase ones", "Only with .change()"], "a": 1, "damage": 20, "topic": "Immutability", "explanation": "Strings are immutable. You can't change individual characters — only create new strings." },
-            { "q": "What does 'hello world'.split(' ') return?", "options": ["'helloworld'", "['hello', 'world']", "['h','e','l','l','o']", "Error"], "a": 1, "damage": 20, "topic": "Split", "explanation": ".split(' ') breaks the string at spaces into a list of words." }
+            { "q": "int arr[3] = {5,10,15}. What does &arr[0] represent?", "options": ["Value 5","Memory address of first element","arr.length","3"], "a": 1, "damage": 20, "topic": "Address of array", "explanation": "&arr[0]: The & operator gives the MEMORY ADDRESS of arr[0]. This is the same as the array name itself. C arrays decay to pointers to their first element." },
+            { "q": "int x=7; int *p=&x; What is *p?", "options": ["Address of x","7","&x","Pointer p"], "a": 1, "damage": 20, "topic": "Dereference", "explanation": "Dereference: *p follows the pointer p to whatever it points at. p = &x (address of x). *p = value at that address = 7." },
+            { "q": "int arr[5]; sizeof(arr)/sizeof(arr[0]) when int=4 bytes:", "options": ["5","4","20","1"], "a": 0, "damage": 20, "topic": "sizeof element count", "explanation": "sizeof(arr)=20 (5 ints × 4 bytes). sizeof(arr[0])=4. 20/4=5 elements." },
+            { "q": "C arrays do NOT have:", "options": ["Zero-indexing","Fixed size","Automatic bounds checking","Pointer arithmetic"], "a": 2, "damage": 20, "topic": "No bounds check", "explanation": "No Safety: C arrays have ZERO bounds checking. Accessing arr[100] on a 5-element array is undefined behavior — might crash, corrupt memory, or silently return garbage." },
+            { "q": "What does 'int *p' declare?", "options": ["int multiplied by p","A pointer to int — stores an address","An array of ints","A function pointer"], "a": 1, "damage": 20, "topic": "Pointer declaration", "explanation": "Pointer: 'int *p' declares p as a pointer to int — it stores a memory address of an int variable. The * is part of the type, not a dereference here." }
           ]
         },
         "coding": [
-          { "title": "First Character", "objective": "What is 'Code'[0]?", "starterCode": "print('Code'[0])\n# Output: ___", "answer": "C", "hint": "Index 0 is the first character." },
-          { "title": "Reverse It", "objective": "How do you reverse a string s? Type the slice notation.", "starterCode": "s = 'hello'\nprint(s[___])\n# Should print: olleh", "answer": "::-1", "hint": "Step -1 means go backwards from end to start." },
-          { "title": "Upper Case", "objective": "What does 'hello'.upper() return?", "starterCode": "print('hello'.upper())\n# Output: ___", "answer": "HELLO", "hint": ".upper() converts all characters to uppercase." }
+          { "title": "Dereference operator", "objective": "int x=5; int *p=&x; What does *p return?", "starterCode": "int x = 5;\nint *p = &x;\nprintf(\"%d\\n\", *p);\n// Output: ___", "answer": "5", "hint": "*p dereferences pointer p — gives value at address (x's value = 5)." },
+          { "title": "sizeof element count", "objective": "int a[6]. sizeof(a)/sizeof(a[0]) = ?", "starterCode": "int a[6];\nprintf(\"%lu\\n\", sizeof(a)/sizeof(a[0]));\n// Output: ___", "answer": "6", "hint": "6 elements of int type. sizeof gives 6." },
+          { "title": "Array access", "objective": "int arr[]={7,14,21}. arr[1] = ?", "starterCode": "int arr[]={7,14,21};\nprintf(\"%d\\n\",arr[1]);\n// Output: ___", "answer": "14", "hint": "arr[0]=7, arr[1]=14, arr[2]=21." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nname = 'Alex'\nname[0] = 'B'", "brokenCode": "name = 'Alex'\nname[0] = 'B'", "bugLine": 1, "options": ["Nothing wrong, name becomes 'Blex'", "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "Index should be 1", "Use .change()"], "answer": "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "hint": "Strings can't be modified in place. Create a new string instead." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nprint('Hello'.Upper())", "brokenCode": "print('Hello'.Upper())", "bugLine": 0, "options": ["Nothing wrong", "'Upper' should be lowercase 'upper'", "Remove the ()", "Hello needs double quotes"], "answer": "'Upper' should be lowercase 'upper'", "hint": "Python is case sensitive. String methods are all lowercase." }
+          { "type": "mcq", "description": "🚨 Buffer Overflow:\n\nint arr[3] = {1,2,3};\nprintf(\"%d\\n\", arr[3]);", "brokenCode": "arr[3]", "bugLine": 0, "options": ["Nothing wrong","arr[3] is out of bounds — arr has indices 0,1,2 only. Undefined behavior!","arr needs 4 elements","Use arr[arr.length-1]"], "answer": "arr[3] is out of bounds — arr has indices 0,1,2 only. Undefined behavior!", "hint": "3-element array → valid indices 0,1,2. arr[3] reads past the end — undefined behavior." },
+          { "type": "mcq", "description": "🚨 Bug:\n\nint x = 10;\nint p = &x;\nprintf(\"%d\\n\", *p);", "brokenCode": "int p = &x;", "bugLine": 0, "options": ["Nothing wrong","p should be int* (pointer type), not int","& should be *","printf needs %p"], "answer": "p should be int* (pointer type), not int", "hint": "&x is a memory address. It must be stored in a pointer: int *p = &x; not int p = &x;" }
         ],
         "prediction": [
-          { "code": "s = 'ABCDE'\nprint(s[1:3])\nprint(s[::-1])", "options": ["BC and EDCBA", "AB and EDCBA", "BCD and ABCDE", "BC and ABCDE"], "answer": "BC and EDCBA", "explanation": "s[1:3] = 'BC' (index 1,2). s[::-1] = 'EDCBA' (reversed)." },
-          { "code": "x = 'hello'\ny = x.upper()\nprint(x)\nprint(y)", "options": ["hello HELLO", "HELLO HELLO", "hello hello", "HELLO hello"], "answer": "hello HELLO", "explanation": ".upper() returns a NEW string. The original x stays 'hello'. y gets 'HELLO'." }
+          { "code": "int a = 5, b = 10;\nint *p = &a;\n*p = 99;\nprintf(\"%d %d\\n\", a, b);", "options": ["5 10","99 10","5 99","99 99"], "answer": "99 10", "explanation": "*p = 99 sets a's value to 99 via pointer. b is untouched. Output: 99 10." }
         ]
       }
     },
     {
       "id": "4_2",
-      "title": "FUNCTIONS",
-      "subtitle": "Reusable spell recipes",
-      "icon": "Wand2",
+      "title": "C STRINGS",
+      "subtitle": "char arrays, string.h & null terminator",
+      "icon": "Type",
       "pipeline": {
         "teaching": [
           {
-            "id": "l4c4", "title": "What is a Function?", "emoji": "📜",
-            "analogy": "A function is like a recipe card. You write it once, then cook (call) it whenever you want. The recipe can take ingredients (parameters) and serve a dish (return value).",
-            "content": "Functions are reusable blocks of code. Define with 'def', give it a name and optional parameters, then call it by name. Functions keep code DRY (Don't Repeat Yourself).",
-            "examples": [{ "title": "Define & Call", "explanation": "def creates it. name() calls it.", "code": "def greet():\n    print('Hello!')\n\ngreet()   # Hello!\ngreet()   # Hello!  (reusable!)" }],
-            "funFact": "The average software project has thousands of functions. Netflix has over 700 microservices, each packed with functions! 📺"
-          },
-          {
-            "id": "l4c5", "title": "Parameters & Arguments", "emoji": "📦",
-            "analogy": "Parameters are empty slots on the recipe card. Arguments are the actual ingredients you fill in when cooking. The recipe says 'add FLOUR'. You add '2 cups of wheat flour'.",
-            "content": "Parameters are variables listed in the function definition. Arguments are the actual values you pass when calling. They let functions work with different data each time.",
-            "examples": [{ "title": "Parameters in Action", "explanation": "name is a parameter. 'Alex' is an argument.", "code": "def greet(name):\n    print(f'Hello, {name}!')\n\ngreet('Alex')    # Hello, Alex!\ngreet('Neo')     # Hello, Neo!" }],
-            "funFact": "Python supports default parameters: def greet(name='World'). If you call greet(), it uses 'World' automatically! 😎"
-          },
-          {
-            "id": "l4c6", "title": "Return Values", "emoji": "📤",
-            "analogy": "return is like the waiter bringing your dish BACK to you. Without return, the function does its work but gives you nothing back — the result stays inside.",
-            "content": "return sends a value BACK to where the function was called. Without return, the function returns None. The function STOPS running at the return line.",
-            "examples": [{ "title": "Return vs Print", "explanation": "return gives back a value you can store. print just displays.", "code": "def add(a, b):\n    return a + b\n\nresult = add(5, 3)  # result = 8\nprint(result)       # 8" }],
-            "funFact": "A function can return multiple values! return x, y returns a tuple. Python is one of few languages that allows this. 🎁"
+            "id": "c4c3", "title": "C Strings — char Arrays", "emoji": "🔤",
+            "analogy": "C strings are arrays of characters ending with a secret null terminator '\\0'. Like a secret stop sign at the end of a parade — C functions march through characters until they hit \\0. Without it, functions keep reading memory indefinitely!",
+            "content": "C strings are char[] ending with '\\0' (null terminator). Declared as char name[] = 'hello'; (auto-null) or char name[6] = {'h','e','l','l','o','\\0'}. Use <string.h> for string functions: strlen, strcpy, strcat, strcmp.",
+            "examples": [
+              { "title": "C String Basics", "explanation": "char array + null terminator + string.h", "code": "#include <stdio.h>\n#include <string.h>\n\nchar name[] = \"Alice\";  // auto-adds \\0\nprintf(\"%s\\n\", name);       // Alice\nprintf(\"%lu\\n\", strlen(name)); // 5 (not 6, null not counted)\n\n// String comparison — use strcmp, NOT ==:\nchar a[] = \"hello\";\nchar b[] = \"hello\";\nif (strcmp(a, b) == 0) printf(\"equal!\\n\"); // equal!\n// a == b compares POINTERS, not content!" },
+              { "title": "string.h Functions", "explanation": "Essential C string functions.", "code": "#include <string.h>\nchar s1[20] = \"Hello\";\nchar s2[] = \" World\";\n\nstrlen(s1);          // 5\nstrcat(s1, s2);      // s1 = \"Hello World\"\nstrcpy(s1, \"Reset\"); // s1 = \"Reset\"\nstrcmp(\"abc\",\"abc\"); // 0 (equal)\nstrcmp(\"abc\",\"abd\"); // negative (a<b)\nstrcmp(\"abd\",\"abc\"); // positive (a>b)" }
+            ],
+            "funFact": "The null terminator '\\0' has caused countless security vulnerabilities. strcpy doesn't check buffer size — it copies until '\\0'. A string longer than the buffer causes a buffer overflow, potentially allowing code execution! 🔐"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE ARCHIVIST", "maxHp": 100 },
+          "enemy": { "name": "THE STRING DAEMON", "maxHp": 100 },
           "mcq": [
-            { "q": "Which keyword defines a function in Python?", "options": ["func", "function", "def", "define"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "'def' is the keyword to define functions in Python." },
-            { "q": "What is the difference between a parameter and an argument?", "options": ["No difference", "Parameter is in def, argument is when calling", "Argument is in def", "Parameters are only for numbers"], "a": 1, "damage": 20, "topic": "Parameters", "explanation": "Parameter: variable in the definition. Argument: actual value passed when calling." },
-            { "q": "What does a function return if there's no return statement?", "options": ["0", "False", "None", "Error"], "a": 2, "damage": 20, "topic": "Return", "explanation": "Without an explicit return, Python functions return None by default." },
-            { "q": "Can a function call another function?", "options": ["No", "Yes", "Only built-in functions", "Only in classes"], "a": 1, "damage": 20, "topic": "Composition", "explanation": "Functions can absolutely call other functions — this is called function composition!" },
-            { "q": "What happens after a return statement executes?", "options": ["Next line runs", "Function restarts", "Function immediately stops", "Nothing"], "a": 2, "damage": 20, "topic": "Return Flow", "explanation": "return immediately exits the function. No code after it runs." }
+            { "q": "C strings are terminated by:", "options": ["Space","Newline \\n","Null char \\0","NULL pointer"], "a": 2, "damage": 25, "topic": "Null terminator", "explanation": "\\0: Every C string MUST end with '\\0' (null character, ASCII 0). C string functions rely on it to know where the string ends. Missing it causes buffer overruns." },
+            { "q": "char s[]='hello'. strlen(s) = ?", "options": ["6","5","4","Error"], "a": 1, "damage": 25, "topic": "strlen", "explanation": "strlen: Returns number of characters BEFORE the null terminator. 'hello' = 5 chars + 1 null. strlen = 5 (null not counted). sizeof(s) = 6 (includes null)." },
+            { "q": "To compare C strings for equality, use:", "options": ["s1 == s2","strcmp(s1,s2) == 0","s1.equals(s2)","s1 === s2"], "a": 1, "damage": 25, "topic": "strcmp", "explanation": "strcmp: s1==s2 compares POINTER addresses (almost always false for separate arrays). strcmp(s1,s2) compares CONTENT — returns 0 if equal." },
+            { "q": "strcat(dest,src) does what?", "options": ["Compares two strings","Copies src to dest","Appends src to end of dest","Returns string length"], "a": 2, "damage": 25, "topic": "strcat", "explanation": "strcat (string concatenate): Appends src to the END of dest. dest must have enough space! DANGER: no bounds checking — overflows if dest is too small." }
           ]
         },
         "coding": [
-          { "title": "Function Keyword", "objective": "What keyword starts a function definition? Type it.", "starterCode": "___ greet():\n    print('Hi!')", "answer": "def", "hint": "Short for 'define'. 3 letters." },
-          { "title": "Return Value", "objective": "def double(x): return x * 2. What does double(7) return?", "starterCode": "def double(x):\n    return x * 2\n\nprint(double(7))\n# Output: ___", "answer": "14", "hint": "7 * 2 = 14." },
-          { "title": "No Return", "objective": "def say(): print('Hi'). What does result = say() store?", "starterCode": "def say():\n    print('Hi')\n\nresult = say()\nprint(result)\n# Output: ___", "answer": "None", "hint": "No return statement = function returns None." }
+          { "title": "strlen result", "objective": "strlen('Antigravity') = ?", "starterCode": "printf(\"%lu\\n\", strlen(\"Antigravity\"));\n// Output: ___", "answer": "11", "hint": "A-n-t-i-g-r-a-v-i-t-y = 11 characters." },
+          { "title": "strcmp equal", "objective": "strcmp('hello','hello') returns what for equal strings?", "starterCode": "printf(\"%d\\n\", strcmp(\"hello\",\"hello\"));\n// Output: ___", "answer": "0", "hint": "strcmp returns 0 when strings are identical." },
+          { "title": "Null terminator size", "objective": "char s[]='hi'. sizeof(s) = ? (includes null)", "starterCode": "char s[] = \"hi\";\nprintf(\"%lu\\n\", sizeof(s));\n// Output: ___", "answer": "3", "hint": "'h','i','\\0' = 3 bytes total." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef add(a, b)\n    return a + b", "brokenCode": "def add(a, b)\n    return a + b", "bugLine": 0, "options": ["Missing colon after parameters: def add(a, b):", "Use 'function' keyword", "return is wrong", "Nothing wrong"], "answer": "Missing colon after parameters: def add(a, b):", "hint": "Like if and for, function definitions need a colon at the end." },
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef greet():\n    print('Hello')\n\ngreet", "brokenCode": "def greet():\n    print('Hello')\n\ngreet", "bugLine": 3, "options": ["Missing parentheses: greet() — need () to CALL a function", "greet should be Greet", "print is wrong", "Nothing wrong"], "answer": "Missing parentheses: greet() — need () to CALL a function", "hint": "'greet' alone is a reference. 'greet()' calls/executes it." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nchar a[] = \"Neo\";\nchar b[] = \"Neo\";\nif (a == b) printf(\"equal\\n\");", "brokenCode": "if (a == b)", "bugLine": 0, "options": ["Nothing wrong","a==b compares pointers (addresses), not content. Use: if(strcmp(a,b)==0)","Use a.equals(b)","char needs single quotes"], "answer": "a==b compares pointers (addresses), not content. Use: if(strcmp(a,b)==0)", "hint": "In C, == on arrays compares memory addresses. Always use strcmp() for string content comparison." }
         ],
         "prediction": [
-          { "code": "def square(n):\n    return n * n\n\nx = square(4)\ny = square(3)\nprint(x + y)", "options": ["7", "12", "25", "49"], "answer": "25", "explanation": "square(4)=16, square(3)=9. 16+9=25." },
-          { "code": "def mystery(a, b):\n    if a > b:\n        return a\n    return b\n\nprint(mystery(3, 7))", "options": ["3", "7", "10", "Error"], "answer": "7", "explanation": "3>7 is False, so first return skipped. return b → 7. This is a max() function!" }
+          { "code": "char s[] = \"Hello\";\nprintf(\"%lu %lu\\n\", strlen(s), sizeof(s));", "options": ["5 5","5 6","6 5","6 6"], "answer": "5 6", "explanation": "strlen('Hello')=5 (no null). sizeof('Hello' with null)=6 (includes \\0)." }
+        ]
+      }
+    },
+    {
+      "id": "4_3",
+      "title": "STRUCTS",
+      "subtitle": "Grouping data in C",
+      "icon": "Layers",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "c4c4", "title": "Structs — C's Data Grouping", "emoji": "📁",
+            "analogy": "A struct is like a form with multiple fields — a player profile has a name field, age field, and score field all bundled together. No methods, no access control — just pure data grouping. C's alternative to OOP classes.",
+            "content": "struct groups related variables of different types. Declare with struct keyword. Access fields with . (dot) for direct struct, -> (arrow) for pointer to struct. typedef creates a shorthand name.",
+            "examples": [
+              { "title": "Defining & Using Structs", "explanation": "Struct: pure data, no methods.", "code": "#include <stdio.h>\n#include <string.h>\n\nstruct Player {\n    char name[50];\n    int score;\n    int level;\n};\n\nint main() {\n    struct Player p1;\n    strcpy(p1.name, \"Neo\");\n    p1.score = 100;\n    p1.level = 5;\n    \n    printf(\"%s: L%d, %d pts\\n\",\n           p1.name, p1.level, p1.score);\n    return 0;\n}" },
+              { "title": "typedef & Pointer to Struct", "explanation": "typedef removes 'struct' keyword. -> accesses via pointer.", "code": "typedef struct {\n    char name[50];\n    float hp;\n} Enemy;\n\nEnemy boss = {\"Dragon\", 500.0f};\nprintf(\"%s %.1f\\n\", boss.name, boss.hp);\n\n// Pointer to struct — use ->:\nEnemy *ptr = &boss;\nprintf(\"%s\\n\", ptr->name);  // Dragon\nptr->hp -= 100;             // changes boss.hp!" }
+            ],
+            "funFact": "C structs inspired Java classes! Classes are essentially structs with methods attached. The struct became the building block of OOP — C++ literally added method syntax to C structs to create objects! 🏗️"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE DATA ARCHITECT", "maxHp": 100 },
+          "mcq": [
+            { "q": "How do you access 'score' field of struct Player p?", "options": ["p->score","p::score","p.score","p[score]"], "a": 2, "damage": 25, "topic": "Struct dot access", "explanation": "Dot operator: Use . to access struct fields on a direct struct variable. Use -> to access through a pointer: ptr->score." },
+            { "q": "What does -> operator do with structs?", "options": ["Creates a new struct","Accesses field through a pointer to struct","Compares two structs","Deletes struct"], "a": 1, "damage": 25, "topic": "Arrow operator", "explanation": "Arrow ->: ptr->field is shorthand for (*ptr).field. When you have a pointer to struct, use -> to access fields. Direct struct uses dot (.)." },
+            { "q": "What does typedef struct { ... } Enemy; allow?", "options": ["Enemy inheritance","Using 'Enemy' instead of 'struct Enemy' as the type","Operator overloading","Virtual methods"], "a": 1, "damage": 25, "topic": "typedef", "explanation": "typedef: Creates an alias. Without typedef, you'd write 'struct Enemy e;'. With typedef, just 'Enemy e;' — cleaner and looks more like modern types." },
+            { "q": "Can C structs have methods (functions)?", "options": ["Yes","No — structs are data-only in C; methods are a C++ feature","Only static methods","Only void methods"], "a": 1, "damage": 25, "topic": "No methods", "explanation": "Data Only: C structs cannot have functions/methods. They're pure data containers. C++ extended structs to allow methods — which eventually became classes." }
+          ]
+        },
+        "coding": [
+          { "title": "Dot access", "objective": "struct Point{int x,y;}; Point p={3,7}; p.x = ?", "starterCode": "struct Point{int x,y;};\nstruct Point p = {3,7};\nprintf(\"%d\\n\",p.x);\n// Output: ___", "answer": "3", "hint": "p.x accesses the x field of point p = 3." },
+          { "title": "Arrow operator", "objective": "Point *ptr = &p; ptr->y = ?", "starterCode": "struct Point p = {3,7};\nstruct Point *ptr = &p;\nprintf(\"%d\\n\",ptr->y);\n// Output: ___", "answer": "7", "hint": "ptr->y accesses y through pointer = 7." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nstruct Player p;\np.name = \"Neo\";", "brokenCode": "p.name = \"Neo\";", "bugLine": 0, "options": ["Nothing wrong","Can't assign string literals to char arrays. Use strcpy(p.name, 'Neo');","struct needs typedef","name needs quotes removed"], "answer": "Can't assign string literals to char arrays. Use strcpy(p.name, 'Neo');", "hint": "char arrays can't use = for string assignment (after declaration). Use strcpy() from <string.h>." }
+        ],
+        "prediction": [
+          { "code": "typedef struct{int x;int y;}Vec;\nVec a={3,4};\nVec *p=&a;\np->x=10;\nprintf(\"%d %d\\n\",a.x,a.y);", "options": ["3 4","10 4","3 10","10 3"], "answer": "10 4", "explanation": "p->x=10 changes a.x to 10 through pointer. a.y stays 4." }
         ]
       }
     },
     {
       "id": "4_boss",
-      "title": "THE ARCHIVIST",
-      "subtitle": "BOSS FIGHT — Strings & Functions",
+      "title": "THE C MEMORY MASTER",
+      "subtitle": "BOSS FIGHT — All Level 4 C",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss4_intro", "title": "⚠️ BOSS — THE ARCHIVIST", "emoji": "👾",
-            "analogy": "The Archivist guards the Spell Library. Every string method and function recipe is in its vault. Prove you've mastered them all!",
-            "content": "This boss tests string indexing, slicing, methods, function definitions, parameters, return values, and the interplay between them.",
-            "examples": [{ "title": "Your mastery", "explanation": "", "code": "✅ String indexing & slicing\n✅ .upper(), .lower(), .split(), .replace()\n✅ def, parameters, arguments\n✅ return values vs print\n✅ Function composition" }],
-            "funFact": "Alan Turing proved that any computable function can be built from simpler functions. Your functions can build anything! 🧠"
+            "id": "boss_c4", "title": "⚠️ BOSS — THE C MEMORY MASTER", "emoji": "👾",
+            "analogy": "The Memory Master controls every byte of your program's stack and heap. It knows about every null terminator, every pointer dereference, every buffer overflow. Prove your C data handling is bulletproof!",
+            "content": "Tests ALL Level 4 C: array access/sizeof formula, pointer syntax &/*->, C strings/null terminator, strlen vs sizeof, strcmp for comparison, strcat/strcpy, struct dot/arrow access, typedef.",
+            "examples": [{ "title": "Full C Data Arsenal", "explanation": "", "code": "✅ int arr[n] — no bounds check!\n✅ sizeof(arr)/sizeof(arr[0]) — length\n✅ int *p = &x; *p = value;\n✅ arr name decays to pointer!\n✅ char str[] — null terminated \\0\n✅ strlen (no null) vs sizeof (with null)\n✅ strcmp for string compare (not ==!)\n✅ struct + . (direct) or -> (pointer)" }],
+            "funFact": "C developers who master pointers and memory layout can write code that runs on hardware from microcontrollers (32 bytes RAM!) to supercomputers. The same C concepts work at every scale — that's why C is still #1 in systems programming! 🏆"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE ARCHIVIST", "maxHp": 150 },
+          "enemy": { "name": "THE C MEMORY MASTER", "maxHp": 150 },
           "mcq": [
-            { "q": "What does 'Hello'[1:3] return?", "options": ["He", "el", "ell", "lo"], "a": 1, "damage": 30, "topic": "Slicing", "explanation": "Index 1='e', 2='l'. End (3) excluded. Result: 'el'." },
-            { "q": "def f(x): return x**2\nprint(f(5) + f(3))", "options": ["8", "15", "34", "64"], "a": 2, "damage": 30, "topic": "Function Calls", "explanation": "f(5)=25, f(3)=9. 25+9=34." },
-            { "q": "What does 'a,b,c'.split(',') return?", "options": ["'abc'", "['a','b','c']", "['a,b,c']", "Error"], "a": 1, "damage": 30, "topic": "Split", "explanation": "Split at commas → ['a', 'b', 'c']." },
-            { "q": "def add(a,b): return a+b\nadd(2,3)\nprint(add(2,3))", "options": ["5 and 5", "Only 5 (from print)", "Nothing", "Error"], "a": 1, "damage": 30, "topic": "Return", "explanation": "First call returns 5 but it's not stored/printed. Second call prints 5." },
-            { "q": "Can you use a function's return value as a string method?", "options": ["No", "Yes, e.g. get_name().upper()", "Only for numbers", "Only in classes"], "a": 1, "damage": 30, "topic": "Chaining", "explanation": "If a function returns a string, you can chain methods: get_name().upper()." }
+            { "q": "int *p=&x; *p=42; What changes?", "options": ["p itself","x (through dereferencing)","Only *p","Nothing"], "a": 1, "damage": 30, "topic": "Pointer assign", "explanation": "*p=42 dereferences p and assigns 42 to whatever p points to — which is x. So x becomes 42." },
+            { "q": "char s[]='cat'; strlen(s) vs sizeof(s)?", "options": ["3 and 3","3 and 4","4 and 3","4 and 4"], "a": 1, "damage": 30, "topic": "strlen vs sizeof", "explanation": "strlen('cat')=3 (chars before \\0). sizeof('cat' array)=4 (includes \\0). Remember: strlen excludes null, sizeof includes it." },
+            { "q": "To compare char arrays in C, use:", "options": ["==","equals()","strcmp() == 0",">"], "a": 2, "damage": 30, "topic": "String compare", "explanation": "strcmp: == compares pointers. strcmp(a,b)==0 compares content. Always use strcmp for C string equality!" },
+            { "q": "struct Point *p = &myPoint; Access y field:", "options": ["p.y","p::y","(*p).y or p->y","p[y]"], "a": 2, "damage": 30, "topic": "Struct pointer", "explanation": "Arrow operator: Through pointer, (*p).y or (equivalently) p->y. Both are valid — -> is the shorthand." },
+            { "q": "C struct vs Java class — key difference?", "options": ["No difference","C struct is data-only; Java class has methods, access control, inheritance","C struct is slower","Java copied nothing from C"], "a": 1, "damage": 30, "topic": "Struct vs class", "explanation": "Data Only: C struct groups data. Java class groups data + methods + constructors + access modifiers. C++ bridged this by adding methods to structs." }
           ]
         },
         "coding": [
-          { "title": "Boss: Combo", "objective": "def shout(text): return text.upper(). What does shout('hello') return?", "starterCode": "def shout(text):\n    return text.upper()\n\nprint(shout('hello'))\n# Output: ___", "answer": "HELLO", "hint": "'hello'.upper() → 'HELLO'." }
+          { "title": "Boss: Pointer chain", "objective": "int x=7; int *p=&x; *p=*p+3; printf(x). Output?", "starterCode": "int x=7;\nint *p=&x;\n*p=*p+3;\nprintf(\"%d\\n\",x);\n// Output: ___", "answer": "10", "hint": "*p = *p+3 = 7+3=10. Sets x to 10." },
+          { "title": "Boss: strlen", "objective": "strlen('Warrior') = ?", "starterCode": "printf(\"%lu\\n\", strlen(\"Warrior\"));\n// Output: ___", "answer": "7", "hint": "W-a-r-r-i-o-r = 7 characters." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Boss Bug:\n\ndef greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "brokenCode": "def greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "bugLine": 3, "options": ["Nothing wrong", "greet() is missing the required 'name' argument", "return is wrong", "print needs uppercase"], "answer": "greet() is missing the required 'name' argument", "hint": "greet expects 1 argument (name) but was called with 0." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nchar name[5];\nstrcpy(name, \"Alexander\");", "brokenCode": "strcpy(name, \"Alexander\");", "bugLine": 0, "options": ["Nothing wrong","Buffer overflow! 'Alexander' needs 10 bytes but name is only 5. Increase char name[10] or use strncpy.","strcpy is wrong function","Alexander needs double quotes"], "answer": "Buffer overflow! 'Alexander' needs 10 bytes but name is only 5. Increase char name[10] or use strncpy.", "hint": "strcpy has no bounds checking. Copying 9 chars into 5-byte buffer overflows into adjacent memory — dangerous!" }
         ],
         "prediction": [
-          { "code": "def first_last(s):\n    return s[0] + s[-1]\n\nprint(first_last('Python'))", "options": ["Py", "Pn", "on", "yh"], "answer": "Pn", "explanation": "s[0]='P', s[-1]='n' (last char). 'P'+'n'='Pn'." }
+          { "code": "int arr[]={2,4,6,8,10};\nint *p=arr;\nprintf(\"%d\\n\",*(p+3));", "options": ["6","8","10","4"], "answer": "8", "explanation": "p=arr points to first element (2). p+3 points to 4th element (index 3). *(p+3) = arr[3] = 8." }
         ]
       }
     }

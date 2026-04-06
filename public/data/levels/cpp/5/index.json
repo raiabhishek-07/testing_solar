@@ -1,169 +1,179 @@
 {
-  "label": "LEVEL 5: PROBLEM SOLVING (War Room)",
+  "label": "LEVEL 5: FUNCTIONS (C++)",
   "sublevels": [
     {
       "id": "5_1",
-      "title": "RECURSION",
-      "subtitle": "Functions that call themselves",
-      "icon": "RefreshCcw",
+      "title": "FUNCTION OVERLOADING & DEFAULT PARAMS",
+      "subtitle": "Multiple signatures & optional arguments",
+      "icon": "Layers",
       "pipeline": {
         "teaching": [
           {
-            "id": "l5c1", "title": "What is Recursion?", "emoji": "🪞",
-            "analogy": "Recursion is like standing between two mirrors — you see infinite reflections. A function calls ITSELF, creating smaller copies until reaching a stopping point.",
-            "content": "A recursive function calls itself with a smaller/simpler input. It MUST have a base case (stopping condition) or it will run forever and crash.",
-            "examples": [{ "title": "Countdown with Recursion", "explanation": "The function calls itself with n-1 until n=0.", "code": "def countdown(n):\n    if n == 0:          # Base case!\n        print('GO!')\n        return\n    print(n)\n    countdown(n - 1)    # Recursive call\n\ncountdown(3)\n# 3, 2, 1, GO!" }],
-            "funFact": "The term 'recursion' is itself recursive — Google 'recursion' and it says 'Did you mean: recursion?' 😂"
+            "id": "cpp5c1", "title": "Function Overloading in C++", "emoji": "🔀",
+            "analogy": "C++ function overloading is like a Swiss Army knife — same name, different tools for the job. The compiler picks the right blade at compile time based on what you hand it. C has no overloading; C++ adds it as a core feature.",
+            "content": "C++ allows multiple functions with the same name if their parameter lists differ (count or types). The compiler resolves which to call at compile time. Return type alone cannot differentiate. Overloading works with any combination of types.",
+            "examples": [
+              { "title": "Function Overloading", "explanation": "Same name — different parameters.", "code": "#include <iostream>\nusing namespace std;\n\n// Three 'print' functions:\nvoid print(int n) {\n    cout << \"int: \" << n << endl;\n}\nvoid print(double d) {\n    cout << \"double: \" << d << endl;\n}\nvoid print(string s) {\n    cout << \"string: \" << s << endl;\n}\n\nint main() {\n    print(42);       // int: 42\n    print(3.14);     // double: 3.14\n    print(\"hello\");  // string: hello\n}" }
+            ],
+            "funFact": "C++ overloading is implemented via 'name mangling' — the compiler encodes parameter types into the function's internal name. print(int) becomes _Z5printi in GCC. This is why C++ functions aren't directly callable from C! 🔧"
           },
           {
-            "id": "l5c2", "title": "Base Case vs Recursive Case", "emoji": "🛑",
-            "analogy": "The base case is the parachute. Without it, the recursion falls forever. The recursive case is the jump — it gets you closer to the ground each time.",
-            "content": "Every recursive function needs: 1) Base case — when to STOP. 2) Recursive case — calling itself with a SIMPLER input. Without both, you get infinite recursion (stack overflow).",
-            "examples": [{ "title": "Factorial", "explanation": "5! = 5×4×3×2×1 = 120", "code": "def factorial(n):\n    if n <= 1:           # Base case\n        return 1\n    return n * factorial(n - 1)  # Recursive\n\nprint(factorial(5))  # 120" }],
-            "funFact": "Python limits recursion to ~1000 calls by default. You can change it with sys.setrecursionlimit(), but deep recursion is usually a sign of bad design! 🏗️"
+            "id": "cpp5c2", "title": "Default Parameters", "emoji": "⚙️",
+            "analogy": "Default parameters are like restaurant menu items with a 'default' option — you can customize everything, or take the defaults and it still works. 'Order pizza()' gives you the default size. 'Order pizza(large)' overrides it.",
+            "content": "C++ allows default parameter values: void greet(string name, string title='Dr.'). If not provided, default is used. Defaults must be rightmost parameters. Cannot combine with overloading of same function if ambiguous.",
+            "examples": [
+              { "title": "Default Parameters", "explanation": "Optional params with defaults — must be rightmost.", "code": "void connect(string host, int port=80, bool ssl=false) {\n    cout << host << \":\" << port;\n    if (ssl) cout << \" (SSL)\";\n    cout << endl;\n}\n\nconnect(\"example.com\");         // example.com:80\nconnect(\"example.com\", 443);    // example.com:443\nconnect(\"example.com\", 443, true); // example.com:443 (SSL)" }
+            ],
+            "funFact": "Python has default parameters too — but unlike C++, Python evaluates mutable defaults (like lists) only ONCE at function definition! This causes the famous 'mutable default argument' bug. C++ re-evaluates on each call! 🐛"
           }
         ],
         "battle": {
-          "enemy": { "name": "RECURSION SERPENT", "maxHp": 100 },
+          "enemy": { "name": "THE OVERLOADER", "maxHp": 100 },
           "mcq": [
-            { "q": "What is a base case?", "options": ["The first line of code", "The condition that STOPS recursion", "The function name", "A loop"], "a": 1, "damage": 25, "topic": "Base Case", "explanation": "The base case is the condition where the function stops calling itself." },
-            { "q": "What happens without a base case?", "options": ["Function returns 0", "Infinite recursion → stack overflow crash", "Function runs once", "Error at definition"], "a": 1, "damage": 25, "topic": "Stack Overflow", "explanation": "Without a base case, the function calls itself forever until Python's stack overflows." },
-            { "q": "factorial(3) = ?", "options": ["3", "6", "9", "1"], "a": 1, "damage": 25, "topic": "Factorial", "explanation": "3! = 3 × 2 × 1 = 6." },
-            { "q": "Can every recursive function be written as a loop?", "options": ["No", "Yes", "Only simple ones", "Only in Python"], "a": 1, "damage": 25, "topic": "Recursion vs Loop", "explanation": "Yes — every recursion can be rewritten with loops (and vice versa). They're equivalent in power." }
+            { "q": "C++ overloading — what must differ between overloaded functions?", "options": ["Return type","Parameter list (count or types)","Access modifier","Body length"], "a": 1, "damage": 20, "topic": "Overload requirement", "explanation": "Parameter List: Overloaded functions must have different parameter signatures. Return type alone doesn't differentiate — the compiler can't tell which to call from the call site alone." },
+            { "q": "void fn(int a, string b='x'). fn(5) is valid?", "options": ["No — b required","Yes — b uses default 'x'","Error — default must be int","Only if fn is static"], "a": 1, "damage": 20, "topic": "Default param use", "explanation": "Default Used: fn(5) is valid. a=5, b defaults to 'x'. You can override: fn(5,'y') passes y for b." },
+            { "q": "Default parameters must be:", "options": ["Leftmost only","Rightmost (trailing) parameters","Any position","All parameters or none"], "a": 1, "damage": 20, "topic": "Default position", "explanation": "Rightmost: fn(int a=1, int b) is invalid — b has no default but follows a default. Default params must trail: fn(int a, int b=2) is valid." },
+            { "q": "C has function overloading?", "options": ["Yes","No — C has a single flat name space, no overloading","Only with macros","Only for built-ins"], "a": 1, "damage": 20, "topic": "C no overloading", "explanation": "C No Overloading: C requires unique function names. printf, fprintf, sprintf are ALL different names. C++ added overloading — it's one of the key enhancements over C." },
+            { "q": "void add(int,int) and double add(int,int) — valid C++ overloading?", "options": ["Yes","No — return type alone doesn't differentiate","Yes in C++17+","Only if different class"], "a": 1, "damage": 20, "topic": "Return type overload", "explanation": "Invalid: add(5,3) — compiler can't determine which overload from the call site. Must differ in parameter list." }
           ]
         },
         "coding": [
-          { "title": "Factorial", "objective": "What is factorial(4)?", "starterCode": "def factorial(n):\n    if n <= 1: return 1\n    return n * factorial(n-1)\n\nprint(factorial(4))\n# Output: ___", "answer": "24", "hint": "4! = 4×3×2×1 = 24." },
-          { "title": "Base Case", "objective": "In a countdown(n) function, what value of n should be the base case to stop?", "starterCode": "def countdown(n):\n    if n == ___: return\n    print(n)\n    countdown(n-1)", "answer": "0", "hint": "Stop when you reach 0 — nothing left to count." }
+          { "title": "Overload count", "objective": "3 overloads: print(int), print(double), print(string). Call print(3.14) calls which?", "starterCode": "// print(int), print(double), print(string)\n// print(3.14) calls: print(___)", "answer": "double", "hint": "3.14 is a double literal → matches print(double)." },
+          { "title": "Default param", "objective": "void greet(string name, string msg='Hello'). greet('Neo') uses msg=?", "starterCode": "// greet called with only name.\n// msg defaults to: ___", "answer": "Hello", "hint": "Not provided → default 'Hello' is used." },
+          { "title": "Default position", "objective": "fn(int a=1, int b) — valid or invalid?", "starterCode": "// void fn(int a=1, int b) — valid or invalid?", "answer": "invalid", "hint": "Default params must be rightmost. b has no default but follows a defaulted param." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Infinite recursion bug:\n\ndef count(n):\n    print(n)\n    count(n + 1)", "brokenCode": "def count(n):\n    print(n)\n    count(n + 1)", "bugLine": 0, "options": ["Missing base case — no condition to stop, so it runs forever", "print is wrong", "Use n-1 instead", "Nothing wrong"], "answer": "Missing base case — no condition to stop, so it runs forever", "hint": "Every recursive function needs an if condition to STOP calling itself." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nvoid fn(int a=0, int b, int c=0) {\n    cout << a+b+c;\n}", "brokenCode": "void fn(int a=0, int b, int c=0)", "bugLine": 0, "options": ["Nothing wrong","b has no default but is in the middle — default params must be trailing. Fix: fn(int b, int a=0, int c=0) or fn(int a, int b, int c=0)","Default of 0 is invalid","Function needs return type"], "answer": "b has no default but is in the middle — default params must be trailing. Fix: fn(int b, int a=0, int c=0) or fn(int a, int b, int c=0)", "hint": "All non-default params must come BEFORE default params. Can't have default, non-default, default." }
         ],
         "prediction": [
-          { "code": "def f(n):\n    if n == 0:\n        return 0\n    return n + f(n - 1)\n\nprint(f(3))", "options": ["3", "6", "0", "Error"], "answer": "6", "explanation": "f(3) = 3 + f(2) = 3 + 2 + f(1) = 3 + 2 + 1 + f(0) = 3+2+1+0 = 6." }
+          { "code": "int power(int base, int exp=2) {\n    int result=1;\n    for(int i=0;i<exp;i++) result*=base;\n    return result;\n}\ncout << power(3) << \" \" << power(3,3);", "options": ["9 27","6 9","9 9","27 27"], "answer": "9 27", "explanation": "power(3) uses exp=2: 3²=9. power(3,3): 3³=27." }
         ]
       }
     },
     {
       "id": "5_2",
-      "title": "SEARCHING",
-      "subtitle": "Finding needles in haystacks",
-      "icon": "Search",
+      "title": "PASS BY REFERENCE",
+      "subtitle": "C++ references — cleaner than pointers",
+      "icon": "Link",
       "pipeline": {
         "teaching": [
           {
-            "id": "l5c3", "title": "Linear Search", "emoji": "🔍",
-            "analogy": "Linear search is like looking for your friend in a crowd by checking every single person, one by one, from left to right.",
-            "content": "Linear search checks each element in order until it finds the target or reaches the end. It works on ANY list (sorted or not). Time: O(n) — worst case checks everything.",
-            "examples": [{ "title": "Linear Search", "explanation": "Check each item until found.", "code": "def linear_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i    # Found! Return index\n    return -1           # Not found\n\nnums = [5, 3, 8, 1, 9]\nprint(linear_search(nums, 8))  # 2" }],
-            "funFact": "If you have 1 million items, linear search might check ALL 1 million. Binary search would check only 20! 🚀"
-          },
-          {
-            "id": "l5c4", "title": "Binary Search (Concept)", "emoji": "📖",
-            "analogy": "Binary search is like opening a dictionary to the middle. Is the word before or after? Cut the book in half each time. Way faster!",
-            "content": "Binary search only works on SORTED data. It checks the middle, then eliminates half the remaining items. Repeats until found. Time: O(log n) — extremely fast!",
-            "examples": [{ "title": "Binary Search Idea", "explanation": "Sorted list only! Halves the search space each step.", "code": "# Searching for 7 in [1, 3, 5, 7, 9]\n# Step 1: Middle = 5. 7 > 5 → go right\n# Step 2: Middle = 7. Found! ✅\n# Only 2 steps instead of 4!" }],
-            "funFact": "Binary search can find any item in a billion-element sorted list in just 30 steps! 🤯"
+            "id": "cpp5c3", "title": "C++ References — True Pass by Reference", "emoji": "🔗",
+            "analogy": "A C++ reference is an alias — a second name for the same variable. Unlike C's pointer (which is an address you must dereference), a reference IS the variable. You write normal code but it operates on the original.",
+            "content": "C++ reference: type& name. No dereferencing needed — reference IS the variable. int& x = n means x and n share memory. function(int& x) receives a reference — changes affect the caller. No nullptr, no pointer arithmetic.",
+            "examples": [
+              { "title": "C++ Reference vs C Pointer", "explanation": "Reference: clean syntax, same power.", "code": "#include <iostream>\nusing namespace std;\n\n// C++ pass by reference — clean!\nvoid doubleRef(int& x) {\n    x *= 2;  // NO * needed!\n}\n\n// C-style pointer version (also works in C++):\nvoid doublePtr(int* x) {\n    *x *= 2;  // needs dereference\n}\n\nint n = 5;\ndoubleRef(n);   // n is now 10\ndoublePtr(&n);  // n is now 20\ncout << n;      // 20" },
+              { "title": "const Reference — Efficient Read-Only", "explanation": "const ref: no copy, no modification.", "code": "// Efficient: avoids copying large strings\nvoid printInfo(const string& name) {\n    cout << name << endl;\n    // name = 'X'; // ERROR — const!\n}\n\n// Swap using references (no pointers!):\nvoid swap(int& a, int& b) {\n    int temp = a;\n    a = b;\n    b = temp;\n}\n\nint x=5, y=10;\nswap(x, y);\ncout << x << \" \" << y; // 10 5" }
+            ],
+            "funFact": "C++ references are one of Bjarne Stroustrup's favorite additions over C — they allow clean by-reference passing without ugly pointer syntax. References can't be null, can't be reassigned, and can't do arithmetic. Safer than pointers! ✅"
           }
         ],
         "battle": {
-          "enemy": { "name": "SEARCH SENTINEL", "maxHp": 100 },
+          "enemy": { "name": "THE REFERENCE MASTER", "maxHp": 100 },
           "mcq": [
-            { "q": "Linear search checks items in what order?", "options": ["Random", "One by one from start to end", "Middle first", "Last to first"], "a": 1, "damage": 25, "topic": "Linear", "explanation": "Linear search goes left to right, checking every element sequentially." },
-            { "q": "What does linear search return if the item isn't found?", "options": ["0", "None", "-1 (by convention)", "Error"], "a": 2, "damage": 25, "topic": "Not Found", "explanation": "By convention, search functions return -1 to indicate 'not found'." },
-            { "q": "Binary search requires the list to be ___.", "options": ["Empty", "Reversed", "Sorted", "Random"], "a": 2, "damage": 25, "topic": "Binary Requirement", "explanation": "Binary search ONLY works on sorted data. It relies on order to eliminate half each step." },
-            { "q": "Which is faster on 1000 items?", "options": ["Linear (checks all 1000)", "Binary (checks about 10)", "They're equal", "Depends"], "a": 1, "damage": 25, "topic": "Speed", "explanation": "Binary: log₂(1000) ≈ 10 checks. Linear: up to 1000 checks. Binary wins hugely!" }
+            { "q": "void fn(int& x){x=99;} int n=5; fn(n); n=?", "options": ["5","99","0","Error"], "a": 1, "damage": 25, "topic": "Reference modify", "explanation": "99: int& x is a reference to n. x=99 directly sets n to 99. No dereferencing needed — reference IS the variable." },
+            { "q": "C++ reference vs C pointer — key difference?", "options": ["No difference","Reference: no * for access, can't be null, can't be reassigned; Pointer: explicit *, can be null","Reference is slower","Pointer is C++, reference is C"], "a": 1, "damage": 25, "topic": "ref vs pointer", "explanation": "References are cleaner: No dereferencing syntax, cannot be null, cannot be changed to refer to something else. Pointers are more powerful but riskier." },
+            { "q": "const string& name in function param — can you modify name inside?", "options": ["Yes","No — const prevents modification","Only with cast","Only in C++17"], "a": 1, "damage": 25, "topic": "const ref", "explanation": "Read-Only: const reference prevents modification inside the function. You get the efficiency of no-copy with the safety of immutability. Best for reading large objects." },
+            { "q": "To swap two ints using C++ references, caller writes:", "options": ["swap(&x, &y)","swap(x, y)","swap(*x, *y)","swap(ref x, ref y)"], "a": 1, "damage": 25, "topic": "Ref call syntax", "explanation": "Clean Call: void swap(int& a, int& b). Call: swap(x,y) — no & at call site! The & in the declaration handles referencing. Cleaner than C's swap(&x,&y)." }
           ]
         },
         "coding": [
-          { "title": "Linear Search", "objective": "linear_search([10,20,30,40], 30) returns what index?", "starterCode": "# [10, 20, 30, 40]\n# Target: 30\n# Index: ___", "answer": "2", "hint": "Index 0=10, 1=20, 2=30. Found at index 2." },
-          { "title": "Not Found", "objective": "linear_search([1,2,3], 5) returns what?", "starterCode": "# [1, 2, 3], target: 5\n# 5 is not in the list\n# Returns: ___", "answer": "-1", "hint": "5 is not in the list, so it returns -1." }
+          { "title": "Reference modify", "objective": "void set(int& x){x=42;} int n=0; set(n); n=?", "starterCode": "void set(int& x){x=42;}\nint n=0;\nset(n);\ncout << n;\n// Output: ___", "answer": "42", "hint": "int& x is a reference — x=42 sets n directly." },
+          { "title": "Const ref param", "objective": "void show(const string& s). Can you do s+='X' inside?", "starterCode": "// void show(const string& s){\n//     s += 'X';  // valid? yes or no\n// }", "answer": "no", "hint": "const reference = read-only. Modification is a compile error." },
+          { "title": "Swap call", "objective": "void swap(int& a, int& b). How do you call to swap x and y?", "starterCode": "int x=1, y=2;\nswap(___, ___);\n// What args?", "answer": "x, y", "hint": "With references, call as swap(x,y) not swap(&x,&y). The & is in the declaration." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return 0", "brokenCode": "def search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return 0", "bugLine": 4, "options": ["Return -1 for not found (0 is a valid index!)", "Use while instead", "arr is wrong", "Nothing wrong"], "answer": "Return -1 for not found (0 is a valid index!)", "hint": "Returning 0 is misleading because 0 is a valid index (first element)." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nvoid addFive(int x) {\n    x += 5;\n}\nint n = 10;\naddFive(n);\ncout << n;  // Expected 15, got 10!", "brokenCode": "void addFive(int x)", "bugLine": 0, "options": ["Nothing wrong","Passed by value — x is a copy. Change to: void addFive(int& x) to modify n","Return x instead","n should be global"], "answer": "Passed by value — x is a copy. Change to: void addFive(int& x) to modify n", "hint": "int x = value copy. int& x = reference. Use & to modify the caller's variable." }
         ],
         "prediction": [
-          { "code": "def find(arr, x):\n    for i in range(len(arr)):\n        if arr[i] == x:\n            return i\n    return -1\n\nprint(find([4,7,2,9], 2))", "options": ["0", "2", "3", "-1"], "answer": "2", "explanation": "Index 0=4, 1=7, 2=2. Found at index 2." }
+          { "code": "void square(int& n){ n*=n; }\nint a=3, b=4;\nsquare(a);\nsquare(b);\ncout << a+b;", "options": ["25","12","7","Error"], "answer": "25", "explanation": "square(a): a=3→9. square(b): b=4→16. a+b=9+16=25." }
         ]
       }
     },
     {
       "id": "5_3",
-      "title": "SORTING",
-      "subtitle": "Putting things in order",
-      "icon": "ArrowUpDown",
+      "title": "LAMBDAS & INLINE",
+      "subtitle": "Anonymous functions and inline hints",
+      "icon": "Zap",
       "pipeline": {
         "teaching": [
           {
-            "id": "l5c5", "title": "Bubble Sort", "emoji": "🫧",
-            "analogy": "Bubble Sort is like bubbles rising in water. The biggest number 'bubbles up' to the end in each pass. Repeat until everything is sorted.",
-            "content": "Bubble Sort compares adjacent pairs and swaps them if they're in the wrong order. After one pass, the largest is at the end. Repeat for remaining items.",
-            "examples": [{ "title": "Bubble Sort Step", "explanation": "Compare neighbors, swap if wrong order.", "code": "# [5, 3, 8, 1]\n# Pass 1: compare 5,3→swap → [3,5,8,1]\n#          compare 5,8→ok   → [3,5,8,1]\n#          compare 8,1→swap → [3,5,1,8] ← 8 is in place!\n# Pass 2: [3,5,1,8] → [3,1,5,8]\n# Pass 3: [3,1,5,8] → [1,3,5,8] ✅" }],
-            "funFact": "Bubble Sort is very slow (O(n²)) but easy to understand. No one uses it in real software — it's purely educational! 🎓"
+            "id": "cpp5c4", "title": "Lambda Expressions (C++11)", "emoji": "⚡",
+            "analogy": "A lambda is a throwaway function — you write it inline right where you need it, use it once (or pass it around), and don't need to give it a name. Like writing a sticky note instead of a full document.",
+            "content": "Lambda syntax: [capture](params) { body }. Capture [] copies or references outer variables. Stored in auto. Passed to STL algorithms (sort, find_if, for_each). The most modern C++ programming tool.",
+            "examples": [
+              { "title": "Lambda Basics", "explanation": "[capture](params) -> return { body }", "code": "#include <algorithm>\n#include <vector>\nusing namespace std;\n\n// Basic lambda:\nauto greet = [](string name) {\n    cout << \"Hello, \" << name << endl;\n};\ngreet(\"Neo\");  // Hello, Neo\n\n// Lambda with STL:\nvector<int> v = {5,2,8,1,9,3};\nsort(v.begin(), v.end(), [](int a, int b){\n    return a < b;  // ascending sort\n});\n// v = {1,2,3,5,8,9}" },
+              { "title": "Lambda Capture", "explanation": "[ ] captures outer variables.", "code": "int threshold = 5;\nvector<int> v = {3,7,1,9,4};\n\n// [threshold] captures by value:\nfor_each(v.begin(), v.end(),\n    [threshold](int x) {\n        if(x > threshold) cout << x << \" \";\n    });\n// 7 9\n\n// [&threshold] captures by reference:\n// [=] captures all by value\n// [&] captures all by reference" }
+            ],
+            "funFact": "C++ lambdas are actually syntactic sugar — the compiler converts them to anonymous class objects with operator() defined. Each lambda creates a unique, unnamed class type. This is why auto is needed to store them! 🔮"
           },
           {
-            "id": "l5c6", "title": "Swapping — The Core Move", "emoji": "🔄",
-            "analogy": "Swapping is like trading cards with a friend. You each put your card face down, then pick up the other's card. In Python, it's even simpler!",
-            "content": "To swap two variables, Python can do it in one line: a, b = b, a. This is the fundamental operation in sorting algorithms.",
-            "examples": [{ "title": "Python Swap", "explanation": "One line swaps both values instantly!", "code": "a = 5\nb = 10\na, b = b, a   # Swap!\nprint(a, b)   # 10 5\n\n# In a list:\narr = [3, 1]\narr[0], arr[1] = arr[1], arr[0]\nprint(arr)  # [1, 3]" }],
-            "funFact": "In C/Java you need a temporary variable to swap. Python's tuple unpacking makes it a one-liner! 🐍"
+            "id": "cpp5c5", "title": "inline Functions", "emoji": "📌",
+            "analogy": "inline is a hint to the compiler: 'paste this function's code directly at the call site instead of making a function call.' Like copy-pasting instead of delegating — faster for tiny functions, no benefit for large ones.",
+            "content": "inline keyword suggests the compiler to expand the function body at each call site, eliminating function call overhead. Used for very small, frequently called functions. Commonly used in header files. Modern compilers often inline automatically regardless.",
+            "examples": [
+              { "title": "inline Functions", "explanation": "Hint to avoid call overhead for tiny functions.", "code": "// inline — compiler may inline this:\ninline int max(int a, int b) {\n    return a > b ? a : b;\n}\n\n// Effectively becomes:\nint x = max(5, 3);\n// Compiler may transform to:\n// int x = (5 > 3) ? 5 : 3;  // no call overhead!\n\n// Common in .h files (avoid ODR violations):\n// Each translation unit gets its own copy\ninline void log(const string& s) {\n    cout << \"[LOG] \" << s << endl;\n}" }
+            ],
+            "funFact": "Modern optimizing compilers (GCC -O2, Clang -O2) ignore the inline keyword for optimization decisions — they inline what they determine is beneficial automatically. inline is now mostly useful for header-defined functions! 🤖"
           }
         ],
         "battle": {
-          "enemy": { "name": "CHAOS SHUFFLER", "maxHp": 100 },
+          "enemy": { "name": "THE LAMBDA WEAVER", "maxHp": 100 },
           "mcq": [
-            { "q": "Bubble Sort compares ___ elements.", "options": ["Random", "First and last", "Adjacent (neighboring) pairs", "All at once"], "a": 2, "damage": 25, "topic": "Bubble Sort", "explanation": "Bubble Sort compares neighboring pairs and swaps if needed." },
-            { "q": "After 1 pass of Bubble Sort, which element is in its final position?", "options": ["The smallest", "The largest (at the end)", "The middle", "None"], "a": 1, "damage": 25, "topic": "Passes", "explanation": "Each pass 'bubbles' the largest remaining element to its correct position at the end." },
-            { "q": "How do you swap a and b in Python?", "options": ["a = b; b = a", "swap(a,b)", "a, b = b, a", "a == b"], "a": 2, "damage": 25, "topic": "Swap", "explanation": "a, b = b, a is Python's clean one-line swap using tuple unpacking." },
-            { "q": "Is Bubble Sort fast?", "options": ["Yes, fastest algorithm", "No, it's O(n²) — one of the slowest", "Medium speed", "Depends on data"], "a": 1, "damage": 25, "topic": "Performance", "explanation": "O(n²) means the time grows rapidly. For 1000 items, that's 1,000,000 comparisons!" }
+            { "q": "auto fn = [](int x){ return x*2; }. fn(5) = ?", "options": ["5","10","Error","25"], "a": 1, "damage": 25, "topic": "Lambda call", "explanation": "Lambda: fn is a lambda that returns x*2. fn(5) = 5*2 = 10." },
+            { "q": "Lambda capture [threshold] vs [&threshold]:", "options": ["No difference","[threshold] copies value; [&threshold] captures by reference","[&] is faster always","[=] is same as []"], "a": 1, "damage": 25, "topic": "Capture modes", "explanation": "Capture Modes: [x] captures x by value (copy). [&x] captures by reference — changes to x inside lambda affect the outer x. [=] all by value, [&] all by reference." },
+            { "q": "What is inline in C++?", "options": ["Makes function private","Hint to compiler to expand function at call site (no call overhead)","Forces inlining always","Defines in-class methods only"], "a": 1, "damage": 25, "topic": "inline", "explanation": "inline Hint: Suggests the compiler to paste the function body at the call site. Eliminates function call overhead for tiny functions. Modern compilers may ignore it." },
+            { "q": "Which STL method commonly uses a lambda in C++?", "options": ["cout","cin","sort()","endl"], "a": 2, "damage": 25, "topic": "Lambda with STL", "explanation": "sort with Lambda: sort(v.begin(), v.end(), [](int a,int b){return a<b;}). The lambda is the comparator — replacing a standalone compare function with an inline definition." }
           ]
         },
         "coding": [
-          { "title": "Swap Output", "objective": "a=7, b=3. After a,b = b,a. What is a?", "starterCode": "a = 7\nb = 3\na, b = b, a\nprint(a)\n# Output: ___", "answer": "3", "hint": "After swap, a gets b's old value (3)." },
-          { "title": "After 1 Pass", "objective": "[4, 2, 7, 1]. After 1 full pass of Bubble Sort, what's the last element?", "starterCode": "# [4,2,7,1] → after 1 pass\n# Last element: ___", "answer": "7", "hint": "The largest (7) bubbles to the end after one pass." }
+          { "title": "Lambda syntax", "objective": "Lambda that doubles x: auto fn = ___(int x){ return x*2; };", "starterCode": "auto fn = ___(int x){ return x*2; };\ncout << fn(7);", "answer": "[]", "hint": "Lambda starts with [] for the capture list, then (params), then { body }." },
+          { "title": "Lambda output", "objective": "auto sq = [](int n){return n*n;}; sq(6) = ?", "starterCode": "auto sq = [](int n){return n*n;};\ncout << sq(6);\n// Output: ___", "answer": "36", "hint": "6*6 = 36." },
+          { "title": "Capture by value", "objective": "int x=10; auto fn=[x](){return x+5;}. fn() = ?", "starterCode": "int x=10;\nauto fn=[x](){return x+5;};\ncout << fn();\n// Output: ___", "answer": "15", "hint": "[x] captures x by value (copy of 10). x+5 = 15." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\na = 5\nb = 10\na = b\nb = a\nprint(a, b)", "brokenCode": "a = 5\nb = 10\na = b\nb = a\nprint(a, b)", "bugLine": 2, "options": ["Nothing wrong, prints 10 5", "After a=b, both are 10. Then b=a → both 10. Use a,b = b,a instead!", "Need a temp variable", "Print is wrong"], "answer": "After a=b, both are 10. Then b=a → both 10. Use a,b = b,a instead!", "hint": "When a=b runs, a becomes 10. Now b=a → b becomes 10 too. Both are 10!" }
+          { "type": "mcq", "description": "🚨 Bug:\n\nint total = 0;\nvector<int> v = {1,2,3,4,5};\nfor_each(v.begin(), v.end(), [](int x){\n    total += x;  // Error — total not captured!\n});", "brokenCode": "total += x;", "bugLine": 0, "options": ["Nothing wrong","total not captured — lambda can't see outer variables unless captured. Use [&total] or [&].","total should be global","for_each wrong here"], "answer": "total not captured — lambda can't see outer variables unless captured. Use [&total] or [&].", "hint": "Lambda [] captures nothing. total is an outer variable. Use [&total] to capture by reference." }
         ],
         "prediction": [
-          { "code": "arr = [3, 1, 4, 1, 5]\narr[0], arr[1] = arr[1], arr[0]\nprint(arr)", "options": ["[3,1,4,1,5]", "[1,3,4,1,5]", "[5,1,4,1,3]", "Error"], "answer": "[1,3,4,1,5]", "explanation": "Swaps index 0 and 1: 3↔1. Result: [1,3,4,1,5]." }
+          { "code": "int offset = 10;\nauto adjust = [offset](int x){ return x + offset; };\ncout << adjust(5) << \" \" << adjust(20);", "options": ["15 30","5 20","10 10","15 20"], "answer": "15 30", "explanation": "offset=10 captured by value. adjust(5)=5+10=15. adjust(20)=20+10=30." }
         ]
       }
     },
     {
       "id": "5_boss",
-      "title": "THE STRATEGIST",
-      "subtitle": "BOSS FIGHT — All Level 5",
+      "title": "THE C++ COMPILER",
+      "subtitle": "BOSS FIGHT — All Level 5 C++",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss5_intro", "title": "⚠️ BOSS — THE STRATEGIST", "emoji": "👾",
-            "analogy": "The Strategist is the ultimate tactician. It wields recursion, searches, and sorts as weapons. Only a true problem solver can defeat it!",
-            "content": "This is the final boss before the Ultimate Clash. It tests recursion, base cases, linear/binary search concepts, bubble sort, and swapping.",
-            "examples": [{ "title": "Your full arsenal", "explanation": "", "code": "✅ Recursion & base cases\n✅ Linear search & binary search\n✅ Bubble sort & swapping\n✅ Time complexity basics\n✅ Tracing recursive calls" }],
-            "funFact": "Google's PageRank algorithm (which sorts the entire internet's pages by relevance) was invented by two PhD students in a garage! 🏠"
+            "id": "boss_cpp5", "title": "⚠️ BOSS — THE C++ COMPILER", "emoji": "👾",
+            "analogy": "The C++ Compiler instantiates every template, resolves every overload, inlines every candidate, and weaves every lambda into an anonymous class. Defeat it by proving you understand C++'s complete function model.",
+            "content": "Tests ALL Level 5 C++: overloading (params not return), default params rightmost, reference & vs value vs pointer, const&, swap via reference, lambdas [], capture modes, inline hint.",
+            "examples": [{ "title": "Full C++ Function Arsenal", "explanation": "", "code": "✅ Overloading: same name, diff param lists\n✅ Default params: must be rightmost\n✅ int& x — pass by reference (clean)\n✅ const string& — efficient read-only\n✅ swap(x,y) not swap(&x,&y) with refs\n✅ auto fn = [](params){ body };\n✅ [x] = by value, [&x] = by reference\n✅ inline — suggestion, not command" }],
+            "funFact": "C++20 introduced 'abbreviated function templates' using auto params: void print(auto x) — auto makes the function a template automatically. Function overloading is becoming less needed with this feature! 🚀"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE STRATEGIST", "maxHp": 150 },
+          "enemy": { "name": "THE C++ COMPILER", "maxHp": 150 },
           "mcq": [
-            { "q": "What are the 2 required parts of every recursive function?", "options": ["Loop and print", "Base case and recursive case", "Return and break", "If and else"], "a": 1, "damage": 30, "topic": "Recursion", "explanation": "Base case (when to stop) and recursive case (call itself with simpler input)." },
-            { "q": "Linear search on [4,8,2,6] for 2: how many comparisons?", "options": ["1", "2", "3", "4"], "a": 2, "damage": 30, "topic": "Linear Search", "explanation": "Check 4 (no), 8 (no), 2 (yes!). Three comparisons." },
-            { "q": "Binary search requires ___ data.", "options": ["Random", "Sorted", "Reversed", "Empty"], "a": 1, "damage": 30, "topic": "Binary Search", "explanation": "Binary search ONLY works on sorted data." },
-            { "q": "After Bubble Sort, where does the smallest element end up?", "options": ["At the end", "At the beginning", "In the middle", "Removed"], "a": 1, "damage": 30, "topic": "Sorting", "explanation": "After complete Bubble Sort, smallest is at index 0 (beginning)." },
-            { "q": "def f(n): return n*f(n-1) if n>1 else 1. What is f(4)?", "options": ["4", "10", "24", "Error"], "a": 2, "damage": 30, "topic": "Recursive Trace", "explanation": "f(4) = 4×f(3) = 4×3×f(2) = 4×3×2×f(1) = 4×3×2×1 = 24." }
+            { "q": "void fn(int& x){x*=2;} int n=7; fn(n); n=?", "options": ["7","14","0","Error"], "a": 1, "damage": 30, "topic": "Reference modify", "explanation": "14: int& x is a reference to n. x*=2 changes n directly. n = 7×2 = 14." },
+            { "q": "overload: fn(int,int) and fn(int,int,int). fn(1,2) calls?", "options": ["fn(int,int,int) with default","fn(int,int)","Ambiguous error","fn(int,int,int) with 0"], "a": 1, "damage": 30, "topic": "Overload resolution", "explanation": "Exact Match: fn(1,2) exactly matches fn(int,int). No ambiguity." },
+            { "q": "auto sq=[](int n){return n*n;}; sq(9)=?", "options": ["9","18","81","Error"], "a": 2, "damage": 30, "topic": "Lambda call", "explanation": "Lambda: sq(9) = 9*9 = 81." },
+            { "q": "int x=5; auto fn=[&x](){x+=10;}; fn(); x=?", "options": ["5","10","15","Error"], "a": 2, "damage": 30, "topic": "Lambda reference capture", "explanation": "Capture by ref: [&x] captures x by reference. fn() runs x+=10. x = 5+10 = 15." },
+            { "q": "fn(int a, int b=5, int c) is valid C++?", "options": ["Yes","No — c has no default but follows default b. All defaults must be trailing.","Yes in C++17","Only if c is int"], "a": 1, "damage": 30, "topic": "Default trailing rule", "explanation": "Invalid: Default parameters must be consecutive from the RIGHT. b has a default but c (after b) doesn't — compile error." }
           ]
         },
         "coding": [
-          { "title": "Boss: Recursive Sum", "objective": "def sum_to(n): if n==0: return 0; return n+sum_to(n-1). What is sum_to(5)?", "starterCode": "# sum_to(5) = 5+4+3+2+1+0\n# Output: ___", "answer": "15", "hint": "5+4+3+2+1+0 = 15." }
+          { "title": "Boss: Ref swap", "objective": "void swp(int& a,int& b){int t=a;a=b;b=t;} x=3,y=8. After swp(x,y): x=?", "starterCode": "int x=3,y=8;\n// swp(x,y) called\n// x is now: ___", "answer": "8", "hint": "swap exchanges via references. x gets y's value = 8." },
+          { "title": "Boss: Lambda capture", "objective": "int mul=3; auto fn=[mul](int x){return x*mul;}; fn(7)=?", "starterCode": "int mul=3;\nauto fn=[mul](int x){return x*mul;};\ncout<<fn(7);\n// Output: ___", "answer": "21", "hint": "mul=3 captured by value. fn(7) = 7×3 = 21." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Boss Bug:\n\ndef search(arr, x):\n    for i in arr:\n        if i == x:\n            return i", "brokenCode": "def search(arr, x):\n    for i in arr:\n        if i == x:\n            return i", "bugLine": 3, "options": ["Should return the INDEX (use enumerate or range), not the value itself", "Use while instead", "arr is wrong", "Nothing wrong"], "answer": "Should return the INDEX (use enumerate or range), not the value itself", "hint": "Search functions typically return the INDEX where the item was found, not the item itself." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nvoid increment(int x) { x++; }\nint count = 0;\nfor(int i=0;i<5;i++) increment(count);\ncout << count;  // Expected 5, got 0!", "brokenCode": "void increment(int x)", "bugLine": 0, "options": ["Nothing wrong","Passed by value — count is never modified. Use: void increment(int& x) to actually increment count.","Use global count","Return x+1 instead"], "answer": "Passed by value — count is never modified. Use: void increment(int& x) to actually increment count.", "hint": "int x = copy. int& x = reference. Need & to modify the caller's count." }
         ],
         "prediction": [
-          { "code": "def mystery(n):\n    if n <= 0:\n        return ''\n    return mystery(n-1) + '*'\n\nprint(mystery(4))", "options": ["****", "***", "*", "Error"], "answer": "****", "explanation": "m(4)=m(3)+'*'=m(2)+'**'=m(1)+'***'=m(0)+'****'=''+'****'='****'." }
+          { "code": "int n=1;\nauto triple=[&n](){ n*=3; };\ntriple(); triple();\ncout << n;", "options": ["3","9","6","1"], "answer": "9", "explanation": "[&n] captures n by reference. triple() runs n*=3. n=1→3→9." }
         ]
       }
     }

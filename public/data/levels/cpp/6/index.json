@@ -1,46 +1,169 @@
 {
-  "label": "CPP_ARCADE",
-  "foundation": [
+  "label": "LEVEL 6: CLASSES & RAII (C++)",
+  "sublevels": [
     {
-       "id": 601, "title": "STRUCT", "subtitle": "Data Records", "icon": "Layers",
-       "content": "A C++ Struct can hold multiple variables of different types. In C++, a Struct is almost identical to a 'Class', just with public default access.",
-       "scenario": "A Student ID Card. It holds a Photo (Binary), a Name (Text), and a Number (Integer). One card is one person.",
-       "examples": [
-         { "title": "Creation", "explanation": "Defining a blueprint for a new record type using 'struct'.", "code": "struct Player { int hp; char id; };" },
-         { "title": "Accessing", "explanation": "Using a dot ('.') to see exactly one thing from inside the record.", "code": "p.hp = 100;" },
-         { "title": "Self Methods", "explanation": "C++ allows شما to put functions directly inside the Struct's data.", "code": "struct P { void move(); };" }
-       ],
-       "keyPoint": "struct allows multi-type containers. Default is Public."
+      "id": "6_1",
+      "title": "C++ CLASSES",
+      "subtitle": "OOP in C++ — constructors, access, methods",
+      "icon": "Box",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "cpp6c1", "title": "C++ Classes vs Structs", "emoji": "🏗️",
+            "analogy": "C++ class is a C struct with superpowers — methods, access control, constructors, destructors, operator overloading. The only difference between class and struct in C++ is the DEFAULT access: struct is public, class is private.",
+            "content": "class: members are private by default. struct: members are public by default. Both support all OOP features in C++. Convention: use class for OOP entities with invariants, struct for plain data (like C structs).",
+            "examples": [
+              { "title": "C++ Class", "explanation": "class vs struct default access.", "code": "#include <iostream>\nusing namespace std;\n\nclass Player {\nprivate:\n    string name;\n    int hp;\npublic:\n    Player(string n, int h) : name(n), hp(h) {}\n    \n    void attack() const {\n        cout << name << \" attacks!\" << endl;\n    }\n    string getName() const { return name; }\n    int getHp() const { return hp; }\n    \n    void takeDamage(int dmg) {\n        hp = max(0, hp - dmg);\n    }\n};\n\nPlayer p(\"Neo\", 100);\np.attack();  // Neo attacks!\np.takeDamage(30);\ncout << p.getHp(); // 70" },
+              { "title": "Struct vs Class in C++", "explanation": "Only default access differs.", "code": "// struct: default public\nstruct Point {\n    int x, y;  // public by default\n};\nPoint p = {3, 4};  // aggregate init OK\ncout << p.x;       // direct access OK\n\n// class: default private\nclass Circle {\n    double radius;  // private by default!\npublic:\n    Circle(double r) : radius(r) {}\n    double area() const {\n        return 3.14159 * radius * radius;\n    }\n};" }
+            ],
+            "funFact": "C++ class and struct are identical in capability — only default access differs. Bjarne Stroustrup actually prefers struct for simple data types. The C++ Core Guidelines say: use struct when all data is public and the type has no invariants! 📐"
+          },
+          {
+            "id": "cpp6c2", "title": "Member Initializer List & const Methods", "emoji": "⚡",
+            "analogy": "The member initializer list is the C++ way to initialize members AT construction time — more efficient than assigning in the body. const methods are a promise: 'I won't modify any member variables.' The compiler enforces this contract.",
+            "content": "Initializer list: Constructor(params) : member1(val), member2(val) { }. Preferred over body assignment — required for const and reference members. const method: can't modify members — const correctness.",
+            "examples": [
+              { "title": "Initializer List", "explanation": "Initialize members before constructor body runs.", "code": "class Engine {\n    const int cylinders;  // const — MUST use init list\n    int rpm;\n    string brand;\npublic:\n    // Member initializer list:\n    Engine(int cyl, string b)\n        : cylinders(cyl), rpm(0), brand(b) {\n        // body runs AFTER initialization\n        cout << brand << \" engine ready\" << endl;\n    }\n    \n    // const method — doesn't modify *this:\n    int getCylinders() const { return cylinders; }\n    \n    // Non-const — modifies state:\n    void rev(int r) { rpm = r; }\n};" }
+            ],
+            "funFact": "const methods and the const qualifier are C++'s formal system for expressing immutability contracts. The compiler enforces them at compile time. This is why C++ is used in safety-critical systems — errors caught at compile time, not runtime! ✅"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE CPP CONSTRUCTOR", "maxHp": 100 },
+          "mcq": [
+            { "q": "C++ class vs struct — ONLY difference?", "options": ["class has methods; struct doesn't","class members are private by default; struct members are public by default","class has constructor; struct doesn't","class is slower"], "a": 1, "damage": 20, "topic": "class vs struct", "explanation": "Default Access: That's the ONLY language-level difference. class = private by default. struct = public by default. Otherwise identical in C++." },
+            { "q": "Initializer list: Engine(int c):cylinders(c){} — what does it do?", "options": ["Assigns cylinders in body","Initializes cylinders BEFORE the body runs — more efficient, required for const members","Same as assignment in body","Creates a temporary"], "a": 1, "damage": 20, "topic": "Initializer list", "explanation": "Before Body: Initializer list runs before the constructor body. For const members and reference members, it's the ONLY way to initialize them. Preferred for all members." },
+            { "q": "A const method in C++ means:", "options": ["Method is a compile-time constant","Method cannot modify any non-mutable member variables of the object","Method takes const params only","Method returns const value"], "a": 1, "damage": 20, "topic": "const method", "explanation": "No Modification: const after the parameter list (void show() const) means the method won't modify the object's state. Enables calling on const objects." },
+            { "q": "C++ access section 'private:' means:", "options": ["Only accessible in derived classes","Accessible only within the class","Accessible from same file","Accessible from same translation unit"], "a": 1, "damage": 20, "topic": "private access", "explanation": "Class Only: private members are ONLY accessible within the class body itself — not from derived classes, not from outside. Use protected for subclass access." },
+            { "q": "Can a const member variable be initialized in the constructor BODY?", "options": ["Yes","No — must use initializer list: Class(int n):constMember(n){}","Yes but only with reassignment","Only if static"], "a": 1, "damage": 20, "topic": "const init list", "explanation": "Must Use List: const members must be initialized at construction — before the body runs. Initializer list is the only way. Assignment in the body is too late — the const was already default-initialized." }
+          ]
+        },
+        "coding": [
+          { "title": "Initializer list syntax", "objective": "Constructor that initializes int x and string name via init list:", "starterCode": "class Obj {\n    int x; string name;\npublic:\n    Obj(int a, string n) ___ x(a), name(n) {}\n};", "answer": ":", "hint": "Initializer list starts with a colon after the parameter list." },
+          { "title": "const method", "objective": "Getter that doesn't modify object — add keyword:", "starterCode": "string getName() ___ { return name; }", "answer": "const", "hint": "const after params = method won't modify members." },
+          { "title": "Default access class vs struct", "objective": "struct members are ___ by default:", "starterCode": "struct Point { int x; int y; }; // x and y are ___ by default", "answer": "public", "hint": "struct default = public. class default = private." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nclass Box {\n    const int size;\npublic:\n    Box(int s) {\n        size = s;  // ERROR — const in body!\n    }\n};", "brokenCode": "size = s;", "bugLine": 0, "options": ["Nothing wrong","const member can't be assigned in constructor body — use initializer list: Box(int s):size(s){}","size should not be const","Remove const from int size"], "answer": "const member can't be assigned in constructor body — use initializer list: Box(int s):size(s){}", "hint": "const members must be initialized in the initializer list, not assigned in the body. The body runs after construction — too late for const." }
+        ],
+        "prediction": [
+          { "code": "class Counter{\n    int n;\npublic:\n    Counter():n(0){}\n    void inc(){n++;}\n    int get() const{return n;}\n};\nCounter c;\nc.inc();c.inc();\ncout<<c.get();", "options": ["0","1","2","Error"], "answer": "2", "explanation": "n initialized to 0 via init list. inc() twice: n=2. get() returns 2." }
+        ]
+      }
     },
     {
-       "id": 604, "title": "ENUM", "subtitle": "Named Constants", "icon": "CheckCircle2",
-       "content": "An Enum allows you to create a list of named numbers (like states) instead of using raw integers like 0, 1, 2.",
-       "scenario": "A Traffic Light. Instead of using 0 for Red and 1 for Green, you use the actual names RED, YELLOW, GREEN.",
-       "examples": [
-         { "title": "Basic List", "explanation": "Creating a map of human-readable words instead of numbers.", "code": "enum State { OFF, ON };" },
-         { "title": "Usage", "explanation": "Setting a variable specifically to one of the named states.", "code": "State s = ON;" },
-         { "title": "Switch Case", "explanation": "Using a Switch to check each state's name precisely and cleanly.", "code": "switch(s) { case ON: ... }" }
-       ],
-       "keyPoint": "Enums make code extremely readable."
+      "id": "6_2",
+      "title": "DESTRUCTOR & RAII",
+      "subtitle": "Automatic resource management",
+      "icon": "Trash2",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "cpp6c3", "title": "Destructor & RAII", "emoji": "🗑️",
+            "analogy": "The destructor is C++'s automatic cleanup crew — when an object goes out of scope, the destructor runs automatically. RAII (Resource Acquisition Is Initialization) is the principle: acquire resources in constructor, release in destructor. No manual cleanup needed!",
+            "content": "Destructor: ~ClassName() — runs when object destroyed (scope ends or delete called). RAII: resources (memory, files, mutexes) tied to object lifetime. Smart pointers (unique_ptr, shared_ptr) implement RAII for memory.",
+            "examples": [
+              { "title": "Destructor & RAII", "explanation": "Automatic cleanup — no memory leaks!", "code": "#include <iostream>\nusing namespace std;\n\nclass FileWrapper {\n    FILE* fp;\npublic:\n    FileWrapper(const char* name, const char* mode) {\n        fp = fopen(name, mode);\n        cout << \"File opened\" << endl;\n    }\n    \n    // Destructor — auto-called when wrapper goes out of scope:\n    ~FileWrapper() {\n        if(fp) fclose(fp);\n        cout << \"File closed automatically\" << endl;\n    }\n    \n    void write(const char* s) {\n        if(fp) fputs(s, fp);\n    }\n};\n\nvoid saveData() {\n    FileWrapper f(\"out.txt\", \"w\"); // opens\n    f.write(\"Hello!\");\n}   // <-- destructor auto-called here! File closed!" },
+              { "title": "Smart Pointers (RAII for memory)", "explanation": "unique_ptr auto-frees on scope exit.", "code": "#include <memory>\nusing namespace std;\n\nvoid example() {\n    // raw pointer: YOU must delete:\n    int* raw = new int(42);\n    delete raw;  // easy to forget!\n    \n    // unique_ptr: auto-deleted at scope end:\n    unique_ptr<int> smart = make_unique<int>(42);\n    cout << *smart << endl;  // 42\n}   // <-- smart auto-deleted here!\n    // No delete needed — RAII handles it!" }
+            ],
+            "funFact": "RAII is considered C++'s most important idiom. Bjarne Stroustrup said RAII is what makes C++ safe despite manual memory management. It's why STL containers like vector never leak — their destructors free memory automatically! 🛡️"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE RAII GUARDIAN", "maxHp": 100 },
+          "mcq": [
+            { "q": "When does a C++ destructor run?", "options": ["When you call it manually","Automatically when object goes out of scope or delete is called","Never automatically","Only in debug builds"], "a": 1, "damage": 25, "topic": "Destructor timing", "explanation": "Automatic: Destructor runs automatically when: (1) local object goes out of scope, (2) delete is called on heap object. No manual call needed — that's the power of RAII!" },
+            { "q": "RAII stands for and means:", "options": ["Random Access II","Resource Acquisition Is Initialization — tie resource lifetime to object lifetime","Runtime Array Index Interface","Rapid Application Interface"], "a": 1, "damage": 25, "topic": "RAII definition", "explanation": "RAII: Resource Acquisition Is Initialization. Acquire in constructor, release in destructor. When object dies, resource is automatically released. No leaks if used correctly." },
+            { "q": "unique_ptr<int> p = make_unique<int>(5). When is the int freed?", "options": ["Never — must call delete","When p goes out of scope — unique_ptr destructor deletes it","When program ends","When GC runs"], "a": 1, "damage": 25, "topic": "unique_ptr RAII", "explanation": "Automatic: unique_ptr's destructor calls delete on the managed pointer. When p goes out of scope, the int is freed. No explicit delete needed — no leaks!" },
+            { "q": "Destructor syntax for class Engine:", "options": ["Engine~()","void ~Engine()","~Engine()","delete Engine()"], "a": 2, "damage": 25, "topic": "Destructor syntax", "explanation": "~ClassName(): Destructor has tilde prefix, same name as class, NO return type, NO parameters. Called automatically — cannot be overloaded." }
+          ]
+        },
+        "coding": [
+          { "title": "Destructor syntax", "objective": "Write destructor declaration for class Game:", "starterCode": "class Game {\npublic:\n    ___Game() { /* cleanup */ }\n};", "answer": "~", "hint": "Destructor: ~ClassName(). Tilde ~ prefix." },
+          { "title": "smart pointer", "objective": "Create unique_ptr to int with value 42:", "starterCode": "auto p = make_unique<___>(42);\ncout << *p;", "answer": "int", "hint": "make_unique<T>(value) — T is the type being managed." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug — memory leak:\n\nvoid process() {\n    int* data = new int[100];\n    // ... use data ...\n}  // data never deleted!", "brokenCode": "int* data = new int[100];", "bugLine": 0, "options": ["Nothing wrong","Memory leak — new[] must be matched with delete[]. Use unique_ptr<int[]> data=make_unique<int[]>(100); for RAII.","data goes out of scope so it's freed","new allocates on stack"], "answer": "Memory leak — new[] must be matched with delete[]. Use unique_ptr<int[]> data=make_unique<int[]>(100); for RAII.", "hint": "new int[100] allocates on heap. Scope exit doesn't free heap. Use RAII (unique_ptr) or explicitly delete[]." }
+        ],
+        "prediction": [
+          { "code": "struct Guard {\n    Guard(){cout<<\"ON \";}\n    ~Guard(){cout<<\"OFF\";}\n};\nvoid fn(){\n    Guard g;\n    cout<<\"WORK \";\n}\nfn();", "options": ["ON WORK OFF","WORK ON OFF","ON OFF WORK","Error"], "answer": "ON WORK OFF", "explanation": "Constructor: 'ON '. Body: 'WORK '. Destructor on scope exit: 'OFF'." }
+        ]
+      }
     },
     {
-       "id": 608, "title": "HEADERS", "subtitle": "Code Blocks", "icon": "Cpu",
-       "content": "C++ uses Header files (.h) to share logic between different .cpp files in a massive engine.",
-       "scenario": "A Shared Recipe Book. Every chef (file) can include (include) the recipes (logic) in the .h file.",
-       "examples": [
-         { "title": "Standard Lib", "explanation": "Importing a box of pre-made tools from the official C++ library.", "code": "#include <iostream>" },
-         { "title": "Local One", "explanation": "Including a file you wrote yourself in the same folder with quotes.", "code": "#include \"game.h\"" },
-         { "title": "The Guards", "explanation": "Using #pragma once to prevent C++ from reading the same file twice.", "code": "#pragma once" }
-       ],
-       "keyPoint": "Headers connect different files together."
-    }
-  ],
-  "tests": [
+      "id": "6_3",
+      "title": "OPERATOR OVERLOADING",
+      "subtitle": "Making operators work with custom types",
+      "icon": "Plus",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "cpp6c4", "title": "Operator Overloading in C++", "emoji": "⚙️",
+            "analogy": "Operator overloading teaches C++ the meaning of +, -, *, ==, << for your types. Just as int knows what 5+3 means, your Vector class can know what vec1+vec2 means. It's teaching the compiler new vocabulary for your types.",
+            "content": "Define operator functions: Type operator+(const Type& rhs) const. Common: +,-,*,/,==,!=,<,<=,>>,<<. << for cout output. == for comparison. Can be member or friend function. Don't overload ., ::, ?:, sizeof.",
+            "examples": [
+              { "title": "Operator Overloading", "explanation": "Teach + and << to your class.", "code": "#include <iostream>\nusing namespace std;\n\nstruct Vec2 {\n    float x, y;\n    Vec2(float x, float y) : x(x), y(y) {}\n    \n    // operator+:\n    Vec2 operator+(const Vec2& o) const {\n        return Vec2(x+o.x, y+o.y);\n    }\n    \n    // operator== :\n    bool operator==(const Vec2& o) const {\n        return x==o.x && y==o.y;\n    }\n    \n    // operator<< (friend for cout):\n    friend ostream& operator<<(ostream& os,\n                               const Vec2& v) {\n        return os << '(' << v.x << ',' << v.y << ')';\n    }\n};\n\nVec2 a(1,2), b(3,4);\nVec2 c = a + b;\ncout << c << endl;    // (4,6)\ncout << (a==b);       // 0 (false)" }
+            ],
+            "funFact": "C++ std::string uses operator+ for concatenation, operator<< for cout, operator== for comparison, and operator[] for character access. Every string operation you've used is an overloaded operator! 🔤"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE OPERATOR", "maxHp": 100 },
+          "mcq": [
+            { "q": "Vec2 operator+(const Vec2& o) const — return type is:", "options": ["void","bool","Vec2","int"], "a": 2, "damage": 33, "topic": "Operator return type", "explanation": "Vec2: The + operator for Vec2 should return a NEW Vec2 (the sum). Must match what the operation produces logically." },
+            { "q": "friend ostream& operator<<(ostream& os,const T& t) — why friend?", "options": ["Required syntax","Allows access to private members from outside the class (ostream is not T)","friend is required for all operators","Makes operator faster"], "a": 1, "damage": 33, "topic": "friend operator<<", "explanation": "Private Access: operator<< has ostream as left operand (not T). As a free function, it needs access to private members. 'friend' grants that access from outside the class." },
+            { "q": "Can you overload the . (dot member access) operator in C++?", "options": ["Yes","No — C++ explicitly forbids overloading . :: ?: and sizeof","Yes in C++17","Only for pointers"], "a": 1, "damage": 34, "topic": "Cannot overload", "explanation": "Forbidden: The operators that cannot be overloaded: . (dot), :: (scope), ?: (ternary), sizeof, typeid, .* (pointer-to-member). All others can be overloaded." }
+          ]
+        },
+        "coding": [
+          { "title": "Operator overload keyword", "objective": "Declare operator+ for adding two Box objects:", "starterCode": "Box ___(const Box& other) const {\n    return Box(w+other.w, h+other.h);\n}", "answer": "operator+", "hint": "C++ syntax: returnType operator+(const Type& rhs) const" },
+          { "title": "Equality check", "objective": "Point a(1,2),b(1,2). After defining operator==: a==b is?", "starterCode": "// operator==(const Point& o) const {return x==o.x&&y==o.y;}\n// Point a(1,2),b(1,2); a==b is: ___", "answer": "true", "hint": "Both points have same x,y. operator== returns true." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nstruct Money {\n    int amount;\n    Money operator+(Money& other) {  // missing const!\n        return Money{amount+other.amount};\n    }\n};\nconst Money a{100};\nMoney b{50};\nMoney c = a + b;  // Error!", "brokenCode": "Money operator+(Money& other)", "bugLine": 0, "options": ["Nothing wrong","operator+ takes non-const Money& but 'a' is const. Fix: operator+(const Money& other) const","amount should be private","Money needs constructor"], "answer": "operator+ takes non-const Money& but 'a' is const. Fix: operator+(const Money& other) const", "hint": "operator+ should be const-correct: (const Money& other) const. Allows calling on const objects." }
+        ],
+        "prediction": [
+          { "code": "struct Num{\n    int v;\n    Num operator*(const Num& o)const{return {v*o.v};}\n    bool operator<(const Num& o)const{return v<o.v;}\n};\nNum a{3},b{4};\nNum c=a*b;\ncout<<c.v<<\" \"<<(a<b);", "options": ["12 1","12 0","7 1","Error"], "answer": "12 1", "explanation": "a*b: 3×4=12. c.v=12. a<b: 3<4=true=1. Output: 12 1." }
+        ]
+      }
+    },
     {
-      "id": 613, "title": "MCQ ADVENTURE", "subtitle": "C++ Record Quiz", "icon": "MapPin", "type": "mcq",
-      "gameData": [
-        { "q": "Access struct member?", "options": [".","::","->","both . and ->"], "a": 3, "hint": ". is normal, -> for pointers." }
-      ]
+      "id": "6_boss",
+      "title": "THE C++ RUNTIME",
+      "subtitle": "BOSS FIGHT — All Level 6 C++",
+      "icon": "Skull",
+      "isBoss": true,
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "boss_cpp6", "title": "⚠️ BOSS — THE C++ RUNTIME", "emoji": "👾",
+            "analogy": "The C++ Runtime constructs and destructs every object, manages every resource, and resolves every operator. It knows RAII, const methods, initializer lists, and operator overloading in its sleep. Defeat it by mastering C++'s object model.",
+            "content": "Tests ALL Level 6 C++: class vs struct default access, initializer list, const methods, destructor ~ClassName(), RAII principle, unique_ptr, operator overloading syntax, friend operator<<.",
+            "examples": [{ "title": "Full C++ OOP Arsenal", "explanation": "", "code": "✅ class = private default; struct = public\n✅ Ctor(params):member1(v),member2(v){}\n✅ const method — no member changes\n✅ const member — must use init list\n✅ ~Class() — auto-runs on scope exit\n✅ RAII: resources in ctor/dtor\n✅ unique_ptr — RAII memory\n✅ operator+(const T&) const\n✅ friend ostream& operator<<" }],
+            "funFact": "C++ is the only major language where the programmer has FULL control over object lifetime — constructors, destructors, copy/move semantics, RAII — all user-defined. This is why game engines, VR, and finance systems use C++! 🎮"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE C++ RUNTIME", "maxHp": 150 },
+          "mcq": [
+            { "q": "class A has no user-defined destructor. When local A object goes out of scope:", "options": ["Memory leaks","Compiler generates default destructor — runs automatically","Nothing happens","Must call delete"], "a": 1, "damage": 30, "topic": "Default destructor", "explanation": "Auto-Generated: Compiler provides a default destructor that calls member destructors. For classes with raw pointers, define your own to delete them properly." },
+            { "q": "unique_ptr<int> p=make_unique<int>(5); After scope exit, memory is:", "options": ["Leaked","Freed automatically by unique_ptr destructor","Stays in heap forever","Freed by GC"], "a": 1, "damage": 30, "topic": "unique_ptr RAII", "explanation": "Auto-Freed: unique_ptr owns the pointee. Its destructor calls delete on scope exit. No explicit delete needed. This IS RAII." },
+            { "q": "Vec2 operator+(const Vec2& o) const — trailing const means:", "options": ["o is const","Return is const","THIS object's members won't be modified — callable on const Vec2","Parameter is temporary"], "a": 2, "damage": 30, "topic": "Trailing const", "explanation": "Method const: Trailing const = 'this' method doesn't modify *this. Required to call operator+ on const Vec2 objects." },
+            { "q": "struct vs class in C++ — which is correct?", "options": ["struct can't have methods","struct members are public by default; class members are private by default","class must have constructor","struct is C, class is C++"], "a": 1, "damage": 30, "topic": "struct vs class", "explanation": "Default Access Only: The ONLY difference. Both fully support methods, constructors, inheritance, templates in C++." },
+            { "q": "RAII pattern: when should resources be released?", "options": ["At program end","In destructor — automatically when object goes out of scope","Manually before every return","After every function call"], "a": 1, "damage": 30, "topic": "RAII release timing", "explanation": "Destructor: RAII releases resources in the destructor. Since destructors run automatically on scope exit, resources are ALWAYS released — even if exceptions occur!" }
+          ]
+        },
+        "coding": [
+          { "title": "Boss: Full class init list", "objective": "class Tank{const int armor; int hp; Tank(int a,int h):___,hp(h){}}. Fill blank:", "starterCode": "class Tank{\n    const int armor; int hp;\npublic:\n    Tank(int a,int h):___(a),hp(h){}\n};", "answer": "armor", "hint": "Must initialize const member 'armor' in init list: armor(a)." },
+          { "title": "Boss: Smart pointer", "objective": "Create unique_ptr<string> holding 'hello':", "starterCode": "auto s = make_unique<___>(\"hello\");\ncout << *s;", "answer": "string", "hint": "make_unique<string>('hello') creates a heap string managed by unique_ptr." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nclass Resource {\n    int* data;\npublic:\n    Resource(){data=new int[100];}\n    // No destructor!\n};\nvoid fn(){\n    Resource r;  // data never deleted!\n}", "brokenCode": "// No destructor!", "bugLine": 0, "options": ["Nothing wrong — GC handles it","Memory leak — no ~Resource() to delete data. Add: ~Resource(){delete[] data;}","data goes out of scope with r","new int[] is stack allocated"], "answer": "Memory leak — no ~Resource() to delete data. Add: ~Resource(){delete[] data;}", "hint": "C++ has no GC. Heap memory allocated in constructor MUST be freed in destructor — this is RAII pattern!" }
+        ],
+        "prediction": [
+          { "code": "struct RAII{\n    RAII(){cout<<\"A\";}\n    ~RAII(){cout<<\"Z\";}\n};\nvoid fn(){RAII r1,r2;cout<<\"M\";}\nfn();", "options": ["AAMZ","AAMZZ","AAZZMM","AAMZZ"], "answer": "AAMZZ", "explanation": "r1 ctor: A. r2 ctor: A. Body: M. r2 dtor (LIFO): Z. r1 dtor: Z. Output: AAMZZ." }
+        ]
+      }
     }
   ]
 }

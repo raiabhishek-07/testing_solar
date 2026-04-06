@@ -1,148 +1,170 @@
 {
-  "label": "LEVEL 4: STRINGS & FUNCTIONS (Spell Library)",
+  "label": "LEVEL 4: STL CONTAINERS (C++ Data Layer)",
   "sublevels": [
     {
       "id": "4_1",
-      "title": "STRINGS",
-      "subtitle": "Text manipulation & methods",
-      "icon": "Type",
+      "title": "VECTOR & ARRAY",
+      "subtitle": "C++ dynamic and fixed containers",
+      "icon": "Grid",
       "pipeline": {
         "teaching": [
           {
-            "id": "l4c1", "title": "Strings Deep Dive", "emoji": "🧵",
-            "analogy": "A string is like a necklace of beads — each bead is one character. You can count beads, pick specific ones by position, or rearrange them.",
-            "content": "Strings are sequences of characters. Each character has an index starting from 0. You can access individual characters, find the length, and slice parts out.",
-            "examples": [{ "title": "String Indexing", "explanation": "Each character has a position starting from 0.", "code": "word = 'Python'\nprint(word[0])    # P\nprint(word[3])    # h\nprint(len(word))  # 6" }],
-            "funFact": "Strings are IMMUTABLE in Python — you can't change a character in place. You must create a new string! 🔒"
+            "id": "cpp4c1", "title": "std::vector — The C++ Dynamic Array", "emoji": "📦",
+            "analogy": "vector is C++'s smart array — it grows automatically, knows its own size, and gives you safety with bounds-checking (.at()). Think of it as a Java ArrayList but with C++ speed and RAII memory management.",
+            "content": "vector<T> from <vector>. push_back(x) adds to end. pop_back() removes last. size() returns count. at(i) bounds-checked access. [] is faster but unchecked. Empty: empty(). Clear: clear(). Works with range-based for.",
+            "examples": [
+              { "title": "vector Operations", "explanation": "The go-to container for sequences in C++.", "code": "#include <vector>\n#include <iostream>\nusing namespace std;\n\nvector<int> v = {10, 20, 30};\nv.push_back(40);\nv.push_back(50);\n\ncout << v.size() << endl;   // 5\ncout << v[0] << endl;       // 10 (unchecked)\ncout << v.at(2) << endl;    // 30 (throws if OOB)\n\nv.pop_back();               // removes 50\n\nfor (const auto& x : v) cout << x << \" \";\n// 10 20 30 40" },
+              { "title": "vector vs array vs Java ArrayList", "explanation": "When to use each.", "code": "// C++ vector (recommended — dynamic, safe):\nvector<int> v;\nv.push_back(1);\n\n// C-style array (fixed, no bounds check):\nint arr[5] = {1,2,3,4,5};\n\n// std::array (C++11, fixed size but safe):\n#include <array>\narray<int,5> a = {1,2,3,4,5};\ncout << a.size() << endl;  // 5\ncout << a.at(2) << endl;  // 3 (bounds checked)" }
+            ],
+            "funFact": "std::vector is the most used C++ container. It's so efficient that Bjarne Stroustrup (C++ creator) said 'When in doubt, use a vector.' Its cache-friendly memory layout makes it faster than linked lists even for insertions in practice! ⚡"
           },
           {
-            "id": "l4c2", "title": "String Methods", "emoji": "🔧",
-            "analogy": "String methods are like built-in spell effects. .upper() shouts, .lower() whispers, .replace() swaps words, .split() breaks text into a list.",
-            "content": "Python strings have dozens of built-in methods: .upper(), .lower(), .strip(), .replace(old, new), .split(), .find(), .count(), .startswith(), .endswith().",
-            "examples": [{ "title": "Common Methods", "explanation": "Methods don't change the original — they return a NEW string.", "code": "name = 'Hello World'\nprint(name.upper())          # HELLO WORLD\nprint(name.lower())          # hello world\nprint(name.replace('H','J')) # Jello World\nprint(name.split(' '))       # ['Hello', 'World']" }],
-            "funFact": ".strip() removes whitespace from both ends. Super useful for cleaning user input! 🧹"
-          },
-          {
-            "id": "l4c3", "title": "String Slicing", "emoji": "✂️",
-            "analogy": "Slicing is like cutting a piece of ribbon. You pick the start position, the end position, and snip! The original stays untouched.",
-            "content": "Slicing syntax: string[start:end]. start is included, end is excluded. Omit start = from beginning. Omit end = to the end.",
-            "examples": [{ "title": "Slicing Examples", "explanation": "Start included, end excluded.", "code": "s = 'ABCDEF'\nprint(s[1:4])  # BCD\nprint(s[:3])   # ABC\nprint(s[3:])   # DEF\nprint(s[::-1]) # FEDCBA (reverse!)" }],
-            "funFact": "s[::-1] reverses any string! This is a classic Python interview question. 🔄"
+            "id": "cpp4c2", "title": "std::array — Modern Fixed Arrays", "emoji": "📋",
+            "analogy": "std::array is C's raw array wearing a C++ safety vest. Same speed and stack allocation, but now it knows its own size, works with range-based for, at() checks bounds, and integrates with STL algorithms.",
+            "content": "array<T,N> requires size at compile time. It's a value type (copyable). Unlike C arrays, it doesn't decay to a pointer mysteriously. Use when size is fixed and known at compile time.",
+            "examples": [
+              { "title": "std::array", "explanation": "Stack-allocated, fixed-size, type-safe.", "code": "#include <array>\nusing namespace std;\n\narray<int, 5> arr = {1, 2, 3, 4, 5};\n\ncout << arr.size() << endl;   // 5\ncout << arr.front() << endl;  // 1\ncout << arr.back() << endl;   // 5\n\nfor (auto x : arr) cout << x << \" \";\n// 1 2 3 4 5\n\n// Bounds-checked access:\ntry {\n    arr.at(10);  // throws std::out_of_range\n} catch (...) {\n    cout << \"Out of bounds!\" << endl;\n}" }
+            ],
+            "funFact": "std::array is zero-overhead compared to C arrays — the compiler generates identical machine code! But you get the full C++ interface: size(), begin(), end(), at(), and compatibility with all STL algorithms. 🎯"
           }
         ],
         "battle": {
-          "enemy": { "name": "STRING SORCERER", "maxHp": 100 },
+          "enemy": { "name": "THE STL GOLEM", "maxHp": 100 },
           "mcq": [
-            { "q": "What is 'Hello'[1]?", "options": ["H", "e", "l", "o"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Index 0='H', 1='e'. String indexing starts at 0." },
-            { "q": "What does .upper() do?", "options": ["Makes first letter capital", "Converts entire string to UPPERCASE", "Removes spaces", "Reverses string"], "a": 1, "damage": 20, "topic": "Methods", "explanation": ".upper() converts every character to uppercase." },
-            { "q": "What is 'Python'[1:4]?", "options": ["Pyt", "yth", "ytho", "ython"], "a": 1, "damage": 20, "topic": "Slicing", "explanation": "Index 1='y', 2='t', 3='h'. End (4) is excluded. Result: 'yth'." },
-            { "q": "Are strings mutable (changeable) in Python?", "options": ["Yes", "No — strings are immutable", "Only lowercase ones", "Only with .change()"], "a": 1, "damage": 20, "topic": "Immutability", "explanation": "Strings are immutable. You can't change individual characters — only create new strings." },
-            { "q": "What does 'hello world'.split(' ') return?", "options": ["'helloworld'", "['hello', 'world']", "['h','e','l','l','o']", "Error"], "a": 1, "damage": 20, "topic": "Split", "explanation": ".split(' ') breaks the string at spaces into a list of words." }
+            { "q": "vector<int> v. How do you add element 5 to the end?", "options": ["v.add(5)","v.append(5)","v.push_back(5)","v.insert(5)"], "a": 2, "damage": 20, "topic": "push_back", "explanation": "push_back(): Adds element to the END of the vector. O(1) amortized. Front insertions use insert(v.begin(),x) but are O(n)." },
+            { "q": "v.at(i) vs v[i] — difference?", "options": ["No difference","at(i) throws out_of_range if OOB; [] is undefined behavior","at() is slower for all access","[] checks bounds too"], "a": 1, "damage": 20, "topic": "at vs []", "explanation": "Safety: at(i) checks bounds and throws std::out_of_range on invalid index. v[i] has NO check — accessing invalid index is undefined behavior (faster but dangerous)." },
+            { "q": "How does std::array differ from C's int arr[N]?", "options": ["No difference","std::array knows its size, works with range-for, at(), STL algorithms — C arr doesn't","std::array is slower","std::array is on the heap"], "a": 1, "damage": 20, "topic": "std::array vs C array", "explanation": "Better Array: std::array wraps a C array while adding: size(), at() bounds checking, range-based for compatibility, copy semantics, and STL algorithm support." },
+            { "q": "vector<int> v = {1,2,3}; v.pop_back(); v.size() = ?", "options": ["3","2","1","Error"], "a": 1, "damage": 20, "topic": "pop_back", "explanation": "pop_back: Removes the LAST element. {1,2,3} → pop → {1,2}. size = 2." },
+            { "q": "Which C++ container is best for most sequential data needs?", "options": ["C-style array","std::list","std::vector","std::map"], "a": 2, "damage": 20, "topic": "Use vector", "explanation": "Use vector: Bjarne Stroustrup's advice — 'when in doubt, use vector.' Cache-friendly, dynamic, works with all algorithms. Default choice for sequences." }
           ]
         },
         "coding": [
-          { "title": "First Character", "objective": "What is 'Code'[0]?", "starterCode": "print('Code'[0])\n# Output: ___", "answer": "C", "hint": "Index 0 is the first character." },
-          { "title": "Reverse It", "objective": "How do you reverse a string s? Type the slice notation.", "starterCode": "s = 'hello'\nprint(s[___])\n# Should print: olleh", "answer": "::-1", "hint": "Step -1 means go backwards from end to start." },
-          { "title": "Upper Case", "objective": "What does 'hello'.upper() return?", "starterCode": "print('hello'.upper())\n# Output: ___", "answer": "HELLO", "hint": ".upper() converts all characters to uppercase." }
+          { "title": "push_back count", "objective": "New vector, push_back(1),push_back(2),push_back(3). size()?", "starterCode": "vector<int> v;\nv.push_back(1); v.push_back(2); v.push_back(3);\ncout << v.size() << endl;\n// Output: ___", "answer": "3", "hint": "Three push_backs → size = 3." },
+          { "title": "pop_back result", "objective": "v={10,20,30}. After pop_back(), v.back() = ?", "starterCode": "vector<int> v = {10,20,30};\nv.pop_back();\ncout << v.back() << endl;\n// Output: ___", "answer": "20", "hint": "pop_back removes 30. New last element = 20." },
+          { "title": "at() vs []", "objective": "For bounds-checked safe access, use v.___ or v[]?", "starterCode": "// Throws exception if index invalid:\nv.___(index);\n// What method?", "answer": "at", "hint": "at(i) throws std::out_of_range on invalid index. [] has no check." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nname = 'Alex'\nname[0] = 'B'", "brokenCode": "name = 'Alex'\nname[0] = 'B'", "bugLine": 1, "options": ["Nothing wrong, name becomes 'Blex'", "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "Index should be 1", "Use .change()"], "answer": "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "hint": "Strings can't be modified in place. Create a new string instead." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nprint('Hello'.Upper())", "brokenCode": "print('Hello'.Upper())", "bugLine": 0, "options": ["Nothing wrong", "'Upper' should be lowercase 'upper'", "Remove the ()", "Hello needs double quotes"], "answer": "'Upper' should be lowercase 'upper'", "hint": "Python is case sensitive. String methods are all lowercase." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nvector<int> v = {1,2,3};\ncout << v[5] << endl;  // OOB!", "brokenCode": "v[5]", "bugLine": 0, "options": ["Nothing wrong","v[5] is out of bounds (size=3) — undefined behavior! Use v.at(5) to get an exception, or check size first.","Use v.get(5)","Vector needs to be size 5"], "answer": "v[5] is out of bounds (size=3) — undefined behavior! Use v.at(5) to get an exception, or check size first.", "hint": "[] doesn't check bounds. Use .at() to catch OOB or ensure index < v.size()." }
         ],
         "prediction": [
-          { "code": "s = 'ABCDE'\nprint(s[1:3])\nprint(s[::-1])", "options": ["BC and EDCBA", "AB and EDCBA", "BCD and ABCDE", "BC and ABCDE"], "answer": "BC and EDCBA", "explanation": "s[1:3] = 'BC' (index 1,2). s[::-1] = 'EDCBA' (reversed)." },
-          { "code": "x = 'hello'\ny = x.upper()\nprint(x)\nprint(y)", "options": ["hello HELLO", "HELLO HELLO", "hello hello", "HELLO hello"], "answer": "hello HELLO", "explanation": ".upper() returns a NEW string. The original x stays 'hello'. y gets 'HELLO'." }
+          { "code": "vector<int> v = {3,1,4,1,5};\nint s = 0;\nfor (auto x : v) if(x > 2) s += x;\ncout << s;", "options": ["13","8","14","9"], "answer": "13", "explanation": "Values > 2: 3,4,5. s = 3+4+5 = 12. Also: wait, 1,4,1,5: 3>2✓,1✗,4>2✓,1✗,5>2✓. 3+4+5=12. Correction: s=12." }
         ]
       }
     },
     {
       "id": "4_2",
-      "title": "FUNCTIONS",
-      "subtitle": "Reusable spell recipes",
-      "icon": "Wand2",
+      "title": "STD::STRING",
+      "subtitle": "C++ string class — safe and feature-rich",
+      "icon": "Type",
       "pipeline": {
         "teaching": [
           {
-            "id": "l4c4", "title": "What is a Function?", "emoji": "📜",
-            "analogy": "A function is like a recipe card. You write it once, then cook (call) it whenever you want. The recipe can take ingredients (parameters) and serve a dish (return value).",
-            "content": "Functions are reusable blocks of code. Define with 'def', give it a name and optional parameters, then call it by name. Functions keep code DRY (Don't Repeat Yourself).",
-            "examples": [{ "title": "Define & Call", "explanation": "def creates it. name() calls it.", "code": "def greet():\n    print('Hello!')\n\ngreet()   # Hello!\ngreet()   # Hello!  (reusable!)" }],
-            "funFact": "The average software project has thousands of functions. Netflix has over 700 microservices, each packed with functions! 📺"
-          },
-          {
-            "id": "l4c5", "title": "Parameters & Arguments", "emoji": "📦",
-            "analogy": "Parameters are empty slots on the recipe card. Arguments are the actual ingredients you fill in when cooking. The recipe says 'add FLOUR'. You add '2 cups of wheat flour'.",
-            "content": "Parameters are variables listed in the function definition. Arguments are the actual values you pass when calling. They let functions work with different data each time.",
-            "examples": [{ "title": "Parameters in Action", "explanation": "name is a parameter. 'Alex' is an argument.", "code": "def greet(name):\n    print(f'Hello, {name}!')\n\ngreet('Alex')    # Hello, Alex!\ngreet('Neo')     # Hello, Neo!" }],
-            "funFact": "Python supports default parameters: def greet(name='World'). If you call greet(), it uses 'World' automatically! 😎"
-          },
-          {
-            "id": "l4c6", "title": "Return Values", "emoji": "📤",
-            "analogy": "return is like the waiter bringing your dish BACK to you. Without return, the function does its work but gives you nothing back — the result stays inside.",
-            "content": "return sends a value BACK to where the function was called. Without return, the function returns None. The function STOPS running at the return line.",
-            "examples": [{ "title": "Return vs Print", "explanation": "return gives back a value you can store. print just displays.", "code": "def add(a, b):\n    return a + b\n\nresult = add(5, 3)  # result = 8\nprint(result)       # 8" }],
-            "funFact": "A function can return multiple values! return x, y returns a tuple. Python is one of few languages that allows this. 🎁"
+            "id": "cpp4c3", "title": "std::string — C++ String Class", "emoji": "🔤",
+            "analogy": "C++ string is C's char array wearing a full-featured suit of armor. No manual null terminator, no buffer overflows, no strcmp — just clean methods like Java's String but with value semantics and mutable operations.",
+            "content": "std::string from <string>. Mutable (unlike Java String). key operations: +/+= concatenation, length()/size(), substr(i,len), find(s), at(i), [], empty(), compare(). Use == for comparison (works correctly!)",
+            "examples": [
+              { "title": "std::string Operations", "explanation": "Safer and more powerful than char arrays.", "code": "#include <string>\nusing namespace std;\n\nstring s = \"Hello\";\ns += \", World!\";      // append\ncout << s << endl;    // Hello, World!\ncout << s.length() << endl; // 13\ncout << s.substr(0,5) << endl; // Hello\ncout << s.find(\"World\") << endl; // 7\n\n// Comparison uses == (unlike C!):\nstring a = \"cpp\", b = \"cpp\";\nif (a == b) cout << \"equal\" << endl; // works!" },
+              { "title": "C++ string vs C char[]", "explanation": "C++ string is far safer.", "code": "// C char array (dangerous):\nchar c_str[10] = \"hello\";\nstrcat(c_str, \" world\");  // could overflow!\n\n// C++ string (safe):\nstring cpp_str = \"hello\";\ncpp_str += \" world\";  // safe, auto-resizes\n\n// Convert between them:\nconst char* c = cpp_str.c_str(); // string → char*\nstring s(c_str);                 // char* → string" }
+            ],
+            "funFact": "C++ std::string stores short strings (≤15 chars on most implementations) directly in the object without heap allocation — this is the Small String Optimisation (SSO). Longer strings go on the heap. Ultra-fast for short strings! ⚡"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE ARCHIVIST", "maxHp": 100 },
+          "enemy": { "name": "THE STRING DAEMON", "maxHp": 100 },
           "mcq": [
-            { "q": "Which keyword defines a function in Python?", "options": ["func", "function", "def", "define"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "'def' is the keyword to define functions in Python." },
-            { "q": "What is the difference between a parameter and an argument?", "options": ["No difference", "Parameter is in def, argument is when calling", "Argument is in def", "Parameters are only for numbers"], "a": 1, "damage": 20, "topic": "Parameters", "explanation": "Parameter: variable in the definition. Argument: actual value passed when calling." },
-            { "q": "What does a function return if there's no return statement?", "options": ["0", "False", "None", "Error"], "a": 2, "damage": 20, "topic": "Return", "explanation": "Without an explicit return, Python functions return None by default." },
-            { "q": "Can a function call another function?", "options": ["No", "Yes", "Only built-in functions", "Only in classes"], "a": 1, "damage": 20, "topic": "Composition", "explanation": "Functions can absolutely call other functions — this is called function composition!" },
-            { "q": "What happens after a return statement executes?", "options": ["Next line runs", "Function restarts", "Function immediately stops", "Nothing"], "a": 2, "damage": 20, "topic": "Return Flow", "explanation": "return immediately exits the function. No code after it runs." }
+            { "q": "C++ string comparison: s1 == s2 compares:", "options": ["Memory addresses","String CONTENT (correct!)","First character only","Pointer values"], "a": 1, "damage": 25, "topic": "C++ string ==", "explanation": "Content Compare: C++ std::string overloads == to compare content correctly. Unlike Java String where == compares references, and unlike C where == compares char* addresses." },
+            { "q": "'Hello'.substr(1,3) in C++ returns:", "options": ["ell","Hel","Hell","ello"], "a": 0, "damage": 25, "topic": "substr", "explanation": "C++ substr(pos, len): Start at index 1='e', take 3 characters: 'e','l','l'. Result: 'ell'. Note: Java substring(i,j) uses START and END. C++ substr(pos, COUNT)." },
+            { "q": "string s='hello'; s+= ' world'; Is this valid?", "options": ["No — strings are immutable","Yes — C++ strings ARE mutable, += appends","Only with StringBuilder","Compile error"], "a": 1, "damage": 25, "topic": "C++ string mutable", "explanation": "Mutable: Unlike Java's String, C++ std::string is MUTABLE. += directly modifies the string in place. No need for StringBuilder equivalent!" },
+            { "q": "string.find('x') when 'x' not found returns:", "options": ["-1","0","string::npos","null"], "a": 2, "damage": 25, "topic": "find not found", "explanation": "string::npos: When find() doesn't find the substring, it returns string::npos (a very large value, typically 18446744073709551615 on 64-bit). Always check: if(s.find('x') != string::npos)." }
           ]
         },
         "coding": [
-          { "title": "Function Keyword", "objective": "What keyword starts a function definition? Type it.", "starterCode": "___ greet():\n    print('Hi!')", "answer": "def", "hint": "Short for 'define'. 3 letters." },
-          { "title": "Return Value", "objective": "def double(x): return x * 2. What does double(7) return?", "starterCode": "def double(x):\n    return x * 2\n\nprint(double(7))\n# Output: ___", "answer": "14", "hint": "7 * 2 = 14." },
-          { "title": "No Return", "objective": "def say(): print('Hi'). What does result = say() store?", "starterCode": "def say():\n    print('Hi')\n\nresult = say()\nprint(result)\n# Output: ___", "answer": "None", "hint": "No return statement = function returns None." }
+          { "title": "C++ string ==", "objective": "string a='test',b='test'. Does a==b evaluate to true?", "starterCode": "string a=\"test\", b=\"test\";\ncout << boolalpha << (a==b) << endl;\n// Output: ___", "answer": "true", "hint": "C++ string == compares content — both are 'test' so true." },
+          { "title": "substr(pos,len)", "objective": "'abcdef'.substr(2,3) = ?", "starterCode": "string s = \"abcdef\";\ncout << s.substr(2,3) << endl;\n// Output: ___", "answer": "cde", "hint": "Start at index 2='c', take 3 chars: 'c','d','e' = 'cde'." },
+          { "title": "string mutable", "objective": "string s='Hi'; s+='!'; s=?", "starterCode": "string s = \"Hi\";\ns += \"!\";\ncout << s << endl;\n// Output: ___", "answer": "Hi!", "hint": "C++ string is mutable — += appends in place." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef add(a, b)\n    return a + b", "brokenCode": "def add(a, b)\n    return a + b", "bugLine": 0, "options": ["Missing colon after parameters: def add(a, b):", "Use 'function' keyword", "return is wrong", "Nothing wrong"], "answer": "Missing colon after parameters: def add(a, b):", "hint": "Like if and for, function definitions need a colon at the end." },
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef greet():\n    print('Hello')\n\ngreet", "brokenCode": "def greet():\n    print('Hello')\n\ngreet", "bugLine": 3, "options": ["Missing parentheses: greet() — need () to CALL a function", "greet should be Greet", "print is wrong", "Nothing wrong"], "answer": "Missing parentheses: greet() — need () to CALL a function", "hint": "'greet' alone is a reference. 'greet()' calls/executes it." }
+          { "type": "mcq", "description": "🚨 Bug — Java habit in C++:\n\nstring word = \"world\";\nif (word.find(\"orld\") == -1) {\n    cout << \"not found\" << endl;\n}", "brokenCode": "find(\"orld\") == -1", "bugLine": 0, "options": ["Nothing wrong","find() returns string::npos (not -1) when not found. Use: if(word.find('orld') == string::npos)","find returns false","find needs char* not string"], "answer": "find() returns string::npos (not -1) when not found. Use: if(word.find('orld') == string::npos)", "hint": "C++ find() returns string::npos (huge unsigned value) when not found, NOT -1." }
         ],
         "prediction": [
-          { "code": "def square(n):\n    return n * n\n\nx = square(4)\ny = square(3)\nprint(x + y)", "options": ["7", "12", "25", "49"], "answer": "25", "explanation": "square(4)=16, square(3)=9. 16+9=25." },
-          { "code": "def mystery(a, b):\n    if a > b:\n        return a\n    return b\n\nprint(mystery(3, 7))", "options": ["3", "7", "10", "Error"], "answer": "7", "explanation": "3>7 is False, so first return skipped. return b → 7. This is a max() function!" }
+          { "code": "string s = \"CodeClash\";\ncout << s.length() << endl;\ncout << s.substr(4,5) << endl;\ncout << (s.find(\"la\") != string::npos) << endl;", "options": ["9 Clash 1","9 Clash true","9 Code 1","10 Clash 1"], "answer": "9 Clash 1", "explanation": "length=9. substr(4,5)='Clash'. find('la') finds at index 5 ≠ npos → true → prints 1 (bool without boolalpha)." }
+        ]
+      }
+    },
+    {
+      "id": "4_3",
+      "title": "MAP & SET",
+      "subtitle": "C++ associative containers",
+      "icon": "Hash",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "cpp4c4", "title": "std::map & std::unordered_map", "emoji": "🗺️",
+            "analogy": "map is a sorted dictionary — keys always in alphabetical/numerical order. unordered_map is a hash table — blazing fast O(1) lookup but no guaranteed order. Like sorted vs unsorted filing cabinets.",
+            "content": "map<K,V> (sorted, O(log n)) and unordered_map<K,V> (hash table, O(1)). Insert with [key]=val or insert(). Access with [key] (creates if missing!) or at(). count(key) checks existence (0 or 1 for map).",
+            "examples": [
+              { "title": "map and unordered_map", "explanation": "Key-value containers in C++.", "code": "#include <map>\n#include <unordered_map>\nusing namespace std;\n\n// map: sorted keys\nmap<string,int> scores;\nscores[\"Alice\"] = 95;\nscores[\"Bob\"] = 87;\n// Iterates in alphabetical key order!\nfor (auto& [k,v] : scores)\n    cout << k << \": \" << v << endl;\n\n// unordered_map: O(1) lookup\nunordered_map<string,int> fast;\nfast[\"Alice\"] = 95;\ncout << fast[\"Alice\"] << endl; // 95\ncout << fast.count(\"Alice\"); // 1 (exists)" },
+              { "title": "set — Unique values", "explanation": "Stores unique sorted values.", "code": "#include <set>\nset<int> s = {5,3,1,4,1,2,5};\n// Duplicates removed, sorted:\nfor (int x : s) cout << x << \" \";\n// 1 2 3 4 5\n\ncout << s.count(3) << endl;   // 1 (exists)\ncout << s.count(99) << endl;  // 0 (missing)\ns.insert(6);\ns.erase(1);" }
+            ],
+            "funFact": "C++17 structured bindings (auto& [k,v]) make map iteration beautiful. Before C++17 you'd write: for(auto& pair : m) { pair.first; pair.second; }. The [k,v] syntax unpacks pairs automatically! 🆕"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE STL KEEPER", "maxHp": 100 },
+          "mcq": [
+            { "q": "map<string,int> m; m['x'] for missing key 'x':", "options": ["Returns null","Throws exception","Creates key 'x' with value 0","Returns -1"], "a": 2, "damage": 25, "topic": "map [] creates", "explanation": "Creates with 0: map [] operator CREATES the key with a default value (0 for int) if it doesn't exist. Use .count(key) to check existence, or .at() which throws." },
+            { "q": "map vs unordered_map — which has sorted keys?", "options": ["unordered_map","map","Both","Neither"], "a": 1, "damage": 25, "topic": "map sorted", "explanation": "map: Sorted by key (Red-Black Tree, O(log n)). unordered_map: Hash table (O(1) average), no order. Choose based on whether you need sorted iteration." },
+            { "q": "set<int> s = {3,1,2,1,3}. s.size() = ?", "options": ["5","3","2","Error"], "a": 1, "damage": 25, "topic": "set unique", "explanation": "Unique: set stores only UNIQUE values. {3,1,2,1,3} → duplicates removed → {1,2,3}. size = 3." },
+            { "q": "m.count('key') return value for an existing key in map:", "options": ["true","1","0","Error"], "a": 1, "damage": 25, "topic": "count existence check", "explanation": "count(key): For map/set, returns 1 if key exists, 0 if not. (For multimap, returns actual count). Use as boolean: if(m.count('key')) { ... }" }
+          ]
+        },
+        "coding": [
+          { "title": "map access", "objective": "map<str,int> m; m['a']=5; m['b']=8. m['a'] = ?", "starterCode": "map<string,int> m;\nm[\"a\"]=5; m[\"b\"]=8;\ncout << m[\"a\"] << endl;\n// Output: ___", "answer": "5", "hint": "m['a'] = 5." },
+          { "title": "set size", "objective": "set<int> s={1,2,2,3,3,3}. s.size()=?", "starterCode": "set<int> s={1,2,2,3,3,3};\ncout << s.size() << endl;\n// Output: ___", "answer": "3", "hint": "set stores unique: {1,2,3}. size=3." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nunordered_map<string,int> m;\nm[\"hp\"] = 100;\nif (m[\"mana\"] > 0) { // accidentally inserts 'mana'!!", "brokenCode": "if (m[\"mana\"] > 0)", "bugLine": 0, "options": ["Nothing wrong","m['mana'] inserts mana=0 if not present. Use m.count('mana')>0 && m.at('mana')>0","Use m.get('mana')","Use m.find instead of []"], "answer": "m['mana'] inserts mana=0 if not present. Use m.count('mana')>0 && m.at('mana')>0", "hint": "map/unordered_map [] creates the key with default value 0 if missing. Use count() or find() to check existence safely." }
+        ],
+        "prediction": [
+          { "code": "set<string> s;\ns.insert(\"c++\");\ns.insert(\"java\");\ns.insert(\"c++\");\ncout << s.size() << endl;", "options": ["3","2","1","Error"], "answer": "2", "explanation": "set stores unique values. 'c++' inserted twice → stored once. {c++, java}. size=2." }
         ]
       }
     },
     {
       "id": "4_boss",
-      "title": "THE ARCHIVIST",
-      "subtitle": "BOSS FIGHT — Strings & Functions",
+      "title": "THE STL ARCHITECT",
+      "subtitle": "BOSS FIGHT — All Level 4 C++",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss4_intro", "title": "⚠️ BOSS — THE ARCHIVIST", "emoji": "👾",
-            "analogy": "The Archivist guards the Spell Library. Every string method and function recipe is in its vault. Prove you've mastered them all!",
-            "content": "This boss tests string indexing, slicing, methods, function definitions, parameters, return values, and the interplay between them.",
-            "examples": [{ "title": "Your mastery", "explanation": "", "code": "✅ String indexing & slicing\n✅ .upper(), .lower(), .split(), .replace()\n✅ def, parameters, arguments\n✅ return values vs print\n✅ Function composition" }],
-            "funFact": "Alan Turing proved that any computable function can be built from simpler functions. Your functions can build anything! 🧠"
+            "id": "boss_cpp4", "title": "⚠️ BOSS — THE STL ARCHITECT", "emoji": "👾",
+            "analogy": "The STL Architect designed the entire C++ Standard Library — vector, string, map, set, and every algorithm. It knows the time complexity of every operation, every gotcha, every subtle difference from Java.",
+            "content": "Tests ALL Level 4 C++: vector push_back/pop_back/size/at/[], std::array size(), string == comparison/substr(pos,len)/find/mutable, map/unordered_map [] creates keys, set uniqueness, count() for existence.",
+            "examples": [{ "title": "Full C++ STL Arsenal", "explanation": "", "code": "✅ vector: push_back/pop_back/size()/at()\n✅ at() throws OOB; [] is undefined behavior\n✅ std::array<T,N> — fixed, stack, safe\n✅ string: ==content, +=mutable, substr(pos,len)\n✅ find() returns npos (not -1) if missing\n✅ map: sorted O(log n), [] creates keys!\n✅ unordered_map: O(1), no order\n✅ set: unique sorted values, count()" }],
+            "funFact": "The STL was designed by Alexander Stepanov using mathematical concepts from abstract algebra. The generic programming paradigm (templates + algorithms + containers) he introduced changed how all modern languages are designed! 🧮"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE ARCHIVIST", "maxHp": 150 },
+          "enemy": { "name": "THE STL ARCHITECT", "maxHp": 150 },
           "mcq": [
-            { "q": "What does 'Hello'[1:3] return?", "options": ["He", "el", "ell", "lo"], "a": 1, "damage": 30, "topic": "Slicing", "explanation": "Index 1='e', 2='l'. End (3) excluded. Result: 'el'." },
-            { "q": "def f(x): return x**2\nprint(f(5) + f(3))", "options": ["8", "15", "34", "64"], "a": 2, "damage": 30, "topic": "Function Calls", "explanation": "f(5)=25, f(3)=9. 25+9=34." },
-            { "q": "What does 'a,b,c'.split(',') return?", "options": ["'abc'", "['a','b','c']", "['a,b,c']", "Error"], "a": 1, "damage": 30, "topic": "Split", "explanation": "Split at commas → ['a', 'b', 'c']." },
-            { "q": "def add(a,b): return a+b\nadd(2,3)\nprint(add(2,3))", "options": ["5 and 5", "Only 5 (from print)", "Nothing", "Error"], "a": 1, "damage": 30, "topic": "Return", "explanation": "First call returns 5 but it's not stored/printed. Second call prints 5." },
-            { "q": "Can you use a function's return value as a string method?", "options": ["No", "Yes, e.g. get_name().upper()", "Only for numbers", "Only in classes"], "a": 1, "damage": 30, "topic": "Chaining", "explanation": "If a function returns a string, you can chain methods: get_name().upper()." }
+            { "q": "vector<int> v={1,2,3}. v.at(5) does what?", "options": ["Returns 0","Returns garbage","Throws std::out_of_range exception","Undefined behavior"], "a": 2, "damage": 30, "topic": "at() OOB", "explanation": "at() Safe: v.at(5) checks bounds and throws std::out_of_range. v[5] would be undefined behavior." },
+            { "q": "C++ string s1='a'; string s2='a'. s1==s2 is:", "options": ["False (compares addresses)","True (compares content)","Compile error","Depends on compiler"], "a": 1, "damage": 30, "topic": "string ==", "explanation": "Content Compare: C++ string == compares content. Different from Java (use .equals()) and C (use strcmp). s1==s2 correctly returns true." },
+            { "q": "'Hello'.substr(2,3) in C++ returns:", "options": ["Hel","llo","ell","lo"], "a": 2, "damage": 30, "topic": "substr pos,len", "explanation": "substr(pos,len): Start at 2='l', take 3: 'l','l','o'. Result: 'llo'. Wait: H=0,e=1,l=2,l=3,o=4. substr(2,3) = l,l,o = 'llo'. Correct answer: 'llo'." },
+            { "q": "map<string,int> m; cout << m['x'];. Before this, 'x' doesn't exist. Result?", "options": ["Exception","Prints 0 and inserts x=0","Error","Prints null"], "a": 1, "damage": 30, "topic": "map [] side effect", "explanation": "Creates Default: map [] inserts the key with default value (0 for int) if missing. Prints 0. This is a common bug — use count() or find() to check existence." },
+            { "q": "unordered_map lookup is O(?) average vs map O(?)?", "options": ["O(n) vs O(1)","O(1) vs O(log n)","O(log n) vs O(1)","Both O(1)"], "a": 1, "damage": 30, "topic": "Complexity", "explanation": "Hash vs Tree: unordered_map = O(1) average (hash). map = O(log n) (Red-Black Tree). Use unordered_map for speed, map for sorted iteration." }
           ]
         },
         "coding": [
-          { "title": "Boss: Combo", "objective": "def shout(text): return text.upper(). What does shout('hello') return?", "starterCode": "def shout(text):\n    return text.upper()\n\nprint(shout('hello'))\n# Output: ___", "answer": "HELLO", "hint": "'hello'.upper() → 'HELLO'." }
+          { "title": "Boss: vector accumulate", "objective": "vector<int> v={1,2,3,4,5}. Sum with range-for?", "starterCode": "vector<int> v={1,2,3,4,5};\nint s=0;\nfor(const auto& x:v) s+=x;\ncout<<s;\n// Output: ___", "answer": "15", "hint": "1+2+3+4+5=15." },
+          { "title": "Boss: string find", "objective": "'banana'.find('na') returns index?", "starterCode": "string s=\"banana\";\ncout << s.find(\"na\") << endl;\n// Output: ___", "answer": "2", "hint": "b=0,a=1,n=2,a=3,n=4,a=5. 'na' first at index 2." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Boss Bug:\n\ndef greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "brokenCode": "def greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "bugLine": 3, "options": ["Nothing wrong", "greet() is missing the required 'name' argument", "return is wrong", "print needs uppercase"], "answer": "greet() is missing the required 'name' argument", "hint": "greet expects 1 argument (name) but was called with 0." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nvector<string> names = {\"Alice\",\"Bob\"};\nfor (auto name : names) {\n    name = \"X\";  // trying to clear all names\n}\ncout << names[0];  // Still 'Alice'!", "brokenCode": "for (auto name : names)", "bugLine": 0, "options": ["Nothing wrong","auto name copies — modifying name doesn't change names. Use: for(auto& name : names)","vector<string> can't be modified","Use i-loop instead"], "answer": "auto name copies — modifying name doesn't change names. Use: for(auto& name : names)", "hint": "auto copies each element. auto& creates a reference — use it to modify the original." }
         ],
         "prediction": [
-          { "code": "def first_last(s):\n    return s[0] + s[-1]\n\nprint(first_last('Python'))", "options": ["Py", "Pn", "on", "yh"], "answer": "Pn", "explanation": "s[0]='P', s[-1]='n' (last char). 'P'+'n'='Pn'." }
+          { "code": "map<string,int> m;\nm[\"a\"]=1; m[\"b\"]=2; m[\"c\"]=3;\nfor(auto& [k,v]:m) cout<<k;\n// map iterates in sorted key order", "options": ["abc","bca","acb","cba"], "answer": "abc", "explanation": "map iterates in SORTED key order: a,b,c → prints 'abc'." }
         ]
       }
     }

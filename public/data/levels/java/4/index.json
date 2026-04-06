@@ -1,148 +1,179 @@
 {
-  "label": "LEVEL 4: STRINGS & FUNCTIONS (Spell Library)",
+  "label": "LEVEL 4: DATA STRUCTURES (Java Collections)",
   "sublevels": [
     {
       "id": "4_1",
-      "title": "STRINGS",
-      "subtitle": "Text manipulation & methods",
-      "icon": "Type",
+      "title": "JAVA ARRAYS",
+      "subtitle": "Fixed-size indexed storage",
+      "icon": "Grid",
       "pipeline": {
         "teaching": [
           {
-            "id": "l4c1", "title": "Strings Deep Dive", "emoji": "🧵",
-            "analogy": "A string is like a necklace of beads — each bead is one character. You can count beads, pick specific ones by position, or rearrange them.",
-            "content": "Strings are sequences of characters. Each character has an index starting from 0. You can access individual characters, find the length, and slice parts out.",
-            "examples": [{ "title": "String Indexing", "explanation": "Each character has a position starting from 0.", "code": "word = 'Python'\nprint(word[0])    # P\nprint(word[3])    # h\nprint(len(word))  # 6" }],
-            "funFact": "Strings are IMMUTABLE in Python — you can't change a character in place. You must create a new string! 🔒"
+            "id": "j4c1", "title": "Java Arrays", "emoji": "📦",
+            "analogy": "A Java array is a row of numbered lockers — fixed count, each slot holds one specific type. You declare the count upfront and it never changes. Every locker is zero-indexed.",
+            "content": "Java arrays: fixed size declared at creation. Syntax: int[] arr = new int[5]; or int[] arr = {1,2,3}. Zero-indexed. Access: arr[i]. Length: arr.length (no parentheses). Out-of-bounds throws ArrayIndexOutOfBoundsException.",
+            "examples": [
+              { "title": "Declaring & Using Arrays", "explanation": "Two ways to create arrays.", "code": "// Style 1: declare size\nint[] nums = new int[5];  // [0,0,0,0,0]\nnums[0] = 10;\nnums[4] = 50;\n\n// Style 2: initialize directly\nString[] names = {\"Alice\", \"Bob\", \"Carol\"};\nSystem.out.println(names[1]);   // Bob\nSystem.out.println(names.length); // 3" },
+              { "title": "2D Arrays", "explanation": "Array of arrays — rows and columns.", "code": "int[][] grid = new int[3][3];\ngrid[0][0] = 1;\ngrid[1][1] = 5;\n\n// Shorthand:\nint[][] m = {{1,2,3},{4,5,6},{7,8,9}};\nSystem.out.println(m[1][2]); // 6 (row 1, col 2)" }
+            ],
+            "funFact": "Java arrays are objects on the heap! That's why .length is a field (not a method like .length()). Arrays inherit from Object — you can call toString(), equals(), etc. on them! 🤯"
           },
           {
-            "id": "l4c2", "title": "String Methods", "emoji": "🔧",
-            "analogy": "String methods are like built-in spell effects. .upper() shouts, .lower() whispers, .replace() swaps words, .split() breaks text into a list.",
-            "content": "Python strings have dozens of built-in methods: .upper(), .lower(), .strip(), .replace(old, new), .split(), .find(), .count(), .startswith(), .endswith().",
-            "examples": [{ "title": "Common Methods", "explanation": "Methods don't change the original — they return a NEW string.", "code": "name = 'Hello World'\nprint(name.upper())          # HELLO WORLD\nprint(name.lower())          # hello world\nprint(name.replace('H','J')) # Jello World\nprint(name.split(' '))       # ['Hello', 'World']" }],
-            "funFact": ".strip() removes whitespace from both ends. Super useful for cleaning user input! 🧹"
-          },
-          {
-            "id": "l4c3", "title": "String Slicing", "emoji": "✂️",
-            "analogy": "Slicing is like cutting a piece of ribbon. You pick the start position, the end position, and snip! The original stays untouched.",
-            "content": "Slicing syntax: string[start:end]. start is included, end is excluded. Omit start = from beginning. Omit end = to the end.",
-            "examples": [{ "title": "Slicing Examples", "explanation": "Start included, end excluded.", "code": "s = 'ABCDEF'\nprint(s[1:4])  # BCD\nprint(s[:3])   # ABC\nprint(s[3:])   # DEF\nprint(s[::-1]) # FEDCBA (reverse!)" }],
-            "funFact": "s[::-1] reverses any string! This is a classic Python interview question. 🔄"
+            "id": "j4c2", "title": "ArrayList — Dynamic Arrays", "emoji": "📋",
+            "analogy": "ArrayList is a smart filing cabinet — it grows automatically when you add more folders. No need to decide the size upfront. The drawback: slightly slower than primitive arrays due to boxing overhead.",
+            "content": "ArrayList<T> is a resizable array from java.util. Add: add(item). Get: get(i). Size: size(). Remove: remove(i) or remove(Object). Contains: contains(x). Requires import java.util.ArrayList.",
+            "examples": [
+              { "title": "ArrayList Operations", "explanation": "Dynamic sizing — no fixed count needed.", "code": "import java.util.ArrayList;\n\nArrayList<Integer> list = new ArrayList<>();\nlist.add(10);\nlist.add(20);\nlist.add(30);\n\nSystem.out.println(list.get(1));    // 20\nSystem.out.println(list.size());    // 3\nSystem.out.println(list.contains(20)); // true\n\nlist.remove(0);  // removes index 0\nSystem.out.println(list);  // [20, 30]\n\nfor (int n : list) System.out.println(n);" }
+            ],
+            "funFact": "ArrayList uses a plain array internally and doubles its size when full. Inserting at the END is O(1) amortized. Inserting in the MIDDLE copies all subsequent elements — O(n). LinkedList is better for mid-list insertion! ⚡"
           }
         ],
         "battle": {
-          "enemy": { "name": "STRING SORCERER", "maxHp": 100 },
+          "enemy": { "name": "THE ARRAY GOLEM", "maxHp": 100 },
           "mcq": [
-            { "q": "What is 'Hello'[1]?", "options": ["H", "e", "l", "o"], "a": 1, "damage": 20, "topic": "Indexing", "explanation": "Index 0='H', 1='e'. String indexing starts at 0." },
-            { "q": "What does .upper() do?", "options": ["Makes first letter capital", "Converts entire string to UPPERCASE", "Removes spaces", "Reverses string"], "a": 1, "damage": 20, "topic": "Methods", "explanation": ".upper() converts every character to uppercase." },
-            { "q": "What is 'Python'[1:4]?", "options": ["Pyt", "yth", "ytho", "ython"], "a": 1, "damage": 20, "topic": "Slicing", "explanation": "Index 1='y', 2='t', 3='h'. End (4) is excluded. Result: 'yth'." },
-            { "q": "Are strings mutable (changeable) in Python?", "options": ["Yes", "No — strings are immutable", "Only lowercase ones", "Only with .change()"], "a": 1, "damage": 20, "topic": "Immutability", "explanation": "Strings are immutable. You can't change individual characters — only create new strings." },
-            { "q": "What does 'hello world'.split(' ') return?", "options": ["'helloworld'", "['hello', 'world']", "['h','e','l','l','o']", "Error"], "a": 1, "damage": 20, "topic": "Split", "explanation": ".split(' ') breaks the string at spaces into a list of words." }
+            { "q": "int[] arr = new int[4]. What is arr.length?", "options": ["3","4","0","Error"], "a": 1, "damage": 20, "topic": "Array length", "explanation": "arr.length: The .length field (not method!) of an array equals the number of elements. new int[4] creates 4 slots → length = 4." },
+            { "q": "String[] s = {'A','B','C'}. What is s[2]?", "options": ["A","B","C","Error"], "a": 2, "damage": 20, "topic": "Zero index", "explanation": "Zero-indexed: s[0]='A', s[1]='B', s[2]='C'. Index 2 = third element = 'C'." },
+            { "q": "ArrayList vs array: which can grow dynamically?", "options": ["Array","ArrayList","Both","Neither"], "a": 1, "damage": 20, "topic": "Dynamic size", "explanation": "ArrayList: Arrays have FIXED size set at creation. ArrayList grows automatically. ArrayList uses an array internally and resizes when needed." },
+            { "q": "ArrayList<String> list. How do you add 'Hello'?", "options": ["list[0]='Hello'","list.add('Hello')","list.push('Hello')","list.insert('Hello')"], "a": 1, "damage": 20, "topic": "ArrayList add", "explanation": ".add(): ArrayList uses methods. add(item) appends to end. add(index,item) inserts at position. Arrays use arr[i]=value for assignment." },
+            { "q": "What exception does arr[10] throw on a 5-element array?", "options": ["NullPointerException","IndexOutOfBoundsException","ArrayIndexOutOfBoundsException","RuntimeException"], "a": 2, "damage": 20, "topic": "OOB exception", "explanation": "ArrayIndexOutOfBoundsException: Java throws this specific exception when accessing an array with an invalid index (< 0 or >= length)." }
           ]
         },
         "coding": [
-          { "title": "First Character", "objective": "What is 'Code'[0]?", "starterCode": "print('Code'[0])\n# Output: ___", "answer": "C", "hint": "Index 0 is the first character." },
-          { "title": "Reverse It", "objective": "How do you reverse a string s? Type the slice notation.", "starterCode": "s = 'hello'\nprint(s[___])\n# Should print: olleh", "answer": "::-1", "hint": "Step -1 means go backwards from end to start." },
-          { "title": "Upper Case", "objective": "What does 'hello'.upper() return?", "starterCode": "print('hello'.upper())\n# Output: ___", "answer": "HELLO", "hint": ".upper() converts all characters to uppercase." }
+          { "title": "Array length field", "objective": "int[] a = {5,10,15,20}. What does a.length return?", "starterCode": "int[] a = {5,10,15,20};\nSystem.out.println(a.length);\n// Output: ___", "answer": "4", "hint": "4 elements → length = 4. It's a field, not a method (no parentheses)." },
+          { "title": "ArrayList size", "objective": "After add(1),add(2),add(3) on a new ArrayList. What is size()?", "starterCode": "ArrayList<Integer> list = new ArrayList<>();\nlist.add(1); list.add(2); list.add(3);\nSystem.out.println(list.size());\n// Output: ___", "answer": "3", "hint": "Three elements added → size() = 3." },
+          { "title": "2D array access", "objective": "int[][] m = {{1,2},{3,4},{5,6}}. What is m[2][0]?", "starterCode": "int[][] m = {{1,2},{3,4},{5,6}};\nSystem.out.println(m[2][0]);\n// Output: ___", "answer": "5", "hint": "m[2] = {5,6}. m[2][0] = 5." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\nname = 'Alex'\nname[0] = 'B'", "brokenCode": "name = 'Alex'\nname[0] = 'B'", "bugLine": 1, "options": ["Nothing wrong, name becomes 'Blex'", "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "Index should be 1", "Use .change()"], "answer": "Strings are immutable — can't change characters. Use: name = 'B' + name[1:]", "hint": "Strings can't be modified in place. Create a new string instead." },
-          { "type": "mcq", "description": "🚨 Bug:\n\nprint('Hello'.Upper())", "brokenCode": "print('Hello'.Upper())", "bugLine": 0, "options": ["Nothing wrong", "'Upper' should be lowercase 'upper'", "Remove the ()", "Hello needs double quotes"], "answer": "'Upper' should be lowercase 'upper'", "hint": "Python is case sensitive. String methods are all lowercase." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nint[] arr = {10,20,30};\nfor(int i=0; i<=arr.length; i++)\n    System.out.println(arr[i]);", "brokenCode": "i<=arr.length", "bugLine": 0, "options": ["Nothing wrong","<= causes ArrayIndexOutOfBoundsException at i=3. Use i < arr.length","arr.length should be arr.size()","Start i at 1"], "answer": "<= causes ArrayIndexOutOfBoundsException at i=3. Use i < arr.length", "hint": "arr.length=3. arr[3] doesn't exist. Always use i < arr.length." },
+          { "type": "mcq", "description": "🚨 Bug:\n\nArrayList<int> list = new ArrayList<>();", "brokenCode": "ArrayList<int>", "bugLine": 0, "options": ["Nothing wrong","ArrayList needs wrapper types — use ArrayList<Integer> not ArrayList<int>","ArrayList needs size","new is wrong"], "answer": "ArrayList needs wrapper types — use ArrayList<Integer> not ArrayList<int>", "hint": "Java generics don't accept primitives. Use Integer, Double, Boolean (wrapper classes) not int, double, boolean." }
         ],
         "prediction": [
-          { "code": "s = 'ABCDE'\nprint(s[1:3])\nprint(s[::-1])", "options": ["BC and EDCBA", "AB and EDCBA", "BCD and ABCDE", "BC and ABCDE"], "answer": "BC and EDCBA", "explanation": "s[1:3] = 'BC' (index 1,2). s[::-1] = 'EDCBA' (reversed)." },
-          { "code": "x = 'hello'\ny = x.upper()\nprint(x)\nprint(y)", "options": ["hello HELLO", "HELLO HELLO", "hello hello", "HELLO hello"], "answer": "hello HELLO", "explanation": ".upper() returns a NEW string. The original x stays 'hello'. y gets 'HELLO'." }
+          { "code": "int[] arr = {3,1,4,1,5};\nint max = arr[0];\nfor(int x : arr) if(x>max) max=x;\nSystem.out.println(max);", "options": ["3","5","4","1"], "answer": "5", "explanation": "Find max: starts at 3. 3→3, 1<3, 4>3→4, 1<4, 5>4→5. max=5." },
+          { "code": "ArrayList<String> list = new ArrayList<>();\nlist.add(\"A\"); list.add(\"B\"); list.add(\"C\");\nlist.remove(1);\nSystem.out.println(list);", "options": ["[A,C]","[A,B]","[B,C]","[A,B,C]"], "answer": "[A, C]", "explanation": "remove(1) removes index 1 ('B'). Remaining: [A, C]." }
         ]
       }
     },
     {
       "id": "4_2",
-      "title": "FUNCTIONS",
-      "subtitle": "Reusable spell recipes",
-      "icon": "Wand2",
+      "title": "JAVA STRINGS",
+      "subtitle": "String methods & StringBuilder",
+      "icon": "Type",
       "pipeline": {
         "teaching": [
           {
-            "id": "l4c4", "title": "What is a Function?", "emoji": "📜",
-            "analogy": "A function is like a recipe card. You write it once, then cook (call) it whenever you want. The recipe can take ingredients (parameters) and serve a dish (return value).",
-            "content": "Functions are reusable blocks of code. Define with 'def', give it a name and optional parameters, then call it by name. Functions keep code DRY (Don't Repeat Yourself).",
-            "examples": [{ "title": "Define & Call", "explanation": "def creates it. name() calls it.", "code": "def greet():\n    print('Hello!')\n\ngreet()   # Hello!\ngreet()   # Hello!  (reusable!)" }],
-            "funFact": "The average software project has thousands of functions. Netflix has over 700 microservices, each packed with functions! 📺"
+            "id": "j4c3", "title": "Java String Methods", "emoji": "🔤",
+            "analogy": "Java String is an immutable object with a built-in toolbox of methods. Every 'modification' creates a NEW String — the original stays unchanged. Like a stone tablet you can copy and modify the copy but never erase the original.",
+            "content": "Java String: immutable object. Key methods: length(), charAt(i), substring(i,j), indexOf(s), contains(s), startsWith(s), endsWith(s), toUpperCase(), toLowerCase(), trim(), replace(old,new), split(regex).",
+            "examples": [
+              { "title": "Essential String Methods", "explanation": "String methods return new Strings — never modify the original.", "code": "String s = \"Hello, World!\";\nSystem.out.println(s.length());       // 13\nSystem.out.println(s.charAt(0));      // H\nSystem.out.println(s.substring(7));   // World!\nSystem.out.println(s.substring(0,5)); // Hello\nSystem.out.println(s.indexOf(\"World\")); // 7\nSystem.out.println(s.toUpperCase());  // HELLO, WORLD!\nSystem.out.println(s.replace('l','L')); // HeLLo, WorLd!\nSystem.out.println(s.contains(\"World\")); // true\n\nString[] parts = \"a,b,c\".split(\",\");\n// parts = [\"a\",\"b\",\"c\"]" }
+            ],
+            "funFact": "Java String interning: identical String literals share the same object in memory (the String Pool). That's why 'hello' == 'hello' is often true for literals but false for new String('hello') — they're different objects! 🏊"
           },
           {
-            "id": "l4c5", "title": "Parameters & Arguments", "emoji": "📦",
-            "analogy": "Parameters are empty slots on the recipe card. Arguments are the actual ingredients you fill in when cooking. The recipe says 'add FLOUR'. You add '2 cups of wheat flour'.",
-            "content": "Parameters are variables listed in the function definition. Arguments are the actual values you pass when calling. They let functions work with different data each time.",
-            "examples": [{ "title": "Parameters in Action", "explanation": "name is a parameter. 'Alex' is an argument.", "code": "def greet(name):\n    print(f'Hello, {name}!')\n\ngreet('Alex')    # Hello, Alex!\ngreet('Neo')     # Hello, Neo!" }],
-            "funFact": "Python supports default parameters: def greet(name='World'). If you call greet(), it uses 'World' automatically! 😎"
-          },
-          {
-            "id": "l4c6", "title": "Return Values", "emoji": "📤",
-            "analogy": "return is like the waiter bringing your dish BACK to you. Without return, the function does its work but gives you nothing back — the result stays inside.",
-            "content": "return sends a value BACK to where the function was called. Without return, the function returns None. The function STOPS running at the return line.",
-            "examples": [{ "title": "Return vs Print", "explanation": "return gives back a value you can store. print just displays.", "code": "def add(a, b):\n    return a + b\n\nresult = add(5, 3)  # result = 8\nprint(result)       # 8" }],
-            "funFact": "A function can return multiple values! return x, y returns a tuple. Python is one of few languages that allows this. 🎁"
+            "id": "j4c4", "title": "StringBuilder — Mutable Strings", "emoji": "🔨",
+            "analogy": "StringBuilder is a whiteboard — you can erase, append, insert, and delete without creating new objects. Use it when you need to build a String piece-by-piece in a loop. String concatenation in a loop is VERY slow — StringBuilder is the fix.",
+            "content": "StringBuilder is mutable. append(s), insert(i,s), delete(i,j), reverse(), charAt(i), length(), toString(). Dramatically faster than String + String in loops — O(n) vs O(n²) for concatenation.",
+            "examples": [
+              { "title": "StringBuilder vs String concat", "explanation": "StringBuilder: efficient string building.", "code": "// BAD in loops (creates new String each time):\nString result = \"\";\nfor (int i = 0; i < 1000; i++) {\n    result += i;  // creates 1000 String objects!\n}\n\n// GOOD — StringBuilder:\nStringBuilder sb = new StringBuilder();\nfor (int i = 0; i < 1000; i++) {\n    sb.append(i);\n}\nString result2 = sb.toString();\n\n// Other StringBuilder methods:\nStringBuilder s = new StringBuilder(\"Hello\");\ns.append(\" World\");\ns.reverse();  // dlroW olleH\ns.insert(0,'!');" }
+            ],
+            "funFact": "String + String in a loop is O(n²) — Java creates a new String for each concatenation, copying all previous characters. StringBuilder is O(n) because it maintains a resizable buffer internally. This matters at scale! ⚡"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE ARCHIVIST", "maxHp": 100 },
+          "enemy": { "name": "THE STRING SORCERER", "maxHp": 100 },
           "mcq": [
-            { "q": "Which keyword defines a function in Python?", "options": ["func", "function", "def", "define"], "a": 2, "damage": 20, "topic": "Syntax", "explanation": "'def' is the keyword to define functions in Python." },
-            { "q": "What is the difference between a parameter and an argument?", "options": ["No difference", "Parameter is in def, argument is when calling", "Argument is in def", "Parameters are only for numbers"], "a": 1, "damage": 20, "topic": "Parameters", "explanation": "Parameter: variable in the definition. Argument: actual value passed when calling." },
-            { "q": "What does a function return if there's no return statement?", "options": ["0", "False", "None", "Error"], "a": 2, "damage": 20, "topic": "Return", "explanation": "Without an explicit return, Python functions return None by default." },
-            { "q": "Can a function call another function?", "options": ["No", "Yes", "Only built-in functions", "Only in classes"], "a": 1, "damage": 20, "topic": "Composition", "explanation": "Functions can absolutely call other functions — this is called function composition!" },
-            { "q": "What happens after a return statement executes?", "options": ["Next line runs", "Function restarts", "Function immediately stops", "Nothing"], "a": 2, "damage": 20, "topic": "Return Flow", "explanation": "return immediately exits the function. No code after it runs." }
+            { "q": "'Java'.length() returns:", "options": ["3","4","5","Error"], "a": 1, "damage": 25, "topic": "String length", "explanation": "length(): 'Java' has 4 characters → length() = 4. Note: String uses length() WITH parentheses (it's a method). Arrays use .length WITHOUT parentheses (it's a field)." },
+            { "q": "'Hello'.substring(1,3) returns:", "options": ["He","el","Hel","ell"], "a": 1, "damage": 25, "topic": "substring", "explanation": "substring(1,3): start=1 included, end=3 excluded. Characters at index 1='e', 2='l'. Result: 'el'." },
+            { "q": "Why use StringBuilder instead of String + in a loop?", "options": ["StringBuilder is newer","String + creates a new object each iteration — O(n²). StringBuilder is O(n)","They're the same","StringBuilder has more methods"], "a": 1, "damage": 25, "topic": "StringBuilder perf", "explanation": "Performance: Each String + creates a new immutable String object copying all previous characters. For 1000 concatenations, that's ~500,000 character copies! StringBuilder maintains a buffer." },
+            { "q": "'hello'.toUpperCase() changes the original?", "options": ["Yes","No — Strings are immutable, returns a new String","Only in Java 8+","Depends on length"], "a": 1, "damage": 25, "topic": "Immutability", "explanation": "Immutable: Strings in Java cannot be modified. toUpperCase() returns a NEW String. The original 'hello' is unchanged. Always assign the result: s = s.toUpperCase();" }
           ]
         },
         "coding": [
-          { "title": "Function Keyword", "objective": "What keyword starts a function definition? Type it.", "starterCode": "___ greet():\n    print('Hi!')", "answer": "def", "hint": "Short for 'define'. 3 letters." },
-          { "title": "Return Value", "objective": "def double(x): return x * 2. What does double(7) return?", "starterCode": "def double(x):\n    return x * 2\n\nprint(double(7))\n# Output: ___", "answer": "14", "hint": "7 * 2 = 14." },
-          { "title": "No Return", "objective": "def say(): print('Hi'). What does result = say() store?", "starterCode": "def say():\n    print('Hi')\n\nresult = say()\nprint(result)\n# Output: ___", "answer": "None", "hint": "No return statement = function returns None." }
+          { "title": "String length method", "objective": "'Programming'.length() = ?", "starterCode": "System.out.println(\"Programming\".length());\n// Output: ___", "answer": "11", "hint": "Count: P-r-o-g-r-a-m-m-i-n-g = 11 characters." },
+          { "title": "substring", "objective": "'abcdef'.substring(2,5) = ?", "starterCode": "System.out.println(\"abcdef\".substring(2,5));\n// Output: ___", "answer": "cde", "hint": "Index 2='c', 3='d', 4='e'. End (5) excluded. Result: 'cde'." },
+          { "title": "indexOf", "objective": "'Java is fun'.indexOf('is') = ?", "starterCode": "System.out.println(\"Java is fun\".indexOf(\"is\"));\n// Output: ___", "answer": "5", "hint": "J=0,a=1,v=2,a=3, =4,i=5. 'is' starts at index 5." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef add(a, b)\n    return a + b", "brokenCode": "def add(a, b)\n    return a + b", "bugLine": 0, "options": ["Missing colon after parameters: def add(a, b):", "Use 'function' keyword", "return is wrong", "Nothing wrong"], "answer": "Missing colon after parameters: def add(a, b):", "hint": "Like if and for, function definitions need a colon at the end." },
-          { "type": "mcq", "description": "🚨 Bug:\n\ndef greet():\n    print('Hello')\n\ngreet", "brokenCode": "def greet():\n    print('Hello')\n\ngreet", "bugLine": 3, "options": ["Missing parentheses: greet() — need () to CALL a function", "greet should be Greet", "print is wrong", "Nothing wrong"], "answer": "Missing parentheses: greet() — need () to CALL a function", "hint": "'greet' alone is a reference. 'greet()' calls/executes it." }
+          { "type": "mcq", "description": "🚨 Bug:\n\nString s = \"hello\";\ns.toUpperCase();\nSystem.out.println(s); // prints 'hello'", "brokenCode": "s.toUpperCase();", "bugLine": 0, "options": ["Nothing wrong","String is immutable — must assign the result: s = s.toUpperCase();","toUpperCase needs an argument","println should be print"], "answer": "String is immutable — must assign the result: s = s.toUpperCase();", "hint": "toUpperCase() returns a NEW String but doesn't modify s. Always reassign: s = s.toUpperCase();" }
         ],
         "prediction": [
-          { "code": "def square(n):\n    return n * n\n\nx = square(4)\ny = square(3)\nprint(x + y)", "options": ["7", "12", "25", "49"], "answer": "25", "explanation": "square(4)=16, square(3)=9. 16+9=25." },
-          { "code": "def mystery(a, b):\n    if a > b:\n        return a\n    return b\n\nprint(mystery(3, 7))", "options": ["3", "7", "10", "Error"], "answer": "7", "explanation": "3>7 is False, so first return skipped. return b → 7. This is a max() function!" }
+          { "code": "StringBuilder sb = new StringBuilder(\"Code\");\nsb.append(\"Clash\");\nsb.reverse();\nSystem.out.println(sb.toString());", "options": ["CodeClash","hsalCedoC","Clash Code","ClashCode"], "answer": "hsalCedoC", "explanation": "Start: 'Code'. append: 'CodeClash'. reverse: 'hsalCedoC'. Last charAccess reversed." }
+        ]
+      }
+    },
+    {
+      "id": "4_3",
+      "title": "HASHMAP & COLLECTIONS",
+      "subtitle": "Key-value storage & Java Collections API",
+      "icon": "Hash",
+      "pipeline": {
+        "teaching": [
+          {
+            "id": "j4c5", "title": "HashMap — Key-Value Store", "emoji": "🗺️",
+            "analogy": "HashMap is a dictionary — you look up words (keys) to find definitions (values). Given any key, retrieval is O(1) — instant. Unlike arrays where you search by index, HashMap searches by meaningful name.",
+            "content": "HashMap<K,V> stores key-value pairs. put(k,v), get(k), containsKey(k), remove(k), size(), keySet(), values(), entrySet(). Keys must be unique. Allows one null key. Does NOT maintain insertion order (use LinkedHashMap for order).",
+            "examples": [
+              { "title": "HashMap Operations", "explanation": "Key-value pairs with O(1) lookup.", "code": "import java.util.HashMap;\n\nHashMap<String,Integer> scores = new HashMap<>();\nscores.put(\"Alice\", 95);\nscores.put(\"Bob\", 87);\nscores.put(\"Carol\", 92);\n\nSystem.out.println(scores.get(\"Bob\"));         // 87\nSystem.out.println(scores.containsKey(\"Alice\")); // true\nSystem.out.println(scores.size());              // 3\n\nscores.put(\"Bob\", 90); // update existing key\n\nfor (String name : scores.keySet()) {\n    System.out.println(name + \": \" + scores.get(name));\n}" }
+            ],
+            "funFact": "HashMap is implemented as an array of 'buckets' where each bucket holds a linked list of entries. Java 8 upgraded: when a bucket gets ≥8 entries, it converts to a Red-Black Tree for O(log n) lookup! 🌳"
+          }
+        ],
+        "battle": {
+          "enemy": { "name": "THE DATA KEEPER", "maxHp": 100 },
+          "mcq": [
+            { "q": "HashMap<String,Int> map. How do you store key='x', value=5?", "options": ["map.add('x',5)","map.put('x',5)","map['x']=5","map.set('x',5)"], "a": 1, "damage": 25, "topic": "HashMap put", "explanation": ".put(key,value): The method to store in a HashMap. .get(key) retrieves. Unlike arrays which use [], HashMap uses methods." },
+            { "q": "HashMap.get() for a missing key returns:", "options": ["Error","0","null","-1"], "a": 2, "damage": 25, "topic": "Missing key", "explanation": "null: HashMap.get() returns null if key doesn't exist. Use containsKey() or getOrDefault(key, fallback) to handle missing keys safely." },
+            { "q": "Does HashMap maintain insertion order?", "options": ["Yes always","No — use LinkedHashMap for insertion order","Only for String keys","Only < 10 entries"], "a": 1, "damage": 25, "topic": "HashMap order", "explanation": "No Order: HashMap makes no guarantees about iteration order. Use LinkedHashMap to preserve insertion order, TreeMap for sorted order." },
+            { "q": "Duplicate key in HashMap.put() — what happens?", "options": ["Exception thrown","Second call ignored","Value is updated to the new value","Both values stored"], "a": 2, "damage": 25, "topic": "Duplicate key", "explanation": "Overwrite: put() with an existing key REPLACES the old value. No exception. The old value is returned by put(). Keys are always unique in HashMap." }
+          ]
+        },
+        "coding": [
+          { "title": "HashMap get", "objective": "map.put('a',1); map.put('b',2). map.get('b') = ?", "starterCode": "HashMap<String,Integer> m = new HashMap<>();\nm.put(\"a\",1); m.put(\"b\",2);\nSystem.out.println(m.get(\"b\"));\n// Output: ___", "answer": "2", "hint": "get('b') returns value 2." },
+          { "title": "Missing key", "objective": "HashMap with only key 'x'. What does get('y') return?", "starterCode": "HashMap<String,Integer> m = new HashMap<>();\nm.put(\"x\", 10);\nSystem.out.println(m.get(\"y\"));\n// Output: ___", "answer": "null", "hint": "'y' doesn't exist → get returns null." }
+        ],
+        "debugging": [
+          { "type": "mcq", "description": "🚨 Bug:\n\nHashMap<String,Integer> m = new HashMap<>();\nm.put('score', 100);\nif (m.get('points') > 50) System.out.println('ok');", "brokenCode": "if (m.get('points') > 50)", "bugLine": 0, "options": ["Nothing wrong","m.get('points') returns null — null > 50 throws NullPointerException. Check containsKey first.","Use m['points']","HashMap needs int not Integer"], "answer": "m.get('points') returns null — null > 50 throws NullPointerException. Check containsKey first.", "hint": "Always check containsKey() before get() to avoid NullPointerException on missing keys." }
+        ],
+        "prediction": [
+          { "code": "HashMap<String,Integer> m = new HashMap<>();\nm.put(\"a\",1); m.put(\"b\",2); m.put(\"a\",99);\nSystem.out.println(m.get(\"a\"));\nSystem.out.println(m.size());", "options": ["1 and 3","99 and 2","99 and 3","1 and 2"], "answer": "99 and 2", "explanation": "put('a',99) overwrites the first put('a',1). Only 2 unique keys: 'a','b'. get('a')=99, size()=2." }
         ]
       }
     },
     {
       "id": "4_boss",
-      "title": "THE ARCHIVIST",
-      "subtitle": "BOSS FIGHT — Strings & Functions",
+      "title": "THE COLLECTION MASTER",
+      "subtitle": "BOSS FIGHT — All Level 4 Java",
       "icon": "Skull",
       "isBoss": true,
       "pipeline": {
         "teaching": [
           {
-            "id": "boss4_intro", "title": "⚠️ BOSS — THE ARCHIVIST", "emoji": "👾",
-            "analogy": "The Archivist guards the Spell Library. Every string method and function recipe is in its vault. Prove you've mastered them all!",
-            "content": "This boss tests string indexing, slicing, methods, function definitions, parameters, return values, and the interplay between them.",
-            "examples": [{ "title": "Your mastery", "explanation": "", "code": "✅ String indexing & slicing\n✅ .upper(), .lower(), .split(), .replace()\n✅ def, parameters, arguments\n✅ return values vs print\n✅ Function composition" }],
-            "funFact": "Alan Turing proved that any computable function can be built from simpler functions. Your functions can build anything! 🧠"
+            "id": "boss_j4", "title": "⚠️ BOSS — THE COLLECTION MASTER", "emoji": "👾",
+            "analogy": "The Collection Master wields arrays, ArrayLists, Strings, and HashMaps simultaneously. It knows every method, every gotcha, every O(n) vs O(1) trade-off. Prove you've mastered Java's data layer!",
+            "content": "Tests ALL Level 4 Java: array syntax/length/OOB, ArrayList add/get/size/remove, String methods (immutability, length(), substring(), indexOf()), StringBuilder append/reverse, HashMap put/get/null keys.",
+            "examples": [{ "title": "Full Java Data Arsenal", "explanation": "", "code": "✅ int[] arr = new int[n] or {1,2,3}\n✅ arr.length (field, not method!)\n✅ ArrayList<Integer> — dynamic, add/get/size\n✅ String immutable — always reassign!\n✅ substring(i,j) — end excluded\n✅ StringBuilder — use in loops\n✅ HashMap<K,V> — put/get/containsKey\n✅ get() missing key → null!" }],
+            "funFact": "Java's Collections Framework (ArrayList, HashMap, etc.) was introduced in Java 1.2 (1998) and is one of the most copied APIs in software history. Python's list and dict borrow many design ideas from Java Collections! 🌍"
           }
         ],
         "battle": {
-          "enemy": { "name": "THE ARCHIVIST", "maxHp": 150 },
+          "enemy": { "name": "THE COLLECTION MASTER", "maxHp": 150 },
           "mcq": [
-            { "q": "What does 'Hello'[1:3] return?", "options": ["He", "el", "ell", "lo"], "a": 1, "damage": 30, "topic": "Slicing", "explanation": "Index 1='e', 2='l'. End (3) excluded. Result: 'el'." },
-            { "q": "def f(x): return x**2\nprint(f(5) + f(3))", "options": ["8", "15", "34", "64"], "a": 2, "damage": 30, "topic": "Function Calls", "explanation": "f(5)=25, f(3)=9. 25+9=34." },
-            { "q": "What does 'a,b,c'.split(',') return?", "options": ["'abc'", "['a','b','c']", "['a,b,c']", "Error"], "a": 1, "damage": 30, "topic": "Split", "explanation": "Split at commas → ['a', 'b', 'c']." },
-            { "q": "def add(a,b): return a+b\nadd(2,3)\nprint(add(2,3))", "options": ["5 and 5", "Only 5 (from print)", "Nothing", "Error"], "a": 1, "damage": 30, "topic": "Return", "explanation": "First call returns 5 but it's not stored/printed. Second call prints 5." },
-            { "q": "Can you use a function's return value as a string method?", "options": ["No", "Yes, e.g. get_name().upper()", "Only for numbers", "Only in classes"], "a": 1, "damage": 30, "topic": "Chaining", "explanation": "If a function returns a string, you can chain methods: get_name().upper()." }
+            { "q": "int[] vs ArrayList: which has .length (no parens)?", "options": ["ArrayList","Array","Both","Neither (both use size())"], "a": 1, "damage": 30, "topic": "length vs size()", "explanation": "Array uses .length (field, no ()). ArrayList uses .size() (method, with ()). This is a common Java confusion point!" },
+            { "q": "'Hello'.substring(1,4) = ?", "options": ["Hell","ell","ello","Hell"], "a": 1, "damage": 30, "topic": "substring", "explanation": "substring(1,4): include 1, exclude 4. Indices 1='e',2='l',3='l'. Result: 'ell'." },
+            { "q": "String s='hi'; s.toUpperCase(); System.out.println(s); prints?", "options": ["HI","hi","Error","null"], "a": 1, "damage": 30, "topic": "String immutable", "explanation": "Immutable: toUpperCase() returns a NEW String but doesn't modify s. s is still 'hi'. Must assign: s = s.toUpperCase()." },
+            { "q": "HashMap: put same key twice with different values — result?", "options": ["Exception","First value kept","Second value replaces first","Both stored in a list"], "a": 2, "damage": 30, "topic": "HashMap overwrite", "explanation": "Overwrite: put() with existing key replaces the old value. Keys must be unique. Previous value is returned (or null if was absent)." },
+            { "q": "ArrayList<int> is valid Java?", "options": ["Yes","No — must use ArrayList<Integer>","Only in Java 10+","With unchecked warning"], "a": 1, "damage": 30, "topic": "Generics primitives", "explanation": "No primitives in generics: Java generics only accept reference types. Use Integer, Double, Boolean (wrapper classes) not int, double, boolean." }
           ]
         },
         "coding": [
-          { "title": "Boss: Combo", "objective": "def shout(text): return text.upper(). What does shout('hello') return?", "starterCode": "def shout(text):\n    return text.upper()\n\nprint(shout('hello'))\n# Output: ___", "answer": "HELLO", "hint": "'hello'.upper() → 'HELLO'." }
+          { "title": "Boss: Array + for-each", "objective": "int[] a={2,4,6}; sum with for-each. What is sum?", "starterCode": "int[] a={2,4,6};\nint sum=0;\nfor(int x:a) sum+=x;\nSystem.out.println(sum);\n// Output: ___", "answer": "12", "hint": "2+4+6 = 12." },
+          { "title": "Boss: String method", "objective": "'reverse'.toUpperCase().substring(0,3) = ?", "starterCode": "System.out.println(\"reverse\".toUpperCase().substring(0,3));\n// Output: ___", "answer": "REV", "hint": "toUpperCase: 'REVERSE'. substring(0,3): 'REV' (indices 0,1,2)." }
         ],
         "debugging": [
-          { "type": "mcq", "description": "🚨 Boss Bug:\n\ndef greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "brokenCode": "def greet(name):\n    return 'Hello ' + name\n\nprint(greet())", "bugLine": 3, "options": ["Nothing wrong", "greet() is missing the required 'name' argument", "return is wrong", "print needs uppercase"], "answer": "greet() is missing the required 'name' argument", "hint": "greet expects 1 argument (name) but was called with 0." }
+          { "type": "mcq", "description": "🚨 BOSS BUG:\n\nArrayList<Integer> list = new ArrayList<>();\nlist.add(10);\nlist.add(20);\nSystem.out.println(list.get(2));", "brokenCode": "list.get(2)", "bugLine": 0, "options": ["Prints 0","IndexOutOfBoundsException — list has indices 0,1 only. list.get(2) doesn't exist.","Returns null","Returns 20"], "answer": "IndexOutOfBoundsException — list has indices 0,1 only. list.get(2) doesn't exist.", "hint": "Two elements → indices 0,1. get(2) is out of bounds." }
         ],
         "prediction": [
-          { "code": "def first_last(s):\n    return s[0] + s[-1]\n\nprint(first_last('Python'))", "options": ["Py", "Pn", "on", "yh"], "answer": "Pn", "explanation": "s[0]='P', s[-1]='n' (last char). 'P'+'n'='Pn'." }
+          { "code": "String s = \"abcdef\";\nSystem.out.println(s.substring(2,5));\nSystem.out.println(s.indexOf('d'));\nSystem.out.println(s.length());", "options": ["cde 3 6","bcd 3 6","cde 2 5","bcd 2 6"], "answer": "cde 3 6", "explanation": "substring(2,5)='cde'. indexOf('d')=3. length()=6." }
         ]
       }
     }

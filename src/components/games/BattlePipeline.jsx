@@ -45,12 +45,48 @@ const HPBar = ({ cur, max, isPlayer, name }) => {
   );
 };
 
+// ── Phase Stepper ─────────────────────────────────────────────────────
+const PHASE_STEPS = [
+  { key: 'concept_card',  label: '📖 Learn',   short: 'LEARN' },
+  { key: 'battle_mcq',   label: '⚔️ Battle',   short: 'BATTLE' },
+  { key: 'coding_lab',   label: '💻 Code',     short: 'CODE' },
+  { key: 'debug_mission',label: '🐛 Debug',    short: 'DEBUG' },
+  { key: 'oracle_test',  label: '🔮 Predict',  short: 'PREDICT' },
+];
+
+const PhaseStepper = ({ currentPhase }) => (
+  <div className="hidden md:flex items-center gap-1">
+    {PHASE_STEPS.map((s, i) => {
+      const idx = PHASE_STEPS.findIndex(p => p.key === currentPhase);
+      const done = i < idx;
+      const active = i === idx;
+      return (
+        <div key={s.key} className="flex items-center gap-1">
+          <div className={`flex flex-col items-center gap-0.5`}>
+            <div className={`h-1 rounded-full transition-all duration-500 ${
+              active ? 'w-10 bg-brand-neon shadow-[0_0_8px_rgba(0,255,204,0.6)]'
+              : done  ? 'w-6 bg-brand-neon/40'
+              : 'w-4 bg-white/10'
+            }`} />
+            <span className={`text-[6px] font-black tracking-widest transition-all ${
+              active ? 'text-brand-neon' : done ? 'text-white/30' : 'text-white/10'
+            }`}>{s.short}</span>
+          </div>
+          {i < PHASE_STEPS.length - 1 && (
+            <div className={`w-2 h-px mb-2 ${ done ? 'bg-brand-neon/30' : 'bg-white/5' }`} />
+          )}
+        </div>
+      );
+    })}
+  </div>
+);
+
 // ── Shared Combat Layout (Outside to fix input focus persistence) ─────
 const CombatLayout = ({ 
   phaseName, Icon, accentClass, children, 
   playerHp, enemyHp, maxEnemyHp, enemyName, 
   onBack, totalCorrect, totalAnswered, 
-  combatLog, combatAction 
+  combatLog, combatAction, currentPhase
 }) => {
   const [muted, setMuted] = useState(GameAudio.isMuted);
   return (
@@ -71,8 +107,11 @@ const CombatLayout = ({
           </button>
         </div>
 
-        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-[0.2em] ${accentClass} animate-pulse flex-none`}>
-          <Icon className="w-3.5 h-3.5" /> {phaseName}
+        <div className="flex flex-col items-center gap-1 flex-none">
+          <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-[0.2em] ${accentClass} animate-pulse`}>
+            <Icon className="w-3.5 h-3.5" /> {phaseName}
+          </div>
+          <PhaseStepper currentPhase={currentPhase} />
         </div>
 
         <div className="flex-1 max-w-[200px]">
@@ -215,54 +254,104 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
 
     return (
       <div className="h-screen flex flex-col bg-[#020610] text-white overflow-hidden">
-        <div className="flex-none flex justify-between items-center px-6 py-4 border-b border-white/5">
+        {/* TOP BAR */}
+        <div className="flex-none flex justify-between items-center px-6 py-3 border-b border-white/5 bg-black/40 backdrop-blur-sm">
           <button onClick={onBack} className="p-2 bg-white/5 border border-white/10 rounded-xl hover:border-brand-neon transition-all">
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <div className="flex items-center gap-2">
-            {phaseSteps.map((s, i) => (
-              <div key={i} className={`flex flex-col items-center gap-1`}>
-                <div className={`h-1.5 rounded-full transition-all ${i === 0 ? 'w-8 bg-brand-neon' : 'w-4 bg-white/10'}`} />
-                <span className="text-[7px] text-white/20 hidden md:block">{s}</span>
-              </div>
-            ))}
-          </div>
-          <span className="text-[10px] font-black text-white/20">{cardIdx + 1}/{cards.length}</span>
+          <PhaseStepper currentPhase="concept_card" />
+          <span className="text-[10px] font-black text-white/30 tabular-nums">{cardIdx + 1} / {cards.length}</span>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 flex items-start justify-center">
-          <motion.div key={cardIdx} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-2xl bg-black/70 border border-white/10 rounded-[32px] p-8 shadow-2xl">
+        {/* TWO-COLUMN BODY */}
+        <div className="flex-1 overflow-hidden flex flex-col lg:flex-row min-h-0">
 
-            <div className="flex items-center gap-3 mb-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-neon/10 border border-brand-neon/30 text-brand-neon text-[9px] font-black uppercase tracking-[0.3em]">
-                <BookOpen className="w-3 h-3" /> CONCEPT BRIEFING
-              </div>
-              {card.emoji && <span className="text-3xl">{card.emoji}</span>}
+          {/* ── LEFT: Title / Analogy / Meta / CTA */}
+          <motion.div key={`L-${cardIdx}`} initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }}
+            className="flex-none lg:w-[44%] flex flex-col p-6 lg:p-10 border-b lg:border-b-0 lg:border-r border-white/5 relative overflow-y-auto">
+
+            {/* Ambient glow */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-brand-neon/5 rounded-full blur-[90px]" />
+              <div className="absolute bottom-10 right-0 w-56 h-56 bg-violet-500/5 rounded-full blur-[70px]" />
             </div>
 
-            <h2 className="text-2xl md:text-3xl font-black uppercase italic tracking-tighter mb-4 leading-tight">{card.title}</h2>
-            {card.analogy && (
-              <div className="bg-brand-neon/5 border border-brand-neon/20 rounded-xl p-4 mb-5">
-                <p className="text-brand-neon text-xs font-bold mb-1">🎯 Think of it like this:</p>
-                <p className="text-white/70 text-sm">{card.analogy}</p>
+            <div className="relative z-10 flex-1">
+              {/* Badge + emoji */}
+              <div className="flex items-center gap-3 mb-6">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-neon/10 border border-brand-neon/30 text-brand-neon text-[8px] font-black uppercase tracking-[0.35em]">
+                  <BookOpen className="w-3 h-3" /> CONCEPT BRIEFING
+                </span>
+                {card.emoji && <span className="text-4xl drop-shadow-lg">{card.emoji}</span>}
               </div>
-            )}
-            <p className="text-white/80 text-base leading-relaxed mb-5">{card.content}</p>
+
+              {/* Title */}
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-black uppercase italic tracking-tighter mb-5 leading-[0.9] text-white">
+                {card.title}
+              </h2>
+
+              {/* Core content */}
+              <p className="text-white/60 text-sm lg:text-base leading-relaxed mb-6">{card.content}</p>
+
+              {/* Analogy */}
+              {card.analogy && (
+                <div className="bg-brand-neon/5 border border-brand-neon/20 rounded-2xl p-5 mb-5">
+                  <p className="text-brand-neon text-[8px] font-black uppercase tracking-[0.35em] mb-2">🎯 Mental Model</p>
+                  <p className="text-white/75 text-sm leading-relaxed">{card.analogy}</p>
+                </div>
+              )}
+
+              {/* Fun fact */}
+              {card.funFact && (
+                <div className="bg-yellow-500/5 border border-yellow-400/15 rounded-2xl p-4 flex gap-3">
+                  <span className="text-xl flex-none mt-0.5">💡</span>
+                  <div>
+                    <p className="text-yellow-400 text-[8px] font-black uppercase tracking-[0.35em] mb-1">Dev Fun Fact</p>
+                    <p className="text-white/55 text-xs leading-relaxed">{card.funFact}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* CTA — pinned to bottom */}
+            <button onClick={next}
+              className="relative z-10 mt-6 flex-none w-full py-5 bg-brand-neon text-black font-black text-sm uppercase tracking-widest rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_40px_rgba(0,255,204,0.3)] flex items-center justify-center gap-3">
+              {isLast ? '⚔️ ENTER COMBAT' : 'NEXT CONCEPT →'}
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </motion.div>
+
+          {/* ── RIGHT: Code Examples (scrollable terminal) */}
+          <motion.div key={`R-${cardIdx}`} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.08 }}
+            className="flex-1 overflow-y-auto p-6 lg:p-10 space-y-4 bg-[#010408]">
+
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-brand-neon animate-pulse" />
+              <span className="text-[7px] font-black uppercase tracking-[0.4em] text-white/20">Code Examples — {langLabel}</span>
+            </div>
 
             {card.examples?.map((ex, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 p-4 rounded-xl mb-3">
-                <p className="text-brand-neon text-xs font-black mb-1 flex items-center gap-2"><Zap className="w-3 h-3" />{ex.title}</p>
-                <p className="text-white/50 text-xs mb-2">{ex.explanation}</p>
-                <pre className="bg-black/70 p-3 rounded-lg text-xs font-mono text-brand-neon/70 overflow-x-auto border border-white/5 whitespace-pre-wrap">{ex.code}</pre>
-              </div>
+              <motion.div key={i} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.07 }}
+                className="rounded-2xl overflow-hidden border border-white/8 bg-black/70">
+                {/* Terminal title bar */}
+                <div className="flex items-center justify-between px-4 py-2.5 bg-white/3 border-b border-white/5">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-3 h-3 text-brand-neon" />
+                    <span className="text-brand-neon text-xs font-black">{ex.title}</span>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/50" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-400/50" />
+                  </div>
+                </div>
+                {ex.explanation && (
+                  <p className="text-white/35 text-xs px-4 pt-3">{ex.explanation}</p>
+                )}
+                <pre className="p-4 text-xs font-mono text-brand-neon/80 overflow-x-auto leading-relaxed whitespace-pre-wrap">{ex.code}</pre>
+              </motion.div>
             ))}
-
-            <button onClick={next}
-              className="w-full py-4 bg-brand-neon text-black font-black text-sm uppercase tracking-widest rounded-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,204,0.3)] flex items-center justify-center gap-2">
-              {isLast ? '⚔️ ENTER COMBAT' : 'GOT IT →'}
-              <ChevronRight className="w-4 h-4" />
-            </button>
+            <div className="h-6" />
           </motion.div>
         </div>
       </div>
@@ -335,8 +424,13 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
         totalAnswered={totalAnswered}
         combatLog={combatLog}
         combatAction={combatAction}
+        currentPhase={phase}
       >
-        <motion.div key={mcqIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+        <motion.div key={mcqIdx}
+          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0,
+            x: mcqResult === 'wrong' ? [0, -10, 10, -8, 8, -4, 4, 0] : 0
+          }}
+          transition={{ duration: mcqResult === 'wrong' ? 0.5 : 0.3 }}
           className="bg-black/80 border border-white/10 rounded-2xl p-5 relative overflow-hidden h-full">
           <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
             <motion.div className="h-full bg-brand-orange" animate={{ width: `${(mcqIdx / mcqs.length) * 100}%` }} />
@@ -457,6 +551,7 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
         totalAnswered={totalAnswered}
         combatLog={combatLog}
         combatAction={combatAction}
+        currentPhase={phase}
       >
         <motion.div key={codeIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-black/80 border border-blue-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(96,165,250,0.08)]">
@@ -540,6 +635,7 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
         totalAnswered={totalAnswered}
         combatLog={combatLog}
         combatAction={combatAction}
+        currentPhase={phase}
       >
         <motion.div key={debugIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-black/80 border border-orange-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(251,146,60,0.08)]">
@@ -630,6 +726,7 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
         totalAnswered={totalAnswered}
         combatLog={combatLog}
         combatAction={combatAction}
+        currentPhase={phase}
       >
         <motion.div key={oracleIdx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-black/80 border border-green-400/20 rounded-2xl p-5 shadow-[0_0_30px_rgba(74,222,128,0.08)]">
@@ -673,31 +770,73 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
     const isWin = isTestUser ? true : (playerHp > 0 && (enemyHp <= 0 || scorePct >= 0.5));
 
 
+    const scorePct100 = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
+    const grade = scorePct100 >= 90 ? 'S' : scorePct100 >= 75 ? 'A' : scorePct100 >= 60 ? 'B' : scorePct100 >= 45 ? 'C' : 'D';
+    const gradeColor = scorePct100 >= 75 ? 'text-brand-neon' : scorePct100 >= 50 ? 'text-yellow-400' : 'text-red-400';
+
     return (
-      <div className="h-screen flex items-center justify-center bg-black text-white p-6">
-        <div className={`w-full max-w-md border-2 p-10 rounded-[40px] text-center relative overflow-hidden ${isWin ? 'border-brand-success/30 bg-[#001a0d]' : 'border-red-600/30 bg-[#1a0000]'}`}>
-          <div className="text-6xl mb-4">{isWin ? '🏆' : '💀'}</div>
-          <h2 className={`text-5xl font-black uppercase italic tracking-tighter mb-2 ${isWin ? 'text-brand-success' : 'text-red-500'}`}>
+      <div className="h-screen flex items-center justify-center bg-black text-white p-4 overflow-y-auto">
+        <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+          className={`w-full max-w-lg border-2 p-8 rounded-[40px] text-center relative overflow-hidden ${
+            isWin ? 'border-brand-success/30 bg-gradient-to-b from-[#001a0d] to-[#020408]'
+                  : 'border-red-600/30 bg-gradient-to-b from-[#1a0000] to-[#020408]'
+          }`}>
+
+          {/* Glow aura */}
+          <div className={`absolute inset-0 rounded-[40px] opacity-20 blur-3xl pointer-events-none ${
+            isWin ? 'bg-brand-success' : 'bg-red-600'
+          }`} />
+
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
+            className="text-7xl mb-3">{isWin ? '🏆' : '💀'}</motion.div>
+
+          <h2 className={`text-5xl font-black uppercase italic tracking-tighter mb-1 ${isWin ? 'text-brand-success' : 'text-red-500'}`}>
             {isWin ? 'VICTORY' : 'DEFEATED'}
           </h2>
-          <p className="text-white/30 text-xs font-black tracking-[0.4em] uppercase mb-8">
-            {isWin ? 'Sublevel Cleared!' : 'Combat Terminated'}
+          <p className="text-white/30 text-[9px] font-black tracking-[0.4em] uppercase mb-6">
+            {isWin ? 'Sub-level Cleared!' : 'Combat Terminated'}
           </p>
-          <div className="grid grid-cols-3 gap-3 mb-8">
+
+          {/* Score bar */}
+          <div className="mb-6 text-left">
+            <div className="flex justify-between items-center mb-1.5">
+              <span className="text-[9px] font-black uppercase tracking-widest text-white/30">ACCURACY</span>
+              <span className={`text-xl font-black ${gradeColor}`}>GRADE {grade}</span>
+            </div>
+            <div className="h-3 w-full bg-black/60 border border-white/10 rounded-full overflow-hidden">
+              <motion.div initial={{ width: 0 }} animate={{ width: `${scorePct100}%` }} transition={{ duration: 1, delay: 0.4 }}
+                className={`h-full rounded-full ${
+                  scorePct100 >= 75 ? 'bg-brand-neon shadow-[0_0_8px_rgba(0,255,204,0.5)]'
+                  : scorePct100 >= 50 ? 'bg-yellow-400'
+                  : 'bg-red-500'
+                }`} />
+            </div>
+            <div className="flex justify-between mt-1 text-[8px] font-mono text-white/20">
+              <span>{totalCorrect}/{totalAnswered} correct</span>
+              <span>{scorePct100}%</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 mb-6">
             {[
-              { label: 'Total Score', val: `${totalCorrect}/${totalAnswered}` },
-              { label: 'HP Left', val: `${Math.max(0, playerHp)}` },
-              { label: 'Enemy', val: enemyHp <= 0 ? '☠️' : `${Math.round(enemyHp)}hp` },
+              { label: 'Score', val: `${totalCorrect}/${totalAnswered}`, icon: '🎯' },
+              { label: 'HP Left', val: `${Math.max(0, playerHp)}`, icon: '❤️' },
+              { label: 'Enemy HP', val: enemyHp <= 0 ? '☠️ 0' : `${Math.round(enemyHp)}`, icon: '👾' },
             ].map((s, i) => (
-              <div key={i} className="p-4 bg-white/5 rounded-2xl border border-white/5">
-                <p className="text-xl font-black">{s.val}</p>
-                <p className="text-[8px] uppercase tracking-widest text-white/30 mt-1">{s.label}</p>
-              </div>
+              <motion.div key={i} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
+                className="p-3 bg-white/5 rounded-2xl border border-white/5">
+                <div className="text-lg mb-0.5">{s.icon}</div>
+                <p className="text-lg font-black">{s.val}</p>
+                <p className="text-[7px] uppercase tracking-widest text-white/30 mt-0.5">{s.label}</p>
+              </motion.div>
             ))}
           </div>
+
           {weakAreas.length > 0 && (
-            <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl mb-6 text-left">
-              <p className="text-red-400 text-[8px] font-black uppercase tracking-widest mb-2 flex items-center gap-2"><AlertTriangle className="w-3 h-3"/>Weak Areas</p>
+            <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl mb-5 text-left">
+              <p className="text-red-400 text-[8px] font-black uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                <AlertTriangle className="w-3 h-3"/>Weak Areas — Review These
+              </p>
               <div className="flex flex-wrap gap-1.5">
                 {[...new Set(weakAreas)].map((w, i) => (
                   <span key={i} className="px-2 py-0.5 bg-red-500/20 text-red-300 text-[8px] rounded-full border border-red-500/30">{w}</span>
@@ -705,11 +844,16 @@ export default function BattlePipeline({ pipelineData, langLabel, onComplete, on
               </div>
             </div>
           )}
-          <button onClick={() => { sfxClick(); isWin ? onComplete() : onBack(); }}
-            className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${isWin ? 'bg-brand-success text-black hover:scale-105 shadow-[0_0_30px_rgba(16,185,129,0.3)]' : 'bg-white/10 hover:bg-white/20'}`}>
-            {isWin ? '🚀 CLAIM XP & CONTINUE' : '🔄 RETRY'}
-          </button>
-        </div>
+
+          <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.96 }}
+            onClick={() => { sfxClick(); isWin ? onComplete() : onBack(); }}
+            className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${
+              isWin ? 'bg-brand-success text-black shadow-[0_0_30px_rgba(16,185,129,0.4)]'
+                    : 'bg-white/10 hover:bg-white/20 border border-white/10'
+            }`}>
+            {isWin ? '🚀 CLAIM XP & CONTINUE' : '🔄 TRY AGAIN'}
+          </motion.button>
+        </motion.div>
       </div>
     );
   }
