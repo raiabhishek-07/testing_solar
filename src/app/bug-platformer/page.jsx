@@ -178,7 +178,7 @@ const BUG_PUZZLES = {
         },
         tactic: "Memory allocation cannot use a negative size. Ensure the boundary value is always positive!",
         correctFix: "Ensure the size is a positive number.",
-        validate: (code) => !code.includes('-1') && (code.includes('Array(') || code.includes('size'))
+        validate: (code) => !code.includes('-1') && (code.match(/\[\s*\d+\s*\]/) || code.match(/\(\s*\d+\s*\)/) || code.includes('size') || code.includes('*') || code.includes('Array'))
     }
 };
 
@@ -225,12 +225,12 @@ export default function BugHunterPage() {
             if (isFixed) {
                 setCombatStatus("DEFEATED");
                 setScore(s => s + 100);
-                setTimeout(() => { setStatus("IDLE"); setActiveBugId(null); }, 1000);
+                setTimeout(() => { setStatus("IDLE"); setActiveBugId(null); }, 1500);
             } else {
                 setCombatStatus("FAILED");
                 setHp(h => Math.max(0, h - 1));
                 setErrorMsg("Compilation Failed! The Bug rejected your patch.");
-                setTimeout(() => { setStatus("IDLE"); setActiveBugId(null); }, 1000); 
+                // Removed the auto-close setTimeout here so the user can actually read the answer!
             }
         }, 800);
     };
@@ -331,10 +331,16 @@ export default function BugHunterPage() {
                                         <div className="absolute inset-0 bg-rose-950/90 z-20 flex flex-col items-center justify-center border-4 border-rose-500 p-8 text-center">
                                             <AT className="w-16 h-16 text-rose-500 mb-2" />
                                             <span className="font-black text-xl text-rose-500 mb-2 uppercase tracking-widest">PATCH REJECTED</span>
-                                            <div className="bg-[#020617] p-4 rounded-lg font-mono text-xs border border-rose-800">
+                                            <div className="bg-[#020617] p-4 rounded-lg font-mono text-xs border border-rose-800 mb-4 shadow-[0_0_20px_rgba(225,29,72,0.3)]">
                                                 <span className="text-rose-500 font-bold uppercase underline">Expected Fix:</span><br/>
-                                                <span className="text-cyan-400">{localizedPuzzle.correctFix}</span>
+                                                <span className="text-cyan-400 mt-2 block text-sm">{localizedPuzzle.correctFix}</span>
                                             </div>
+                                            <button 
+                                                onClick={() => { setStatus("IDLE"); setActiveBugId(null); }}
+                                                className="px-8 py-3 bg-rose-600 hover:bg-rose-500 text-white font-black uppercase text-sm rounded-lg shadow-md transition-transform active:scale-95"
+                                            >
+                                                Acknowledge & Retreat
+                                            </button>
                                         </div>
                                     )}
                                 </div>
