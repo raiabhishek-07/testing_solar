@@ -45,7 +45,7 @@ export default function DashboardIndex() {
   if (!user) return null;
 
   return (
-    <main className="min-h-screen bg-[#020202] text-white relative flex flex-col items-center justify-center p-4">
+    <main className="min-h-screen bg-[#020202] text-white relative flex flex-col items-center p-4 overflow-x-hidden">
       {/* Pixel Art Background */}
       <div 
         className="absolute inset-0 z-0 opacity-80 fixed pointer-events-none"

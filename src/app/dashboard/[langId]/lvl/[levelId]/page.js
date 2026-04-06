@@ -56,9 +56,15 @@ export default function PlayPage({ params }) {
            });
            
            // Load sub-progress
-           const saved = localStorage.getItem(`clash_sub_${langId}_${levelId}`);
-           if (saved && saved !== 'undefined') {
-               try { setCompletedSublevels(JSON.parse(saved)); } catch (e) {}
+           const localProgRaw = localStorage.getItem('clash_local_progress');
+           let cloudProgress = {};
+           if (localProgRaw && localProgRaw !== 'undefined') {
+               try { cloudProgress = JSON.parse(localProgRaw); } catch(e) {}
+           }
+           
+           const savedSub = cloudProgress[`sub_${langId}_${levelId}`];
+           if (savedSub) {
+               setCompletedSublevels(savedSub);
            }
            
            // DEV OVERRIDE: Unlock all Sublevels for test account
@@ -104,6 +110,9 @@ export default function PlayPage({ params }) {
     if (!user) return;
     
     try {
+      const { db } = await import('@/lib/firebase');
+      const { doc, updateDoc, setDoc, getDoc } = await import('firebase/firestore');
+
       const rawLocal = localStorage.getItem('clash_local_progress');
       let localProgress = {};
       if (rawLocal && rawLocal !== 'undefined') {
@@ -120,15 +129,14 @@ export default function PlayPage({ params }) {
       localStorage.setItem('clash_user', JSON.stringify(updatedUser));
       setUser(updatedUser);
 
-      const res = await fetch('/api/save-progress', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: user.id, progress: progressData })
-      });
-      const resData = await res.json();
-      if (res.ok) {
-        localStorage.setItem('clash_user', JSON.stringify(resData.user));
-        setUser(resData.user);
+      if (user.uid) {
+          const userRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userRef);
+          if (userDoc.exists()) {
+              await updateDoc(userRef, { progress: updatedLocal });
+          } else {
+              await setDoc(userRef, { progress: updatedLocal }, { merge: true });
+          }
       }
     } catch (err) {
       console.error("Cloud sync or Storage failed:", err);
@@ -164,11 +172,17 @@ export default function PlayPage({ params }) {
           setCompletedSublevels(newCompleted);
           localStorage.setItem(`clash_sub_${langId}_${levelId}`, JSON.stringify(newCompleted));
           
+          handleSaveProgress({ [`sub_${langId}_${levelId}`]: newCompleted });
+
           // If ALL sublevels are done, mark the whole Level complete!
           if (newCompleted.length === sublevelsData.sublevels.length) {
               const xpGain = 1000 + (parseInt(levelId) * 500);
               const progressKey = `level${levelId}`;
-              handleSaveProgress({ [progressKey]: 'completed', totalXP: (user.progress?.totalXP || 0) + xpGain });
+              handleSaveProgress({ 
+                  [progressKey]: 'completed', 
+                  totalXP: (user.progress?.totalXP || 0) + xpGain,
+                  [`sub_${langId}_${levelId}`]: newCompleted
+              });
           }
        }
      } catch (err) {

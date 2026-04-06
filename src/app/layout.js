@@ -21,11 +21,11 @@ import GlobalMuteButton from "@/components/GlobalMuteButton";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
       </head>
-      <body className={`${outfit.variable} ${firaCode.variable} antialiased`}>
+      <body className={`${outfit.variable} ${firaCode.variable} antialiased`} suppressHydrationWarning>
         <AudioProvider>
           {children}
           <GlobalMuteButton />

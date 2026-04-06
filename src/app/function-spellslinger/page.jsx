@@ -95,6 +95,19 @@ export default function SpellslingerPage() {
     const [error, setError] = useState(null);
     const [lastAction, setLastAction] = useState(null);
 
+    const handleLangChange = (lang) => {
+        setSelectedLang(lang);
+        let newCode = phase.defaultCode;
+        if (lang === 'python') {
+            newCode = newCode.replace(/\/\//g, "#");
+        }
+        // If they already typed something we might wipe it, but Alchemist resets it too
+        setCode(newCode);
+        setStatus("IDLE");
+        setError(null);
+        setLastAction(null);
+    };
+
     const handleNextPhase = () => {
         if (bossHP <= 0 || partyHP <= 0) {
             // Restart Entire Battle
@@ -102,7 +115,9 @@ export default function SpellslingerPage() {
             setBossHP(5000);
             setPartyHP(2500);
             setGamePhase("FIGHTING");
-            setCode(ARCANE_BEHEMOTH_PHASES[0].defaultCode);
+            let initialCode = ARCANE_BEHEMOTH_PHASES[0].defaultCode;
+            if (selectedLang === 'python') initialCode = initialCode.replace(/\/\//g, "#");
+            setCode(initialCode);
             setStatus("IDLE");
             setError(null);
             setLastAction(null);
@@ -112,7 +127,9 @@ export default function SpellslingerPage() {
         const next = phaseIdx + 1;
         if (next < ARCANE_BEHEMOTH_PHASES.length) {
             setPhaseIdx(next);
-            setCode(ARCANE_BEHEMOTH_PHASES[next].defaultCode);
+            let nextCode = ARCANE_BEHEMOTH_PHASES[next].defaultCode;
+            if (selectedLang === 'python') nextCode = nextCode.replace(/\/\//g, "#");
+            setCode(nextCode);
             setStatus("IDLE");
             setError(null);
             setLastAction(null);
@@ -133,7 +150,11 @@ export default function SpellslingerPage() {
         const castShield = (target) => { actionFired = { func: 'castShield', args: [target] }; }
 
         try {
-            const func = new Function('castBlizzard', 'castFireball', 'castThunder', 'healParty', 'castShield', code);
+            let evalCode = code;
+            // Map python comments to JS comments to prevent evaluation syntax explosion
+            evalCode = evalCode.replace(/(^|\n)[\s]*#.*/g, "$1//");
+
+            const func = new Function('castBlizzard', 'castFireball', 'castThunder', 'healParty', 'castShield', evalCode);
             func(castBlizzard, castFireball, castThunder, healParty, castShield);
 
             // Synchronize with Phaser animations 
@@ -219,7 +240,7 @@ export default function SpellslingerPage() {
                 {/* Language Picker */}
                 <div className="flex gap-1 p-1 bg-black/60 border border-slate-700 rounded-xl">
                     {LANGS.map(l => (
-                        <button key={l.id} onClick={() => setSelectedLang(l.id)}
+                        <button key={l.id} onClick={() => handleLangChange(l.id)}
                             className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1 ${
                                 selectedLang === l.id ? 'bg-cyan-500 text-black shadow-[0_0_10px_rgba(34,211,238,0.3)]' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
                             }`}>
@@ -286,7 +307,20 @@ export default function SpellslingerPage() {
                     </div>
                     <div className="flex-1 bg-slate-900/50 border border-slate-800 rounded-xl p-4 overflow-y-auto">
                         <pre className="text-[11px] text-emerald-400/80 font-mono leading-relaxed whitespace-pre-wrap">
-                            {phase.api}
+                            {(() => {
+                                const match = phase.api.match(/function (\w+)\((.*?)\)/);
+                                if (!match) return phase.api;
+                                const fName = match[1];
+                                const fArgs = match[2];
+                                
+                                switch(selectedLang) {
+                                    case 'python': return `# SPIRES OF MAGIC API\ndef ${fName}(${fArgs}):\n    pass`;
+                                    case 'java': return `// SPIRES OF MAGIC API\npublic void ${fName}(${fArgs}) { ... }`;
+                                    case 'c': return `/* SPIRES OF MAGIC API */\nvoid ${fName}(${fArgs}) { ... }`;
+                                    case 'cpp': return `// SPIRES OF MAGIC API\nvoid ${fName}(${fArgs}) { ... }`;
+                                    default: return phase.api;
+                                }
+                            })()}
                         </pre>
                     </div>
                 </div>

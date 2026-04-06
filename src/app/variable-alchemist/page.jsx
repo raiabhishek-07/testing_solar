@@ -22,19 +22,22 @@ const QUESTS = {
             id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
             targetType: "number", targetValue: 8,
             ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `# item1 is "5" (String)\n# item2 is 3 (Number)\n# item3 is True (Boolean)\n\n# Brew the 'potion' variable to output exactly int 8\npotion = int(item1) + item2`
+            defaultCode: `# item1 is "5" (String)\n# item2 is 3 (Number)\n# item3 is True (Boolean)\n\n# Brew the 'potion' variable to output exactly int 8\npotion = int(item1) + item2`,
+            correctAnswer: `potion = int(item1) + item2`
         },
         {
             id: 2, desc: "I require a bizarre String potion that says exactly '53True'.",
             targetType: "string", targetValue: "53True",
             ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "3", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `# Combine the elements to generate the exact string.\n# Remember how Python concatenates types!\npotion = `
+            defaultCode: `# Combine the elements to generate the exact string.\n# Remember how Python concatenates types!\npotion = `,
+            correctAnswer: `potion = str(item1) + str(item2) + str(item3)`
         },
         {
             id: 3, desc: "I need a Boolean potion of True, using only the string!",
             targetType: "boolean", targetValue: true,
             ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
-            defaultCode: `# Hint: "false" is a non-empty string. Is bool("false") truthy?\npotion = `
+            defaultCode: `# Hint: "false" is a non-empty string. Is bool("false") truthy?\npotion = `,
+            correctAnswer: `potion = bool(item1)`
         }
     ],
     java: [
@@ -42,19 +45,22 @@ const QUESTS = {
             id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
             targetType: "number", targetValue: 8,
             ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `// item1 is "5" (String)\n// item2 is 3 (int)\n// item3 is true (boolean)\n\n// Brew the 'potion' variable to output exactly int 8\nint potion = Integer.parseInt(item1) + item2;`
+            defaultCode: `// item1 is "5" (String)\n// item2 is 3 (int)\n// item3 is true (boolean)\n\n// Brew the 'potion' variable to output exactly int 8\nint potion = Integer.parseInt(item1) + item2;`,
+            correctAnswer: `int potion = Integer.parseInt(item1) + item2;`
         },
         {
             id: 2, desc: "I require a bizarre String potion that says exactly '53true'.",
             targetType: "string", targetValue: "53true",
             ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "3", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `// Combine the elements to create the exact string.\n// Remember how Java concatenates with +\nString potion = `
+            defaultCode: `// Combine the elements to create the exact string.\n// Remember how Java concatenates with +\nString potion = `,
+            correctAnswer: `String potion = item1 + item2 + item3;`
         },
         {
             id: 3, desc: "I need a Boolean potion of true!",
             targetType: "boolean", targetValue: true,
             ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
-            defaultCode: `// Hint: A non-empty string is not automatically truthy in Java\nboolean potion = `
+            defaultCode: `// Hint: A non-empty string is not automatically truthy in Java\nboolean potion = `,
+            correctAnswer: `boolean potion = Boolean.parseBoolean(item1);`
         }
     ],
     c: [
@@ -62,19 +68,22 @@ const QUESTS = {
             id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
             targetType: "number", targetValue: 8,
             ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `/* item1 is "5" (char*) */\n/* item2 is 3 (int)    */\n/* item3 is 1 (bool)   */\n\n/* Brew the 'potion' to output exactly int 8 */\nint potion = atoi(item1) + item2;`
+            defaultCode: `/* item1 is "5" (char*) */\n/* item2 is 3 (int)    */\n/* item3 is 1 (bool)   */\n\n/* Brew the 'potion' to output exactly int 8 */\nint potion = atoi(item1) + item2;`,
+            correctAnswer: `int potion = atoi(item1) + item2;`
         },
         {
             id: 2, desc: "I need a Number potion of 6.",
             targetType: "number", targetValue: 6,
             ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "1", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `/* Combine int and char* to get 6 */\nint potion = `
+            defaultCode: `/* Combine int and char* to get 6 */\nint potion = `,
+            correctAnswer: `int potion = item1 + atoi(item2);`
         },
         {
             id: 3, desc: "I need a Boolean potion of 1 (true)!",
             targetType: "number", targetValue: 1,
             ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
-            defaultCode: `/* Hint: In C, any non-zero is truthy */\nint potion = `
+            defaultCode: `/* Hint: In C, any non-zero is truthy */\nint potion = `,
+            correctAnswer: `int potion = atoi(item1) ? 0 : 1;`
         }
     ],
     cpp: [
@@ -82,19 +91,22 @@ const QUESTS = {
             id: 1, desc: "I need a pure Integer potion with exactly the value 8.",
             targetType: "number", targetValue: 8,
             ingredients: [{ var: 'item1', val: "5", type: 'String' },{ var: 'item2', val: 3, type: 'Number' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `// item1 is "5" (string)\n// item2 is 3 (int)\n// item3 is true (bool)\n\n// Brew the 'potion' to output exactly int 8\nint potion = stoi(item1) + item2;`
+            defaultCode: `// item1 is "5" (string)\n// item2 is 3 (int)\n// item3 is true (bool)\n\n// Brew the 'potion' to output exactly int 8\nint potion = stoi(item1) + item2;`,
+            correctAnswer: `int potion = stoi(item1) + item2;`
         },
         {
             id: 2, desc: "I require a String potion that says exactly '53true'.",
             targetType: "string", targetValue: "53true",
             ingredients: [{ var: 'item1', val: 5, type: 'Number' },{ var: 'item2', val: "3", type: 'String' },{ var: 'item3', val: true, type: 'Boolean' }],
-            defaultCode: `// Combine using to_string() and string concat\nstring potion = `
+            defaultCode: `// Combine using to_string() and string concat\nstring potion = `,
+            correctAnswer: `string potion = to_string(item1) + to_string(item2) + (item3 ? "true" : "false");`
         },
         {
             id: 3, desc: "I need a Boolean potion of true!",
             targetType: "boolean", targetValue: true,
             ingredients: [{ var: 'item1', val: "false", type: 'String' },{ var: 'item2', val: 0, type: 'Number' },{ var: 'item3', val: false, type: 'Boolean' }],
-            defaultCode: `// Hint: A non-empty string is truthy when cast to bool\nbool potion = `
+            defaultCode: `// Hint: A non-empty string is truthy when cast to bool\nbool potion = `,
+            correctAnswer: `bool potion = (item1 == "false");`
         }
     ]
 };
@@ -139,15 +151,51 @@ export default function VariableAlchemistPage() {
         // Synchronize with Phaser 3 bottle tween time (approx 1500ms)
         setTimeout(() => {
             try {
-                // Evaluator strictly forces them to declare 'let potion'
-                if (!code.includes("let potion") && !code.includes("const potion") && !code.includes("var potion")) {
+                let evalCode = code;
+
+                // 1. Convert Python comments (#) to JS comments (//) to prevent syntax explosion
+                evalCode = evalCode.replace(/(^|\n)[\s]*#.*/g, "$1//");
+
+                // 2. Handle basic python variable assignment without let/var/const
+                evalCode = evalCode.replace(/^([\s]*)potion([\s]*)=/m, "$1let potion$2=");
+
+                // 3. Fix empty assignments so they don't break JS syntax before evaluation
+                // if it's "let potion = \n", make it "let potion = undefined\n"
+                evalCode = evalCode.replace(/potion[\s]*=[\s]*(?=\n|$|\/\/)/g, "potion = undefined");
+
+                // Allow language-specific variable declarations
+                if (!evalCode.match(/(let|const|var|int|float|String|string|boolean|bool)\s+potion/)) {
                     throw new Error("You must declare a variable named 'potion'.");
                 }
 
-                const evalString = `${code}\nreturn potion;`;
+                // Polyfill for cross-language type casting in the Javascript evaluator
+                evalCode = evalCode.replace(/(int|String|boolean|bool|string)\s+potion/g, "let potion");
+                
+                // Python
+                evalCode = evalCode.replace(/int\(/g, "Number(");
+                evalCode = evalCode.replace(/str\(/g, "String(");
+                evalCode = evalCode.replace(/bool\(/g, "Boolean(");
+                evalCode = evalCode.replace(/\bTrue\b/g, "true");
+                evalCode = evalCode.replace(/\bFalse\b/g, "false");
+                
+                // Java
+                evalCode = evalCode.replace(/Integer\.parseInt\(/g, "Number(");
+                evalCode = evalCode.replace(/Boolean\.parseBoolean\(/g, "Boolean(");
+                
+                // C/C++
+                evalCode = evalCode.replace(/atoi\(/g, "Number(");
+                evalCode = evalCode.replace(/stoi\(/g, "Number(");
+                evalCode = evalCode.replace(/to_string\(/g, "String(");
+
+                const evalString = `${evalCode}\n; return typeof potion !== 'undefined' ? potion : null;`;
                 const func = new Function(ingredients[0].var, ingredients[1].var, ingredients[2].var, evalString);
                 
-                const result = func(ingredients[0].val, ingredients[1].val, ingredients[2].val);
+                let result = func(ingredients[0].val, ingredients[1].val, ingredients[2].val);
+
+                // Normalization for Python Stringification discrepancies
+                if (selectedLang === 'python' && typeof result === 'string') {
+                    result = result.replace(/true/g, "True").replace(/false/g, "False");
+                }
 
                 // Rigorous strict type and value checking
                 if (typeof result !== quest.targetType) {
@@ -285,12 +333,22 @@ export default function VariableAlchemistPage() {
 
                         <div className="flex-1 flex flex-col justify-end">
                             {status === "FAILED" && (
-                                <div className="p-5 bg-[#2d0f14] border-l-4 border-red-500 rounded-r-xl text-red-400">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <AlertTriangle className="w-4 h-4 text-red-500" />
-                                        <span className="font-black text-xs tracking-widest uppercase text-red-500">Brew Failed</span>
+                                <div className="p-5 bg-[#2d0f14] border-l-4 border-red-500 rounded-r-xl flex flex-col gap-3">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <AlertTriangle className="w-4 h-4 text-red-500" />
+                                            <span className="font-black text-xs tracking-widest uppercase text-red-500">Brew Failed</span>
+                                        </div>
+                                        <p className="text-[11px] font-medium leading-relaxed text-red-400 opacity-90">{error}</p>
                                     </div>
-                                    <p className="text-[11px] font-medium leading-relaxed opacity-90">{error}</p>
+                                    {quest.correctAnswer && (
+                                        <div className="mt-2 pt-3 border-t border-red-500/20">
+                                            <span className="text-[9px] font-black tracking-widest uppercase text-red-300 block mb-1">Recipe Solution:</span>
+                                            <code className="text-xs text-red-200 font-mono bg-black/40 px-2 py-1 rounded block whitespace-pre-wrap">
+                                                {quest.correctAnswer}
+                                            </code>
+                                        </div>
+                                    )}
                                 </div>
                             )}
 

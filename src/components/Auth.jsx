@@ -15,28 +15,49 @@ export default function Auth({ onAuthSuccess }) {
     setLoading(true);
     setError('');
 
-    const endpoint = isLogin ? '/api/login' : '/api/register';
-    
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      // Lazy load Firebase so we don't break SSR immediately
+      const { auth, db } = await import('@/lib/firebase');
+      const { createUserWithEmailAndPassword, signInWithEmailAndPassword } = await import('firebase/auth');
+      const { doc, setDoc, getDoc } = await import('firebase/firestore');
 
-      const data = await res.json();
+      let userData;
 
-      if (res.ok) {
-        sfxSuccess();
-        sfxPageTransition();
-        onAuthSuccess(data.user);
+      if (isLogin) {
+        const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+        const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+        
+        if (userDoc.exists()) {
+            userData = { uid: userCredential.user.uid, ...userDoc.data() };
+        } else {
+            userData = { uid: userCredential.user.uid, email: formData.email, name: "Recruit", progress: {} };
+        }
       } else {
-        sfxError();
-        setError(data.message || 'Something went wrong');
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        userData = { 
+            uid: userCredential.user.uid, 
+            email: formData.email, 
+            name: formData.name,
+            progress: {}
+        };
+        await setDoc(doc(db, "users", userCredential.user.uid), userData);
       }
+
+      // Sync local storage manually so the rest of the app doesn't break
+      localStorage.setItem('clash_user', JSON.stringify(userData));
+      
+      if (userData.progress) {
+          localStorage.setItem('clash_local_progress', JSON.stringify(userData.progress));
+      }
+
+      sfxSuccess();
+      sfxPageTransition();
+      onAuthSuccess(userData);
+      
     } catch (err) {
+      console.error(err);
       sfxError();
-      setError('Connection failed');
+      setError(err.message || 'Connection failed');
     } finally {
       setLoading(false);
     }
